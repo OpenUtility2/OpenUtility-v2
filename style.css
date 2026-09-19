@@ -713,3 +713,11 @@ nav.scrolled{background:rgba(15,19,25,.95);backdrop-filter:blur(20px);border-col
   width: auto;
   object-fit: contain;
 }
+/* FIX LOGO SIZING */
+.nav-logo img, 
+.logo-img {
+  height: 30px !important;
+  width: auto !important;
+  max-width: 150px !important;
+  object-fit: contain !important;
+}
