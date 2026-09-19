@@ -212,19 +212,24 @@
     .hamburger {
       display: none;
       background: none;
-      border: none;
+      border: 1px solid var(--border2);
+      border-radius: 8px;
       cursor: pointer;
       flex-direction: column;
+      justify-content: center;
+      align-items: center;
       gap: 5px;
-      padding: 4px;
+      width: 40px;
+      height: 40px;
       z-index: 1100;
     }
     .hamburger span {
       display: block;
-      width: 22px;
+      width: 20px;
       height: 2px;
       background: var(--text);
       transition: 0.3s;
+      pointer-events: none;
     }
     .mobile-menu {
       display: flex;
@@ -256,7 +261,7 @@
       background: none;
       border: none;
       color: var(--text);
-      font-size: 24px;
+      font-size: 28px;
       cursor: pointer;
     }
 
@@ -744,10 +749,10 @@
         padding-top: 40px;
       }
       .nav-links, .nav-cta {
-        display: none;
+        display: none !important;
       }
       .hamburger {
-        display: flex;
+        display: flex !important;
       }
     }
   </style>
@@ -784,10 +789,10 @@
       <a href="https://github.com" target="_blank">GitHub</a>
     </div>
     <div class="nav-cta">
-      <button class="btn-ghost" onclick="openAuthModal('signin')">Sign In</button>
-      <button class="btn-primary" onclick="openAuthModal('signup')">Get Started</button>
+      <button class="btn-ghost" type="button" onclick="openAuthModal('signin')">Sign In</button>
+      <button class="btn-primary" type="button" onclick="openAuthModal('signup')">Get Started</button>
     </div>
-    <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()">
+    <button class="hamburger" id="hamburgerBtn" type="button" onclick="toggleMobileMenu()">
       <span></span>
       <span></span>
       <span></span>
@@ -796,12 +801,12 @@
 
   <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
-    <button class="mobile-close-btn" onclick="toggleMobileMenu()">&times;</button>
+    <button class="mobile-close-btn" type="button" onclick="toggleMobileMenu()">&times;</button>
     <a href="#tools" onclick="toggleMobileMenu()">Tools Directory</a>
     <a href="https://github.com" target="_blank" onclick="toggleMobileMenu()">GitHub</a>
     <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
-      <button class="btn-ghost" style="width: 100%; text-align: center;" onclick="toggleMobileMenu(); openAuthModal('signin')">Sign In</button>
-      <button class="btn-primary" style="width: 100%; text-align: center;" onclick="toggleMobileMenu(); openAuthModal('signup')">Get Started</button>
+      <button class="btn-ghost" type="button" style="width: 100%; text-align: center;" onclick="toggleMobileMenu(); openAuthModal('signin')">Sign In</button>
+      <button class="btn-primary" type="button" style="width: 100%; text-align: center;" onclick="toggleMobileMenu(); openAuthModal('signup')">Get Started</button>
     </div>
   </div>
 
@@ -961,7 +966,7 @@
   <!-- AUTH MODAL -->
   <div class="cmd-palette-overlay" id="authModal">
     <div class="cmd-palette-box">
-      <button class="modal-close" onclick="closeAuthModal()">&times;</button>
+      <button class="modal-close" type="button" onclick="closeAuthModal()">&times;</button>
       <div id="modalHeaderContent">
         <h3 class="modal-title" id="modalTitle">Welcome Back</h3>
         <p class="modal-sub" id="modalSub">Sign in to sync your developer configurations and tools.</p>
@@ -994,8 +999,8 @@
   <!-- JAVASCRIPT LOGIC -->
   <script>
     // Initialize Supabase Client (Replace with your actual keys if needed)
-    const SUPABASE_URL = 'https://trfwvxxlxomyolmrjqkb.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRyZnd2eHhseG9teW9sbXJqcWtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk4MDY4NjksImV4cCI6MjEwNTM4Mjg2OX0.it8L4Xi7_uq3e0SZGhVRHtJ6QqlJUeH_qs0fvPpPpxU';
+    const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
     const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
     let currentAuthMode = 'signin';
@@ -1091,7 +1096,6 @@
 
     function filterTools() {
       const query = document.getElementById('toolSearch').value.toLowerCase();
-      const cards = document.querySelectorAll('.tool-card');
       const categories = document.querySelectorAll('.category-section');
 
       categories.forEach(category => {
