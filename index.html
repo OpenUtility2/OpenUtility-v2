@@ -181,27 +181,43 @@
       border-radius:2px;
       transition:all .3s ease;
     }
-    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-    .hamburger.open span:nth-child(2){opacity:0}
-    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-    /* MOBILE MENU OVERLAY */
+    /* MOBILE MENU OVERLAY FIX */
     .mobile-menu{
       display:none;
       position:fixed;
-      top:0;left:0;right:0;bottom:0;
+      top:0; left:0; right:0; bottom:0;
       background:var(--bg);
-      z-index:101;
+      z-index:999;
       flex-direction:column;
       align-items:center;
       justify-content:center;
-      gap:16px;
+      gap:20px;
       padding:24px;
       opacity:0;
       pointer-events:none;
       transition:opacity .3s ease;
     }
-    .mobile-menu.open{opacity:1;pointer-events:all}
+    .mobile-menu.open{
+      opacity:1;
+      pointer-events:all;
+    }
+    .mobile-close-btn{
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      color: var(--text);
+      font-size: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
     .mobile-menu a{
       font-family:'Outfit',sans-serif;
       font-size:22px;
@@ -214,7 +230,7 @@
     .mobile-menu .m-btns{
       display:flex;flex-direction:column;gap:12px;width:100%;max-width:280px;margin-top:20px;
     }
-    .mobile-menu .btn-primary,.mobile-menu .btn-ghost{
+    .mobile-menu .btn-primary{
       width:100%;text-align:center;padding:12px;font-size:15px;display:block;
     }
 
@@ -437,14 +453,6 @@
     .pm-list-info{flex:1}
     .pm-list-name{font-size:11px;font-weight:500}
 
-    /* LOGO FIX */
-    .nav-logo img, .logo-img {
-      height: 28px !important;
-      width: auto !important;
-      max-width: 140px !important;
-      object-fit: contain !important;
-    }
-
     /* COMMAND PALETTE */
     .cmd-palette-overlay{
       position:fixed;inset:0;background:rgba(10,14,20,0.85);backdrop-filter:blur(6px);
@@ -532,7 +540,6 @@
       <div class="ticker-item"><span class="ticker-sym">LATENCY</span><span class="ticker-price ticker-up" id="live-latency">14ms</span></div>
       <div class="ticker-item"><span class="ticker-sym">GLOBAL NODES</span><span class="ticker-price">48 ACTIVE</span></div>
       <div class="ticker-item"><span class="ticker-sym">REQUESTS</span><span class="ticker-price">1.2M/SEC</span></div>
-      <!-- Duplicate for smooth infinite scroll loop -->
       <div class="ticker-item"><span class="ticker-sym">STATUS</span><span class="ticker-price ticker-up">ALL SYSTEMS OPTIMAL</span></div>
       <div class="ticker-item"><span class="ticker-sym">UPTIME</span><span class="ticker-price">99.99%</span></div>
       <div class="ticker-item"><span class="ticker-sym">LATENCY</span><span class="ticker-price ticker-up">14ms</span></div>
@@ -559,13 +566,14 @@
       <button class="btn-ghost" onclick="openCmdPalette(event)">Quick Search</button>
       <a href="#features" class="btn-primary">Get Started</a>
     </div>
-    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" onclick="toggleMobileMenu()">
       <span></span><span></span><span></span>
     </button>
   </nav>
 
-  <!-- MOBILE MENU -->
+  <!-- MOBILE MENU WITH CLOSE BUTTON -->
   <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close-btn" onclick="closeMobileMenu()">✕</button>
     <a href="#features" onclick="closeMobileMenu()">Utilities</a>
     <a href="#stats" onclick="closeMobileMenu()">Network</a>
     <a href="#" onclick="openCmdPalette(); closeMobileMenu();">Command Palette</a>
@@ -733,7 +741,6 @@
             <div class="dash-title-bar" id="panel-title-text">utility-workbench.env</div>
           </div>
           <div class="panel-content">
-            <!-- Tab 1 View -->
             <div class="panel-view active" id="view-0">
               <div class="pm-row">
                 <div class="pm-card">
@@ -764,7 +771,6 @@
                 </div>
               </div>
             </div>
-            <!-- Tab 2 View -->
             <div class="panel-view" id="view-1">
               <div class="pm-row">
                 <div class="pm-card">
@@ -821,7 +827,6 @@
 
   <!-- JAVASCRIPT INTERACTIONS -->
   <script>
-    // Navbar scroll effect
     window.addEventListener('scroll', () => {
       const nav = document.getElementById('navbar');
       if (window.scrollY > 20) {
@@ -831,21 +836,30 @@
       }
     });
 
-    // Mobile menu toggle
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const mobileMenu = document.getElementById('mobileMenu');
-    hamburgerBtn.addEventListener('click', () => {
-      hamburgerBtn.classList.toggle('open');
-      mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
-      setTimeout(() => mobileMenu.classList.toggle('open'), 10);
-    });
-    function closeMobileMenu() {
-      hamburgerBtn.classList.remove('open');
-      mobileMenu.classList.remove('open');
-      setTimeout(() => mobileMenu.style.display = 'none', 300);
+
+    function toggleMobileMenu() {
+      const isOpen = mobileMenu.classList.contains('open');
+      if (isOpen) {
+        closeMobileMenu();
+      } else {
+        mobileMenu.style.display = 'flex';
+        setTimeout(() => mobileMenu.classList.add('open'), 10);
+        hamburgerBtn.classList.add('open');
+      }
     }
 
-    // Sticky feature tab switcher
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('open');
+      hamburgerBtn.classList.remove('open');
+      setTimeout(() => {
+        if (!mobileMenu.classList.contains('open')) {
+          mobileMenu.style.display = 'none';
+        }
+      }, 300);
+    }
+
     function switchTab(index) {
       const cards = document.querySelectorAll('.sticky-card');
       const views = document.querySelectorAll('.panel-view');
@@ -864,7 +878,6 @@
       titleText.textContent = index === 0 ? 'utility-workbench.env' : 'network-diagnostics.net';
     }
 
-    // Command Palette Logic (Ctrl+K / Cmd+K)
     const cmdPalette = document.getElementById('cmdPalette');
     const cmdInput = document.getElementById('cmdInput');
 
@@ -893,6 +906,9 @@
       if (e.key === 'Escape' && cmdPalette.classList.contains('open')) {
         closeCmdPalette();
       }
+      if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+        closeMobileMenu();
+      }
     });
 
     function filterCmdResults(query) {
@@ -908,9 +924,8 @@
       });
     }
 
-    // Live latency subtle simulation
     setInterval(() => {
-      const rand = Math.floor(Math.random() * 4) + 12; // 12ms to 15ms
+      const rand = Math.floor(Math.random() * 4) + 12;
       const latEl1 = document.getElementById('live-latency');
       const latEl2 = document.getElementById('hero-latency-val');
       if (latEl1) latEl1.textContent = rand + 'ms';
