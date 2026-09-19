@@ -1,2283 +1,2311 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>OpenUtility — Developer Tools</title>
-  <meta
-    name="description"
-    content="A modern collection of fast, privacy-friendly developer utilities."
-  >
-  <meta name="theme-color" content="#090b10">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>OpenUtility — Developer Tools</title>
+  <meta name="description" content="A modern collection of fast, privacy-friendly developer utilities.">
+  <meta name="theme-color" content="#090b10">  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
-    rel="stylesheet"
-  >
-
-  <style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">  <style>
     :root {
-      --bg: #07090d;
-      --bg-2: #0c1017;
-      --bg-3: #111722;
-      --card: rgba(17, 23, 34, .72);
-      --border: rgba(255,255,255,.08);
-      --border-hover: rgba(74,158,232,.55);
-
-      --text: #f4f7fb;
-      --muted: #94a3b8;
-      --dim: #64748b;
-
-      --blue: #4a9ee8;
-      --cyan: #38bdf8;
-      --purple: #8b5cf6;
-      --green: #3dcc8e;
-      --red: #ff5c5c;
-      --yellow: #fbbf24;
-
-      --max: 1240px;
-      --shadow: 0 24px 70px rgba(0,0,0,.42);
+      --bg:#07090d;
+      --bg-2:#0c1017;
+      --bg-3:#111722;
+      --card:rgba(17,23,34,.72);
+      --border:rgba(255,255,255,.08);
+      --border-hover:rgba(74,158,232,.55);
+      --text:#f4f7fb;
+      --muted:#94a3b8;
+      --dim:#64748b;
+      --blue:#4a9ee8;
+      --cyan:#38bdf8;
+      --purple:#8b5cf6;
+      --green:#3dcc8e;
+      --red:#ff5c5c;
+      --yellow:#fbbf24;
+      --max:1240px;
+      --shadow:0 24px 70px rgba(0,0,0,.42);
     }
 
     * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
     }
 
     html {
-      scroll-behavior: smooth;
+      scroll-behavior:smooth;
     }
 
     body {
-      min-height: 100vh;
-      overflow-x: hidden;
+      min-height:100vh;
+      overflow-x:hidden;
       background:
-        radial-gradient(circle at 15% 10%, rgba(74,158,232,.10), transparent 30%),
-        radial-gradient(circle at 85% 20%, rgba(139,92,246,.08), transparent 30%),
+        radial-gradient(circle at 15% 10%,rgba(74,158,232,.10),transparent 30%),
+        radial-gradient(circle at 85% 20%,rgba(139,92,246,.08),transparent 30%),
         var(--bg);
-      color: var(--text);
-      font-family: Inter, sans-serif;
-      line-height: 1.6;
+      color:var(--text);
+      font-family:Inter,sans-serif;
+      line-height:1.6;
     }
 
     body.modal-open {
-      overflow: hidden;
+      overflow:hidden;
     }
 
     ::selection {
-      background: rgba(56,189,248,.25);
+      background:rgba(56,189,248,.25);
     }
 
-    a {
-      color: inherit;
-    }
-
-    button,
-    input,
-    textarea,
-    select {
-      font: inherit;
+    button,input,textarea,select {
+      font:inherit;
     }
 
     button {
-      cursor: pointer;
+      cursor:pointer;
     }
 
-    /* ─────────────────────────────
-       TOP STATUS BAR
-    ───────────────────────────── */
+    a {
+      color:inherit;
+    }
+
+    /* STATUS */
 
     .status-bar {
-      border-bottom: 1px solid var(--border);
-      background: rgba(12,16,23,.9);
-      overflow: hidden;
-      white-space: nowrap;
+      border-bottom:1px solid var(--border);
+      background:rgba(12,16,23,.9);
+      overflow:hidden;
+      white-space:nowrap;
     }
 
     .status-track {
-      max-width: var(--max);
-      margin: auto;
-      min-height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 28px;
-      padding: 0 20px;
-      font: 500 11px "JetBrains Mono", monospace;
-      color: var(--muted);
+      max-width:var(--max);
+      margin:auto;
+      min-height:36px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:28px;
+      padding:0 20px;
+      font:500 11px "JetBrains Mono",monospace;
+      color:var(--muted);
     }
 
     .status-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
     }
 
     .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 10px rgba(61,204,142,.8);
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:var(--green);
+      box-shadow:0 0 10px rgba(61,204,142,.8);
     }
 
-    /* ─────────────────────────────
-       NAVIGATION
-    ───────────────────────────── */
+    /* NAV */
 
     .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid var(--border);
-      background: rgba(7,9,13,.78);
-      backdrop-filter: blur(18px);
-      transition: .25s ease;
+      position:sticky;
+      top:0;
+      z-index:100;
+      border-bottom:1px solid var(--border);
+      background:rgba(7,9,13,.78);
+      backdrop-filter:blur(18px);
+      transition:.25s ease;
     }
 
     .navbar.scrolled {
-      background: rgba(7,9,13,.95);
-      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+      background:rgba(7,9,13,.95);
+      box-shadow:0 10px 30px rgba(0,0,0,.18);
     }
 
     .nav-inner {
-      max-width: var(--max);
-      min-height: 72px;
-      margin: auto;
-      padding: 0 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 30px;
+      max-width:var(--max);
+      min-height:72px;
+      margin:auto;
+      padding:0 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:30px;
     }
 
     .logo {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      font: 700 20px Outfit, sans-serif;
-      letter-spacing: -.02em;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      font:700 20px Outfit,sans-serif;
     }
 
     .logo-mark {
-      width: 36px;
-      height: 36px;
-      display: grid;
-      place-items: center;
-      border-radius: 10px;
-      background: linear-gradient(135deg,var(--blue),var(--purple));
-      box-shadow: 0 8px 25px rgba(74,158,232,.22);
+      width:36px;
+      height:36px;
+      display:grid;
+      place-items:center;
+      border-radius:10px;
+      background:linear-gradient(135deg,var(--blue),var(--purple));
+      box-shadow:0 8px 25px rgba(74,158,232,.22);
     }
 
     .logo-mark svg {
-      width: 20px;
-      stroke: white;
-      fill: none;
-      stroke-width: 2.3;
+      width:20px;
+      stroke:white;
+      fill:none;
+      stroke-width:2.3;
     }
 
     .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 30px;
+      display:flex;
+      align-items:center;
+      gap:30px;
     }
 
     .nav-links a {
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: color .2s;
+      color:var(--muted);
+      font-size:14px;
+      font-weight:500;
+      text-decoration:none;
+      transition:color .2s;
     }
 
     .nav-links a:hover {
-      color: var(--text);
+      color:var(--text);
     }
 
     .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
     }
 
     .btn {
-      border: 0;
-      border-radius: 9px;
-      padding: 10px 17px;
-      text-decoration: none;
-      font: 600 14px Outfit, sans-serif;
-      transition: .2s ease;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+      border:0;
+      border-radius:9px;
+      padding:10px 17px;
+      text-decoration:none;
+      font:600 14px Outfit,sans-serif;
+      transition:.2s ease;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
     }
 
     .btn-primary {
-      color: white;
-      background: linear-gradient(135deg,var(--blue),#2563eb);
-      box-shadow: 0 8px 24px rgba(74,158,232,.22);
+      color:white;
+      background:linear-gradient(135deg,var(--blue),#2563eb);
+      box-shadow:0 8px 24px rgba(74,158,232,.22);
     }
 
     .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 30px rgba(74,158,232,.34);
+      transform:translateY(-1px);
+      box-shadow:0 12px 30px rgba(74,158,232,.34);
     }
 
     .btn-secondary {
-      color: var(--text);
-      background: rgba(255,255,255,.035);
-      border: 1px solid var(--border);
+      color:var(--text);
+      background:rgba(255,255,255,.035);
+      border:1px solid var(--border);
     }
 
     .btn-secondary:hover {
-      border-color: rgba(255,255,255,.18);
-      background: rgba(255,255,255,.06);
+      border-color:rgba(255,255,255,.18);
+      background:rgba(255,255,255,.06);
     }
 
     .menu-btn {
-      width: 42px;
-      height: 42px;
-      display: none;
-      place-items: center;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      color: var(--text);
-      background: transparent;
+      width:42px;
+      height:42px;
+      display:none;
+      place-items:center;
+      border:1px solid var(--border);
+      border-radius:9px;
+      color:var(--text);
+      background:transparent;
     }
 
     .menu-btn svg {
-      width: 20px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2;
+      width:20px;
+      fill:none;
+      stroke:currentColor;
+      stroke-width:2;
     }
 
-    /* ─────────────────────────────
-       HERO
-    ───────────────────────────── */
+    .mobile-menu {
+      display:none;
+      border-top:1px solid var(--border);
+      padding:12px 20px 18px;
+      background:rgba(7,9,13,.97);
+    }
+
+    .mobile-menu.open {
+      display:block;
+    }
+
+    .mobile-menu a {
+      display:block;
+      padding:10px 0;
+      color:var(--muted);
+      text-decoration:none;
+    }
+
+    /* HERO */
 
     .hero {
-      max-width: var(--max);
-      margin: auto;
-      padding: 92px 20px 90px;
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      align-items: center;
-      gap: 70px;
+      max-width:var(--max);
+      margin:auto;
+      padding:92px 20px 90px;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      align-items:center;
+      gap:70px;
     }
 
     .eyebrow {
-      width: fit-content;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 22px;
-      padding: 7px 12px;
-      border: 1px solid rgba(56,189,248,.17);
-      border-radius: 99px;
-      background: rgba(56,189,248,.06);
-      color: var(--cyan);
-      font: 500 11px "JetBrains Mono", monospace;
+      width:fit-content;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-bottom:22px;
+      padding:7px 12px;
+      border:1px solid rgba(56,189,248,.17);
+      border-radius:99px;
+      background:rgba(56,189,248,.06);
+      color:var(--cyan);
+      font:500 11px "JetBrains Mono",monospace;
     }
 
     .eyebrow span {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 10px var(--green);
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:var(--green);
+      box-shadow:0 0 10px var(--green);
     }
 
     .hero h1 {
-      max-width: 700px;
-      margin-bottom: 22px;
-      font: 800 clamp(42px,6vw,68px)/1.04 Outfit, sans-serif;
-      letter-spacing: -.045em;
+      max-width:700px;
+      margin-bottom:22px;
+      font:800 clamp(42px,6vw,68px)/1.04 Outfit,sans-serif;
+      letter-spacing:-.045em;
     }
 
     .gradient-text {
-      background: linear-gradient(135deg,var(--cyan),var(--blue),var(--purple));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      background:linear-gradient(135deg,var(--cyan),var(--blue),var(--purple));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
     }
 
     .hero-description {
-      max-width: 620px;
-      margin-bottom: 32px;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.75;
+      max-width:620px;
+      margin-bottom:32px;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.75;
     }
 
     .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 38px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-bottom:38px;
     }
 
     .hero-buttons .btn {
-      padding: 13px 21px;
+      padding:13px 21px;
     }
 
     .privacy-note {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      color: var(--dim);
-      font-size: 12px;
+      display:flex;
+      align-items:center;
+      gap:9px;
+      color:var(--dim);
+      font-size:12px;
     }
 
     .privacy-note svg {
-      width: 15px;
-      stroke: var(--green);
-      fill: none;
-      stroke-width: 2;
+      width:15px;
+      stroke:var(--green);
+      fill:none;
+      stroke-width:2;
     }
 
-    /* ─────────────────────────────
-       DASHBOARD MOCKUP
-    ───────────────────────────── */
+    /* DASHBOARD */
 
     .dashboard {
-      position: relative;
-      border: 1px solid rgba(255,255,255,.11);
-      border-radius: 18px;
-      background: rgba(15,20,30,.82);
-      box-shadow: var(--shadow), 0 0 50px rgba(74,158,232,.08);
-      overflow: hidden;
+      position:relative;
+      border:1px solid rgba(255,255,255,.11);
+      border-radius:18px;
+      background:rgba(15,20,30,.82);
+      box-shadow:var(--shadow),0 0 50px rgba(74,158,232,.08);
+      overflow:hidden;
     }
 
     .dashboard::before {
-      content: "";
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      right: -100px;
-      top: -120px;
-      border-radius: 50%;
-      background: rgba(74,158,232,.14);
-      filter: blur(50px);
+      content:"";
+      position:absolute;
+      width:220px;
+      height:220px;
+      right:-100px;
+      top:-120px;
+      border-radius:50%;
+      background:rgba(74,158,232,.14);
+      filter:blur(50px);
     }
 
     .window-bar {
-      position: relative;
-      z-index: 1;
-      padding: 13px 16px;
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(255,255,255,.018);
+      position:relative;
+      z-index:1;
+      padding:13px 16px;
+      display:flex;
+      align-items:center;
+      gap:9px;
+      border-bottom:1px solid var(--border);
+      background:rgba(255,255,255,.018);
     }
 
     .window-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
+      width:9px;
+      height:9px;
+      border-radius:50%;
     }
 
-    .red { background: var(--red); }
-    .yellow { background: var(--yellow); }
-    .green { background: var(--green); }
+    .red { background:var(--red); }
+    .yellow { background:var(--yellow); }
+    .green { background:var(--green); }
 
     .window-title {
-      margin-left: 6px;
-      color: var(--dim);
-      font: 10px "JetBrains Mono", monospace;
+      margin-left:6px;
+      color:var(--dim);
+      font:10px "JetBrains Mono",monospace;
     }
 
     .dashboard-body {
-      padding: 20px;
+      padding:20px;
     }
 
     .stats {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 10px;
-      margin-bottom: 15px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-bottom:15px;
     }
 
     .stat {
-      padding: 14px;
-      border: 1px solid var(--border);
-      border-radius: 11px;
-      background: rgba(255,255,255,.018);
+      padding:14px;
+      border:1px solid var(--border);
+      border-radius:11px;
+      background:rgba(255,255,255,.018);
     }
 
     .stat-label {
-      margin-bottom: 4px;
-      color: var(--dim);
-      font-size: 10px;
+      margin-bottom:4px;
+      color:var(--dim);
+      font-size:10px;
     }
 
     .stat-value {
-      font: 700 18px Outfit, sans-serif;
+      font:700 18px Outfit,sans-serif;
     }
 
     .stat-value.blue {
-      color: var(--cyan);
+      color:var(--cyan);
     }
 
     .stat-value.green {
-      color: var(--green);
+      color:var(--green);
     }
 
     .preview {
-      padding: 17px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: rgba(0,0,0,.18);
+      padding:17px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:rgba(0,0,0,.18);
     }
 
     .preview-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 15px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:15px;
     }
 
     .preview-title {
-      font-size: 12px;
-      font-weight: 600;
+      font-size:12px;
+      font-weight:600;
     }
 
     .online {
-      padding: 3px 8px;
-      border-radius: 20px;
-      background: rgba(61,204,142,.1);
-      color: var(--green);
-      font: 500 9px "JetBrains Mono", monospace;
+      padding:3px 8px;
+      border-radius:20px;
+      background:rgba(61,204,142,.1);
+      color:var(--green);
+      font:500 9px "JetBrains Mono",monospace;
     }
 
     .terminal {
-      min-height: 150px;
-      padding: 14px;
-      border-radius: 8px;
-      background: #080b10;
-      color: #8fa4bd;
-      font: 11px/1.8 "JetBrains Mono", monospace;
+      min-height:150px;
+      padding:14px;
+      border-radius:8px;
+      background:#080b10;
+      color:#8fa4bd;
+      font:11px/1.8 "JetBrains Mono",monospace;
     }
 
     .terminal .command {
-      color: var(--cyan);
+      color:var(--cyan);
     }
 
     .terminal .success {
-      color: var(--green);
+      color:var(--green);
     }
 
-    /* ─────────────────────────────
-       TOOLS
-    ───────────────────────────── */
+    /* TOOLS */
 
     .tools-section {
-      max-width: var(--max);
-      margin: auto;
-      padding: 80px 20px 100px;
+      max-width:var(--max);
+      margin:auto;
+      padding:80px 20px 100px;
     }
 
     .section-heading {
-      margin-bottom: 35px;
+      margin-bottom:35px;
     }
 
     .section-kicker {
-      margin-bottom: 8px;
-      color: var(--cyan);
-      font: 500 11px "JetBrains Mono", monospace;
-      text-transform: uppercase;
-      letter-spacing: .12em;
+      margin-bottom:8px;
+      color:var(--cyan);
+      font:500 11px "JetBrains Mono",monospace;
+      text-transform:uppercase;
+      letter-spacing:.12em;
     }
 
     .section-heading h2 {
-      margin-bottom: 8px;
-      font: 700 34px Outfit, sans-serif;
-      letter-spacing: -.025em;
+      margin-bottom:8px;
+      font:700 34px Outfit,sans-serif;
+      letter-spacing:-.025em;
     }
 
     .section-heading p {
-      max-width: 650px;
-      color: var(--muted);
-      font-size: 14px;
+      max-width:650px;
+      color:var(--muted);
+      font-size:14px;
     }
 
     .tools-toolbar {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 28px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:28px;
     }
 
     .search {
-      position: relative;
-      flex: 1;
+      position:relative;
+      flex:1;
     }
 
     .search svg {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      width: 17px;
-      transform: translateY(-50%);
-      stroke: var(--dim);
-      fill: none;
-      stroke-width: 2;
-      pointer-events: none;
+      position:absolute;
+      left:14px;
+      top:50%;
+      width:17px;
+      transform:translateY(-50%);
+      stroke:var(--dim);
+      fill:none;
+      stroke-width:2;
+      pointer-events:none;
     }
 
     .search input {
-      width: 100%;
-      height: 46px;
-      padding: 0 15px 0 42px;
-      outline: none;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: var(--card);
-      color: var(--text);
-      font-size: 13px;
+      width:100%;
+      height:46px;
+      padding:0 15px 0 42px;
+      outline:none;
+      border:1px solid var(--border);
+      border-radius:10px;
+      background:var(--card);
+      color:var(--text);
+      font-size:13px;
     }
 
     .search input:focus {
-      border-color: rgba(74,158,232,.55);
-      box-shadow: 0 0 0 3px rgba(74,158,232,.08);
+      border-color:rgba(74,158,232,.55);
+      box-shadow:0 0 0 3px rgba(74,158,232,.08);
     }
 
     .filters {
-      display: flex;
-      gap: 7px;
-      flex-wrap: wrap;
+      display:flex;
+      gap:7px;
+      flex-wrap:wrap;
     }
 
     .filter {
-      height: 42px;
-      padding: 0 13px;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      color: var(--muted);
-      background: rgba(255,255,255,.025);
-      font-size: 12px;
+      height:42px;
+      padding:0 13px;
+      border:1px solid var(--border);
+      border-radius:9px;
+      color:var(--muted);
+      background:rgba(255,255,255,.025);
+      font-size:12px;
     }
 
     .filter.active,
     .filter:hover {
-      border-color: rgba(74,158,232,.4);
-      color: var(--text);
-      background: rgba(74,158,232,.08);
+      border-color:rgba(74,158,232,.4);
+      color:var(--text);
+      background:rgba(74,158,232,.08);
     }
 
     .category {
-      margin-bottom: 42px;
+      margin-bottom:42px;
     }
 
     .category-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border);
-      font: 600 18px Outfit, sans-serif;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:15px;
+      padding-bottom:10px;
+      border-bottom:1px solid var(--border);
+      font:600 18px Outfit,sans-serif;
     }
 
     .category-title span {
-      color: var(--dim);
-      font: 500 10px "JetBrains Mono", monospace;
+      color:var(--dim);
+      font:500 10px "JetBrains Mono",monospace;
     }
 
     .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 14px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
     }
 
     .tool-card {
-      min-height: 205px;
-      padding: 22px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: var(--card);
-      text-decoration: none;
-      transition: .25s ease;
-      position: relative;
-      overflow: hidden;
+      min-height:205px;
+      padding:22px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:var(--card);
+      text-decoration:none;
+      transition:.25s ease;
+      position:relative;
+      overflow:hidden;
+      cursor:pointer;
     }
 
     .tool-card::after {
-      content: "";
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      right: -70px;
-      bottom: -70px;
-      border-radius: 50%;
-      background: rgba(74,158,232,.08);
-      transition: .25s;
+      content:"";
+      position:absolute;
+      width:100px;
+      height:100px;
+      right:-70px;
+      bottom:-70px;
+      border-radius:50%;
+      background:rgba(74,158,232,.08);
+      transition:.25s;
     }
 
     .tool-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--border-hover);
-      box-shadow: 0 18px 40px rgba(0,0,0,.25);
+      transform:translateY(-3px);
+      border-color:var(--border-hover);
+      box-shadow:0 18px 40px rgba(0,0,0,.25);
     }
 
     .tool-card:hover::after {
-      transform: scale(2);
+      transform:scale(2);
     }
 
     .tool-icon {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      margin-bottom: 18px;
-      border: 1px solid rgba(74,158,232,.16);
-      border-radius: 10px;
-      background: rgba(74,158,232,.08);
-      color: var(--cyan);
-    }
-
-    .tool-icon svg {
-      width: 20px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.8;
+      width:42px;
+      height:42px;
+      display:grid;
+      place-items:center;
+      margin-bottom:18px;
+      border:1px solid rgba(74,158,232,.16);
+      border-radius:10px;
+      background:rgba(74,158,232,.08);
+      color:var(--cyan);
+      font-size:18px;
     }
 
     .tool-card h3 {
-      margin-bottom: 7px;
-      font: 600 17px Outfit, sans-serif;
+      margin-bottom:7px;
+      font:600 17px Outfit,sans-serif;
     }
 
     .tool-card p {
-      min-height: 42px;
-      margin-bottom: 16px;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.55;
+      min-height:42px;
+      margin-bottom:16px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.55;
     }
 
     .tool-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
     }
 
     .tag {
-      padding: 4px 7px;
-      border-radius: 5px;
-      background: rgba(56,189,248,.08);
-      color: var(--cyan);
-      font: 500 9px "JetBrains Mono", monospace;
+      padding:4px 7px;
+      border-radius:5px;
+      background:rgba(56,189,248,.08);
+      color:var(--cyan);
+      font:500 9px "JetBrains Mono",monospace;
     }
 
     .launch {
-      color: var(--dim);
-      font-size: 12px;
-      transition: .2s;
+      color:var(--dim);
+      font-size:12px;
+      transition:.2s;
     }
 
     .tool-card:hover .launch {
-      color: var(--cyan);
+      color:var(--cyan);
     }
 
     .no-results {
-      display: none;
-      padding: 50px;
-      border: 1px dashed var(--border);
-      border-radius: 14px;
-      text-align: center;
-      color: var(--muted);
+      display:none;
+      padding:50px;
+      border:1px dashed var(--border);
+      border-radius:14px;
+      text-align:center;
+      color:var(--muted);
     }
 
-    /* ─────────────────────────────
-       FEATURE STRIP
-    ───────────────────────────── */
+    /* FEATURES */
 
     .features {
-      max-width: var(--max);
-      margin: auto;
-      padding: 0 20px 100px;
+      max-width:var(--max);
+      margin:auto;
+      padding:0 20px 100px;
     }
 
     .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      background: rgba(255,255,255,.015);
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      border:1px solid var(--border);
+      border-radius:16px;
+      overflow:hidden;
+      background:rgba(255,255,255,.015);
     }
 
     .feature {
-      padding: 27px;
-      border-right: 1px solid var(--border);
+      padding:27px;
+      border-right:1px solid var(--border);
     }
 
     .feature:last-child {
-      border-right: 0;
+      border-right:0;
     }
 
     .feature-icon {
-      color: var(--cyan);
-      margin-bottom: 13px;
-    }
-
-    .feature-icon svg {
-      width: 21px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.8;
+      color:var(--cyan);
+      margin-bottom:13px;
+      font-size:20px;
     }
 
     .feature h3 {
-      margin-bottom: 6px;
-      font: 600 16px Outfit, sans-serif;
+      margin-bottom:6px;
+      font:600 16px Outfit,sans-serif;
     }
 
     .feature p {
-      color: var(--muted);
-      font-size: 12px;
+      color:var(--muted);
+      font-size:12px;
     }
 
-    /* ─────────────────────────────
-       MODAL
-    ───────────────────────────── */
+    /* MODAL */
 
     .modal-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 500;
-      display: none;
-      place-items: center;
-      padding: 20px;
-      background: rgba(0,0,0,.72);
-      backdrop-filter: blur(7px);
+      position:fixed;
+      inset:0;
+      z-index:500;
+      display:none;
+      place-items:center;
+      padding:20px;
+      background:rgba(0,0,0,.72);
+      backdrop-filter:blur(7px);
     }
 
     .modal-overlay.open {
-      display: grid;
+      display:grid;
     }
 
     .modal {
-      width: min(720px,100%);
-      max-height: 90vh;
-      overflow: auto;
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 16px;
-      background: #0d121b;
-      box-shadow: 0 30px 100px rgba(0,0,0,.65);
+      width:min(720px,100%);
+      max-height:90vh;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      background:#0d121b;
+      box-shadow:0 30px 100px rgba(0,0,0,.65);
     }
 
     .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 20px;
-      border-bottom: 1px solid var(--border);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:18px 20px;
+      border-bottom:1px solid var(--border);
     }
 
     .modal-header h2 {
-      font: 600 19px Outfit, sans-serif;
+      font:600 19px Outfit,sans-serif;
     }
 
     .close-modal {
-      width: 34px;
-      height: 34px;
-      display: grid;
-      place-items: center;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--muted);
-      background: transparent;
-      font-size: 20px;
+      width:34px;
+      height:34px;
+      display:grid;
+      place-items:center;
+      border:1px solid var(--border);
+      border-radius:8px;
+      color:var(--muted);
+      background:transparent;
+      font-size:20px;
     }
 
     .modal-body {
-      padding: 20px;
+      padding:20px;
     }
 
     .modal-body label {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 600;
+      display:block;
+      margin-bottom:8px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:600;
     }
 
     .modal-body textarea,
     .modal-body input,
     .modal-body select {
-      width: 100%;
-      margin-bottom: 14px;
-      padding: 12px;
-      outline: none;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      background: #080c12;
-      color: var(--text);
-      font: 12px/1.6 "JetBrains Mono", monospace;
-      resize: vertical;
+      width:100%;
+      margin-bottom:14px;
+      padding:12px;
+      outline:none;
+      border:1px solid var(--border);
+      border-radius:9px;
+      background:#080c12;
+      color:var(--text);
+      font:12px/1.6 "JetBrains Mono",monospace;
+      resize:vertical;
     }
 
     .modal-body textarea:focus,
-    .modal-body input:focus {
-      border-color: rgba(74,158,232,.5);
+    .modal-body input:focus,
+    .modal-body select:focus {
+      border-color:rgba(74,158,232,.5);
     }
 
     .modal-actions {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
+      display:flex;
+      gap:8px;
+      margin-bottom:14px;
+      flex-wrap:wrap;
     }
 
     .output {
-      display: none;
-      max-height: 360px;
-      overflow: auto;
-      padding: 15px;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      background: #080c12;
-      color: #b9c9dc;
-      white-space: pre-wrap;
-      word-break: break-word;
-      font: 11px/1.7 "JetBrains Mono", monospace;
+      display:none;
+      max-height:360px;
+      overflow:auto;
+      padding:15px;
+      border:1px solid var(--border);
+      border-radius:9px;
+      background:#080c12;
+      color:#b9c9dc;
+      white-space:pre-wrap;
+      word-break:break-word;
+      font:11px/1.7 "JetBrains Mono",monospace;
     }
 
     .output.show {
-      display: block;
+      display:block;
     }
 
     .error {
-      color: #ff8585;
+      color:#ff8585;
     }
 
-    /* ─────────────────────────────
-       FOOTER
-    ───────────────────────────── */
+    /* FOOTER */
 
     footer {
-      border-top: 1px solid var(--border);
-      padding: 30px 20px;
-      color: var(--dim);
-      text-align: center;
-      font-size: 12px;
+      border-top:1px solid var(--border);
+      padding:30px 20px;
+      color:var(--dim);
+      text-align:center;
+      font-size:12px;
     }
 
     footer strong {
-      color: var(--muted);
+      color:var(--muted);
     }
 
-    /* ─────────────────────────────
-       RESPONSIVE
-    ───────────────────────────── */
+    /* RESPONSIVE */
 
-    @media (max-width: 980px) {
+    @media (max-width:980px) {
       .hero {
-        grid-template-columns: 1fr;
-        gap: 45px;
-        padding-top: 65px;
+        grid-template-columns:1fr;
+        gap:45px;
+        padding-top:65px;
       }
 
       .hero-content {
-        max-width: 750px;
+        max-width:750px;
       }
 
       .tools-grid {
-        grid-template-columns: repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
       }
 
       .nav-links,
       .nav-actions {
-        display: none;
+        display:none;
       }
 
       .menu-btn {
-        display: grid;
+        display:grid;
       }
     }
 
-    @media (max-width: 700px) {
+    @media (max-width:700px) {
       .status-track {
-        justify-content: flex-start;
-        overflow: hidden;
-        padding: 0 15px;
+        justify-content:flex-start;
+        overflow:hidden;
+        padding:0 15px;
       }
 
       .status-item:nth-child(n+3) {
-        display: none;
+        display:none;
       }
 
       .nav-inner {
-        min-height: 64px;
+        min-height:64px;
       }
 
       .hero {
-        padding: 55px 16px 65px;
+        padding:55px 16px 65px;
       }
 
       .hero h1 {
-        font-size: 43px;
+        font-size:43px;
       }
 
       .hero-description {
-        font-size: 14px;
+        font-size:14px;
       }
 
       .dashboard-body {
-        padding: 13px;
+        padding:13px;
       }
 
       .stats {
-        gap: 6px;
+        gap:6px;
       }
 
       .stat {
-        padding: 10px;
+        padding:10px;
       }
 
       .stat-value {
-        font-size: 15px;
+        font-size:15px;
       }
 
       .tools-section,
       .features {
-        padding-left: 16px;
-        padding-right: 16px;
+        padding-left:16px;
+        padding-right:16px;
       }
 
       .tools-toolbar {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction:column;
+        align-items:stretch;
       }
 
       .filters {
-        overflow-x: auto;
-        flex-wrap: nowrap;
-        padding-bottom: 3px;
+        overflow-x:auto;
+        flex-wrap:nowrap;
+        padding-bottom:3px;
       }
 
       .filter {
-        flex-shrink: 0;
+        flex-shrink:0;
       }
 
       .tools-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns:1fr;
       }
 
       .feature-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns:1fr;
       }
 
       .feature {
-        border-right: 0;
-        border-bottom: 1px solid var(--border);
+        border-right:0;
+        border-bottom:1px solid var(--border);
       }
 
       .feature:last-child {
-        border-bottom: 0;
+        border-bottom:0;
       }
     }
 
-    @media (max-width: 440px) {
+    @media (max-width:440px) {
       .hero h1 {
-        font-size: 37px;
+        font-size:37px;
       }
 
       .hero-buttons {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction:column;
+        align-items:stretch;
       }
 
       .hero-buttons .btn {
-        width: 100%;
+        width:100%;
       }
 
       .stats {
-        grid-template-columns: 1fr;
+        grid-template-columns:1fr;
+      }
+
+      .dashboard {
+        border-radius:13px;
+      }
+
+      .modal-overlay {
+        padding:10px;
+      }
+
+      .modal-body {
+        padding:15px;
       }
     }
-  </style>
-</head>
-
-<body>
-
-  <!-- STATUS BAR -->
-  <div class="status-bar">
+  </style></head><body>  <!-- STATUS BAR -->  <div class="status-bar">
     <div class="status-track">
       <div class="status-item">
         <span class="status-dot"></span>
-        Browser tools ready
+        All systems operational
       </div>
-      <div class="status-item">NO ACCOUNT REQUIRED</div>
-      <div class="status-item">CLIENT-SIDE PROCESSING</div>
-      <div class="status-item">OPENUTILITY v2.4</div>
+      <div class="status-item">⚡ Client-side processing</div>
+      <div class="status-item">🔒 Privacy friendly</div>
+      <div class="status-item">v1.0.0</div>
     </div>
-  </div>
-
-  <!-- NAVIGATION -->
-  <header class="navbar" id="navbar">
+  </div>  <!-- NAVIGATION -->  <nav class="navbar" id="navbar">
     <div class="nav-inner">
-
-      <a class="logo" href="#">
+      <a href="#" class="logo">
         <span class="logo-mark">
           <svg viewBox="0 0 24 24">
-            <polyline points="16 18 22 12 16 6"></polyline>
-            <polyline points="8 6 2 12 8 18"></polyline>
+            <path d="M7 17 17 7M8 7h9v9"/>
           </svg>
         </span>
         OpenUtility
-      </a>
+      </a>  <div class="nav-links">
+    <a href="#tools">Tools</a>
+    <a href="#features">Features</a>
+  </div>
 
-      <nav class="nav-links" aria-label="Main navigation">
-        <a href="#tools">Tools</a>
-        <a href="#features">Features</a>
-        <a href="#about">About</a>
-      </nav>
+  <div class="nav-actions">
+    <a href="#tools" class="btn btn-primary">Explore Tools</a>
+  </div>
 
-      <div class="nav-actions">
-        <a href="#tools" class="btn btn-primary">Launch Tools</a>
-      </div>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+    <svg viewBox="0 0 24 24">
+      <path d="M4 7h16M4 12h16M4 17h16"/>
+    </svg>
+  </button>
+</div>
 
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu">
-        <svg viewBox="0 0 24 24">
-          <line x1="4" y1="7" x2="20" y2="7"></line>
-          <line x1="4" y1="12" x2="20" y2="12"></line>
-          <line x1="4" y1="17" x2="20" y2="17"></line>
-        </svg>
-      </button>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#tools">Tools</a>
+  <a href="#features">Features</a>
+</div>
 
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <main>
-
+  </nav>  <!-- HERO -->  <main>
     <section class="hero">
-
       <div class="hero-content">
-
         <div class="eyebrow">
           <span></span>
-          MODERN DEVELOPER TOOLKIT
+          DEVELOPER TOOLKIT
+        </div>    <h1>
+      Simple tools for
+      <span class="gradient-text">developers.</span>
+    </h1>
+
+    <p class="hero-description">
+      A modern collection of fast, privacy-friendly utilities for
+      formatting, encoding, generating, converting and inspecting data.
+      No account required.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#tools" class="btn btn-primary">Browse Tools →</a>
+      <button class="btn btn-secondary" onclick="openTool('json')">
+        Try JSON Formatter
+      </button>
+    </div>
+
+    <div class="privacy-note">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6l-7-3Z"/>
+        <path d="m9 12 2 2 4-4"/>
+      </svg>
+      Your data stays in your browser whenever possible.
+    </div>
+  </div>
+
+  <div class="dashboard">
+    <div class="window-bar">
+      <span class="window-dot red"></span>
+      <span class="window-dot yellow"></span>
+      <span class="window-dot green"></span>
+      <span class="window-title">openutility.local</span>
+    </div>
+
+    <div class="dashboard-body">
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">TOOLS</div>
+          <div class="stat-value blue" id="toolCount">15+</div>
         </div>
 
-        <h1>
-          Powerful utilities for
-          <span class="gradient-text">modern developers.</span>
-        </h1>
-
-        <p class="hero-description">
-          Format JSON, decode JWTs, generate UUIDs, encode data,
-          inspect text, and run everyday developer utilities without
-          installing another application.
-        </p>
-
-        <div class="hero-buttons">
-          <a href="#tools" class="btn btn-primary">
-            Explore Utilities
-            →
-          </a>
-
-          <a href="#features" class="btn btn-secondary">
-            Why OpenUtility?
-          </a>
+        <div class="stat">
+          <div class="stat-label">CATEGORIES</div>
+          <div class="stat-value">5</div>
         </div>
 
-        <div class="privacy-note">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4z"></path>
-            <path d="M8 12l2.5 2.5L16 9"></path>
-          </svg>
-          Your input stays in your browser for client-side tools.
+        <div class="stat">
+          <div class="stat-label">SERVER</div>
+          <div class="stat-value green">LOCAL</div>
         </div>
-
       </div>
 
-      <!-- DASHBOARD PREVIEW -->
-      <div class="dashboard">
-
-        <div class="window-bar">
-          <span class="window-dot red"></span>
-          <span class="window-dot yellow"></span>
-          <span class="window-dot green"></span>
-          <span class="window-title">openutility.local / dashboard</span>
+      <div class="preview">
+        <div class="preview-header">
+          <div class="preview-title">JSON Formatter</div>
+          <div class="online">READY</div>
         </div>
 
-        <div class="dashboard-body">
+        <div class="terminal">
+          <div><span class="command">$</span> openutility json --format</div>
+          <div>{</div>
+          <div>&nbsp;&nbsp;"name": <span class="success">"OpenUtility"</span>,</div>
+          <div>&nbsp;&nbsp;"version": <span class="success">"1.0.0"</span>,</div>
+          <div>&nbsp;&nbsp;"private": <span class="success">true</span></div>
+          <div>}</div>
+          <br>
+          <div class="success">✓ Formatted successfully</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-          <div class="stats">
+<!-- TOOLS -->
+<section class="tools-section" id="tools">
+  <div class="section-heading">
+    <div class="section-kicker">01 / TOOLBOX</div>
+    <h2>Developer utilities</h2>
+    <p>
+      Useful tools for everyday development work. Search the collection
+      or filter it by category.
+    </p>
+  </div>
 
-            <div class="stat">
-              <div class="stat-label">TOOLS</div>
-              <div class="stat-value blue">12+</div>
-            </div>
+  <div class="tools-toolbar">
+    <div class="search">
+      <svg viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="m20 20-4-4"/>
+      </svg>
+      <input
+        type="search"
+        id="toolSearch"
+        placeholder="Search tools..."
+        autocomplete="off"
+      >
+    </div>
 
-            <div class="stat">
-              <div class="stat-label">INSTALL</div>
-              <div class="stat-value green">0 MB</div>
-            </div>
+    <div class="filters" id="filters">
+      <button class="filter active" data-filter="all">All</button>
+      <button class="filter" data-filter="data">Data</button>
+      <button class="filter" data-filter="encoding">Encoding</button>
+      <button class="filter" data-filter="generators">Generators</button>
+      <button class="filter" data-filter="web">Web</button>
+      <button class="filter" data-filter="text">Text</button>
+    </div>
+  </div>
 
-            <div class="stat">
-              <div class="stat-label">SETUP</div>
-              <div class="stat-value">0 sec</div>
-            </div>
+  <div id="toolCategories">
 
+    <!-- DATA -->
+    <div class="category" data-category="data">
+      <div class="category-title">
+        Data & JSON
+        <span>DATA</span>
+      </div>
+
+      <div class="tools-grid">
+        <article class="tool-card"
+          data-tool="json"
+          data-name="JSON Formatter"
+          data-category="data">
+          <div class="tool-icon">{ }</div>
+          <h3>JSON Formatter</h3>
+          <p>Format, validate and prettify JSON data.</p>
+          <div class="tool-footer">
+            <span class="tag">JSON</span>
+            <span class="launch">Open →</span>
           </div>
+        </article>
 
-          <div class="preview">
-
-            <div class="preview-header">
-              <div class="preview-title">JSON Formatter</div>
-              <div class="online">READY</div>
-            </div>
-
-            <div class="terminal">
-              <div><span class="command">$</span> openutility json --format</div>
-              <br>
-              <div>{</div>
-              <div>&nbsp;&nbsp;"name": <span class="success">"OpenUtility"</span>,</div>
-              <div>&nbsp;&nbsp;"fast": <span class="success">true</span>,</div>
-              <div>&nbsp;&nbsp;"private": <span class="success">true</span></div>
-              <div>}</div>
-              <br>
-              <div class="success">✓ Formatting complete</div>
-            </div>
-
+        <article class="tool-card"
+          data-tool="json-minify"
+          data-name="JSON Minifier"
+          data-category="data">
+          <div class="tool-icon">↘</div>
+          <h3>JSON Minifier</h3>
+          <p>Remove unnecessary whitespace from JSON.</p>
+          <div class="tool-footer">
+            <span class="tag">JSON</span>
+            <span class="launch">Open →</span>
           </div>
-
-        </div>
-      </div>
-
-    </section>
-
-    <!-- TOOLS -->
-    <section class="tools-section" id="tools">
-
-      <div class="section-heading">
-        <div class="section-kicker">Toolbox</div>
-        <h2>Everything you need, in one place.</h2>
-        <p>
-          Lightweight utilities designed for the small tasks that
-          slow down development workflows.
-        </p>
-      </div>
-
-      <div class="tools-toolbar">
-
-        <div class="search">
-          <svg viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="7"></circle>
-            <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
-          </svg>
-
-          <input
-            type="search"
-            id="toolSearch"
-            placeholder="Search tools..."
-            autocomplete="off"
-          >
-        </div>
-
-        <div class="filters">
-          <button class="filter active" data-filter="all">All</button>
-          <button class="filter" data-filter="data">Data</button>
-          <button class="filter" data-filter="security">Security</button>
-          <button class="filter" data-filter="text">Text</button>
-          <button class="filter" data-filter="generators">Generators</button>
-        </div>
-
-      </div>
-
-      <!-- DATA -->
-      <div class="category" data-category-section="data">
-
-        <div class="category-title">
-          Data
-          <span>01</span>
-        </div>
-
-        <div class="tools-grid">
-
-          <article class="tool-card"
-            data-category="data"
-            data-search="json formatter formatter json beautify minify">
-
-            <div>
-              <div class="tool-icon">
-                <svg viewBox="0 0 24 24">
-                  <polyline points="8 3 4 3 4 21 8 21"></polyline>
-                  <polyline points="16 3 20 3 20 21 16 21"></polyline>
-                  <line x1="14" y1="7" x2="10" y2="17"></line>
-                </svg>
-              </div>
-
-              <h3>JSON Formatter</h3>
-
-              <p>
-                Format, validate, and minify JSON directly in your browser.
-              </p>
-            </div>
-
-            <div class="tool-footer">
-              <span class="tag">JSON</span>
-              <span class="launch">Launch →</span>
-            </div>
-
-          </article>
-
-          <article class="tool-card"
-            data-category="data"
-            data-search="base64 encode decode data">
-
-            <div>
-              <div class="tool-icon">
-                <svg viewBox="0 0 24 24">
-                  <path d="M4 7h16"></path>
-                  <path d="M4 12h16"></path>
-                  <path d="M4 17h16"></path>
-                </svg>
-              </div>
-
-              <h3>Base64 Encoder</h3>
-
-              <p>
-                Encode and decode Base64 strings instantly.
-              </p>
-            </div>
-
-            <div class="tool-footer">
-              <span class="tag">ENCODE</span>
-              <span class="launch">Launch →</span>
-            </div>
-
-          </article>
-
-          <article class="tool-card"
-            data-category="data"
-            data-search="url encode decode uri">
-
-            <div>
-              <div class="tool-icon">
-                <svg viewBox="0 0 24 24">
-                  <path d="M10 13a5 5 0 0 0 7.1.1l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"></path>
-                  <path d="M14 11a5 5 0 0 0-7.1-.1l-2 2A5 5 0 0 0 12 20l1.1-1.1"></path>
-                </svg>
-              </div>
-
-              <h3>URL Encoder</h3>
-
-              <p>
-                Safely encode and decode URL components.
-              </p>
-            </div>
-
-            <div class="tool-footer">
-              <span class="tag">URL</span>
-              <span class="launch">Launch →</span>
-            </div>
-
-          </article>
-
-        </div>
-      </div>
-
-      <!-- SECURITY -->
-      <div class="category" data-category-section="security">
-
-        <div class="category-title">
-          Security
-          <span>02</span>
-        </div>
-
-        <div class="tools-grid">
-
-          <article class="tool-card"
-            data-category="security"
-            data-search="jwt decoder json web token token security">
-
-            <div>
-              <div class="tool-icon">
-                <svg viewBox="0 0 24 24">
-                  <rect x="4" y="10" width="16" height="11" rx="2"></rect>
-                  <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
-                  <circle cx="12" cy="15" r="1"></circle>
-                </svg>
-              </div>
-
-              <h3>JWT Decoder</h3>
-
-              <p>
-                Inspect JWT headers and payloads without sending tokens to a server.
-              </p>
-            </div>
-
-            <div class="tool-footer">
-              <span class="tag">JWT</span>
-              <span class="launch">Launch →</span>
-            </div>
-
-          </article>
-
-          <article class="tool-card"
-            data-category="security"
-            data-search="hash sha256 hash generator security">
-
-            <div>
-              <div class="tool-icon">
-                <svg viewBox="0 0 24 24">
-                  <path d="M8 3v18"></path>
-                  <path d="M16 3v18"></path>
-                  <path d="M3 8h18"></path>
-                  <path d="M3 16h18"></path>
-                </svg>
-              </div>
-
-              <h3>SHA-256 Hash</h3>
-
-              <p>
-                Generate SHA-256 hashes using the browser Web Crypto API.
-              </p>
-            </div>
-
-            <div class="tool-footer">
-              <span class="tag">SHA-256</span>
-              <span class="launch">Launch →</span>
-            </div>
-
-          </article>
-
-        </div>
-      </div>
-
-      <!-- TEXT -->
-      <div class="category" data-category-section="text">
-
-        <div class="category-title">
-          Text
-          <span>03</span>
-        </div>
-
-        <div class="tools-grid">
-
-          <article class="tool-card"
-            data-category="text"
-            data-search="text counter characters words lines">
-
-            <div>
-              <div class="tool-icon">
-                <svg viewBox="0 0 24 24">
-                  <path d="M4 5h16"></path>
-                  <path d="M4 9h10"></path>
-                  <path d="M4 13h16"></path>
-                  <path d="M4 17h12"></path>
-                </svg>
-              </div>
-
-              <h3>Text Analyzer</h3>
-
-              <p>
-                Count words, characters, lines, and whitespace.
-              </p>
-            </div>
-
-            <div class="tool-footer">
-              <span class="tag">TEXT</span>
-              <span class="launch">Launch →</span>
-            </div>
-
-          </article>
-
-          <article class="tool-card"
-            data-category="text"
-            data-search="case uppercase lowercase text">
-
-            <div>
-              <div class="tool-icon">
-                <svg viewBox="0 0 24 24">
-                  <path d="M5 19l5-14 5 14"></path>
-                  <path d="M7 14h6"></path>
-                  <path d="M15 19h4"></path>
-                  <path d="M17 13v6"></path>
-                </svg>
-              </div>
-
-              <h3>Case Converter</h3>
-
-              <p>
-                Convert text to uppercase, lowercase, title case, or sentence case.
-              </p>
-            </div>
-
-            <div class="tool-footer">
-              <span class="tag">CASE</span>
-              <span class="launch">Launch →</span>
-            </div>
-
-          </article>
-
-        </div>
-      </div>
-
-      <!-- GENERATORS -->
-      <div class="category" data-category-section="generators">
-
-        <div class="category-title">
-          Generators
-          <span>04</span>
-        </div>
-
-        <div class="tools-grid">
-
-          <article class="tool-card"
-            data-category="generators"
-            data-search="uuid generator random identifier">
-
-            <div>
-              <div class="tool-icon">
-                <svg viewBox="0 0 24 24">
-                  <path d="M12 3v4"></path>
-                  <path d="M12 17v4"></path>
-                  <path d="M3 12h4"></path>
-                  <path d="M17 12h4"></path>
-                  <circle cx="12" cy="12" r="4"></circle>
-                </svg>
-              </div>
-
-              <h3>UUID Generator</h3>
-
-              <p>
-                Generate cryptographically strong random UUID v4 identifiers.
-              </p>
-            </div>
-
-            <div class="tool-footer">
-              <span class="tag">UUID</span>
-              <span class="launch">Launch →</span>
-            </div>
-
-          </article>
-
-          <article class="tool-card"
-            data-category="generators"
-            data-search="password generator random secure password">
-
-            <div>
-              <div class="tool-icon">
-                <svg viewBox="0 0 24 24">
-                  <rect x="4" y="10" width="16" height="10" rx="2"></rect>
-                  <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
-                </svg>
-              </div>
-
-              <h3>Password Generator</h3>
-
-              <p>
-                Generate strong random passwords locally in your browser.
-              </p>
-            </div>
-
-            <div class="tool-footer">
-              <span class="tag">RANDOM</span>
-              <span class="launch">Launch →</span>
-            </div>
-
-          </article>
-
-        </div>
-      </div>
-
-      <div class="no-results" id="noResults">
-        No tools match your search.
-      </div>
-
-    </section>
-
-    <!-- FEATURES -->
-    <section class="features" id="features">
-
-      <div class="feature-grid">
-
-        <div class="feature">
-
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4z"></path>
-              <path d="M8 12l2.5 2.5L16 9"></path>
-            </svg>
+        </article>
+
+        <article class="tool-card"
+          data-tool="csv"
+          data-name="CSV to JSON"
+          data-category="data">
+          <div class="tool-icon">▦</div>
+          <h3>CSV → JSON</h3>
+          <p>Convert CSV rows into structured JSON.</p>
+          <div class="tool-footer">
+            <span class="tag">DATA</span>
+            <span class="launch">Open →</span>
           </div>
+        </article>
+      </div>
+    </div>
 
-          <h3>Privacy first</h3>
-
-          <p>
-            Client-side utilities process your data locally whenever possible.
-          </p>
-
-        </div>
-
-        <div class="feature">
-
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24">
-              <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline>
-            </svg>
-          </div>
-
-          <h3>Instant results</h3>
-
-          <p>
-            No downloads, setup process, or unnecessary dashboard complexity.
-          </p>
-
-        </div>
-
-        <div class="feature" id="about">
-
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="9"></circle>
-              <path d="M9 9l6 3-6 3V9z"></path>
-            </svg>
-          </div>
-
-          <h3>Developer focused</h3>
-
-          <p>
-            Small utilities for the repetitive tasks developers encounter every day.
-          </p>
-
-        </div>
-
+    <!-- ENCODING -->
+    <div class="category" data-category="encoding">
+      <div class="category-title">
+        Encoding & Decoding
+        <span>ENCODE</span>
       </div>
 
-    </section>
+      <div class="tools-grid">
+        <article class="tool-card"
+          data-tool="base64"
+          data-name="Base64 Encoder Decoder"
+          data-category="encoding">
+          <div class="tool-icon">64</div>
+          <h3>Base64</h3>
+          <p>Encode and decode Base64 strings directly in your browser.</p>
+          <div class="tool-footer">
+            <span class="tag">BASE64</span>
+            <span class="launch">Open →</span>
+          </div>
+        </article>
 
-  </main>
+        <article class="tool-card"
+          data-tool="url"
+          data-name="URL Encoder Decoder"
+          data-category="encoding">
+          <div class="tool-icon">%</div>
+          <h3>URL Encoder</h3>
+          <p>Encode or decode URL components safely.</p>
+          <div class="tool-footer">
+            <span class="tag">URL</span>
+            <span class="launch">Open →</span>
+          </div>
+        </article>
 
-  <footer>
-    <strong>OpenUtility</strong> — Modern browser-based developer utilities.
-    <br>
-    Built for developers. Designed for speed.
-  </footer>
+        <article class="tool-card"
+          data-tool="jwt"
+          data-name="JWT Decoder"
+          data-category="encoding">
+          <div class="tool-icon">JWT</div>
+          <h3>JWT Decoder</h3>
+          <p>Inspect the header and payload of a JWT token.</p>
+          <div class="tool-footer">
+            <span class="tag">JWT</span>
+            <span class="launch">Open →</span>
+          </div>
+        </article>
+      </div>
+    </div>
 
-  <!-- TOOL MODAL -->
-  <div class="modal-overlay" id="toolModal" role="dialog" aria-modal="true">
-
-    <div class="modal">
-
-      <div class="modal-header">
-        <h2 id="modalTitle">Tool</h2>
-
-        <button class="close-modal" id="closeModal" aria-label="Close">
-          ×
-        </button>
+    <!-- GENERATORS -->
+    <div class="category" data-category="generators">
+      <div class="category-title">
+        Generators
+        <span>GENERATE</span>
       </div>
 
-      <div class="modal-body" id="modalBody"></div>
+      <div class="tools-grid">
+        <article class="tool-card"
+          data-tool="uuid"
+          data-name="UUID Generator"
+          data-category="generators">
+          <div class="tool-icon">#</div>
+          <h3>UUID Generator</h3>
+          <p>Generate cryptographically strong UUID v4 identifiers.</p>
+          <div class="tool-footer">
+            <span class="tag">UUID</span>
+            <span class="launch">Open →</span>
+          </div>
+        </article>
 
+        <article class="tool-card"
+          data-tool="password"
+          data-name="Password Generator"
+          data-category="generators">
+          <div class="tool-icon">●</div>
+          <h3>Password Generator</h3>
+          <p>Create random passwords with configurable length.</p>
+          <div class="tool-footer">
+            <span class="tag">RANDOM</span>
+            <span class="launch">Open →</span>
+          </div>
+        </article>
+
+        <article class="tool-card"
+          data-tool="hash"
+          data-name="SHA Hash Generator"
+          data-category="generators">
+          <div class="tool-icon">#</div>
+          <h3>SHA-256 Hash</h3>
+          <p>Generate SHA-256 hashes using the Web Crypto API.</p>
+          <div class="tool-footer">
+            <span class="tag">HASH</span>
+            <span class="launch">Open →</span>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- WEB -->
+    <div class="category" data-category="web">
+      <div class="category-title">
+        Web Utilities
+        <span>WEB</span>
+      </div>
+
+      <div class="tools-grid">
+        <article class="tool-card"
+          data-tool="html"
+          data-name="HTML Entity Encoder"
+          data-category="web">
+          <div class="tool-icon">&lt;/&gt;</div>
+          <h3>HTML Encoder</h3>
+          <p>Escape text into safe HTML entities.</p>
+          <div class="tool-footer">
+            <span class="tag">HTML</span>
+            <span class="launch">Open →</span>
+          </div>
+        </article>
+
+        <article class="tool-card"
+          data-tool="color"
+          data-name="Color Converter"
+          data-category="web">
+          <div class="tool-icon">◈</div>
+          <h3>Color Converter</h3>
+          <p>Convert HEX colors into RGB and HSL values.</p>
+          <div class="tool-footer">
+            <span class="tag">COLOR</span>
+            <span class="launch">Open →</span>
+          </div>
+        </article>
+
+        <article class="tool-card"
+          data-tool="timestamp"
+          data-name="Unix Timestamp Converter"
+          data-category="web">
+          <div class="tool-icon">◷</div>
+          <h3>Unix Timestamp</h3>
+          <p>Convert timestamps between Unix and readable dates.</p>
+          <div class="tool-footer">
+            <span class="tag">TIME</span>
+            <span class="launch">Open →</span>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- TEXT -->
+    <div class="category" data-category="text">
+      <div class="category-title">
+        Text Utilities
+        <span>TEXT</span>
+      </div>
+
+      <div class="tools-grid">
+        <article class="tool-card"
+          data-tool="case"
+          data-name="Text Case Converter"
+          data-category="text">
+          <div class="tool-icon">Aa</div>
+          <h3>Case Converter</h3>
+          <p>Convert text to upper, lower, title or sentence case.</p>
+          <div class="tool-footer">
+            <span class="tag">TEXT</span>
+            <span class="launch">Open →</span>
+          </div>
+        </article>
+
+        <article class="tool-card"
+          data-tool="wordcount"
+          data-name="Word Counter"
+          data-category="text">
+          <div class="tool-icon">123</div>
+          <h3>Word Counter</h3>
+          <p>Count words, characters, lines and paragraphs.</p>
+          <div class="tool-footer">
+            <span class="tag">TEXT</span>
+            <span class="launch">Open →</span>
+          </div>
+        </article>
+
+        <article class="tool-card"
+          data-tool="lorem"
+          data-name="Lorem Ipsum Generator"
+          data-category="text">
+          <div class="tool-icon">¶</div>
+          <h3>Lorem Ipsum</h3>
+          <p>Generate placeholder text for designs and prototypes.</p>
+          <div class="tool-footer">
+            <span class="tag">TEXT</span>
+            <span class="launch">Open →</span>
+          </div>
+        </article>
+      </div>
     </div>
 
   </div>
 
-  <script>
-    /* ─────────────────────────────
-       NAVIGATION
-    ───────────────────────────── */
+  <div class="no-results" id="noResults">
+    No tools matched your search.
+  </div>
+</section>
 
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="feature-grid">
+    <div class="feature">
+      <div class="feature-icon">⚡</div>
+      <h3>Fast</h3>
+      <p>
+        Lightweight tools designed to run instantly without unnecessary
+        server requests.
+      </p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">🔒</div>
+      <h3>Privacy-first</h3>
+      <p>
+        Most operations happen entirely in your browser, keeping your
+        input on your device.
+      </p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">◇</div>
+      <h3>No account</h3>
+      <p>
+        Open a tool and start working immediately. No registration
+        required.
+      </p>
+    </div>
+  </div>
+</section>
+
+  </main>  <footer>
+    <strong>OpenUtility</strong> — Developer utilities for everyday work.
+    <br>
+    Built to be fast, simple and privacy-friendly.
+  </footer>  <!-- TOOL MODAL -->  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle">Developer Tool</h2>
+        <button class="close-modal" id="closeModal" aria-label="Close">×</button>
+      </div>  <div class="modal-body" id="modalBody"></div>
+</div>
+
+  </div>  <script>
+    const modalOverlay = document.getElementById("modalOverlay");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalBody = document.getElementById("modalBody");
+    const closeModal = document.getElementById("closeModal");
+    const toolSearch = document.getElementById("toolSearch");
+    const noResults = document.getElementById("noResults");
     const navbar = document.getElementById("navbar");
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    let currentFilter = "all";
+
+    /* NAVIGATION */
 
     window.addEventListener("scroll", () => {
-      navbar.classList.toggle("scrolled", window.scrollY > 15);
+      navbar.classList.toggle("scrolled", window.scrollY > 10);
     });
-
-
-    /* ─────────────────────────────
-       MOBILE MENU
-    ───────────────────────────── */
-
-    const menuBtn = document.getElementById("menuBtn");
 
     menuBtn.addEventListener("click", () => {
-      const existing = document.getElementById("mobileNav");
+      mobileMenu.classList.toggle("open");
+    });
 
-      if (existing) {
-        existing.remove();
-        return;
-      }
-
-      const menu = document.createElement("div");
-
-      menu.id = "mobileNav";
-
-      Object.assign(menu.style, {
-        position: "fixed",
-        top: "64px",
-        left: "12px",
-        right: "12px",
-        zIndex: "200",
-        padding: "14px",
-        border: "1px solid rgba(255,255,255,.1)",
-        borderRadius: "14px",
-        background: "rgba(13,18,27,.97)",
-        backdropFilter: "blur(18px)",
-        boxShadow: "0 25px 60px rgba(0,0,0,.5)"
-      });
-
-      menu.innerHTML = `
-        <a href="#tools" style="
-          display:block;
-          padding:13px;
-          color:#f4f7fb;
-          text-decoration:none;
-          border-bottom:1px solid rgba(255,255,255,.06);
-        ">Tools</a>
-
-        <a href="#features" style="
-          display:block;
-          padding:13px;
-          color:#f4f7fb;
-          text-decoration:none;
-          border-bottom:1px solid rgba(255,255,255,.06);
-        ">Features</a>
-
-        <a href="#about" style="
-          display:block;
-          padding:13px;
-          color:#f4f7fb;
-          text-decoration:none;
-        ">About</a>
-      `;
-
-      document.body.appendChild(menu);
-
-      menu.querySelectorAll("a").forEach(link => {
-        link.addEventListener("click", () => menu.remove());
+    mobileMenu.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.remove("open");
       });
     });
 
+    /* SEARCH + FILTER */
 
-    /* ─────────────────────────────
-       SEARCH + FILTER
-    ───────────────────────────── */
-
-    const searchInput = document.getElementById("toolSearch");
-    const filterButtons = document.querySelectorAll(".filter");
-    const cards = document.querySelectorAll(".tool-card");
-    const sections = document.querySelectorAll("[data-category-section]");
-    const noResults = document.getElementById("noResults");
-
-    let activeFilter = "all";
-
-    function filterTools() {
-      const query = searchInput.value.trim().toLowerCase();
-      let visible = 0;
-
-      cards.forEach(card => {
-
-        const category = card.dataset.category;
-        const searchData = card.dataset.search || "";
-
-        const categoryMatch =
-          activeFilter === "all" ||
-          category === activeFilter;
-
-        const searchMatch =
-          !query ||
-          searchData.includes(query);
-
-        const show = categoryMatch && searchMatch;
-
-        card.style.display = show ? "" : "none";
-
-        if (show) visible++;
-      });
-
-      sections.forEach(section => {
-        const visibleCards = section.querySelectorAll(
-          ".tool-card:not([style*='display: none'])"
-        );
-
-        section.style.display =
-          visibleCards.length ? "" : "none";
-      });
-
-      noResults.style.display =
-        visible === 0 ? "block" : "none";
-    }
-
-    searchInput.addEventListener("input", filterTools);
-
-    filterButtons.forEach(button => {
+    document.querySelectorAll(".filter").forEach(button => {
       button.addEventListener("click", () => {
-
-        filterButtons.forEach(btn =>
-          btn.classList.remove("active")
-        );
+        document.querySelectorAll(".filter").forEach(b => {
+          b.classList.remove("active");
+        });
 
         button.classList.add("active");
-
-        activeFilter = button.dataset.filter;
-
+        currentFilter = button.dataset.filter;
         filterTools();
       });
     });
 
+    toolSearch.addEventListener("input", filterTools);
 
-    /* ─────────────────────────────
-       TOOL MODAL
-    ───────────────────────────── */
+    function filterTools() {
+      const query = toolSearch.value.trim().toLowerCase();
+      const categories = document.querySelectorAll(".category");
+      let visibleTools = 0;
 
-    const modal = document.getElementById("toolModal");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalBody = document.getElementById("modalBody");
-    const closeModal = document.getElementById("closeModal");
+      categories.forEach(category => {
+        const categoryName = category.dataset.category;
+        const categoryMatches =
+          currentFilter === "all" ||
+          currentFilter === categoryName;
 
-    function openModal(title, html) {
-      modalTitle.textContent = title;
-      modalBody.innerHTML = html;
-      modal.classList.add("open");
-      document.body.classList.add("modal-open");
+        let categoryVisible = 0;
+
+        category.querySelectorAll(".tool-card").forEach(card => {
+          const name = card.dataset.name.toLowerCase();
+          const description =
+            card.querySelector("p").textContent.toLowerCase();
+
+          const matchesSearch =
+            !query ||
+            name.includes(query) ||
+            description.includes(query);
+
+          const visible = categoryMatches && matchesSearch;
+
+          card.style.display = visible ? "" : "none";
+
+          if (visible) {
+            categoryVisible++;
+            visibleTools++;
+          }
+        });
+
+        category.style.display =
+          categoryVisible > 0 ? "" : "none";
+      });
+
+      noResults.style.display =
+        visibleTools === 0 ? "block" : "none";
     }
 
-    function closeToolModal() {
-      modal.classList.remove("open");
+    /* MODAL */
+
+    document.querySelectorAll(".tool-card").forEach(card => {
+      card.addEventListener("click", () => {
+        openTool(card.dataset.tool);
+      });
+    });
+
+    function closeTool() {
+      modalOverlay.classList.remove("open");
       document.body.classList.remove("modal-open");
+      modalBody.innerHTML = "";
     }
 
-    closeModal.addEventListener("click", closeToolModal);
+    closeModal.addEventListener("click", closeTool);
 
-    modal.addEventListener("click", event => {
-      if (event.target === modal) {
-        closeToolModal();
+    modalOverlay.addEventListener("click", event => {
+      if (event.target === modalOverlay) {
+        closeTool();
       }
     });
 
     document.addEventListener("keydown", event => {
       if (event.key === "Escape") {
-        closeToolModal();
+        closeTool();
       }
     });
 
-
-    /* ─────────────────────────────
-       TOOL IMPLEMENTATIONS
-    ───────────────────────────── */
-
-    function jsonTool() {
-      openModal("JSON Formatter", `
-        <label for="jsonInput">JSON input</label>
-
-        <textarea
-          id="jsonInput"
-          rows="12"
-          placeholder='{"name":"OpenUtility","fast":true}'
-        ></textarea>
-
-        <div class="modal-actions">
-          <button class="btn btn-primary" id="formatJson">
+    function openTool(tool) {
+      const tools = {
+        json: {
+          title: "JSON Formatter",
+          body: `
+            <label>JSON Input</label>
+            <textarea id="toolInput" rows="12"
+              placeholder='{"name":"OpenUtility","version":1}'></textarea>        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="formatJSON()">
             Format
           </button>
-
-          <button class="btn btn-secondary" id="minifyJson">
+          <button class="btn btn-secondary" onclick="minifyJSON()">
             Minify
           </button>
+          <button class="btn btn-secondary" onclick="clearTool()">
+            Clear
+          </button>
         </div>
 
-        <pre class="output" id="jsonOutput"></pre>
-      `);
+        <div class="output" id="toolOutput"></div>
+      `
+    },
 
-      const input = document.getElementById("jsonInput");
-      const output = document.getElementById("jsonOutput");
-
-      function process(minify) {
-        try {
-          const parsed = JSON.parse(input.value);
-
-          output.textContent = minify
-            ? JSON.stringify(parsed)
-            : JSON.stringify(parsed, null, 2);
-
-          output.classList.add("show");
-          output.classList.remove("error");
-        } catch (error) {
-          output.textContent = "Invalid JSON: " + error.message;
-          output.classList.add("show", "error");
-        }
-      }
-
-      document
-        .getElementById("formatJson")
-        .addEventListener("click", () => process(false));
-
-      document
-        .getElementById("minifyJson")
-        .addEventListener("click", () => process(true));
-    }
-
-
-    function base64Tool() {
-      openModal("Base64 Encoder", `
-        <label for="base64Input">Text</label>
-
-        <textarea
-          id="base64Input"
-          rows="8"
-          placeholder="Enter text..."
-        ></textarea>
+    "json-minify": {
+      title: "JSON Minifier",
+      body: `
+        <label>JSON Input</label>
+        <textarea id="toolInput" rows="12"
+          placeholder='{"hello":"world"}'></textarea>
 
         <div class="modal-actions">
-          <button class="btn btn-primary" id="encodeBase64">
+          <button class="btn btn-primary" onclick="minifyJSON()">
+            Minify JSON
+          </button>
+          <button class="btn btn-secondary" onclick="clearTool()">
+            Clear
+          </button>
+        </div>
+
+        <div class="output" id="toolOutput"></div>
+      `
+    },
+
+    base64: {
+      title: "Base64 Encoder / Decoder",
+      body: `
+        <label>Input</label>
+        <textarea id="toolInput" rows="8"
+          placeholder="Enter text..."></textarea>
+
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="encodeBase64()">
             Encode
           </button>
-
-          <button class="btn btn-secondary" id="decodeBase64">
+          <button class="btn btn-secondary" onclick="decodeBase64()">
             Decode
           </button>
         </div>
 
-        <pre class="output" id="base64Output"></pre>
-      `);
+        <div class="output" id="toolOutput"></div>
+      `
+    },
 
-      const input = document.getElementById("base64Input");
-      const output = document.getElementById("base64Output");
-
-      document.getElementById("encodeBase64")
-        .addEventListener("click", () => {
-          try {
-            output.textContent = btoa(
-              unescape(encodeURIComponent(input.value))
-            );
-
-            output.classList.add("show");
-            output.classList.remove("error");
-          } catch (error) {
-            output.textContent = error.message;
-            output.classList.add("show", "error");
-          }
-        });
-
-      document.getElementById("decodeBase64")
-        .addEventListener("click", () => {
-          try {
-            output.textContent = decodeURIComponent(
-              escape(atob(input.value))
-            );
-
-            output.classList.add("show");
-            output.classList.remove("error");
-          } catch (error) {
-            output.textContent = "Invalid Base64 data.";
-            output.classList.add("show", "error");
-          }
-        });
-    }
-
-
-    function urlTool() {
-      openModal("URL Encoder", `
-        <label for="urlInput">Text or URL</label>
-
-        <textarea
-          id="urlInput"
-          rows="8"
-          placeholder="https://example.com/?hello world"
-        ></textarea>
+    url: {
+      title: "URL Encoder / Decoder",
+      body: `
+        <label>Input</label>
+        <textarea id="toolInput" rows="8"
+          placeholder="https://example.com/?hello=world"></textarea>
 
         <div class="modal-actions">
-          <button class="btn btn-primary" id="encodeUrl">
+          <button class="btn btn-primary" onclick="encodeURL()">
             Encode
           </button>
-
-          <button class="btn btn-secondary" id="decodeUrl">
+          <button class="btn btn-secondary" onclick="decodeURL()">
             Decode
           </button>
         </div>
 
-        <pre class="output" id="urlOutput"></pre>
-      `);
+        <div class="output" id="toolOutput"></div>
+      `
+    },
 
-      const input = document.getElementById("urlInput");
-      const output = document.getElementById("urlOutput");
-
-      document.getElementById("encodeUrl")
-        .addEventListener("click", () => {
-          output.textContent = encodeURIComponent(input.value);
-          output.classList.add("show");
-        });
-
-      document.getElementById("decodeUrl")
-        .addEventListener("click", () => {
-          try {
-            output.textContent = decodeURIComponent(input.value);
-            output.classList.add("show");
-            output.classList.remove("error");
-          } catch {
-            output.textContent = "Invalid encoded URL.";
-            output.classList.add("show", "error");
-          }
-        });
-    }
-
-
-    function jwtTool() {
-      openModal("JWT Decoder", `
-        <label for="jwtInput">JWT token</label>
-
-        <textarea
-          id="jwtInput"
-          rows="7"
-          placeholder="eyJhbGciOi..."
-        ></textarea>
-
-        <button class="btn btn-primary" id="decodeJwt">
-          Decode Token
-        </button>
-
-        <pre class="output" id="jwtOutput"></pre>
-      `);
-
-      document.getElementById("decodeJwt")
-        .addEventListener("click", () => {
-
-          const token =
-            document.getElementById("jwtInput").value.trim();
-
-          const output =
-            document.getElementById("jwtOutput");
-
-          try {
-            const parts = token.split(".");
-
-            if (parts.length !== 3) {
-              throw new Error("A JWT must contain three sections.");
-            }
-
-            const decode = value =>
-              JSON.parse(
-                decodeURIComponent(
-                  atob(value.replace(/-/g, "+").replace(/_/g, "/"))
-                    .split("")
-                    .map(char =>
-                      "%" +
-                      ("00" + char.charCodeAt(0).toString(16)).slice(-2)
-                    )
-                    .join("")
-                )
-              );
-
-            const header = decode(parts[0]);
-            const payload = decode(parts[1]);
-
-            output.textContent =
-              "HEADER\n" +
-              JSON.stringify(header, null, 2) +
-              "\n\nPAYLOAD\n" +
-              JSON.stringify(payload, null, 2);
-
-            output.classList.add("show");
-            output.classList.remove("error");
-
-          } catch (error) {
-            output.textContent =
-              "Unable to decode JWT: " + error.message;
-
-            output.classList.add("show", "error");
-          }
-        });
-    }
-
-
-    function hashTool() {
-      openModal("SHA-256 Hash", `
-        <label for="hashInput">Text</label>
-
-        <textarea
-          id="hashInput"
-          rows="7"
-          placeholder="Enter text to hash..."
-        ></textarea>
-
-        <button class="btn btn-primary" id="hashButton">
-          Generate Hash
-        </button>
-
-        <pre class="output" id="hashOutput"></pre>
-      `);
-
-      document.getElementById("hashButton")
-        .addEventListener("click", async () => {
-
-          const text =
-            document.getElementById("hashInput").value;
-
-          const output =
-            document.getElementById("hashOutput");
-
-          const data =
-            new TextEncoder().encode(text);
-
-          const hash =
-            await crypto.subtle.digest("SHA-256", data);
-
-          const hex =
-            [...new Uint8Array(hash)]
-              .map(byte =>
-                byte.toString(16).padStart(2, "0")
-              )
-              .join("");
-
-          output.textContent = hex;
-          output.classList.add("show");
-        });
-    }
-
-
-    function textTool() {
-      openModal("Text Analyzer", `
-        <label for="textInput">Text</label>
-
-        <textarea
-          id="textInput"
-          rows="10"
-          placeholder="Paste text here..."
-        ></textarea>
-
-        <button class="btn btn-primary" id="analyzeText">
-          Analyze
-        </button>
-
-        <pre class="output" id="textOutput"></pre>
-      `);
-
-      document.getElementById("analyzeText")
-        .addEventListener("click", () => {
-
-          const text =
-            document.getElementById("textInput").value;
-
-          const words =
-            text.trim()
-              ? text.trim().split(/\s+/).length
-              : 0;
-
-          const lines =
-            text ? text.split(/\r?\n/).length : 0;
-
-          const characters = text.length;
-
-          const charactersNoSpaces =
-            text.replace(/\s/g, "").length;
-
-          document.getElementById("textOutput").textContent =
-`Words: ${words}
-Characters: ${characters}
-Characters without spaces: ${charactersNoSpaces}
-Lines: ${lines}`;
-
-          document.getElementById("textOutput")
-            .classList.add("show");
-        });
-    }
-
-
-    function caseTool() {
-      openModal("Case Converter", `
-        <label for="caseInput">Text</label>
-
-        <textarea
-          id="caseInput"
-          rows="9"
-          placeholder="Enter text..."
-        ></textarea>
+    jwt: {
+      title: "JWT Decoder",
+      body: `
+        <label>JWT Token</label>
+        <textarea id="toolInput" rows="9"
+          placeholder="eyJhbGciOi..."></textarea>
 
         <div class="modal-actions">
-          <button class="btn btn-primary" id="upperCase">
+          <button class="btn btn-primary" onclick="decodeJWT()">
+            Decode
+          </button>
+        </div>
+
+        <div class="output" id="toolOutput"></div>
+      `
+    },
+
+    uuid: {
+      title: "UUID Generator",
+      body: `
+        <label>Generated UUID</label>
+        <input id="toolInput" readonly>
+
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="generateUUID()">
+            Generate UUID
+          </button>
+          <button class="btn btn-secondary" onclick="copyOutput()">
+            Copy
+          </button>
+        </div>
+
+        <div class="output" id="toolOutput"></div>
+      `
+    },
+
+    password: {
+      title: "Password Generator",
+      body: `
+        <label>Password Length</label>
+        <input id="passwordLength" type="number" min="6" max="128" value="24">
+
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="generatePassword()">
+            Generate
+          </button>
+          <button class="btn btn-secondary" onclick="copyOutput()">
+            Copy
+          </button>
+        </div>
+
+        <div class="output" id="toolOutput"></div>
+      `
+    },
+
+    hash: {
+      title: "SHA-256 Hash",
+      body: `
+        <label>Input</label>
+        <textarea id="toolInput" rows="8"
+          placeholder="Text to hash..."></textarea>
+
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="generateHash()">
+            Hash
+          </button>
+          <button class="btn btn-secondary" onclick="copyOutput()">
+            Copy
+          </button>
+        </div>
+
+        <div class="output" id="toolOutput"></div>
+      `
+    },
+
+    html: {
+      title: "HTML Entity Encoder",
+      body: `
+        <label>Input</label>
+        <textarea id="toolInput" rows="8"
+          placeholder="<div>Hello & welcome</div>"></textarea>
+
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="encodeHTML()">
+            Encode
+          </button>
+          <button class="btn btn-secondary" onclick="decodeHTML()">
+            Decode
+          </button>
+        </div>
+
+        <div class="output" id="toolOutput"></div>
+      `
+    },
+
+    color: {
+      title: "Color Converter",
+      body: `
+        <label>HEX Color</label>
+        <input id="toolInput" value="#38bdf8">
+
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="convertColor()">
+            Convert
+          </button>
+        </div>
+
+        <div class="output" id="toolOutput"></div>
+      `
+    },
+
+    timestamp: {
+      title: "Unix Timestamp Converter",
+      body: `
+        <label>Unix Timestamp</label>
+        <input id="toolInput" type="number"
+          placeholder="1758297600">
+
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="timestampToDate()">
+            Convert
+          </button>
+          <button class="btn btn-secondary" onclick="currentTimestamp()">
+            Current Timestamp
+          </button>
+        </div>
+
+        <div class="output" id="toolOutput"></div>
+      `
+    },
+
+    case: {
+      title: "Text Case Converter",
+      body: `
+        <label>Text</label>
+        <textarea id="toolInput" rows="8"
+          placeholder="Enter your text..."></textarea>
+
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="convertCase('upper')">
             UPPERCASE
           </button>
-
-          <button class="btn btn-secondary" id="lowerCase">
+          <button class="btn btn-secondary" onclick="convertCase('lower')">
             lowercase
           </button>
-
-          <button class="btn btn-secondary" id="titleCase">
+          <button class="btn btn-secondary" onclick="convertCase('title')">
             Title Case
           </button>
         </div>
 
-        <pre class="output" id="caseOutput"></pre>
-      `);
+        <div class="output" id="toolOutput"></div>
+      `
+    },
 
-      const input = document.getElementById("caseInput");
-      const output = document.getElementById("caseOutput");
+    wordcount: {
+      title: "Word Counter",
+      body: `
+        <label>Text</label>
+        <textarea id="toolInput" rows="10"
+          placeholder="Start typing..."></textarea>
 
-      function show(value) {
-        output.textContent = value;
-        output.classList.add("show");
-      }
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="countWords()">
+            Analyze
+          </button>
+        </div>
 
-      document.getElementById("upperCase")
-        .addEventListener("click", () =>
-          show(input.value.toUpperCase())
-        );
+        <div class="output" id="toolOutput"></div>
+      `
+    },
 
-      document.getElementById("lowerCase")
-        .addEventListener("click", () =>
-          show(input.value.toLowerCase())
-        );
+    lorem: {
+      title: "Lorem Ipsum Generator",
+      body: `
+        <label>Number of paragraphs</label>
+        <input id="loremCount" type="number" min="1" max="20" value="3">
 
-      document.getElementById("titleCase")
-        .addEventListener("click", () =>
-          show(
-            input.value.toLowerCase()
-              .replace(/\b\w/g, char => char.toUpperCase())
-          )
-        );
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="generateLorem()">
+            Generate
+          </button>
+          <button class="btn btn-secondary" onclick="copyOutput()">
+            Copy
+          </button>
+        </div>
+
+        <div class="output" id="toolOutput"></div>
+      `
+    },
+
+    csv: {
+      title: "CSV → JSON",
+      body: `
+        <label>CSV Input</label>
+        <textarea id="toolInput" rows="12"
+          placeholder="name,age,city&#10;Ali,25,Lahore&#10;Sara,28,Karachi"></textarea>
+
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="csvToJSON()">
+            Convert
+          </button>
+        </div>
+
+        <div class="output" id="toolOutput"></div>
+      `
     }
+  };
 
+  const selected = tools[tool];
 
-    function uuidTool() {
-      openModal("UUID Generator", `
-        <label>Generated UUID</label>
+  if (!selected) {
+    return;
+  }
 
-        <input
-          id="uuidOutput"
-          readonly
-        >
+  modalTitle.textContent = selected.title;
+  modalBody.innerHTML = selected.body;
 
-        <button class="btn btn-primary" id="newUuid">
-          Generate UUID
-        </button>
-      `);
+  modalOverlay.classList.add("open");
+  document.body.classList.add("modal-open");
 
-      const output =
-        document.getElementById("uuidOutput");
+  const firstInput = modalBody.querySelector("textarea, input");
 
-      function generate() {
-        output.value =
-          crypto.randomUUID
-            ? crypto.randomUUID()
-            : fallbackUUID();
-      }
+  if (firstInput && !firstInput.readOnly) {
+    setTimeout(() => firstInput.focus(), 50);
+  }
+}
 
-      function fallbackUUID() {
-        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
-          .replace(/[xy]/g, char => {
-            const random =
-              Math.random() * 16 | 0;
+/* TOOL HELPERS */
 
-            const value =
-              char === "x"
-                ? random
-                : (random & 3) | 8;
+function getInput() {
+  return document.getElementById("toolInput").value;
+}
 
-            return value.toString(16);
-          });
-      }
+function showOutput(value, error = false) {
+  const output = document.getElementById("toolOutput");
 
-      generate();
+  if (!output) return;
 
-      document.getElementById("newUuid")
-        .addEventListener("click", generate);
-    }
+  output.textContent = value;
+  output.classList.add("show");
+  output.classList.toggle("error", error);
+}
 
+function clearTool() {
+  const input = document.getElementById("toolInput");
+  const output = document.getElementById("toolOutput");
 
-    function passwordTool() {
-      openModal("Password Generator", `
-        <label for="passwordLength">
-          Length
-        </label>
+  if (input) input.value = "";
+  if (output) {
+    output.textContent = "";
+    output.classList.remove("show");
+  }
+}
 
-        <input
-          id="passwordLength"
-          type="number"
-          min="8"
-          max="128"
-          value="24"
-        >
+function copyOutput() {
+  const output = document.getElementById("toolOutput");
 
-        <button class="btn btn-primary" id="generatePassword">
-          Generate Password
-        </button>
+  if (!output || !output.textContent) return;
 
-        <input
-          id="passwordOutput"
-          readonly
-          style="margin-top:14px"
-        >
-      `);
+  navigator.clipboard.writeText(output.textContent)
+    .then(() => {
+      const old = output.textContent;
+      output.textContent = old + "\n\n✓ Copied to clipboard";
+      setTimeout(() => {
+        output.textContent = old;
+      }, 1000);
+    })
+    .catch(() => {});
+}
 
-      document.getElementById("generatePassword")
-        .addEventListener("click", () => {
+/* JSON */
 
-          const length = Math.min(
-            128,
-            Math.max(
-              8,
-              Number(document.getElementById("passwordLength").value)
+function formatJSON() {
+  try {
+    const data = JSON.parse(getInput());
+    showOutput(JSON.stringify(data, null, 2));
+  } catch (error) {
+    showOutput("Invalid JSON:\n\n" + error.message, true);
+  }
+}
+
+function minifyJSON() {
+  try {
+    const data = JSON.parse(getInput());
+    showOutput(JSON.stringify(data));
+  } catch (error) {
+    showOutput("Invalid JSON:\n\n" + error.message, true);
+  }
+}
+
+/* BASE64 */
+
+function encodeBase64() {
+  try {
+    const value = getInput();
+    showOutput(
+      btoa(unescape(encodeURIComponent(value)))
+    );
+  } catch (error) {
+    showOutput(error.message, true);
+  }
+}
+
+function decodeBase64() {
+  try {
+    const value = getInput();
+    showOutput(
+      decodeURIComponent(escape(atob(value)))
+    );
+  } catch (error) {
+    showOutput("Invalid Base64 input.", true);
+  }
+}
+
+/* URL */
+
+function encodeURL() {
+  showOutput(encodeURIComponent(getInput()));
+}
+
+function decodeURL() {
+  try {
+    showOutput(decodeURIComponent(getInput()));
+  } catch {
+    showOutput("Invalid encoded URL.", true);
+  }
+}
+
+/* JWT */
+
+function decodeJWT() {
+  const token = getInput().trim();
+  const parts = token.split(".");
+
+  if (parts.length !== 3) {
+    showOutput("Invalid JWT. A JWT should contain 3 parts.", true);
+    return;
+  }
+
+  try {
+    const decodePart = part => {
+      const normalized = part
+        .replace(/-/g, "+")
+        .replace(/_/g, "/");
+
+      const padded =
+        normalized +
+        "=".repeat((4 - normalized.length % 4) % 4);
+
+      return JSON.parse(
+        decodeURIComponent(
+          atob(padded)
+            .split("")
+            .map(c =>
+              "%" +
+              ("00" + c.charCodeAt(0).toString(16)).slice(-2)
             )
-          );
+            .join("")
+        )
+      );
+    };
 
-          const chars =
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-            "abcdefghijklmnopqrstuvwxyz" +
-            "0123456789" +
-            "!@#$%^&*()-_=+";
+    const result = {
+      header: decodePart(parts[0]),
+      payload: decodePart(parts[1]),
+      signature: parts[2]
+    };
 
-          const random =
-            new Uint32Array(length);
+    showOutput(JSON.stringify(result, null, 2));
+  } catch {
+    showOutput("Unable to decode JWT.", true);
+  }
+}
 
-          crypto.getRandomValues(random);
+/* UUID */
 
-          let password = "";
+function generateUUID() {
+  const uuid = crypto.randomUUID
+    ? crypto.randomUUID()
+    : fallbackUUID();
 
-          random.forEach(value => {
-            password += chars[value % chars.length];
-          });
+  document.getElementById("toolInput").value = uuid;
+  showOutput(uuid);
+}
 
-          document.getElementById("passwordOutput").value =
-            password;
-        });
+function fallbackUUID() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+    /[xy]/g,
+    c => {
+      const r = Math.random() * 16 | 0;
+      const v = c === "x"
+        ? r
+        : (r & 0x3 | 0x8);
+
+      return v.toString(16);
+    }
+  );
+}
+
+/* PASSWORD */
+
+function generatePassword() {
+  const length = Math.max(
+    6,
+    Math.min(
+      128,
+      Number(document.getElementById("passwordLength").value) || 24
+    )
+  );
+
+  const chars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+    "abcdefghijklmnopqrstuvwxyz" +
+    "0123456789" +
+    "!@#$%^&*()-_=+[]{}";
+
+  const values = new Uint32Array(length);
+
+  crypto.getRandomValues(values);
+
+  let password = "";
+
+  for (let i = 0; i < length; i++) {
+    password += chars[values[i] % chars.length];
+  }
+
+  showOutput(password);
+}
+
+/* HASH */
+
+async function generateHash() {
+  try {
+    const data = new TextEncoder().encode(getInput());
+    const hash = await crypto.subtle.digest("SHA-256", data);
+
+    const hex = [...new Uint8Array(hash)]
+      .map(byte => byte.toString(16).padStart(2, "0"))
+      .join("");
+
+    showOutput(hex);
+  } catch (error) {
+    showOutput(error.message, true);
+  }
+}
+
+/* HTML */
+
+function encodeHTML() {
+  const div = document.createElement("div");
+  div.textContent = getInput();
+  showOutput(div.innerHTML);
+}
+
+function decodeHTML() {
+  const div = document.createElement("textarea");
+  div.innerHTML = getInput();
+  showOutput(div.value);
+}
+
+/* COLOR */
+
+function convertColor() {
+  let hex = getInput().trim().replace("#", "");
+
+  if (hex.length === 3) {
+    hex = hex.split("").map(x => x + x).join("");
+  }
+
+  if (!/^[0-9a-fA-F]{6}$/.test(hex)) {
+    showOutput("Invalid HEX color.", true);
+    return;
+  }
+
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+
+  const max = Math.max(r, g, b) / 255;
+  const min = Math.min(r, g, b) / 255;
+
+  let h = 0;
+  let s = 0;
+  const l = (max + min) / 2;
+
+  if (max !== min) {
+    const d = max - min;
+    s = l > .5
+      ? d / (2 - max - min)
+      : d / (max + min);
+
+    switch (max) {
+      case r / 255:
+        h = ((g - b) / 255 / d) +
+          (g < b ? 6 : 0);
+        break;
+
+      case g / 255:
+        h = ((b - r) / 255 / d) + 2;
+        break;
+
+      case b / 255:
+        h = ((r - g) / 255 / d) + 4;
+        break;
     }
 
+    h /= 6;
+  }
 
-    /* ─────────────────────────────
-       OPEN TOOLS
-    ───────────────────────────── */
+  showOutput(
+    `HEX: #${hex.toUpperCase()}\n` +
+    `RGB: rgb(${r}, ${g}, ${b})\n` +
+    `HSL: hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`
+  );
+}
 
-    cards.forEach(card => {
+/* TIMESTAMP */
 
-      card.addEventListener("click", () => {
+function timestampToDate() {
+  const timestamp = Number(getInput());
 
-        const title =
-          card.querySelector("h3").textContent;
+  if (!Number.isFinite(timestamp)) {
+    showOutput("Enter a valid Unix timestamp.", true);
+    return;
+  }
 
-        const actions = {
-          "JSON Formatter": jsonTool,
-          "Base64 Encoder": base64Tool,
-          "URL Encoder": urlTool,
-          "JWT Decoder": jwtTool,
-          "SHA-256 Hash": hashTool,
-          "Text Analyzer": textTool,
-          "Case Converter": caseTool,
-          "UUID Generator": uuidTool,
-          "Password Generator": passwordTool
-        };
+  const date = new Date(
+    timestamp < 10000000000
+      ? timestamp * 1000
+      : timestamp
+  );
 
-        if (actions[title]) {
-          actions[title]();
-        }
+  if (Number.isNaN(date.getTime())) {
+    showOutput("Invalid timestamp.", true);
+    return;
+  }
 
-      });
+  showOutput(
+    "Local:  " + date.toString() +
+    "\nUTC:    " + date.toISOString()
+  );
+}
 
+function currentTimestamp() {
+  const timestamp =
+    Math.floor(Date.now() / 1000);
+
+  document.getElementById("toolInput").value = timestamp;
+  timestampToDate();
+}
+
+/* CASE */
+
+function convertCase(type) {
+  const value = getInput();
+
+  if (type === "upper") {
+    showOutput(value.toUpperCase());
+    return;
+  }
+
+  if (type === "lower") {
+    showOutput(value.toLowerCase());
+    return;
+  }
+
+  if (type === "title") {
+    showOutput(
+      value.toLowerCase().replace(
+        /\b\w/g,
+        char => char.toUpperCase()
+      )
+    );
+  }
+}
+
+/* WORD COUNT */
+
+function countWords() {
+  const text = getInput();
+
+  const words = text.trim()
+    ? text.trim().split(/\s+/).length
+    : 0;
+
+  const characters = text.length;
+
+  const charactersNoSpaces =
+    text.replace(/\s/g, "").length;
+
+  const lines = text
+    ? text.split(/\r?\n/).length
+    : 0;
+
+  const paragraphs = text.trim()
+    ? text.trim().split(/\n\s*\n/).length
+    : 0;
+
+  showOutput(
+    `Words:              ${words}\n` +
+    `Characters:         ${characters}\n` +
+    `Without spaces:     ${charactersNoSpaces}\n` +
+    `Lines:              ${lines}\n` +
+    `Paragraphs:         ${paragraphs}`
+  );
+}
+
+/* LOREM IPSUM */
+
+function generateLorem() {
+  const count = Math.max(
+    1,
+    Math.min(
+      20,
+      Number(document.getElementById("loremCount").value) || 3
+    )
+  );
+
+  const source =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+    "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
+    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
+    "nisi ut aliquip ex ea commodo consequat.";
+
+  const paragraphs =
+    Array.from(
+      { length: count },
+      () => source
+    );
+
+  showOutput(paragraphs.join("\n\n"));
+}
+
+/* CSV */
+
+function csvToJSON() {
+  const input = getInput().trim();
+
+  if (!input) {
+    showOutput("Enter CSV data first.", true);
+    return;
+  }
+
+  const lines = input.split(/\r?\n/);
+
+  const headers = lines[0]
+    .split(",")
+    .map(h => h.trim());
+
+  const rows = lines.slice(1).map(line => {
+    const values = line.split(",");
+
+    const object = {};
+
+    headers.forEach((header, index) => {
+      object[header] =
+        (values[index] || "").trim();
     });
-  </script>
 
-</body>
+    return object;
+  });
+
+  showOutput(JSON.stringify(rows, null, 2));
+}
+
+/* TOOL COUNT */
+
+document.getElementById("toolCount").textContent =
+  document.querySelectorAll(".tool-card").length + "+";
+
+  </script></body>
 </html>
