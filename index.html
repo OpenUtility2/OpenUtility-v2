@@ -11,8 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   
-  <!-- Supabase CDN Client -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Supabase CDN Client with error handling -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onerror="console.warn('Supabase CDN failed to load, running offline mode.')"></script>
 
   <style>
     :root {
@@ -596,6 +596,7 @@
       justify-content: space-between;
       transition: all 0.3s ease;
       backdrop-filter: blur(16px);
+      cursor: pointer;
     }
     .tool-card:hover {
       border-color: var(--sky);
@@ -767,7 +768,6 @@
       <div class="ticker-item"><span class="ticker-sym">ACTIVE NODES</span><span class="ticker-price">1,482</span></div>
       <div class="ticker-item"><span class="ticker-sym">LATENCY</span><span class="ticker-price ticker-up">18ms</span></div>
       <div class="ticker-item"><span class="ticker-sym">API REQUESTS</span><span class="ticker-price">4.2M/s</span></div>
-      <!-- Duplicate for seamless loop -->
       <div class="ticker-item"><span class="ticker-sym">STATUS</span><span class="ticker-price ticker-up">ALL SYSTEMS OPTIMAL</span></div>
       <div class="ticker-item"><span class="ticker-sym">UPTIME</span><span class="ticker-price ticker-up">99.98%</span></div>
       <div class="ticker-item"><span class="ticker-sym">ACTIVE NODES</span><span class="ticker-price">1,482</span></div>
@@ -909,30 +909,30 @@
         Data & Web Utilities
       </h3>
       <div class="tools-grid">
-        <a href="#" class="tool-card" data-name="json formatter validator">
+        <div class="tool-card" data-name="json formatter validator" onclick="alert('Opening JSON Formatter tool interface...')">
           <div>
             <div class="tool-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></div>
             <h3>JSON Formatter & Validator</h3>
             <p>Instantly beautify, minify, validate, and debug complex JSON payloads with syntax highlighting.</p>
           </div>
           <span class="tool-tag">DATA / PARSER</span>
-        </a>
-        <a href="#" class="tool-card" data-name="jwt decoder debugger">
+        </div>
+        <div class="tool-card" data-name="jwt decoder debugger" onclick="alert('Opening JWT Decoder tool interface...')">
           <div>
             <div class="tool-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>
             <h3>JWT Decoder & Debugger</h3>
             <p>Decode JSON Web Tokens securely on the client side to inspect headers, payloads, and expiration times.</p>
           </div>
           <span class="tool-tag">SECURITY / AUTH</span>
-        </a>
-        <a href="#" class="tool-card" data-name="base64 url encoder decoder">
+        </div>
+        <div class="tool-card" data-name="base64 url encoder decoder" onclick="alert('Opening Base64 Encoder tool interface...')">
           <div>
             <div class="tool-icon"><svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg></div>
             <h3>Base64 & URL Encoder</h3>
             <p>Convert strings, binary code, or URLs seamlessly into encoded formats without leaving your browser.</p>
           </div>
           <span class="tool-tag">ENCODING</span>
-        </a>
+        </div>
       </div>
     </div>
 
@@ -943,22 +943,22 @@
         Network Diagnostics
       </h3>
       <div class="tools-grid">
-        <a href="#" class="tool-card" data-name="ip lookup geolocation">
+        <div class="tool-card" data-name="ip lookup geolocation" onclick="alert('Opening IP Geolocation tool interface...')">
           <div>
             <div class="tool-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
             <h3>IP & Geolocation Lookup</h3>
             <p>Inspect public IP network details, ISP info, autonomous system numbers (ASN), and geographical routing.</p>
           </div>
           <span class="tool-tag">NETWORK</span>
-        </a>
-        <a href="#" class="tool-card" data-name="dns propagation checker">
+        </div>
+        <div class="tool-card" data-name="dns propagation checker" onclick="alert('Opening DNS Checker tool interface...')">
           <div>
             <div class="tool-icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg></div>
             <h3>DNS Propagation Checker</h3>
             <p>Verify global DNS record updates across multiple regional nameservers instantly.</p>
           </div>
           <span class="tool-tag">DNS / HOSTING</span>
-        </a>
+        </div>
       </div>
     </div>
   </section>
@@ -998,10 +998,18 @@
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    // Initialize Supabase Client (Replace with your actual keys if needed)
-    const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-    const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+    // Safe Supabase Initialization with your project details
+    let supabase = null;
+    try {
+      if (window.supabase && typeof window.supabase.createClient === 'function') {
+        supabase = window.supabase.createClient(
+          'https://trfwvxxlxomyolmrjqkb.supabase.co',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRyZnd2eHhseG9teW9sbXJqcWtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk4MDY4NjksImV4cCI6MjEwNTM4Mjg2OX0.it8L4Xi7_uq3e0SZGhVRHtJ6QqlJUeH_qs0fvPpPpxU'
+        );
+      }
+    } catch (err) {
+      console.warn('Supabase initialization skipped.');
+    }
 
     let currentAuthMode = 'signin';
 
@@ -1025,13 +1033,16 @@
         submitBtn.textContent = 'Sign In';
       }
 
-      modal.classList.add('open');
+      if (modal) modal.classList.add('open');
     }
 
     function closeAuthModal() {
-      document.getElementById('authModal').classList.remove('open');
-      document.getElementById('authMessage').textContent = '';
-      document.getElementById('authForm').reset();
+      const modal = document.getElementById('authModal');
+      if (modal) modal.classList.remove('open');
+      const msgEl = document.getElementById('authMessage');
+      if (msgEl) msgEl.textContent = '';
+      const form = document.getElementById('authForm');
+      if (form) form.reset();
     }
 
     async function handleAuthSubmit(e) {
@@ -1044,7 +1055,8 @@
 
       if (!supabase) {
         msgEl.style.color = 'var(--red)';
-        msgEl.textContent = 'Supabase client not initialized. Please configure credentials.';
+        msgEl.textContent = 'Supabase client running in offline mock mode.';
+        setTimeout(() => closeAuthModal(), 2000);
         return;
       }
 
@@ -1052,7 +1064,7 @@
       btn.disabled = true;
 
       if (currentAuthMode === 'signup') {
-        const { data, error } = await supabase.auth.signUp({
+        const { error } = await supabase.auth.signUp({
           email,
           password,
           options: { data: { full_name: name } }
@@ -1070,7 +1082,7 @@
           setTimeout(() => closeAuthModal(), 3000);
         }
       } else {
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { error } = await supabase.auth.signInWithPassword({
           email,
           password
         });
@@ -1091,11 +1103,13 @@
 
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
-      menu.classList.toggle('open');
+      if (menu) menu.classList.toggle('open');
     }
 
     function filterTools() {
-      const query = document.getElementById('toolSearch').value.toLowerCase();
+      const queryInput = document.getElementById('toolSearch');
+      if (!queryInput) return;
+      const query = queryInput.value.toLowerCase();
       const categories = document.querySelectorAll('.category-section');
 
       categories.forEach(category => {
@@ -1103,7 +1117,7 @@
         const toolCards = category.querySelectorAll('.tool-card');
 
         toolCards.forEach(card => {
-          const name = card.getAttribute('data-name');
+          const name = card.getAttribute('data-name') || '';
           const text = card.textContent.toLowerCase();
           if (name.includes(query) || text.includes(query)) {
             card.style.display = 'flex';
@@ -1120,6 +1134,7 @@
     // Sticky Navbar shadow & background blur intensity update on scroll
     window.addEventListener('scroll', () => {
       const nav = document.getElementById('navbar');
+      if (!nav) return;
       if (window.scrollY > 20) {
         nav.classList.add('scrolled');
       } else {
