@@ -705,35 +705,11 @@ nav.scrolled{background:rgba(15,19,25,.95);backdrop-filter:blur(20px);border-col
 }
 .pm-list-info{flex:1}
 .pm-list-name{font-size:12px;font-weight:500;color:var(--text)}
-.pm-list-sub{font-size:10px;color:var(--text3)}
-.pm-list-amt{font-size:12px;font-weight:600}
-.pm-chart-mini{
-  background:var(--bg3);border:1px solid var(--border);
-  border-radius:10px;padding:12px;
-}
-.pm-sparkline{height:40px;display:flex;align-items:flex-end;gap:4px;margin-top:8px}
-.pm-spark-bar{flex:1;background:rgba(74,158,232,.3);border-radius:2px 2px 0 0}
+.pm-list
 
-/* RESPONSIVE BREAKPOINTS */
-@media(max-width:1024px){
-  .stats-section{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:900px){
-  .hero{grid-template-columns:1fr;text-align:center;padding-top:calc(36px + var(--nav-h) + 30px);gap:40px}
-  .hero-sub{margin:0 auto 36px}
-  .hero-btns{justify-content:center}
-  .hero-trust{justify-content:center}
-  .sticky-layout{grid-template-columns:1fr}
-  .sticky-panel-wrap{position:relative;top:0}
-  .nav-links,.nav-cta{display:none}
-  .hamburger{display:flex}
-  .mobile-menu{display:flex}
-  .float-badge{display:none}
-}
-@media(max-width:600px){
-  .stats-section{grid-template-columns:1fr;padding:40px 24px}
-  .hero{padding-left:24px;padding-right:24px}
-  nav{padding:0 24px}
-  .logos-section{padding:30px 24px}
-  .features-section{padding:60px 24px}
+/* LOGO IMAGE SIZING */
+.logo-img {
+  height: 30px;
+  width: auto;
+  object-fit: contain;
 }
