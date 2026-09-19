@@ -1,2311 +1,4450 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>OpenUtility — Developer Tools</title>
-  <meta name="description" content="A modern collection of fast, privacy-friendly developer utilities.">
-  <meta name="theme-color" content="#090b10">  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>OpenUtility — Developer Tools</title>
+  <meta
+    name="description"
+    content="Fast, private, client-side developer utilities for JSON, encoding, hashing, timestamps, text and more."
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">  <style>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
     :root {
-      --bg:#07090d;
-      --bg-2:#0c1017;
-      --bg-3:#111722;
-      --card:rgba(17,23,34,.72);
-      --border:rgba(255,255,255,.08);
-      --border-hover:rgba(74,158,232,.55);
-      --text:#f4f7fb;
-      --muted:#94a3b8;
-      --dim:#64748b;
-      --blue:#4a9ee8;
-      --cyan:#38bdf8;
-      --purple:#8b5cf6;
-      --green:#3dcc8e;
-      --red:#ff5c5c;
-      --yellow:#fbbf24;
-      --max:1240px;
-      --shadow:0 24px 70px rgba(0,0,0,.42);
+      --bg: #07090d;
+      --bg-2: #0c1017;
+      --bg-3: #111722;
+
+      --card: rgba(17, 23, 34, .72);
+      --card-solid: #111722;
+      --border: rgba(255,255,255,.08);
+      --border-hover: rgba(74,158,232,.35);
+
+      --text: #f4f7fb;
+      --text-2: #aab5c5;
+      --text-3: #697588;
+
+      --blue: #4a9ee8;
+      --cyan: #38bdf8;
+      --purple: #8b5cf6;
+      --green: #3dcc8e;
+      --red: #ff5c5c;
+      --yellow: #fbbf24;
+
+      --radius: 14px;
+      --radius-sm: 9px;
+
+      --shadow:
+        0 20px 60px rgba(0,0,0,.35);
+
+      --mono: "JetBrains Mono", monospace;
+      --sans: "Inter", sans-serif;
+      --display: "Outfit", sans-serif;
     }
 
     * {
-      box-sizing:border-box;
-      margin:0;
-      padding:0;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     html {
-      scroll-behavior:smooth;
+      scroll-behavior: smooth;
     }
 
     body {
-      min-height:100vh;
-      overflow-x:hidden;
+      min-height: 100vh;
       background:
-        radial-gradient(circle at 15% 10%,rgba(74,158,232,.10),transparent 30%),
-        radial-gradient(circle at 85% 20%,rgba(139,92,246,.08),transparent 30%),
+        radial-gradient(
+          circle at 20% 0%,
+          rgba(74,158,232,.08),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 80% 10%,
+          rgba(139,92,246,.06),
+          transparent 28%
+        ),
         var(--bg);
-      color:var(--text);
-      font-family:Inter,sans-serif;
-      line-height:1.6;
+
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
     }
 
     body.modal-open {
-      overflow:hidden;
+      overflow: hidden;
     }
 
-    ::selection {
-      background:rgba(56,189,248,.25);
-    }
-
-    button,input,textarea,select {
-      font:inherit;
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
     }
 
     button {
-      cursor:pointer;
+      border: 0;
     }
 
     a {
-      color:inherit;
+      color: inherit;
+      text-decoration: none;
     }
 
-    /* STATUS */
-
-    .status-bar {
-      border-bottom:1px solid var(--border);
-      background:rgba(12,16,23,.9);
-      overflow:hidden;
-      white-space:nowrap;
+    ::selection {
+      background: rgba(74,158,232,.3);
     }
 
-    .status-track {
-      max-width:var(--max);
-      margin:auto;
-      min-height:36px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:28px;
-      padding:0 20px;
-      font:500 11px "JetBrains Mono",monospace;
-      color:var(--muted);
+    ::-webkit-scrollbar {
+      width: 9px;
+      height: 9px;
     }
 
-    .status-item {
-      display:inline-flex;
-      align-items:center;
-      gap:7px;
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #273244;
+      border-radius: 99px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #34435a;
+    }
+
+    /* =========================
+       GLOBAL
+    ========================= */
+
+    .container {
+      width: min(1180px, calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    .mono {
+      font-family: var(--mono);
+    }
+
+    .muted {
+      color: var(--text-3);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* =========================
+       TOP BAR
+    ========================= */
+
+    .topbar {
+      border-bottom: 1px solid var(--border);
+      background: rgba(7,9,13,.72);
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar-inner {
+      min-height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      color: var(--text-3);
+      font-size: 12px;
     }
 
     .status-dot {
-      width:6px;
-      height:6px;
-      border-radius:50%;
-      background:var(--green);
-      box-shadow:0 0 10px rgba(61,204,142,.8);
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px rgba(61,204,142,.6);
     }
 
-    /* NAV */
+    /* =========================
+       NAV
+    ========================= */
 
-    .navbar {
-      position:sticky;
-      top:0;
-      z-index:100;
-      border-bottom:1px solid var(--border);
-      background:rgba(7,9,13,.78);
-      backdrop-filter:blur(18px);
-      transition:.25s ease;
-    }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
 
-    .navbar.scrolled {
-      background:rgba(7,9,13,.95);
-      box-shadow:0 10px 30px rgba(0,0,0,.18);
+      border-bottom: 1px solid var(--border);
+      background: rgba(7,9,13,.78);
+      backdrop-filter: blur(18px);
     }
 
     .nav-inner {
-      max-width:var(--max);
-      min-height:72px;
-      margin:auto;
-      padding:0 20px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:30px;
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
     }
 
-    .logo {
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      text-decoration:none;
-      font:700 20px Outfit,sans-serif;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 19px;
+      white-space: nowrap;
     }
 
-    .logo-mark {
-      width:36px;
-      height:36px;
-      display:grid;
-      place-items:center;
-      border-radius:10px;
-      background:linear-gradient(135deg,var(--blue),var(--purple));
-      box-shadow:0 8px 25px rgba(74,158,232,.22);
-    }
-
-    .logo-mark svg {
-      width:20px;
-      stroke:white;
-      fill:none;
-      stroke-width:2.3;
+    .brand-mark {
+      width: 31px;
+      height: 31px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      color: white;
+      background:
+        linear-gradient(135deg, var(--blue), var(--purple));
+      box-shadow:
+        0 8px 25px rgba(74,158,232,.22);
+      font-family: var(--mono);
+      font-size: 13px;
     }
 
     .nav-links {
-      display:flex;
-      align-items:center;
-      gap:30px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: var(--text-2);
+      font-size: 14px;
     }
 
     .nav-links a {
-      color:var(--muted);
-      font-size:14px;
-      font-weight:500;
-      text-decoration:none;
-      transition:color .2s;
+      transition: color .2s;
     }
 
     .nav-links a:hover {
-      color:var(--text);
+      color: var(--text);
     }
 
     .nav-actions {
-      display:flex;
-      align-items:center;
-      gap:10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .btn {
-      border:0;
-      border-radius:9px;
-      padding:10px 17px;
-      text-decoration:none;
-      font:600 14px Outfit,sans-serif;
-      transition:.2s ease;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
+    .nav-search {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      height: 38px;
+      padding: 0 11px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: rgba(255,255,255,.025);
+      color: var(--text-3);
+
+      cursor: pointer;
+      transition: .2s;
     }
 
-    .btn-primary {
-      color:white;
-      background:linear-gradient(135deg,var(--blue),#2563eb);
-      box-shadow:0 8px 24px rgba(74,158,232,.22);
+    .nav-search:hover {
+      border-color: var(--border-hover);
+      color: var(--text-2);
     }
 
-    .btn-primary:hover {
-      transform:translateY(-1px);
-      box-shadow:0 12px 30px rgba(74,158,232,.34);
+    .nav-search span {
+      font-size: 12px;
     }
 
-    .btn-secondary {
-      color:var(--text);
-      background:rgba(255,255,255,.035);
-      border:1px solid var(--border);
-    }
-
-    .btn-secondary:hover {
-      border-color:rgba(255,255,255,.18);
-      background:rgba(255,255,255,.06);
+    .kbd {
+      padding: 2px 6px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 5px;
+      background: rgba(255,255,255,.04);
+      color: var(--text-3);
+      font-family: var(--mono);
+      font-size: 10px;
     }
 
     .menu-btn {
-      width:42px;
-      height:42px;
-      display:none;
-      place-items:center;
-      border:1px solid var(--border);
-      border-radius:9px;
-      color:var(--text);
-      background:transparent;
+      display: none;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
     }
 
-    .menu-btn svg {
-      width:20px;
-      fill:none;
-      stroke:currentColor;
-      stroke-width:2;
-    }
-
-    .mobile-menu {
-      display:none;
-      border-top:1px solid var(--border);
-      padding:12px 20px 18px;
-      background:rgba(7,9,13,.97);
-    }
-
-    .mobile-menu.open {
-      display:block;
-    }
-
-    .mobile-menu a {
-      display:block;
-      padding:10px 0;
-      color:var(--muted);
-      text-decoration:none;
-    }
-
-    /* HERO */
+    /* =========================
+       HERO
+    ========================= */
 
     .hero {
-      max-width:var(--max);
-      margin:auto;
-      padding:92px 20px 90px;
-      display:grid;
-      grid-template-columns:1.05fr .95fr;
-      align-items:center;
-      gap:70px;
+      position: relative;
+      padding: 100px 0 70px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .35;
+
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+
+      background-size: 44px 44px;
+
+      mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent 75%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
     }
 
     .eyebrow {
-      width:fit-content;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      margin-bottom:22px;
-      padding:7px 12px;
-      border:1px solid rgba(56,189,248,.17);
-      border-radius:99px;
-      background:rgba(56,189,248,.06);
-      color:var(--cyan);
-      font:500 11px "JetBrains Mono",monospace;
-    }
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
 
-    .eyebrow span {
-      width:6px;
-      height:6px;
-      border-radius:50%;
-      background:var(--green);
-      box-shadow:0 0 10px var(--green);
+      padding: 6px 10px;
+
+      border: 1px solid rgba(74,158,232,.18);
+      border-radius: 999px;
+
+      background: rgba(74,158,232,.06);
+
+      color: var(--cyan);
+      font-family: var(--mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
     }
 
     .hero h1 {
-      max-width:700px;
-      margin-bottom:22px;
-      font:800 clamp(42px,6vw,68px)/1.04 Outfit,sans-serif;
-      letter-spacing:-.045em;
+      max-width: 850px;
+      margin: 22px auto 18px;
+
+      font-family: var(--display);
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: .98;
+      letter-spacing: -.045em;
     }
 
-    .gradient-text {
-      background:linear-gradient(135deg,var(--cyan),var(--blue),var(--purple));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
+    .hero h1 span {
+      color: var(--blue);
     }
 
-    .hero-description {
-      max-width:620px;
-      margin-bottom:32px;
-      color:var(--muted);
-      font-size:16px;
-      line-height:1.75;
+    .hero p {
+      max-width: 640px;
+      margin: 0 auto;
+
+      color: var(--text-2);
+      font-size: 17px;
     }
 
-    .hero-buttons {
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin-bottom:38px;
+    .hero-actions {
+      margin-top: 30px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 11px;
+      flex-wrap: wrap;
     }
 
-    .hero-buttons .btn {
-      padding:13px 21px;
+    .btn {
+      min-height: 43px;
+      padding: 0 16px;
+
+      border-radius: 9px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      cursor: pointer;
+      transition: .2s;
+      font-weight: 600;
+      font-size: 13px;
     }
 
-    .privacy-note {
-      display:flex;
-      align-items:center;
-      gap:9px;
-      color:var(--dim);
-      font-size:12px;
+    .btn-primary {
+      background: var(--blue);
+      color: #06101b;
+      box-shadow: 0 8px 30px rgba(74,158,232,.2);
     }
 
-    .privacy-note svg {
-      width:15px;
-      stroke:var(--green);
-      fill:none;
-      stroke-width:2;
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
     }
 
-    /* DASHBOARD */
-
-    .dashboard {
-      position:relative;
-      border:1px solid rgba(255,255,255,.11);
-      border-radius:18px;
-      background:rgba(15,20,30,.82);
-      box-shadow:var(--shadow),0 0 50px rgba(74,158,232,.08);
-      overflow:hidden;
+    .btn-secondary {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.025);
+      color: var(--text);
     }
 
-    .dashboard::before {
-      content:"";
-      position:absolute;
-      width:220px;
-      height:220px;
-      right:-100px;
-      top:-120px;
-      border-radius:50%;
-      background:rgba(74,158,232,.14);
-      filter:blur(50px);
+    .btn-secondary:hover {
+      border-color: var(--border-hover);
+      background: rgba(255,255,255,.045);
     }
 
-    .window-bar {
-      position:relative;
-      z-index:1;
-      padding:13px 16px;
-      display:flex;
-      align-items:center;
-      gap:9px;
-      border-bottom:1px solid var(--border);
-      background:rgba(255,255,255,.018);
-    }
-
-    .window-dot {
-      width:9px;
-      height:9px;
-      border-radius:50%;
-    }
-
-    .red { background:var(--red); }
-    .yellow { background:var(--yellow); }
-    .green { background:var(--green); }
-
-    .window-title {
-      margin-left:6px;
-      color:var(--dim);
-      font:10px "JetBrains Mono",monospace;
-    }
-
-    .dashboard-body {
-      padding:20px;
-    }
+    /* =========================
+       HERO STATS
+    ========================= */
 
     .stats {
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:10px;
-      margin-bottom:15px;
+      margin-top: 60px;
+
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .stat {
-      padding:14px;
-      border:1px solid var(--border);
-      border-radius:11px;
-      background:rgba(255,255,255,.018);
+      min-width: 130px;
+      padding: 12px 18px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: rgba(255,255,255,.02);
     }
 
-    .stat-label {
-      margin-bottom:4px;
-      color:var(--dim);
-      font-size:10px;
+    .stat strong {
+      display: block;
+      font-family: var(--display);
+      font-size: 20px;
     }
 
-    .stat-value {
-      font:700 18px Outfit,sans-serif;
+    .stat span {
+      color: var(--text-3);
+      font-size: 11px;
     }
 
-    .stat-value.blue {
-      color:var(--cyan);
-    }
-
-    .stat-value.green {
-      color:var(--green);
-    }
-
-    .preview {
-      padding:17px;
-      border:1px solid var(--border);
-      border-radius:12px;
-      background:rgba(0,0,0,.18);
-    }
-
-    .preview-header {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom:15px;
-    }
-
-    .preview-title {
-      font-size:12px;
-      font-weight:600;
-    }
-
-    .online {
-      padding:3px 8px;
-      border-radius:20px;
-      background:rgba(61,204,142,.1);
-      color:var(--green);
-      font:500 9px "JetBrains Mono",monospace;
-    }
-
-    .terminal {
-      min-height:150px;
-      padding:14px;
-      border-radius:8px;
-      background:#080b10;
-      color:#8fa4bd;
-      font:11px/1.8 "JetBrains Mono",monospace;
-    }
-
-    .terminal .command {
-      color:var(--cyan);
-    }
-
-    .terminal .success {
-      color:var(--green);
-    }
-
-    /* TOOLS */
+    /* =========================
+       TOOLS SECTION
+    ========================= */
 
     .tools-section {
-      max-width:var(--max);
-      margin:auto;
-      padding:80px 20px 100px;
+      padding: 50px 0 100px;
     }
 
-    .section-heading {
-      margin-bottom:35px;
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 25px;
+      margin-bottom: 28px;
     }
 
-    .section-kicker {
-      margin-bottom:8px;
-      color:var(--cyan);
-      font:500 11px "JetBrains Mono",monospace;
-      text-transform:uppercase;
-      letter-spacing:.12em;
+    .section-title {
+      font-family: var(--display);
+      font-size: 31px;
+      letter-spacing: -.025em;
     }
 
-    .section-heading h2 {
-      margin-bottom:8px;
-      font:700 34px Outfit,sans-serif;
-      letter-spacing:-.025em;
+    .section-subtitle {
+      margin-top: 5px;
+      color: var(--text-3);
+      font-size: 13px;
     }
 
-    .section-heading p {
-      max-width:650px;
-      color:var(--muted);
-      font-size:14px;
+    .tool-count {
+      color: var(--text-3);
+      font-family: var(--mono);
+      font-size: 12px;
     }
 
-    .tools-toolbar {
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin-bottom:28px;
+    /* =========================
+       RECENT / FAVORITES
+    ========================= */
+
+    .quick-section {
+      margin-bottom: 34px;
     }
 
-    .search {
-      position:relative;
-      flex:1;
+    .quick-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
     }
 
-    .search svg {
-      position:absolute;
-      left:14px;
-      top:50%;
-      width:17px;
-      transform:translateY(-50%);
-      stroke:var(--dim);
-      fill:none;
-      stroke-width:2;
-      pointer-events:none;
+    .quick-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-2);
+      font-size: 13px;
+      font-weight: 600;
     }
 
-    .search input {
-      width:100%;
-      height:46px;
-      padding:0 15px 0 42px;
-      outline:none;
-      border:1px solid var(--border);
-      border-radius:10px;
-      background:var(--card);
-      color:var(--text);
-      font-size:13px;
+    .quick-list {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
-    .search input:focus {
-      border-color:rgba(74,158,232,.55);
-      box-shadow:0 0 0 3px rgba(74,158,232,.08);
+    .quick-tool {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 8px 11px;
+
+      border: 1px solid var(--border);
+      border-radius: 8px;
+
+      background: rgba(255,255,255,.025);
+      color: var(--text-2);
+
+      cursor: pointer;
+      font-size: 12px;
+
+      transition: .2s;
     }
 
-    .filters {
-      display:flex;
-      gap:7px;
-      flex-wrap:wrap;
+    .quick-tool:hover {
+      border-color: var(--border-hover);
+      color: var(--text);
+      transform: translateY(-1px);
     }
 
-    .filter {
-      height:42px;
-      padding:0 13px;
-      border:1px solid var(--border);
-      border-radius:9px;
-      color:var(--muted);
-      background:rgba(255,255,255,.025);
-      font-size:12px;
+    .quick-tool .icon {
+      color: var(--blue);
     }
 
-    .filter.active,
-    .filter:hover {
-      border-color:rgba(74,158,232,.4);
-      color:var(--text);
-      background:rgba(74,158,232,.08);
+    /* =========================
+       TOOLBAR
+    ========================= */
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
     }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+    }
+
+    .search-box input {
+      width: 100%;
+      height: 43px;
+
+      padding: 0 45px 0 38px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: rgba(255,255,255,.025);
+
+      color: var(--text);
+      outline: none;
+
+      transition: .2s;
+    }
+
+    .search-box input:focus {
+      border-color: rgba(74,158,232,.5);
+      box-shadow: 0 0 0 3px rgba(74,158,232,.08);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-3);
+      pointer-events: none;
+    }
+
+    .search-kbd {
+      position: absolute;
+      right: 9px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .category-filter {
+      height: 43px;
+      padding: 0 13px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: rgba(255,255,255,.025);
+      color: var(--text-2);
+
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* =========================
+       CATEGORY
+    ========================= */
 
     .category {
-      margin-bottom:42px;
+      margin-top: 38px;
     }
 
-    .category-title {
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom:15px;
-      padding-bottom:10px;
-      border-bottom:1px solid var(--border);
-      font:600 18px Outfit,sans-serif;
+    .category:first-child {
+      margin-top: 0;
     }
 
-    .category-title span {
-      color:var(--dim);
-      font:500 10px "JetBrains Mono",monospace;
+    .category-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 13px;
     }
 
-    .tools-grid {
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:14px;
+    .category-name {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .category-line {
+      height: 1px;
+      flex: 1;
+      margin-left: 15px;
+      background: var(--border);
+    }
+
+    .category-count {
+      color: var(--text-3);
+      font-family: var(--mono);
+      font-size: 10px;
+    }
+
+    /* =========================
+       TOOL GRID
+    ========================= */
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 11px;
     }
 
     .tool-card {
-      min-height:205px;
-      padding:22px;
-      border:1px solid var(--border);
-      border-radius:14px;
-      background:var(--card);
-      text-decoration:none;
-      transition:.25s ease;
-      position:relative;
-      overflow:hidden;
-      cursor:pointer;
-    }
+      position: relative;
 
-    .tool-card::after {
-      content:"";
-      position:absolute;
-      width:100px;
-      height:100px;
-      right:-70px;
-      bottom:-70px;
-      border-radius:50%;
-      background:rgba(74,158,232,.08);
-      transition:.25s;
+      min-height: 157px;
+      padding: 18px;
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.025),
+          rgba(255,255,255,.01)
+        );
+
+      cursor: pointer;
+      transition:
+        transform .2s,
+        border-color .2s,
+        background .2s,
+        box-shadow .2s;
     }
 
     .tool-card:hover {
-      transform:translateY(-3px);
-      border-color:var(--border-hover);
-      box-shadow:0 18px 40px rgba(0,0,0,.25);
+      transform: translateY(-3px);
+      border-color: var(--border-hover);
+      background: rgba(255,255,255,.035);
+      box-shadow: var(--shadow);
     }
 
-    .tool-card:hover::after {
-      transform:scale(2);
+    .tool-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
     }
 
     .tool-icon {
-      width:42px;
-      height:42px;
-      display:grid;
-      place-items:center;
-      margin-bottom:18px;
-      border:1px solid rgba(74,158,232,.16);
-      border-radius:10px;
-      background:rgba(74,158,232,.08);
-      color:var(--cyan);
-      font-size:18px;
+      width: 38px;
+      height: 38px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 10px;
+
+      background: rgba(74,158,232,.08);
+      color: var(--blue);
+
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 600;
     }
 
-    .tool-card h3 {
-      margin-bottom:7px;
-      font:600 17px Outfit,sans-serif;
+    .tool-favorite {
+      width: 29px;
+      height: 29px;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid transparent;
+      border-radius: 7px;
+
+      background: transparent;
+      color: var(--text-3);
+
+      cursor: pointer;
+      font-size: 16px;
+
+      transition: .2s;
     }
 
-    .tool-card p {
-      min-height:42px;
-      margin-bottom:16px;
-      color:var(--muted);
-      font-size:12px;
-      line-height:1.55;
+    .tool-favorite:hover {
+      border-color: var(--border);
+      color: var(--yellow);
+      background: rgba(255,255,255,.03);
     }
 
-    .tool-footer {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+    .tool-favorite.active {
+      color: var(--yellow);
     }
 
-    .tag {
-      padding:4px 7px;
-      border-radius:5px;
-      background:rgba(56,189,248,.08);
-      color:var(--cyan);
-      font:500 9px "JetBrains Mono",monospace;
+    .tool-name {
+      margin-top: 14px;
+      font-family: var(--display);
+      font-size: 16px;
+      font-weight: 600;
     }
 
-    .launch {
-      color:var(--dim);
-      font-size:12px;
-      transition:.2s;
+    .tool-description {
+      margin-top: 4px;
+      color: var(--text-3);
+      font-size: 12px;
+      line-height: 1.5;
     }
 
-    .tool-card:hover .launch {
-      color:var(--cyan);
+    .tool-meta {
+      position: absolute;
+      left: 18px;
+      bottom: 15px;
+
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      color: var(--text-3);
+      font-family: var(--mono);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
     }
 
-    .no-results {
-      display:none;
-      padding:50px;
-      border:1px dashed var(--border);
-      border-radius:14px;
-      text-align:center;
-      color:var(--muted);
+    .local-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--green);
     }
 
-    /* FEATURES */
+    /* =========================
+       EMPTY
+    ========================= */
+
+    .empty-state {
+      padding: 55px 20px;
+      text-align: center;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      color: var(--text-3);
+    }
+
+    .empty-state strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text-2);
+    }
+
+    /* =========================
+       FEATURE STRIP
+    ========================= */
 
     .features {
-      max-width:var(--max);
-      margin:auto;
-      padding:0 20px 100px;
+      padding: 0 0 90px;
     }
 
     .feature-grid {
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      border:1px solid var(--border);
-      border-radius:16px;
-      overflow:hidden;
-      background:rgba(255,255,255,.015);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 11px;
     }
 
     .feature {
-      padding:27px;
-      border-right:1px solid var(--border);
-    }
+      padding: 20px;
 
-    .feature:last-child {
-      border-right:0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+
+      background: rgba(255,255,255,.018);
     }
 
     .feature-icon {
-      color:var(--cyan);
-      margin-bottom:13px;
-      font-size:20px;
+      margin-bottom: 13px;
+      color: var(--cyan);
+      font-family: var(--mono);
+      font-size: 13px;
     }
 
     .feature h3 {
-      margin-bottom:6px;
-      font:600 16px Outfit,sans-serif;
+      font-family: var(--display);
+      font-size: 15px;
     }
 
     .feature p {
-      color:var(--muted);
-      font-size:12px;
+      margin-top: 5px;
+      color: var(--text-3);
+      font-size: 12px;
     }
 
-    /* MODAL */
-
-    .modal-overlay {
-      position:fixed;
-      inset:0;
-      z-index:500;
-      display:none;
-      place-items:center;
-      padding:20px;
-      background:rgba(0,0,0,.72);
-      backdrop-filter:blur(7px);
-    }
-
-    .modal-overlay.open {
-      display:grid;
-    }
+    /* =========================
+       MODAL
+    ========================= */
 
     .modal {
-      width:min(720px,100%);
-      max-height:90vh;
-      overflow:auto;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:16px;
-      background:#0d121b;
-      box-shadow:0 30px 100px rgba(0,0,0,.65);
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(12px);
+
+      opacity: 0;
+      visibility: hidden;
+      transition: .2s;
     }
 
-    .modal-header {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:18px 20px;
-      border-bottom:1px solid var(--border);
+    .modal.active {
+      opacity: 1;
+      visibility: visible;
     }
 
-    .modal-header h2 {
-      font:600 19px Outfit,sans-serif;
+    .modal-panel {
+      width: min(850px, 100%);
+      max-height: min(780px, calc(100vh - 40px));
+
+      display: flex;
+      flex-direction: column;
+
+      border: 1px solid var(--border);
+      border-radius: 17px;
+
+      background: #0c1119;
+      box-shadow: 0 35px 100px rgba(0,0,0,.65);
+
+      overflow: hidden;
+
+      transform: translateY(12px) scale(.985);
+      transition: .2s;
     }
 
-    .close-modal {
-      width:34px;
-      height:34px;
-      display:grid;
-      place-items:center;
-      border:1px solid var(--border);
-      border-radius:8px;
-      color:var(--muted);
-      background:transparent;
-      font-size:20px;
+    .modal.active .modal-panel {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+
+      padding: 17px 19px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .modal-title {
+      font-family: var(--display);
+      font-size: 17px;
+    }
+
+    .modal-subtitle {
+      color: var(--text-3);
+      font-size: 11px;
+    }
+
+    .modal-close {
+      width: 34px;
+      height: 34px;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid var(--border);
+      border-radius: 8px;
+
+      background: rgba(255,255,255,.025);
+      color: var(--text-2);
+
+      cursor: pointer;
+    }
+
+    .modal-close:hover {
+      color: var(--text);
+      background: rgba(255,255,255,.05);
     }
 
     .modal-body {
-      padding:20px;
+      overflow: auto;
+      padding: 20px;
     }
 
-    .modal-body label {
-      display:block;
-      margin-bottom:8px;
-      color:var(--muted);
-      font-size:12px;
-      font-weight:600;
+    /* =========================
+       TOOL UI
+    ========================= */
+
+    .tool-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
     }
 
-    .modal-body textarea,
-    .modal-body input,
-    .modal-body select {
-      width:100%;
-      margin-bottom:14px;
-      padding:12px;
-      outline:none;
-      border:1px solid var(--border);
-      border-radius:9px;
-      background:#080c12;
-      color:var(--text);
-      font:12px/1.6 "JetBrains Mono",monospace;
-      resize:vertical;
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
     }
 
-    .modal-body textarea:focus,
-    .modal-body input:focus,
-    .modal-body select:focus {
-      border-color:rgba(74,158,232,.5);
+    .field.full {
+      grid-column: 1 / -1;
     }
 
-    .modal-actions {
-      display:flex;
-      gap:8px;
-      margin-bottom:14px;
-      flex-wrap:wrap;
+    .field-label {
+      color: var(--text-2);
+      font-size: 11px;
+      font-weight: 600;
     }
 
-    .output {
-      display:none;
-      max-height:360px;
-      overflow:auto;
-      padding:15px;
-      border:1px solid var(--border);
-      border-radius:9px;
-      background:#080c12;
-      color:#b9c9dc;
-      white-space:pre-wrap;
-      word-break:break-word;
-      font:11px/1.7 "JetBrains Mono",monospace;
+    textarea,
+    .tool-input,
+    .tool-select {
+      width: 100%;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #080c12;
+      color: var(--text);
+
+      outline: none;
     }
 
-    .output.show {
-      display:block;
+    textarea {
+      min-height: 230px;
+      padding: 13px;
+
+      resize: vertical;
+
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.6;
     }
 
-    .error {
-      color:#ff8585;
+    .tool-input,
+    .tool-select {
+      height: 42px;
+      padding: 0 12px;
+      font-size: 13px;
     }
 
-    /* FOOTER */
+    textarea:focus,
+    .tool-input:focus,
+    .tool-select:focus {
+      border-color: rgba(74,158,232,.55);
+      box-shadow: 0 0 0 3px rgba(74,158,232,.07);
+    }
+
+    .tool-output-wrap {
+      position: relative;
+    }
+
+    .output-actions {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+
+      display: flex;
+      gap: 5px;
+    }
+
+    .small-btn {
+      height: 29px;
+      padding: 0 9px;
+
+      border: 1px solid var(--border);
+      border-radius: 7px;
+
+      background: rgba(17,23,34,.95);
+      color: var(--text-2);
+
+      cursor: pointer;
+      font-size: 10px;
+    }
+
+    .small-btn:hover {
+      color: var(--text);
+      border-color: var(--border-hover);
+    }
+
+    .tool-output {
+      min-height: 230px;
+      padding: 13px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #080c12;
+
+      color: var(--text-2);
+
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.6;
+
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow: auto;
+    }
+
+    .tool-output.success {
+      color: var(--green);
+    }
+
+    .tool-output.error {
+      color: var(--red);
+    }
+
+    .tool-actions {
+      grid-column: 1 / -1;
+
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+
+      margin-top: 3px;
+    }
+
+    .notice {
+      grid-column: 1 / -1;
+
+      padding: 10px 12px;
+
+      border: 1px solid rgba(74,158,232,.12);
+      border-radius: 8px;
+
+      background: rgba(74,158,232,.04);
+
+      color: var(--text-3);
+      font-size: 11px;
+    }
+
+    .error-box {
+      grid-column: 1 / -1;
+
+      display: none;
+
+      padding: 10px 12px;
+
+      border: 1px solid rgba(255,92,92,.2);
+      border-radius: 8px;
+
+      background: rgba(255,92,92,.06);
+      color: #ff8585;
+
+      font-size: 11px;
+    }
+
+    .error-box.show {
+      display: block;
+    }
+
+    /* =========================
+       SPECIAL TOOL ELEMENTS
+    ========================= */
+
+    .result-card {
+      padding: 17px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: rgba(255,255,255,.02);
+    }
+
+    .result-card strong {
+      display: block;
+      font-family: var(--mono);
+      font-size: 20px;
+      word-break: break-word;
+    }
+
+    .result-card span {
+      color: var(--text-3);
+      font-size: 11px;
+    }
+
+    .result-grid {
+      grid-column: 1 / -1;
+
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    /* =========================
+       COMMAND PALETTE
+    ========================= */
+
+    .command {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+
+      padding-top: 13vh;
+      padding-inline: 20px;
+
+      background: rgba(0,0,0,.7);
+      backdrop-filter: blur(10px);
+
+      opacity: 0;
+      visibility: hidden;
+      transition: .15s;
+    }
+
+    .command.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .command-panel {
+      width: min(620px, 100%);
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      background: #0d131c;
+      box-shadow: 0 30px 90px rgba(0,0,0,.6);
+
+      overflow: hidden;
+    }
+
+    .command-search {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      padding: 13px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .command-search input {
+      flex: 1;
+
+      border: 0;
+      outline: 0;
+
+      background: transparent;
+      color: var(--text);
+
+      font-size: 14px;
+    }
+
+    .command-results {
+      max-height: 390px;
+      overflow: auto;
+      padding: 7px;
+    }
+
+    .command-item {
+      width: 100%;
+
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      padding: 10px;
+
+      border-radius: 8px;
+
+      background: transparent;
+      color: var(--text-2);
+
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .command-item:hover,
+    .command-item.selected {
+      background: rgba(74,158,232,.08);
+      color: var(--text);
+    }
+
+    .command-item-icon {
+      width: 31px;
+      height: 31px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 7px;
+
+      background: rgba(74,158,232,.08);
+      color: var(--blue);
+
+      font-family: var(--mono);
+      font-size: 10px;
+    }
+
+    .command-item-info {
+      flex: 1;
+    }
+
+    .command-item-name {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .command-item-category {
+      color: var(--text-3);
+      font-size: 10px;
+    }
+
+    /* =========================
+       TOAST
+    ========================= */
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 300;
+
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 11px 14px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #111722;
+      box-shadow: 0 15px 40px rgba(0,0,0,.4);
+
+      color: var(--text);
+
+      font-size: 12px;
+
+      transform: translateY(15px);
+      opacity: 0;
+      pointer-events: none;
+
+      transition: .2s;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast.success::before {
+      content: "✓";
+      color: var(--green);
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
 
     footer {
-      border-top:1px solid var(--border);
-      padding:30px 20px;
-      color:var(--dim);
-      text-align:center;
-      font-size:12px;
+      border-top: 1px solid var(--border);
+      padding: 35px 0;
     }
 
-    footer strong {
-      color:var(--muted);
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
     }
 
-    /* RESPONSIVE */
-
-    @media (max-width:980px) {
-      .hero {
-        grid-template-columns:1fr;
-        gap:45px;
-        padding-top:65px;
-      }
-
-      .hero-content {
-        max-width:750px;
-      }
-
-      .tools-grid {
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .nav-links,
-      .nav-actions {
-        display:none;
-      }
-
-      .menu-btn {
-        display:grid;
-      }
+    .footer-copy {
+      color: var(--text-3);
+      font-size: 11px;
     }
 
-    @media (max-width:700px) {
-      .status-track {
-        justify-content:flex-start;
-        overflow:hidden;
-        padding:0 15px;
-      }
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      color: var(--text-3);
+      font-size: 11px;
+    }
 
-      .status-item:nth-child(n+3) {
-        display:none;
-      }
+    .footer-links a:hover {
+      color: var(--text);
+    }
 
-      .nav-inner {
-        min-height:64px;
-      }
+    /* =========================
+       RESPONSIVE
+    ========================= */
 
-      .hero {
-        padding:55px 16px 65px;
-      }
-
-      .hero h1 {
-        font-size:43px;
-      }
-
-      .hero-description {
-        font-size:14px;
-      }
-
-      .dashboard-body {
-        padding:13px;
-      }
-
-      .stats {
-        gap:6px;
-      }
-
-      .stat {
-        padding:10px;
-      }
-
-      .stat-value {
-        font-size:15px;
-      }
-
-      .tools-section,
-      .features {
-        padding-left:16px;
-        padding-right:16px;
-      }
-
-      .tools-toolbar {
-        flex-direction:column;
-        align-items:stretch;
-      }
-
-      .filters {
-        overflow-x:auto;
-        flex-wrap:nowrap;
-        padding-bottom:3px;
-      }
-
-      .filter {
-        flex-shrink:0;
-      }
-
-      .tools-grid {
-        grid-template-columns:1fr;
+    @media (max-width: 900px) {
+      .tool-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .feature-grid {
-        grid-template-columns:1fr;
+        grid-template-columns: 1fr;
       }
 
-      .feature {
-        border-right:0;
-        border-bottom:1px solid var(--border);
+      .nav-links {
+        display: none;
       }
 
-      .feature:last-child {
-        border-bottom:0;
+      .menu-btn {
+        display: block;
+      }
+
+      .nav-search {
+        display: none;
       }
     }
 
-    @media (max-width:440px) {
+    @media (max-width: 700px) {
+      .container {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .hero {
+        padding: 75px 0 55px;
+      }
+
       .hero h1 {
-        font-size:37px;
+        font-size: 48px;
       }
 
-      .hero-buttons {
-        flex-direction:column;
-        align-items:stretch;
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
       }
 
-      .hero-buttons .btn {
-        width:100%;
+      .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .tool-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full,
+      .tool-actions,
+      .notice,
+      .error-box,
+      .result-grid {
+        grid-column: auto;
+      }
+
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal {
+        padding: 10px;
+      }
+
+      .modal-panel {
+        max-height: calc(100vh - 20px);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .topbar {
+        display: none;
+      }
+
+      .nav-inner {
+        min-height: 60px;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .hero p {
+        font-size: 14px;
       }
 
       .stats {
-        grid-template-columns:1fr;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        width: min(100%, 320px);
+        margin-inline: auto;
       }
 
-      .dashboard {
-        border-radius:13px;
+      .stat {
+        min-width: 0;
       }
 
-      .modal-overlay {
-        padding:10px;
+      .tool-grid {
+        grid-template-columns: 1fr;
       }
 
-      .modal-body {
-        padding:15px;
+      .tool-card {
+        min-height: 145px;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
       }
     }
-  </style></head><body>  <!-- STATUS BAR -->  <div class="status-bar">
-    <div class="status-track">
-      <div class="status-item">
-        <span class="status-dot"></span>
-        All systems operational
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span class="status-dot"></span>
+      All tools run locally in your browser
+      <span>•</span>
+      No data uploaded
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container nav-inner">
+
+      <a href="#" class="brand">
+        <span class="brand-mark">&lt;/&gt;</span>
+        <span>OpenUtility</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#tools">Tools</a>
+        <a href="#features">Why OpenUtility</a>
       </div>
-      <div class="status-item">⚡ Client-side processing</div>
-      <div class="status-item">🔒 Privacy friendly</div>
-      <div class="status-item">v1.0.0</div>
+
+      <div class="nav-actions">
+        <button class="nav-search" id="navSearchBtn">
+          <span>Search tools</span>
+          <span class="kbd">Ctrl K</span>
+        </button>
+
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+          ☰
+        </button>
+      </div>
+
     </div>
-  </div>  <!-- NAVIGATION -->  <nav class="navbar" id="navbar">
-    <div class="nav-inner">
-      <a href="#" class="logo">
-        <span class="logo-mark">
-          <svg viewBox="0 0 24 24">
-            <path d="M7 17 17 7M8 7h9v9"/>
-          </svg>
-        </span>
-        OpenUtility
-      </a>  <div class="nav-links">
-    <a href="#tools">Tools</a>
-    <a href="#features">Features</a>
-  </div>
+  </nav>
 
-  <div class="nav-actions">
-    <a href="#tools" class="btn btn-primary">Explore Tools</a>
-  </div>
+  <!-- HERO -->
+  <header class="hero">
 
-  <button class="menu-btn" id="menuBtn" aria-label="Open menu">
-    <svg viewBox="0 0 24 24">
-      <path d="M4 7h16M4 12h16M4 17h16"/>
-    </svg>
-  </button>
-</div>
+    <div class="hero-grid"></div>
 
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#tools">Tools</a>
-  <a href="#features">Features</a>
-</div>
+    <div class="container hero-content">
 
-  </nav>  <!-- HERO -->  <main>
-    <section class="hero">
-      <div class="hero-content">
-        <div class="eyebrow">
-          <span></span>
-          DEVELOPER TOOLKIT
-        </div>    <h1>
-      Simple tools for
-      <span class="gradient-text">developers.</span>
-    </h1>
+      <span class="eyebrow">
+        <span>●</span>
+        Developer utilities
+      </span>
 
-    <p class="hero-description">
-      A modern collection of fast, privacy-friendly utilities for
-      formatting, encoding, generating, converting and inspecting data.
-      No account required.
-    </p>
+      <h1>
+        Tools that keep you<br />
+        <span>in flow.</span>
+      </h1>
 
-    <div class="hero-buttons">
-      <a href="#tools" class="btn btn-primary">Browse Tools →</a>
-      <button class="btn btn-secondary" onclick="openTool('json')">
-        Try JSON Formatter
-      </button>
-    </div>
+      <p>
+        Fast, private, client-side utilities for developers.
+        Format data, encode strings, generate values and inspect
+        common web formats without leaving your browser.
+      </p>
 
-    <div class="privacy-note">
-      <svg viewBox="0 0 24 24">
-        <path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6l-7-3Z"/>
-        <path d="m9 12 2 2 4-4"/>
-      </svg>
-      Your data stays in your browser whenever possible.
-    </div>
-  </div>
+      <div class="hero-actions">
+        <a href="#tools" class="btn btn-primary">
+          Explore tools →
+        </a>
 
-  <div class="dashboard">
-    <div class="window-bar">
-      <span class="window-dot red"></span>
-      <span class="window-dot yellow"></span>
-      <span class="window-dot green"></span>
-      <span class="window-title">openutility.local</span>
-    </div>
+        <button class="btn btn-secondary" id="heroSearchBtn">
+          Search tools
+          <span class="kbd">Ctrl K</span>
+        </button>
+      </div>
 
-    <div class="dashboard-body">
       <div class="stats">
         <div class="stat">
-          <div class="stat-label">TOOLS</div>
-          <div class="stat-value blue" id="toolCount">15+</div>
+          <strong>15+</strong>
+          <span>Developer tools</span>
         </div>
 
         <div class="stat">
-          <div class="stat-label">CATEGORIES</div>
-          <div class="stat-value">5</div>
+          <strong>100%</strong>
+          <span>Client-side</span>
         </div>
 
         <div class="stat">
-          <div class="stat-label">SERVER</div>
-          <div class="stat-value green">LOCAL</div>
+          <strong>0</strong>
+          <span>Uploads required</span>
+        </div>
+
+        <div class="stat">
+          <strong>Free</strong>
+          <span>To use</span>
         </div>
       </div>
 
-      <div class="preview">
-        <div class="preview-header">
-          <div class="preview-title">JSON Formatter</div>
-          <div class="online">READY</div>
+    </div>
+  </header>
+
+  <!-- TOOLS -->
+  <main id="tools" class="tools-section">
+
+    <div class="container">
+
+      <!-- QUICK TOOLS -->
+      <section class="quick-section" id="quickSection">
+
+        <div class="quick-head">
+          <div class="quick-title">
+            <span>⚡</span>
+            <span id="quickTitle">Recently used</span>
+          </div>
+
+          <button
+            class="small-btn hidden"
+            id="clearRecentBtn"
+          >
+            Clear
+          </button>
         </div>
 
-        <div class="terminal">
-          <div><span class="command">$</span> openutility json --format</div>
-          <div>{</div>
-          <div>&nbsp;&nbsp;"name": <span class="success">"OpenUtility"</span>,</div>
-          <div>&nbsp;&nbsp;"version": <span class="success">"1.0.0"</span>,</div>
-          <div>&nbsp;&nbsp;"private": <span class="success">true</span></div>
-          <div>}</div>
-          <br>
-          <div class="success">✓ Formatted successfully</div>
+        <div class="quick-list" id="quickList"></div>
+
+      </section>
+
+      <!-- SECTION HEADER -->
+      <div class="section-head">
+
+        <div>
+          <h2 class="section-title">Developer tools</h2>
+          <p class="section-subtitle">
+            Small utilities for everyday development tasks.
+          </p>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- TOOLS -->
-<section class="tools-section" id="tools">
-  <div class="section-heading">
-    <div class="section-kicker">01 / TOOLBOX</div>
-    <h2>Developer utilities</h2>
-    <p>
-      Useful tools for everyday development work. Search the collection
-      or filter it by category.
-    </p>
-  </div>
+        <div class="tool-count" id="toolCount">
+          15 tools
+        </div>
 
-  <div class="tools-toolbar">
-    <div class="search">
-      <svg viewBox="0 0 24 24">
-        <circle cx="11" cy="11" r="7"/>
-        <path d="m20 20-4-4"/>
-      </svg>
-      <input
-        type="search"
-        id="toolSearch"
-        placeholder="Search tools..."
-        autocomplete="off"
-      >
-    </div>
-
-    <div class="filters" id="filters">
-      <button class="filter active" data-filter="all">All</button>
-      <button class="filter" data-filter="data">Data</button>
-      <button class="filter" data-filter="encoding">Encoding</button>
-      <button class="filter" data-filter="generators">Generators</button>
-      <button class="filter" data-filter="web">Web</button>
-      <button class="filter" data-filter="text">Text</button>
-    </div>
-  </div>
-
-  <div id="toolCategories">
-
-    <!-- DATA -->
-    <div class="category" data-category="data">
-      <div class="category-title">
-        Data & JSON
-        <span>DATA</span>
       </div>
 
-      <div class="tools-grid">
-        <article class="tool-card"
-          data-tool="json"
-          data-name="JSON Formatter"
-          data-category="data">
-          <div class="tool-icon">{ }</div>
-          <h3>JSON Formatter</h3>
-          <p>Format, validate and prettify JSON data.</p>
-          <div class="tool-footer">
-            <span class="tag">JSON</span>
-            <span class="launch">Open →</span>
-          </div>
-        </article>
+      <!-- TOOLBAR -->
+      <div class="toolbar">
 
-        <article class="tool-card"
-          data-tool="json-minify"
-          data-name="JSON Minifier"
-          data-category="data">
-          <div class="tool-icon">↘</div>
-          <h3>JSON Minifier</h3>
-          <p>Remove unnecessary whitespace from JSON.</p>
-          <div class="tool-footer">
-            <span class="tag">JSON</span>
-            <span class="launch">Open →</span>
-          </div>
-        </article>
+        <div class="search-box">
 
-        <article class="tool-card"
-          data-tool="csv"
-          data-name="CSV to JSON"
-          data-category="data">
-          <div class="tool-icon">▦</div>
-          <h3>CSV → JSON</h3>
-          <p>Convert CSV rows into structured JSON.</p>
-          <div class="tool-footer">
-            <span class="tag">DATA</span>
-            <span class="launch">Open →</span>
-          </div>
-        </article>
+          <span class="search-icon">⌕</span>
+
+          <input
+            id="toolSearch"
+            type="search"
+            placeholder="Search tools..."
+            autocomplete="off"
+          />
+
+          <span class="kbd search-kbd">
+            /
+          </span>
+
+        </div>
+
+        <select id="categoryFilter" class="category-filter">
+          <option value="all">All categories</option>
+          <option value="data">Text & Data</option>
+          <option value="encoding">Encoding</option>
+          <option value="generators">Generators</option>
+          <option value="web">Web & URL</option>
+          <option value="text">Text</option>
+        </select>
+
       </div>
+
+      <!-- TOOL LIST -->
+      <div id="toolContainer"></div>
+
+      <div class="empty-state hidden" id="emptyState">
+        <strong>No tools found</strong>
+        Try another search or category.
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+
+    <div class="container">
+
+      <div class="feature-grid">
+
+        <div class="feature">
+          <div class="feature-icon">&lt;local /&gt;</div>
+          <h3>Runs in your browser</h3>
+          <p>
+            Your input stays on your device for supported tools.
+            No server processing is required.
+          </p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">⌘ + K</div>
+          <h3>Keyboard friendly</h3>
+          <p>
+            Open the command palette, launch tools and copy results
+            without constantly reaching for the mouse.
+          </p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">★</div>
+          <h3>Favorites & history</h3>
+          <p>
+            Keep frequently used tools close with locally stored
+            favorites and recently used tools.
+          </p>
+        </div>
+
+      </div>
+
     </div>
 
-    <!-- ENCODING -->
-    <div class="category" data-category="encoding">
-      <div class="category-title">
-        Encoding & Decoding
-        <span>ENCODE</span>
+  </section>
+
+  <!-- MODAL -->
+  <div class="modal" id="toolModal">
+
+    <div class="modal-panel">
+
+      <div class="modal-head">
+
+        <div class="modal-title-wrap">
+
+          <div class="tool-icon" id="modalIcon">
+            {}
+          </div>
+
+          <div>
+            <div class="modal-title" id="modalTitle">
+              Tool
+            </div>
+
+            <div class="modal-subtitle" id="modalSubtitle">
+              Client-side utility
+            </div>
+          </div>
+
+        </div>
+
+        <button class="modal-close" id="modalClose">
+          ×
+        </button>
+
       </div>
 
-      <div class="tools-grid">
-        <article class="tool-card"
-          data-tool="base64"
-          data-name="Base64 Encoder Decoder"
-          data-category="encoding">
-          <div class="tool-icon">64</div>
-          <h3>Base64</h3>
-          <p>Encode and decode Base64 strings directly in your browser.</p>
-          <div class="tool-footer">
-            <span class="tag">BASE64</span>
-            <span class="launch">Open →</span>
-          </div>
-        </article>
+      <div class="modal-body" id="modalBody"></div>
 
-        <article class="tool-card"
-          data-tool="url"
-          data-name="URL Encoder Decoder"
-          data-category="encoding">
-          <div class="tool-icon">%</div>
-          <h3>URL Encoder</h3>
-          <p>Encode or decode URL components safely.</p>
-          <div class="tool-footer">
-            <span class="tag">URL</span>
-            <span class="launch">Open →</span>
-          </div>
-        </article>
-
-        <article class="tool-card"
-          data-tool="jwt"
-          data-name="JWT Decoder"
-          data-category="encoding">
-          <div class="tool-icon">JWT</div>
-          <h3>JWT Decoder</h3>
-          <p>Inspect the header and payload of a JWT token.</p>
-          <div class="tool-footer">
-            <span class="tag">JWT</span>
-            <span class="launch">Open →</span>
-          </div>
-        </article>
-      </div>
-    </div>
-
-    <!-- GENERATORS -->
-    <div class="category" data-category="generators">
-      <div class="category-title">
-        Generators
-        <span>GENERATE</span>
-      </div>
-
-      <div class="tools-grid">
-        <article class="tool-card"
-          data-tool="uuid"
-          data-name="UUID Generator"
-          data-category="generators">
-          <div class="tool-icon">#</div>
-          <h3>UUID Generator</h3>
-          <p>Generate cryptographically strong UUID v4 identifiers.</p>
-          <div class="tool-footer">
-            <span class="tag">UUID</span>
-            <span class="launch">Open →</span>
-          </div>
-        </article>
-
-        <article class="tool-card"
-          data-tool="password"
-          data-name="Password Generator"
-          data-category="generators">
-          <div class="tool-icon">●</div>
-          <h3>Password Generator</h3>
-          <p>Create random passwords with configurable length.</p>
-          <div class="tool-footer">
-            <span class="tag">RANDOM</span>
-            <span class="launch">Open →</span>
-          </div>
-        </article>
-
-        <article class="tool-card"
-          data-tool="hash"
-          data-name="SHA Hash Generator"
-          data-category="generators">
-          <div class="tool-icon">#</div>
-          <h3>SHA-256 Hash</h3>
-          <p>Generate SHA-256 hashes using the Web Crypto API.</p>
-          <div class="tool-footer">
-            <span class="tag">HASH</span>
-            <span class="launch">Open →</span>
-          </div>
-        </article>
-      </div>
-    </div>
-
-    <!-- WEB -->
-    <div class="category" data-category="web">
-      <div class="category-title">
-        Web Utilities
-        <span>WEB</span>
-      </div>
-
-      <div class="tools-grid">
-        <article class="tool-card"
-          data-tool="html"
-          data-name="HTML Entity Encoder"
-          data-category="web">
-          <div class="tool-icon">&lt;/&gt;</div>
-          <h3>HTML Encoder</h3>
-          <p>Escape text into safe HTML entities.</p>
-          <div class="tool-footer">
-            <span class="tag">HTML</span>
-            <span class="launch">Open →</span>
-          </div>
-        </article>
-
-        <article class="tool-card"
-          data-tool="color"
-          data-name="Color Converter"
-          data-category="web">
-          <div class="tool-icon">◈</div>
-          <h3>Color Converter</h3>
-          <p>Convert HEX colors into RGB and HSL values.</p>
-          <div class="tool-footer">
-            <span class="tag">COLOR</span>
-            <span class="launch">Open →</span>
-          </div>
-        </article>
-
-        <article class="tool-card"
-          data-tool="timestamp"
-          data-name="Unix Timestamp Converter"
-          data-category="web">
-          <div class="tool-icon">◷</div>
-          <h3>Unix Timestamp</h3>
-          <p>Convert timestamps between Unix and readable dates.</p>
-          <div class="tool-footer">
-            <span class="tag">TIME</span>
-            <span class="launch">Open →</span>
-          </div>
-        </article>
-      </div>
-    </div>
-
-    <!-- TEXT -->
-    <div class="category" data-category="text">
-      <div class="category-title">
-        Text Utilities
-        <span>TEXT</span>
-      </div>
-
-      <div class="tools-grid">
-        <article class="tool-card"
-          data-tool="case"
-          data-name="Text Case Converter"
-          data-category="text">
-          <div class="tool-icon">Aa</div>
-          <h3>Case Converter</h3>
-          <p>Convert text to upper, lower, title or sentence case.</p>
-          <div class="tool-footer">
-            <span class="tag">TEXT</span>
-            <span class="launch">Open →</span>
-          </div>
-        </article>
-
-        <article class="tool-card"
-          data-tool="wordcount"
-          data-name="Word Counter"
-          data-category="text">
-          <div class="tool-icon">123</div>
-          <h3>Word Counter</h3>
-          <p>Count words, characters, lines and paragraphs.</p>
-          <div class="tool-footer">
-            <span class="tag">TEXT</span>
-            <span class="launch">Open →</span>
-          </div>
-        </article>
-
-        <article class="tool-card"
-          data-tool="lorem"
-          data-name="Lorem Ipsum Generator"
-          data-category="text">
-          <div class="tool-icon">¶</div>
-          <h3>Lorem Ipsum</h3>
-          <p>Generate placeholder text for designs and prototypes.</p>
-          <div class="tool-footer">
-            <span class="tag">TEXT</span>
-            <span class="launch">Open →</span>
-          </div>
-        </article>
-      </div>
     </div>
 
   </div>
 
-  <div class="no-results" id="noResults">
-    No tools matched your search.
+  <!-- COMMAND PALETTE -->
+  <div class="command" id="commandPalette">
+
+    <div class="command-panel">
+
+      <div class="command-search">
+
+        <span class="muted">⌕</span>
+
+        <input
+          id="commandInput"
+          type="text"
+          placeholder="Search tools..."
+          autocomplete="off"
+        />
+
+        <span class="kbd">Esc</span>
+
+      </div>
+
+      <div class="command-results" id="commandResults"></div>
+
+    </div>
+
   </div>
-</section>
 
-<!-- FEATURES -->
-<section class="features" id="features">
-  <div class="feature-grid">
-    <div class="feature">
-      <div class="feature-icon">⚡</div>
-      <h3>Fast</h3>
-      <p>
-        Lightweight tools designed to run instantly without unnecessary
-        server requests.
-      </p>
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="container footer-inner">
+
+      <div class="footer-copy">
+        © 2026 OpenUtility. Built for developers.
+      </div>
+
+      <div class="footer-links">
+        <a href="#tools">Tools</a>
+        <a href="#features">Features</a>
+        <a href="#">Privacy</a>
+      </div>
+
     </div>
 
-    <div class="feature">
-      <div class="feature-icon">🔒</div>
-      <h3>Privacy-first</h3>
-      <p>
-        Most operations happen entirely in your browser, keeping your
-        input on your device.
-      </p>
-    </div>
+  </footer>
 
-    <div class="feature">
-      <div class="feature-icon">◇</div>
-      <h3>No account</h3>
-      <p>
-        Open a tool and start working immediately. No registration
-        required.
-      </p>
-    </div>
-  </div>
-</section>
 
-  </main>  <footer>
-    <strong>OpenUtility</strong> — Developer utilities for everyday work.
-    <br>
-    Built to be fast, simple and privacy-friendly.
-  </footer>  <!-- TOOL MODAL -->  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal">
-      <div class="modal-header">
-        <h2 id="modalTitle">Developer Tool</h2>
-        <button class="close-modal" id="closeModal" aria-label="Close">×</button>
-      </div>  <div class="modal-body" id="modalBody"></div>
-</div>
+  <script>
+    /* ============================================================
+       TOOL DEFINITIONS
+    ============================================================ */
 
-  </div>  <script>
-    const modalOverlay = document.getElementById("modalOverlay");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalBody = document.getElementById("modalBody");
-    const closeModal = document.getElementById("closeModal");
-    const toolSearch = document.getElementById("toolSearch");
-    const noResults = document.getElementById("noResults");
-    const navbar = document.getElementById("navbar");
-    const menuBtn = document.getElementById("menuBtn");
-    const mobileMenu = document.getElementById("mobileMenu");
+    const tools = [
 
-    let currentFilter = "all";
+      {
+        id: "json-formatter",
+        name: "JSON Formatter",
+        description: "Format and pretty-print JSON.",
+        category: "data",
+        categoryName: "Text & Data",
+        icon: "{}"
+      },
 
-    /* NAVIGATION */
+      {
+        id: "json-minifier",
+        name: "JSON Minifier",
+        description: "Remove whitespace and minify JSON.",
+        category: "data",
+        categoryName: "Text & Data",
+        icon: "{ }"
+      },
 
-    window.addEventListener("scroll", () => {
-      navbar.classList.toggle("scrolled", window.scrollY > 10);
-    });
+      {
+        id: "csv-json",
+        name: "CSV → JSON",
+        description: "Convert CSV data into JSON.",
+        category: "data",
+        categoryName: "Text & Data",
+        icon: "CSV"
+      },
 
-    menuBtn.addEventListener("click", () => {
-      mobileMenu.classList.toggle("open");
-    });
+      {
+        id: "base64",
+        name: "Base64 Encoder",
+        description: "Encode or decode Base64 strings.",
+        category: "encoding",
+        categoryName: "Encoding",
+        icon: "B64"
+      },
 
-    mobileMenu.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => {
-        mobileMenu.classList.remove("open");
-      });
-    });
+      {
+        id: "url-encoder",
+        name: "URL Encoder",
+        description: "Encode and decode URL components.",
+        category: "encoding",
+        categoryName: "Encoding",
+        icon: "%/"
+      },
 
-    /* SEARCH + FILTER */
+      {
+        id: "jwt-decoder",
+        name: "JWT Decoder",
+        description: "Decode JWT header and payload locally.",
+        category: "encoding",
+        categoryName: "Encoding",
+        icon: "JWT"
+      },
 
-    document.querySelectorAll(".filter").forEach(button => {
-      button.addEventListener("click", () => {
-        document.querySelectorAll(".filter").forEach(b => {
-          b.classList.remove("active");
+      {
+        id: "uuid",
+        name: "UUID Generator",
+        description: "Generate random UUID v4 values.",
+        category: "generators",
+        categoryName: "Generators",
+        icon: "ID"
+      },
+
+      {
+        id: "password",
+        name: "Password Generator",
+        description: "Generate strong random passwords.",
+        category: "generators",
+        categoryName: "Generators",
+        icon: "PWD"
+      },
+
+      {
+        id: "sha256",
+        name: "SHA-256 Hash",
+        description: "Create a SHA-256 hash from text.",
+        category: "generators",
+        categoryName: "Generators",
+        icon: "#"
+      },
+
+      {
+        id: "html-entities",
+        name: "HTML Entities",
+        description: "Encode or decode HTML entities.",
+        category: "encoding",
+        categoryName: "Encoding",
+        icon: "&lt;"
+      },
+
+      {
+        id: "color",
+        name: "Color Converter",
+        description: "Convert common HEX, RGB and HSL values.",
+        category: "web",
+        categoryName: "Web & URL",
+        icon: "RGB"
+      },
+
+      {
+        id: "timestamp",
+        name: "Unix Timestamp",
+        description: "Convert Unix timestamps and dates.",
+        category: "web",
+        categoryName: "Web & URL",
+        icon: "TS"
+      },
+
+      {
+        id: "case",
+        name: "Text Case Converter",
+        description: "Convert text between common cases.",
+        category: "text",
+        categoryName: "Text",
+        icon: "Aa"
+      },
+
+      {
+        id: "word-counter",
+        name: "Word Counter",
+        description: "Count words, characters and lines.",
+        category: "text",
+        categoryName: "Text",
+        icon: "123"
+      },
+
+      {
+        id: "lorem",
+        name: "Lorem Ipsum",
+        description: "Generate placeholder text quickly.",
+        category: "text",
+        categoryName: "Text",
+        icon: "TXT"
+      }
+
+    ];
+
+
+    /* ============================================================
+       STATE
+    ============================================================ */
+
+    let currentTool = null;
+
+    let favorites = loadStorage(
+      "openutility-favorites",
+      []
+    );
+
+    let recentTools = loadStorage(
+      "openutility-recent",
+      []
+    );
+
+    let toastTimer;
+
+
+    /* ============================================================
+       STORAGE
+    ============================================================ */
+
+    function loadStorage(key, fallback) {
+      try {
+        const value = localStorage.getItem(key);
+
+        if (!value) {
+          return fallback;
+        }
+
+        const parsed = JSON.parse(value);
+
+        return Array.isArray(parsed)
+          ? parsed
+          : fallback;
+
+      } catch {
+        return fallback;
+      }
+    }
+
+
+    function saveStorage(key, value) {
+      try {
+        localStorage.setItem(
+          key,
+          JSON.stringify(value)
+        );
+      } catch {
+        // Storage may be unavailable.
+      }
+    }
+
+
+    /* ============================================================
+       DOM
+    ============================================================ */
+
+    const toolContainer =
+      document.getElementById("toolContainer");
+
+    const toolSearch =
+      document.getElementById("toolSearch");
+
+    const categoryFilter =
+      document.getElementById("categoryFilter");
+
+    const toolCount =
+      document.getElementById("toolCount");
+
+    const emptyState =
+      document.getElementById("emptyState");
+
+    const quickSection =
+      document.getElementById("quickSection");
+
+    const quickList =
+      document.getElementById("quickList");
+
+    const quickTitle =
+      document.getElementById("quickTitle");
+
+    const clearRecentBtn =
+      document.getElementById("clearRecentBtn");
+
+    const toolModal =
+      document.getElementById("toolModal");
+
+    const modalBody =
+      document.getElementById("modalBody");
+
+    const modalTitle =
+      document.getElementById("modalTitle");
+
+    const modalSubtitle =
+      document.getElementById("modalSubtitle");
+
+    const modalIcon =
+      document.getElementById("modalIcon");
+
+    const modalClose =
+      document.getElementById("modalClose");
+
+    const toast =
+      document.getElementById("toast");
+
+    const commandPalette =
+      document.getElementById("commandPalette");
+
+    const commandInput =
+      document.getElementById("commandInput");
+
+    const commandResults =
+      document.getElementById("commandResults");
+
+
+    /* ============================================================
+       TOAST
+    ============================================================ */
+
+    function showToast(message, type = "success") {
+
+      clearTimeout(toastTimer);
+
+      toast.textContent = message;
+
+      toast.className =
+        "toast " +
+        type +
+        " show";
+
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2200);
+    }
+
+
+    /* ============================================================
+       FAVORITES
+    ============================================================ */
+
+    function isFavorite(id) {
+      return favorites.includes(id);
+    }
+
+
+    function toggleFavorite(id, event) {
+
+      if (event) {
+        event.stopPropagation();
+      }
+
+      if (isFavorite(id)) {
+
+        favorites =
+          favorites.filter(item => item !== id);
+
+        showToast("Removed from favorites");
+
+      } else {
+
+        favorites.unshift(id);
+
+        showToast("Added to favorites");
+      }
+
+      saveStorage(
+        "openutility-favorites",
+        favorites
+      );
+
+      renderTools(
+        toolSearch.value,
+        categoryFilter.value
+      );
+
+      renderQuickSection();
+    }
+
+
+    /* ============================================================
+       RECENT TOOLS
+    ============================================================ */
+
+    function addRecent(id) {
+
+      recentTools =
+        recentTools.filter(item => item !== id);
+
+      recentTools.unshift(id);
+
+      recentTools =
+        recentTools.slice(0, 6);
+
+      saveStorage(
+        "openutility-recent",
+        recentTools
+      );
+
+      renderQuickSection();
+    }
+
+
+    function clearRecent() {
+
+      recentTools = [];
+
+      saveStorage(
+        "openutility-recent",
+        recentTools
+      );
+
+      renderQuickSection();
+
+      showToast("Recent tools cleared");
+    }
+
+
+    function renderQuickSection() {
+
+      const favoriteTools =
+        favorites
+          .map(id => tools.find(tool => tool.id === id))
+          .filter(Boolean);
+
+      const recent =
+        recentTools
+          .map(id => tools.find(tool => tool.id === id))
+          .filter(Boolean);
+
+      let list = recent;
+      let title = "Recently used";
+
+      if (!recent.length && favoriteTools.length) {
+        list = favoriteTools;
+        title = "Favorites";
+      }
+
+      if (!list.length) {
+        quickSection.classList.add("hidden");
+        return;
+      }
+
+      quickSection.classList.remove("hidden");
+
+      quickTitle.textContent = title;
+
+      clearRecentBtn.classList.toggle(
+        "hidden",
+        title !== "Recently used"
+      );
+
+      quickList.innerHTML =
+        list.map(tool => `
+          <button
+            class="quick-tool"
+            data-tool="${tool.id}"
+          >
+            <span class="icon">${tool.icon}</span>
+            <span>${tool.name}</span>
+          </button>
+        `).join("");
+
+      quickList
+        .querySelectorAll("[data-tool]")
+        .forEach(button => {
+
+          button.addEventListener(
+            "click",
+            () => openTool(button.dataset.tool)
+          );
+
         });
+    }
 
-        button.classList.add("active");
-        currentFilter = button.dataset.filter;
-        filterTools();
-      });
-    });
 
-    toolSearch.addEventListener("input", filterTools);
+    clearRecentBtn.addEventListener(
+      "click",
+      clearRecent
+    );
 
-    function filterTools() {
-      const query = toolSearch.value.trim().toLowerCase();
-      const categories = document.querySelectorAll(".category");
-      let visibleTools = 0;
 
-      categories.forEach(category => {
-        const categoryName = category.dataset.category;
-        const categoryMatches =
-          currentFilter === "all" ||
-          currentFilter === categoryName;
+    /* ============================================================
+       RENDER TOOLS
+    ============================================================ */
 
-        let categoryVisible = 0;
+    function renderTools(
+      search = "",
+      category = "all"
+    ) {
 
-        category.querySelectorAll(".tool-card").forEach(card => {
-          const name = card.dataset.name.toLowerCase();
-          const description =
-            card.querySelector("p").textContent.toLowerCase();
+      const query =
+        search.trim().toLowerCase();
+
+      const filtered =
+        tools.filter(tool => {
 
           const matchesSearch =
             !query ||
-            name.includes(query) ||
-            description.includes(query);
+            tool.name.toLowerCase().includes(query) ||
+            tool.description.toLowerCase().includes(query) ||
+            tool.categoryName.toLowerCase().includes(query);
 
-          const visible = categoryMatches && matchesSearch;
+          const matchesCategory =
+            category === "all" ||
+            tool.category === category;
 
-          card.style.display = visible ? "" : "none";
-
-          if (visible) {
-            categoryVisible++;
-            visibleTools++;
-          }
+          return matchesSearch && matchesCategory;
         });
 
-        category.style.display =
-          categoryVisible > 0 ? "" : "none";
+      toolContainer.innerHTML = "";
+
+      toolCount.textContent =
+        `${filtered.length} ${filtered.length === 1 ? "tool" : "tools"}`;
+
+      emptyState.classList.toggle(
+        "hidden",
+        filtered.length !== 0
+      );
+
+      if (!filtered.length) {
+        return;
+      }
+
+      const categories = [
+        "data",
+        "encoding",
+        "generators",
+        "web",
+        "text"
+      ];
+
+      categories.forEach(categoryId => {
+
+        const categoryTools =
+          filtered.filter(
+            tool => tool.category === categoryId
+          );
+
+        if (!categoryTools.length) {
+          return;
+        }
+
+        const categoryName =
+          categoryTools[0].categoryName;
+
+        const categoryElement =
+          document.createElement("section");
+
+        categoryElement.className = "category";
+
+        categoryElement.innerHTML = `
+
+          <div class="category-head">
+
+            <div class="category-name">
+              <span>${categoryName}</span>
+              <span class="category-line"></span>
+            </div>
+
+            <span class="category-count">
+              ${categoryTools.length}
+            </span>
+
+          </div>
+
+          <div class="tool-grid">
+
+            ${categoryTools.map(tool => `
+              <article
+                class="tool-card"
+                data-tool="${tool.id}"
+              >
+
+                <div class="tool-top">
+
+                  <div class="tool-icon">
+                    ${tool.icon}
+                  </div>
+
+                  <button
+                    class="tool-favorite ${isFavorite(tool.id) ? "active" : ""}"
+                    data-favorite="${tool.id}"
+                    aria-label="Toggle favorite"
+                  >
+                    ${isFavorite(tool.id) ? "★" : "☆"}
+                  </button>
+
+                </div>
+
+                <div class="tool-name">
+                  ${tool.name}
+                </div>
+
+                <div class="tool-description">
+                  ${tool.description}
+                </div>
+
+                <div class="tool-meta">
+                  <span class="local-dot"></span>
+                  client-side
+                </div>
+
+              </article>
+            `).join("")}
+
+          </div>
+        `;
+
+        toolContainer.appendChild(
+          categoryElement
+        );
       });
 
-      noResults.style.display =
-        visibleTools === 0 ? "block" : "none";
+      toolContainer
+        .querySelectorAll(".tool-card")
+        .forEach(card => {
+
+          card.addEventListener(
+            "click",
+            () => openTool(card.dataset.tool)
+          );
+
+        });
+
+      toolContainer
+        .querySelectorAll("[data-favorite]")
+        .forEach(button => {
+
+          button.addEventListener(
+            "click",
+            event => {
+
+              toggleFavorite(
+                button.dataset.favorite,
+                event
+              );
+
+            }
+          );
+
+        });
     }
 
-    /* MODAL */
 
-    document.querySelectorAll(".tool-card").forEach(card => {
-      card.addEventListener("click", () => {
-        openTool(card.dataset.tool);
+    /* ============================================================
+       MODAL
+    ============================================================ */
+
+    function openTool(id) {
+
+      const tool =
+        tools.find(item => item.id === id);
+
+      if (!tool) {
+        return;
+      }
+
+      currentTool = tool;
+
+      addRecent(id);
+
+      modalTitle.textContent =
+        tool.name;
+
+      modalSubtitle.textContent =
+        `${tool.categoryName} • Client-side`;
+
+      modalIcon.textContent =
+        tool.icon;
+
+      modalBody.innerHTML =
+        getToolHTML(tool.id);
+
+      toolModal.classList.add("active");
+
+      document.body.classList.add("modal-open");
+
+      requestAnimationFrame(() => {
+
+        const firstInput =
+          modalBody.querySelector(
+            "textarea, input, select"
+          );
+
+        if (firstInput) {
+          firstInput.focus();
+        }
+
       });
-    });
+
+      bindToolEvents(tool.id);
+    }
+
 
     function closeTool() {
-      modalOverlay.classList.remove("open");
-      document.body.classList.remove("modal-open");
-      modalBody.innerHTML = "";
-    }
 
-    closeModal.addEventListener("click", closeTool);
+      toolModal.classList.remove("active");
 
-    modalOverlay.addEventListener("click", event => {
-      if (event.target === modalOverlay) {
-        closeTool();
-      }
-    });
-
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape") {
-        closeTool();
-      }
-    });
-
-    function openTool(tool) {
-      const tools = {
-        json: {
-          title: "JSON Formatter",
-          body: `
-            <label>JSON Input</label>
-            <textarea id="toolInput" rows="12"
-              placeholder='{"name":"OpenUtility","version":1}'></textarea>        <div class="modal-actions">
-          <button class="btn btn-primary" onclick="formatJSON()">
-            Format
-          </button>
-          <button class="btn btn-secondary" onclick="minifyJSON()">
-            Minify
-          </button>
-          <button class="btn btn-secondary" onclick="clearTool()">
-            Clear
-          </button>
-        </div>
-
-        <div class="output" id="toolOutput"></div>
-      `
-    },
-
-    "json-minify": {
-      title: "JSON Minifier",
-      body: `
-        <label>JSON Input</label>
-        <textarea id="toolInput" rows="12"
-          placeholder='{"hello":"world"}'></textarea>
-
-        <div class="modal-actions">
-          <button class="btn btn-primary" onclick="minifyJSON()">
-            Minify JSON
-          </button>
-          <button class="btn btn-secondary" onclick="clearTool()">
-            Clear
-          </button>
-        </div>
-
-        <div class="output" id="toolOutput"></div>
-      `
-    },
-
-    base64: {
-      title: "Base64 Encoder / Decoder",
-      body: `
-        <label>Input</label>
-        <textarea id="toolInput" rows="8"
-          placeholder="Enter text..."></textarea>
-
-        <div class="modal-actions">
-          <button class="btn btn-primary" onclick="encodeBase64()">
-            Encode
-          </button>
-          <button class="btn btn-secondary" onclick="decodeBase64()">
-            Decode
-          </button>
-        </div>
-
-        <div class="output" id="toolOutput"></div>
-      `
-    },
-
-    url: {
-      title: "URL Encoder / Decoder",
-      body: `
-        <label>Input</label>
-        <textarea id="toolInput" rows="8"
-          placeholder="https://example.com/?hello=world"></textarea>
-
-        <div class="modal-actions">
-          <button class="btn btn-primary" onclick="encodeURL()">
-            Encode
-          </button>
-          <button class="btn btn-secondary" onclick="decodeURL()">
-            Decode
-          </button>
-        </div>
-
-        <div class="output" id="toolOutput"></div>
-      `
-    },
-
-    jwt: {
-      title: "JWT Decoder",
-      body: `
-        <label>JWT Token</label>
-        <textarea id="toolInput" rows="9"
-          placeholder="eyJhbGciOi..."></textarea>
-
-        <div class="modal-actions">
-          <button class="btn btn-primary" onclick="decodeJWT()">
-            Decode
-          </button>
-        </div>
-
-        <div class="output" id="toolOutput"></div>
-      `
-    },
-
-    uuid: {
-      title: "UUID Generator",
-      body: `
-        <label>Generated UUID</label>
-        <input id="toolInput" readonly>
-
-        <div class="modal-actions">
-          <button class="btn btn-primary" onclick="generateUUID()">
-            Generate UUID
-          </button>
-          <button class="btn btn-secondary" onclick="copyOutput()">
-            Copy
-          </button>
-        </div>
-
-        <div class="output" id="toolOutput"></div>
-      `
-    },
-
-    password: {
-      title: "Password Generator",
-      body: `
-        <label>Password Length</label>
-        <input id="passwordLength" type="number" min="6" max="128" value="24">
-
-        <div class="modal-actions">
-          <button class="btn btn-primary" onclick="generatePassword()">
-            Generate
-          </button>
-          <button class="btn btn-secondary" onclick="copyOutput()">
-            Copy
-          </button>
-        </div>
-
-        <div class="output" id="toolOutput"></div>
-      `
-    },
-
-    hash: {
-      title: "SHA-256 Hash",
-      body: `
-        <label>Input</label>
-        <textarea id="toolInput" rows="8"
-          placeholder="Text to hash..."></textarea>
-
-        <div class="modal-actions">
-          <button class="btn btn-primary" onclick="generateHash()">
-            Hash
-          </button>
-          <button class="btn btn-secondary" onclick="copyOutput()">
-            Copy
-          </button>
-        </div>
-
-        <div class="output" id="toolOutput"></div>
-      `
-    },
-
-    html: {
-      title: "HTML Entity Encoder",
-      body: `
-        <label>Input</label>
-        <textarea id="toolInput" rows="8"
-          placeholder="<div>Hello & welcome</div>"></textarea>
-
-        <div class="modal-actions">
-          <button class="btn btn-primary" onclick="encodeHTML()">
-            Encode
-          </button>
-          <button class="btn btn-secondary" onclick="decodeHTML()">
-            Decode
-          </button>
-        </div>
-
-        <div class="output" id="toolOutput"></div>
-      `
-    },
-
-    color: {
-      title: "Color Converter",
-      body: `
-        <label>HEX Color</label>
-        <input id="toolInput" value="#38bdf8">
-
-        <div class="modal-actions">
-          <button class="btn btn-primary" onclick="convertColor()">
-            Convert
-          </button>
-        </div>
-
-        <div class="output" id="toolOutput"></div>
-      `
-    },
-
-    timestamp: {
-      title: "Unix Timestamp Converter",
-      body: `
-        <label>Unix Timestamp</label>
-        <input id="toolInput" type="number"
-          placeholder="1758297600">
-
-        <div class="modal-actions">
-          <button class="btn btn-primary" onclick="timestampToDate()">
-            Convert
-          </button>
-          <button class="btn btn-secondary" onclick="currentTimestamp()">
-            Current Timestamp
-          </button>
-        </div>
-
-        <div class="output" id="toolOutput"></div>
-      `
-    },
-
-    case: {
-      title: "Text Case Converter",
-      body: `
-        <label>Text</label>
-        <textarea id="toolInput" rows="8"
-          placeholder="Enter your text..."></textarea>
-
-        <div class="modal-actions">
-          <button class="btn btn-primary" onclick="convertCase('upper')">
-            UPPERCASE
-          </button>
-          <button class="btn btn-secondary" onclick="convertCase('lower')">
-            lowercase
-          </button>
-          <button class="btn btn-secondary" onclick="convertCase('title')">
-            Title Case
-          </button>
-        </div>
-
-        <div class="output" id="toolOutput"></div>
-      `
-    },
-
-    wordcount: {
-      title: "Word Counter",
-      body: `
-        <label>Text</label>
-        <textarea id="toolInput" rows="10"
-          placeholder="Start typing..."></textarea>
-
-        <div class="modal-actions">
-          <button class="btn btn-primary" onclick="countWords()">
-            Analyze
-          </button>
-        </div>
-
-        <div class="output" id="toolOutput"></div>
-      `
-    },
-
-    lorem: {
-      title: "Lorem Ipsum Generator",
-      body: `
-        <label>Number of paragraphs</label>
-        <input id="loremCount" type="number" min="1" max="20" value="3">
-
-        <div class="modal-actions">
-          <button class="btn btn-primary" onclick="generateLorem()">
-            Generate
-          </button>
-          <button class="btn btn-secondary" onclick="copyOutput()">
-            Copy
-          </button>
-        </div>
-
-        <div class="output" id="toolOutput"></div>
-      `
-    },
-
-    csv: {
-      title: "CSV → JSON",
-      body: `
-        <label>CSV Input</label>
-        <textarea id="toolInput" rows="12"
-          placeholder="name,age,city&#10;Ali,25,Lahore&#10;Sara,28,Karachi"></textarea>
-
-        <div class="modal-actions">
-          <button class="btn btn-primary" onclick="csvToJSON()">
-            Convert
-          </button>
-        </div>
-
-        <div class="output" id="toolOutput"></div>
-      `
-    }
-  };
-
-  const selected = tools[tool];
-
-  if (!selected) {
-    return;
-  }
-
-  modalTitle.textContent = selected.title;
-  modalBody.innerHTML = selected.body;
-
-  modalOverlay.classList.add("open");
-  document.body.classList.add("modal-open");
-
-  const firstInput = modalBody.querySelector("textarea, input");
-
-  if (firstInput && !firstInput.readOnly) {
-    setTimeout(() => firstInput.focus(), 50);
-  }
-}
-
-/* TOOL HELPERS */
-
-function getInput() {
-  return document.getElementById("toolInput").value;
-}
-
-function showOutput(value, error = false) {
-  const output = document.getElementById("toolOutput");
-
-  if (!output) return;
-
-  output.textContent = value;
-  output.classList.add("show");
-  output.classList.toggle("error", error);
-}
-
-function clearTool() {
-  const input = document.getElementById("toolInput");
-  const output = document.getElementById("toolOutput");
-
-  if (input) input.value = "";
-  if (output) {
-    output.textContent = "";
-    output.classList.remove("show");
-  }
-}
-
-function copyOutput() {
-  const output = document.getElementById("toolOutput");
-
-  if (!output || !output.textContent) return;
-
-  navigator.clipboard.writeText(output.textContent)
-    .then(() => {
-      const old = output.textContent;
-      output.textContent = old + "\n\n✓ Copied to clipboard";
-      setTimeout(() => {
-        output.textContent = old;
-      }, 1000);
-    })
-    .catch(() => {});
-}
-
-/* JSON */
-
-function formatJSON() {
-  try {
-    const data = JSON.parse(getInput());
-    showOutput(JSON.stringify(data, null, 2));
-  } catch (error) {
-    showOutput("Invalid JSON:\n\n" + error.message, true);
-  }
-}
-
-function minifyJSON() {
-  try {
-    const data = JSON.parse(getInput());
-    showOutput(JSON.stringify(data));
-  } catch (error) {
-    showOutput("Invalid JSON:\n\n" + error.message, true);
-  }
-}
-
-/* BASE64 */
-
-function encodeBase64() {
-  try {
-    const value = getInput();
-    showOutput(
-      btoa(unescape(encodeURIComponent(value)))
-    );
-  } catch (error) {
-    showOutput(error.message, true);
-  }
-}
-
-function decodeBase64() {
-  try {
-    const value = getInput();
-    showOutput(
-      decodeURIComponent(escape(atob(value)))
-    );
-  } catch (error) {
-    showOutput("Invalid Base64 input.", true);
-  }
-}
-
-/* URL */
-
-function encodeURL() {
-  showOutput(encodeURIComponent(getInput()));
-}
-
-function decodeURL() {
-  try {
-    showOutput(decodeURIComponent(getInput()));
-  } catch {
-    showOutput("Invalid encoded URL.", true);
-  }
-}
-
-/* JWT */
-
-function decodeJWT() {
-  const token = getInput().trim();
-  const parts = token.split(".");
-
-  if (parts.length !== 3) {
-    showOutput("Invalid JWT. A JWT should contain 3 parts.", true);
-    return;
-  }
-
-  try {
-    const decodePart = part => {
-      const normalized = part
-        .replace(/-/g, "+")
-        .replace(/_/g, "/");
-
-      const padded =
-        normalized +
-        "=".repeat((4 - normalized.length % 4) % 4);
-
-      return JSON.parse(
-        decodeURIComponent(
-          atob(padded)
-            .split("")
-            .map(c =>
-              "%" +
-              ("00" + c.charCodeAt(0).toString(16)).slice(-2)
-            )
-            .join("")
-        )
+      document.body.classList.remove(
+        "modal-open"
       );
-    };
 
-    const result = {
-      header: decodePart(parts[0]),
-      payload: decodePart(parts[1]),
-      signature: parts[2]
-    };
-
-    showOutput(JSON.stringify(result, null, 2));
-  } catch {
-    showOutput("Unable to decode JWT.", true);
-  }
-}
-
-/* UUID */
-
-function generateUUID() {
-  const uuid = crypto.randomUUID
-    ? crypto.randomUUID()
-    : fallbackUUID();
-
-  document.getElementById("toolInput").value = uuid;
-  showOutput(uuid);
-}
-
-function fallbackUUID() {
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-    /[xy]/g,
-    c => {
-      const r = Math.random() * 16 | 0;
-      const v = c === "x"
-        ? r
-        : (r & 0x3 | 0x8);
-
-      return v.toString(16);
-    }
-  );
-}
-
-/* PASSWORD */
-
-function generatePassword() {
-  const length = Math.max(
-    6,
-    Math.min(
-      128,
-      Number(document.getElementById("passwordLength").value) || 24
-    )
-  );
-
-  const chars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-    "abcdefghijklmnopqrstuvwxyz" +
-    "0123456789" +
-    "!@#$%^&*()-_=+[]{}";
-
-  const values = new Uint32Array(length);
-
-  crypto.getRandomValues(values);
-
-  let password = "";
-
-  for (let i = 0; i < length; i++) {
-    password += chars[values[i] % chars.length];
-  }
-
-  showOutput(password);
-}
-
-/* HASH */
-
-async function generateHash() {
-  try {
-    const data = new TextEncoder().encode(getInput());
-    const hash = await crypto.subtle.digest("SHA-256", data);
-
-    const hex = [...new Uint8Array(hash)]
-      .map(byte => byte.toString(16).padStart(2, "0"))
-      .join("");
-
-    showOutput(hex);
-  } catch (error) {
-    showOutput(error.message, true);
-  }
-}
-
-/* HTML */
-
-function encodeHTML() {
-  const div = document.createElement("div");
-  div.textContent = getInput();
-  showOutput(div.innerHTML);
-}
-
-function decodeHTML() {
-  const div = document.createElement("textarea");
-  div.innerHTML = getInput();
-  showOutput(div.value);
-}
-
-/* COLOR */
-
-function convertColor() {
-  let hex = getInput().trim().replace("#", "");
-
-  if (hex.length === 3) {
-    hex = hex.split("").map(x => x + x).join("");
-  }
-
-  if (!/^[0-9a-fA-F]{6}$/.test(hex)) {
-    showOutput("Invalid HEX color.", true);
-    return;
-  }
-
-  const r = parseInt(hex.substring(0, 2), 16);
-  const g = parseInt(hex.substring(2, 4), 16);
-  const b = parseInt(hex.substring(4, 6), 16);
-
-  const max = Math.max(r, g, b) / 255;
-  const min = Math.min(r, g, b) / 255;
-
-  let h = 0;
-  let s = 0;
-  const l = (max + min) / 2;
-
-  if (max !== min) {
-    const d = max - min;
-    s = l > .5
-      ? d / (2 - max - min)
-      : d / (max + min);
-
-    switch (max) {
-      case r / 255:
-        h = ((g - b) / 255 / d) +
-          (g < b ? 6 : 0);
-        break;
-
-      case g / 255:
-        h = ((b - r) / 255 / d) + 2;
-        break;
-
-      case b / 255:
-        h = ((r - g) / 255 / d) + 4;
-        break;
+      currentTool = null;
     }
 
-    h /= 6;
-  }
 
-  showOutput(
-    `HEX: #${hex.toUpperCase()}\n` +
-    `RGB: rgb(${r}, ${g}, ${b})\n` +
-    `HSL: hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`
-  );
-}
-
-/* TIMESTAMP */
-
-function timestampToDate() {
-  const timestamp = Number(getInput());
-
-  if (!Number.isFinite(timestamp)) {
-    showOutput("Enter a valid Unix timestamp.", true);
-    return;
-  }
-
-  const date = new Date(
-    timestamp < 10000000000
-      ? timestamp * 1000
-      : timestamp
-  );
-
-  if (Number.isNaN(date.getTime())) {
-    showOutput("Invalid timestamp.", true);
-    return;
-  }
-
-  showOutput(
-    "Local:  " + date.toString() +
-    "\nUTC:    " + date.toISOString()
-  );
-}
-
-function currentTimestamp() {
-  const timestamp =
-    Math.floor(Date.now() / 1000);
-
-  document.getElementById("toolInput").value = timestamp;
-  timestampToDate();
-}
-
-/* CASE */
-
-function convertCase(type) {
-  const value = getInput();
-
-  if (type === "upper") {
-    showOutput(value.toUpperCase());
-    return;
-  }
-
-  if (type === "lower") {
-    showOutput(value.toLowerCase());
-    return;
-  }
-
-  if (type === "title") {
-    showOutput(
-      value.toLowerCase().replace(
-        /\b\w/g,
-        char => char.toUpperCase()
-      )
-    );
-  }
-}
-
-/* WORD COUNT */
-
-function countWords() {
-  const text = getInput();
-
-  const words = text.trim()
-    ? text.trim().split(/\s+/).length
-    : 0;
-
-  const characters = text.length;
-
-  const charactersNoSpaces =
-    text.replace(/\s/g, "").length;
-
-  const lines = text
-    ? text.split(/\r?\n/).length
-    : 0;
-
-  const paragraphs = text.trim()
-    ? text.trim().split(/\n\s*\n/).length
-    : 0;
-
-  showOutput(
-    `Words:              ${words}\n` +
-    `Characters:         ${characters}\n` +
-    `Without spaces:     ${charactersNoSpaces}\n` +
-    `Lines:              ${lines}\n` +
-    `Paragraphs:         ${paragraphs}`
-  );
-}
-
-/* LOREM IPSUM */
-
-function generateLorem() {
-  const count = Math.max(
-    1,
-    Math.min(
-      20,
-      Number(document.getElementById("loremCount").value) || 3
-    )
-  );
-
-  const source =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-    "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
-    "nisi ut aliquip ex ea commodo consequat.";
-
-  const paragraphs =
-    Array.from(
-      { length: count },
-      () => source
+    modalClose.addEventListener(
+      "click",
+      closeTool
     );
 
-  showOutput(paragraphs.join("\n\n"));
-}
 
-/* CSV */
+    toolModal.addEventListener(
+      "click",
+      event => {
 
-function csvToJSON() {
-  const input = getInput().trim();
+        if (event.target === toolModal) {
+          closeTool();
+        }
 
-  if (!input) {
-    showOutput("Enter CSV data first.", true);
-    return;
-  }
+      }
+    );
 
-  const lines = input.split(/\r?\n/);
 
-  const headers = lines[0]
-    .split(",")
-    .map(h => h.trim());
+    /* ============================================================
+       ERROR HANDLING
+    ============================================================ */
 
-  const rows = lines.slice(1).map(line => {
-    const values = line.split(",");
+    function setError(message) {
 
-    const object = {};
+      const error =
+        document.getElementById("toolError");
 
-    headers.forEach((header, index) => {
-      object[header] =
-        (values[index] || "").trim();
-    });
+      if (!error) {
+        return;
+      }
 
-    return object;
-  });
+      error.textContent =
+        message;
 
-  showOutput(JSON.stringify(rows, null, 2));
-}
+      error.classList.add("show");
+    }
 
-/* TOOL COUNT */
 
-document.getElementById("toolCount").textContent =
-  document.querySelectorAll(".tool-card").length + "+";
+    function clearError() {
 
-  </script></body>
+      const error =
+        document.getElementById("toolError");
+
+      if (!error) {
+        return;
+      }
+
+      error.textContent = "";
+
+      error.classList.remove("show");
+    }
+
+
+    function setOutput(
+      value,
+      type = ""
+    ) {
+
+      const output =
+        document.getElementById("toolOutput");
+
+      if (!output) {
+        return;
+      }
+
+      output.textContent =
+        value;
+
+      output.className =
+        "tool-output " +
+        type;
+    }
+
+
+    /* ============================================================
+       TOOL HTML
+    ============================================================ */
+
+    function baseToolHTML(
+      inputLabel = "Input",
+      inputPlaceholder = "",
+      outputLabel = "Output"
+    ) {
+
+      return `
+
+        <div class="tool-layout">
+
+          <div class="field">
+
+            <div class="field-label">
+              ${inputLabel}
+            </div>
+
+            <textarea
+              id="toolInput"
+              placeholder="${inputPlaceholder}"
+              spellcheck="false"
+            ></textarea>
+
+          </div>
+
+          <div class="field">
+
+            <div class="field-label">
+              ${outputLabel}
+            </div>
+
+            <div class="tool-output-wrap">
+
+              <div
+                class="tool-output"
+                id="toolOutput"
+              >Result will appear here.</div>
+
+              <div class="output-actions">
+
+                <button
+                  class="small-btn"
+                  id="copyOutput"
+                >
+                  Copy
+                </button>
+
+                <button
+                  class="small-btn"
+                  id="clearOutput"
+                >
+                  Clear
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div
+            class="error-box"
+            id="toolError"
+          ></div>
+
+          <div class="notice">
+            Processing happens locally in your browser.
+          </div>
+
+          <div class="tool-actions">
+
+            <button
+              class="btn btn-secondary"
+              id="clearTool"
+            >
+              Reset
+            </button>
+
+            <button
+              class="btn btn-primary"
+              id="runTool"
+            >
+              Run tool
+              <span class="kbd">Ctrl ↵</span>
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+    }
+
+
+    function getToolHTML(id) {
+
+      switch (id) {
+
+        case "json-formatter":
+          return baseToolHTML(
+            "JSON",
+            '{ "name": "OpenUtility" }',
+            "Formatted JSON"
+          );
+
+        case "json-minifier":
+          return baseToolHTML(
+            "JSON",
+            '{\n  "name": "OpenUtility"\n}',
+            "Minified JSON"
+          );
+
+        case "base64":
+          return baseToolHTML(
+            "Text",
+            "Enter text to encode...",
+            "Base64"
+          );
+
+        case "url-encoder":
+          return baseToolHTML(
+            "URL / Text",
+            "https://example.com/?query=hello world",
+            "Encoded / Decoded"
+          );
+
+        case "jwt-decoder":
+          return baseToolHTML(
+            "JWT",
+            "Paste a JWT token here...",
+            "Decoded JWT"
+          );
+
+        case "html-entities":
+          return baseToolHTML(
+            "Text",
+            "<div>Hello & welcome</div>",
+            "Encoded / Decoded"
+          );
+
+        case "sha256":
+          return baseToolHTML(
+            "Text",
+            "Enter text to hash...",
+            "SHA-256"
+          );
+
+        case "case":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field full">
+
+                <div class="field-label">
+                  Text
+                </div>
+
+                <textarea
+                  id="toolInput"
+                  placeholder="Enter text..."
+                  spellcheck="false"
+                ></textarea>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Conversion
+                </div>
+
+                <select
+                  id="caseSelect"
+                  class="tool-select"
+                >
+                  <option value="upper">UPPERCASE</option>
+                  <option value="lower">lowercase</option>
+                  <option value="title">Title Case</option>
+                  <option value="sentence">Sentence case</option>
+                  <option value="camel">camelCase</option>
+                  <option value="snake">snake_case</option>
+                  <option value="kebab">kebab-case</option>
+                </select>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Output
+                </div>
+
+                <div class="tool-output-wrap">
+
+                  <div
+                    class="tool-output"
+                    id="toolOutput"
+                  >Result will appear here.</div>
+
+                  <div class="output-actions">
+                    <button
+                      class="small-btn"
+                      id="copyOutput"
+                    >
+                      Copy
+                    </button>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Convert
+                  <span class="kbd">Ctrl ↵</span>
+                </button>
+
+              </div>
+
+            </div>
+
+          `;
+
+
+        case "word-counter":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field full">
+
+                <div class="field-label">
+                  Text
+                </div>
+
+                <textarea
+                  id="toolInput"
+                  placeholder="Paste or type text..."
+                ></textarea>
+
+              </div>
+
+              <div class="result-grid">
+
+                <div class="result-card">
+                  <strong id="wordResult">0</strong>
+                  <span>Words</span>
+                </div>
+
+                <div class="result-card">
+                  <strong id="charResult">0</strong>
+                  <span>Characters</span>
+                </div>
+
+                <div class="result-card">
+                  <strong id="lineResult">0</strong>
+                  <span>Lines</span>
+                </div>
+
+              </div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Count
+                </button>
+
+              </div>
+
+            </div>
+
+          `;
+
+
+        case "csv-json":
+          return baseToolHTML(
+            "CSV",
+            "name,age,city\nJohn,25,Lahore\nJane,30,Karachi",
+            "JSON"
+          );
+
+
+        case "color":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Color
+                </div>
+
+                <input
+                  id="colorInput"
+                  class="tool-input"
+                  value="#4a9ee8"
+                  placeholder="#4a9ee8"
+                />
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Result
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >Enter a HEX color.</div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Convert
+                </button>
+
+              </div>
+
+            </div>
+
+          `;
+
+
+        case "timestamp":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Unix timestamp
+                </div>
+
+                <input
+                  id="timestampInput"
+                  class="tool-input"
+                  placeholder="e.g. 1720000000"
+                />
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Result
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >Enter a timestamp.</div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="nowTimestamp"
+                >
+                  Current time
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Convert
+                </button>
+
+              </div>
+
+            </div>
+
+          `;
+
+
+        case "uuid":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field full">
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >Click generate.</div>
+
+              </div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Generate UUID
+                </button>
+
+                <button
+                  class="btn btn-secondary"
+                  id="copyOutput"
+                >
+                  Copy
+                </button>
+
+              </div>
+
+            </div>
+
+          `;
+
+
+        case "password":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Length
+                </div>
+
+                <input
+                  id="passwordLength"
+                  class="tool-input"
+                  type="number"
+                  value="20"
+                  min="6"
+                  max="128"
+                />
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Generated password
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >Click generate.</div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Generate
+                </button>
+
+                <button
+                  class="btn btn-secondary"
+                  id="copyOutput"
+                >
+                  Copy
+                </button>
+
+              </div>
+
+            </div>
+
+          `;
+
+
+        case "lorem":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Paragraphs
+                </div>
+
+                <input
+                  id="loremCount"
+                  class="tool-input"
+                  type="number"
+                  min="1"
+                  max="20"
+                  value="3"
+                />
+
+              </div>
+
+              <div class="field">
+                <div class="field-label">
+                  Output
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >Click generate.</div>
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Generate
+                </button>
+
+                <button
+                  class="btn btn-secondary"
+                  id="copyOutput"
+                >
+                  Copy
+                </button>
+
+              </div>
+
+            </div>
+
+          `;
+
+
+        default:
+          return `
+            <div class="empty-state">
+              This tool is not available yet.
+            </div>
+          `;
+      }
+    }
+
+
+    /* ============================================================
+       TOOL EVENTS
+    ============================================================ */
+
+    function bindToolEvents(id) {
+
+      const run =
+        document.getElementById("runTool");
+
+      const copy =
+        document.getElementById("copyOutput");
+
+      const clear =
+        document.getElementById("clearTool");
+
+      if (run) {
+        run.addEventListener(
+          "click",
+          () => runTool(id)
+        );
+      }
+
+      if (copy) {
+        copy.addEventListener(
+          "click",
+          copyCurrentOutput
+        );
+      }
+
+      if (clear) {
+        clear.addEventListener(
+          "click",
+          () => resetTool(id)
+        );
+      }
+
+      const input =
+        document.getElementById("toolInput");
+
+      if (input) {
+
+        input.addEventListener(
+          "input",
+          clearError
+        );
+
+        if (id === "word-counter") {
+
+          input.addEventListener(
+            "input",
+            () => runTool(id)
+          );
+
+        }
+
+      }
+
+      if (id === "timestamp") {
+
+        document
+          .getElementById("nowTimestamp")
+          ?.addEventListener(
+            "click",
+            () => {
+
+              document
+                .getElementById("timestampInput")
+                .value =
+                Math.floor(Date.now() / 1000);
+
+              runTool(id);
+            }
+          );
+
+      }
+    }
+
+
+    /* ============================================================
+       RUN TOOL
+    ============================================================ */
+
+    async function runTool(id) {
+
+      clearError();
+
+      try {
+
+        switch (id) {
+
+          case "json-formatter": {
+
+            const input =
+              document.getElementById("toolInput").value;
+
+            if (!input.trim()) {
+              throw new Error("Please enter JSON first.");
+            }
+
+            const parsed =
+              JSON.parse(input);
+
+            setOutput(
+              JSON.stringify(parsed, null, 2),
+              "success"
+            );
+
+            break;
+          }
+
+
+          case "json-minifier": {
+
+            const input =
+              document.getElementById("toolInput").value;
+
+            if (!input.trim()) {
+              throw new Error("Please enter JSON first.");
+            }
+
+            const parsed =
+              JSON.parse(input);
+
+            setOutput(
+              JSON.stringify(parsed),
+              "success"
+            );
+
+            break;
+          }
+
+
+          case "csv-json": {
+
+            const input =
+              document.getElementById("toolInput").value.trim();
+
+            if (!input) {
+              throw new Error("Please enter CSV data.");
+            }
+
+            const lines =
+              input.split(/\r?\n/);
+
+            const headers =
+              parseCSVLine(lines[0]);
+
+            const rows =
+              lines.slice(1).map(parseCSVLine);
+
+            const result =
+              rows.map(row => {
+
+                const object = {};
+
+                headers.forEach(
+                  (header, index) => {
+                    object[header] =
+                      row[index] ?? "";
+                  }
+                );
+
+                return object;
+              });
+
+            setOutput(
+              JSON.stringify(result, null, 2),
+              "success"
+            );
+
+            break;
+          }
+
+
+          case "base64": {
+
+            const input =
+              document.getElementById("toolInput").value;
+
+            if (!input) {
+              throw new Error("Please enter text.");
+            }
+
+            let result;
+
+            try {
+
+              result =
+                decodeURIComponent(
+                  escape(
+                    atob(input)
+                  )
+                );
+
+              setOutput(
+                result,
+                "success"
+              );
+
+            } catch {
+
+              result =
+                btoa(
+                  unescape(
+                    encodeURIComponent(input)
+                  )
+                );
+
+              setOutput(
+                result,
+                "success"
+              );
+
+            }
+
+            break;
+          }
+
+
+          case "url-encoder": {
+
+            const input =
+              document.getElementById("toolInput").value;
+
+            if (!input) {
+              throw new Error("Please enter a value.");
+            }
+
+            let result;
+
+            try {
+
+              result =
+                decodeURIComponent(input);
+
+            } catch {
+
+              result =
+                encodeURIComponent(input);
+
+            }
+
+            setOutput(
+              result,
+              "success"
+            );
+
+            break;
+          }
+
+
+          case "jwt-decoder": {
+
+            const input =
+              document.getElementById("toolInput").value.trim();
+
+            if (!input) {
+              throw new Error("Please paste a JWT.");
+            }
+
+            const parts =
+              input.split(".");
+
+            if (parts.length !== 3) {
+              throw new Error(
+                "A JWT should contain three dot-separated parts."
+              );
+            }
+
+            const decode =
+              value => {
+
+                const base64 =
+                  value
+                    .replace(/-/g, "+")
+                    .replace(/_/g, "/");
+
+                const padded =
+                  base64 +
+                  "=".repeat(
+                    (4 - base64.length % 4) % 4
+                  );
+
+                return decodeURIComponent(
+                  atob(padded)
+                    .split("")
+                    .map(
+                      c =>
+                        "%" +
+                        ("00" + c.charCodeAt(0).toString(16))
+                          .slice(-2)
+                    )
+                    .join("")
+                );
+              };
+
+            const header =
+              JSON.parse(
+                decode(parts[0])
+              );
+
+            const payload =
+              JSON.parse(
+                decode(parts[1])
+              );
+
+            setOutput(
+              JSON.stringify(
+                {
+                  header,
+                  payload
+                },
+                null,
+                2
+              ),
+              "success"
+            );
+
+            break;
+          }
+
+
+          case "html-entities": {
+
+            const input =
+              document.getElementById("toolInput").value;
+
+            if (!input) {
+              throw new Error("Please enter text.");
+            }
+
+            const textarea =
+              document.createElement("textarea");
+
+            textarea.innerHTML = input;
+
+            const decoded =
+              textarea.value;
+
+            if (decoded !== input) {
+
+              setOutput(
+                decoded,
+                "success"
+              );
+
+            } else {
+
+              textarea.textContent = input;
+
+              setOutput(
+                textarea.innerHTML,
+                "success"
+              );
+
+            }
+
+            break;
+          }
+
+
+          case "sha256": {
+
+            const input =
+              document.getElementById("toolInput").value;
+
+            if (!input) {
+              throw new Error("Please enter text.");
+            }
+
+            const data =
+              new TextEncoder().encode(input);
+
+            const hash =
+              await crypto.subtle.digest(
+                "SHA-256",
+                data
+              );
+
+            const hex =
+              [...new Uint8Array(hash)]
+                .map(
+                  byte =>
+                    byte
+                      .toString(16)
+                      .padStart(2, "0")
+                )
+                .join("");
+
+            setOutput(
+              hex,
+              "success"
+            );
+
+            break;
+          }
+
+
+          case "uuid": {
+
+            const value =
+              crypto.randomUUID();
+
+            setOutput(
+              value,
+              "success"
+            );
+
+            break;
+          }
+
+
+          case "password": {
+
+            const length =
+              Number(
+                document
+                  .getElementById("passwordLength")
+                  .value
+              );
+
+            if (
+              !Number.isInteger(length) ||
+              length < 6 ||
+              length > 128
+            ) {
+              throw new Error(
+                "Password length must be between 6 and 128."
+              );
+            }
+
+            const chars =
+              "ABCDEFGHJKLMNPQRSTUVWXYZ" +
+              "abcdefghijkmnopqrstuvwxyz" +
+              "23456789" +
+              "!@#$%^&*_-+=";
+
+            const random =
+              new Uint32Array(length);
+
+            crypto.getRandomValues(random);
+
+            let password = "";
+
+            for (let i = 0; i < length; i++) {
+              password +=
+                chars[random[i] % chars.length];
+            }
+
+            setOutput(
+              password,
+              "success"
+            );
+
+            break;
+          }
+
+
+          case "color": {
+
+            const input =
+              document
+                .getElementById("colorInput")
+                .value
+                .trim();
+
+            const hex =
+              normalizeHex(input);
+
+            if (!hex) {
+              throw new Error(
+                "Enter a valid HEX color such as #4a9ee8."
+              );
+            }
+
+            const rgb =
+              hexToRgb(hex);
+
+            const hsl =
+              rgbToHsl(
+                rgb.r,
+                rgb.g,
+                rgb.b
+              );
+
+            setOutput(
+`HEX: ${hex}
+
+RGB: rgb(${rgb.r}, ${rgb.g}, ${rgb.b})
+
+HSL: hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`,
+              "success"
+            );
+
+            break;
+          }
+
+
+          case "timestamp": {
+
+            const input =
+              document
+                .getElementById("timestampInput")
+                .value
+                .trim();
+
+            const timestamp =
+              Number(input);
+
+            if (!input || !Number.isFinite(timestamp)) {
+              throw new Error(
+                "Enter a valid Unix timestamp."
+              );
+            }
+
+            const date =
+              new Date(
+                timestamp < 100000000000
+                  ? timestamp * 1000
+                  : timestamp
+              );
+
+            if (
+              Number.isNaN(
+                date.getTime()
+              )
+            ) {
+              throw new Error(
+                "Invalid timestamp."
+              );
+            }
+
+            setOutput(
+`Unix: ${timestamp}
+
+UTC:
+${date.toISOString()}
+
+Local:
+${date.toLocaleString()}`,
+              "success"
+            );
+
+            break;
+          }
+
+
+          case "case": {
+
+            const input =
+              document.getElementById("toolInput").value;
+
+            const mode =
+              document.getElementById("caseSelect").value;
+
+            if (!input) {
+              throw new Error("Please enter text.");
+            }
+
+            const result =
+              convertCase(input, mode);
+
+            setOutput(
+              result,
+              "success"
+            );
+
+            break;
+          }
+
+
+          case "word-counter": {
+
+            const input =
+              document.getElementById("toolInput").value;
+
+            const trimmed =
+              input.trim();
+
+            const words =
+              trimmed
+                ? trimmed.split(/\s+/).length
+                : 0;
+
+            const chars =
+              input.length;
+
+            const lines =
+              input
+                ? input.split(/\r?\n/).length
+                : 0;
+
+            document
+              .getElementById("wordResult")
+              .textContent =
+              words.toLocaleString();
+
+            document
+              .getElementById("charResult")
+              .textContent =
+              chars.toLocaleString();
+
+            document
+              .getElementById("lineResult")
+              .textContent =
+              lines.toLocaleString();
+
+            break;
+          }
+
+
+          case "lorem": {
+
+            const count =
+              Number(
+                document
+                  .getElementById("loremCount")
+                  .value
+              );
+
+            if (
+              !Number.isInteger(count) ||
+              count < 1 ||
+              count > 20
+            ) {
+              throw new Error(
+                "Choose between 1 and 20 paragraphs."
+              );
+            }
+
+            const paragraphs = [];
+
+            for (let i = 0; i < count; i++) {
+
+              paragraphs.push(
+                generateLorem()
+              );
+
+            }
+
+            setOutput(
+              paragraphs.join("\n\n"),
+              "success"
+            );
+
+            break;
+          }
+
+        }
+
+      } catch (error) {
+
+        setOutput(
+          "Unable to process input.",
+          "error"
+        );
+
+        setError(
+          error.message ||
+          "Something went wrong. Check your input."
+        );
+
+      }
+    }
+
+
+    /* ============================================================
+       RESET
+    ============================================================ */
+
+    function resetTool(id) {
+
+      const input =
+        document.getElementById("toolInput");
+
+      if (input) {
+        input.value = "";
+      }
+
+      clearError();
+
+      const output =
+        document.getElementById("toolOutput");
+
+      if (output) {
+        output.textContent =
+          "Result will appear here.";
+
+        output.className =
+          "tool-output";
+      }
+
+      if (id === "word-counter") {
+
+        document.getElementById(
+          "wordResult"
+        ).textContent = "0";
+
+        document.getElementById(
+          "charResult"
+        ).textContent = "0";
+
+        document.getElementById(
+          "lineResult"
+        ).textContent = "0";
+      }
+    }
+
+
+    /* ============================================================
+       COPY
+    ============================================================ */
+
+    async function copyCurrentOutput() {
+
+      const output =
+        document.getElementById("toolOutput");
+
+      if (!output) {
+        return;
+      }
+
+      const value =
+        output.textContent.trim();
+
+      if (
+        !value ||
+        value === "Result will appear here." ||
+        value === "Click generate."
+      ) {
+        showToast(
+          "Nothing to copy",
+          "error"
+        );
+
+        return;
+      }
+
+      try {
+
+        await navigator.clipboard.writeText(
+          value
+        );
+
+        showToast(
+          "Copied to clipboard"
+        );
+
+      } catch {
+
+        showToast(
+          "Copy failed",
+          "error"
+        );
+
+      }
+    }
+
+
+    /* ============================================================
+       HELPERS
+    ============================================================ */
+
+    function parseCSVLine(line) {
+
+      const result = [];
+      let current = "";
+      let insideQuotes = false;
+
+      for (let i = 0; i < line.length; i++) {
+
+        const char = line[i];
+
+        if (char === '"') {
+
+          if (
+            insideQuotes &&
+            line[i + 1] === '"'
+          ) {
+
+            current += '"';
+            i++;
+
+          } else {
+
+            insideQuotes =
+              !insideQuotes;
+
+          }
+
+        } else if (
+          char === "," &&
+          !insideQuotes
+        ) {
+
+          result.push(
+            current.trim()
+          );
+
+          current = "";
+
+        } else {
+
+          current += char;
+
+        }
+      }
+
+      result.push(
+        current.trim()
+      );
+
+      return result;
+    }
+
+
+    function normalizeHex(value) {
+
+      let hex =
+        value.replace("#", "");
+
+      if (
+        /^[0-9a-fA-F]{3}$/.test(hex)
+      ) {
+
+        hex =
+          hex
+            .split("")
+            .map(c => c + c)
+            .join("");
+
+      }
+
+      if (
+        !/^[0-9a-fA-F]{6}$/.test(hex)
+      ) {
+        return null;
+      }
+
+      return "#" + hex.toLowerCase();
+    }
+
+
+    function hexToRgb(hex) {
+
+      const value =
+        hex.slice(1);
+
+      return {
+        r: parseInt(
+          value.slice(0, 2),
+          16
+        ),
+
+        g: parseInt(
+          value.slice(2, 4),
+          16
+        ),
+
+        b: parseInt(
+          value.slice(4, 6),
+          16
+        )
+      };
+    }
+
+
+    function rgbToHsl(r, g, b) {
+
+      r /= 255;
+      g /= 255;
+      b /= 255;
+
+      const max =
+        Math.max(r, g, b);
+
+      const min =
+        Math.min(r, g, b);
+
+      let h = 0;
+      let s = 0;
+
+      const l =
+        (max + min) / 2;
+
+      if (max !== min) {
+
+        const d =
+          max - min;
+
+        s =
+          l > .5
+            ? d / (2 - max - min)
+            : d / (max + min);
+
+        switch (max) {
+
+          case r:
+            h =
+              (g - b) / d +
+              (g < b ? 6 : 0);
+            break;
+
+          case g:
+            h =
+              (b - r) / d + 2;
+            break;
+
+          case b:
+            h =
+              (r - g) / d + 4;
+            break;
+        }
+
+        h /= 6;
+      }
+
+      return {
+        h: Math.round(h * 360),
+        s: Math.round(s * 100),
+        l: Math.round(l * 100)
+      };
+    }
+
+
+    function convertCase(text, mode) {
+
+      const words =
+        text
+          .trim()
+          .split(/\s+/);
+
+      switch (mode) {
+
+        case "upper":
+          return text.toUpperCase();
+
+        case "lower":
+          return text.toLowerCase();
+
+        case "title":
+          return words
+            .map(
+              word =>
+                word.charAt(0).toUpperCase() +
+                word.slice(1).toLowerCase()
+            )
+            .join(" ");
+
+        case "sentence":
+
+          return (
+            text.charAt(0).toUpperCase() +
+            text.slice(1).toLowerCase()
+          );
+
+        case "camel":
+
+          return words
+            .map(
+              (word, index) => {
+
+                word =
+                  word.toLowerCase();
+
+                return index === 0
+                  ? word
+                  : word.charAt(0).toUpperCase() +
+                    word.slice(1);
+
+              }
+            )
+            .join("");
+
+        case "snake":
+
+          return words
+            .map(word =>
+              word.toLowerCase()
+            )
+            .join("_");
+
+        case "kebab":
+
+          return words
+            .map(word =>
+              word.toLowerCase()
+            )
+            .join("-");
+
+        default:
+          return text;
+      }
+    }
+
+
+    function generateLorem() {
+
+      const text =
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
+        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
+        "nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in " +
+        "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
+        "pariatur. Excepteur sint occaecat cupidatat non proident.";
+
+      return text;
+    }
+
+
+    /* ============================================================
+       COMMAND PALETTE
+    ============================================================ */
+
+    function openCommandPalette() {
+
+      commandPalette.classList.add("active");
+
+      commandInput.value = "";
+
+      renderCommandResults("");
+
+      setTimeout(
+        () => commandInput.focus(),
+        30
+      );
+    }
+
+
+    function closeCommandPalette() {
+
+      commandPalette.classList.remove(
+        "active"
+      );
+
+      commandInput.blur();
+    }
+
+
+    function renderCommandResults(query) {
+
+      const normalized =
+        query.trim().toLowerCase();
+
+      const filtered =
+        tools.filter(tool => {
+
+          return (
+            !normalized ||
+            tool.name.toLowerCase().includes(normalized) ||
+            tool.description.toLowerCase().includes(normalized) ||
+            tool.categoryName.toLowerCase().includes(normalized)
+          );
+
+        });
+
+      commandResults.innerHTML =
+        filtered.map(tool => `
+
+          <button
+            class="command-item"
+            data-command-tool="${tool.id}"
+          >
+
+            <span class="command-item-icon">
+              ${tool.icon}
+            </span>
+
+            <span class="command-item-info">
+
+              <span class="command-item-name">
+                ${tool.name}
+              </span>
+
+              <span class="command-item-category">
+                ${tool.categoryName}
+              </span>
+
+            </span>
+
+            <span class="kbd">
+              Enter
+            </span>
+
+          </button>
+
+        `).join("");
+
+      commandResults
+        .querySelectorAll("[data-command-tool]")
+        .forEach(button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              closeCommandPalette();
+
+              openTool(
+                button.dataset.commandTool
+              );
+
+            }
+          );
+
+        });
+    }
+
+
+    commandInput.addEventListener(
+      "input",
+      () => {
+        renderCommandResults(
+          commandInput.value
+        );
+      }
+    );
+
+
+    commandPalette.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target === commandPalette
+        ) {
+          closeCommandPalette();
+        }
+
+      }
+    );
+
+
+    document
+      .getElementById("navSearchBtn")
+      .addEventListener(
+        "click",
+        openCommandPalette
+      );
+
+
+    document
+      .getElementById("heroSearchBtn")
+      .addEventListener(
+        "click",
+        openCommandPalette
+      );
+
+
+    /* ============================================================
+       SEARCH / FILTER
+    ============================================================ */
+
+    toolSearch.addEventListener(
+      "input",
+      () => {
+
+        renderTools(
+          toolSearch.value,
+          categoryFilter.value
+        );
+
+      }
+    );
+
+
+    categoryFilter.addEventListener(
+      "change",
+      () => {
+
+        renderTools(
+          toolSearch.value,
+          categoryFilter.value
+        );
+
+      }
+    );
+
+
+    /* "/" focuses search */
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        const tag =
+          document.activeElement?.tagName;
+
+        const typing =
+          tag === "INPUT" ||
+          tag === "TEXTAREA" ||
+          tag === "SELECT";
+
+        if (
+          event.key === "/" &&
+          !typing &&
+          !event.ctrlKey &&
+          !event.metaKey
+        ) {
+
+          event.preventDefault();
+
+          toolSearch.focus();
+
+        }
+
+      }
+    );
+
+
+    /* ============================================================
+       KEYBOARD SHORTCUTS
+    ============================================================ */
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        const modifier =
+          event.ctrlKey ||
+          event.metaKey;
+
+        /* Ctrl/Cmd + K */
+        if (
+          modifier &&
+          event.key.toLowerCase() === "k"
+        ) {
+
+          event.preventDefault();
+
+          openCommandPalette();
+
+          return;
+        }
+
+
+        /* Escape */
+        if (event.key === "Escape") {
+
+          if (
+            commandPalette.classList.contains(
+              "active"
+            )
+          ) {
+
+            closeCommandPalette();
+
+            return;
+          }
+
+          if (
+            toolModal.classList.contains(
+              "active"
+            )
+          ) {
+
+            closeTool();
+
+            return;
+          }
+        }
+
+
+        /* Ctrl/Cmd + Enter */
+        if (
+          modifier &&
+          event.key === "Enter" &&
+          currentTool
+        ) {
+
+          event.preventDefault();
+
+          runTool(
+            currentTool.id
+          );
+
+          return;
+        }
+
+
+        /* Ctrl/Cmd + Shift + C */
+        if (
+          modifier &&
+          event.shiftKey &&
+          event.key.toLowerCase() === "c" &&
+          currentTool
+        ) {
+
+          event.preventDefault();
+
+          copyCurrentOutput();
+
+        }
+
+      }
+    );
+
+
+    /* Command palette Enter */
+    commandInput.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key !== "Enter"
+        ) {
+          return;
+        }
+
+        const first =
+          commandResults.querySelector(
+            "[data-command-tool]"
+          );
+
+        if (first) {
+
+          closeCommandPalette();
+
+          openTool(
+            first.dataset.commandTool
+          );
+
+        }
+
+      }
+    );
+
+
+    /* ============================================================
+       INITIALIZE
+    ============================================================ */
+
+    renderTools();
+
+    renderQuickSection();
+
+  </script>
+
+</body>
 </html>
