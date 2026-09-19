@@ -780,113 +780,108 @@
   <nav id="navbar">
     <a href="index.html" class="nav-logo">
       <div class="nav-logo-mark">
-        <svg viewBox="0 0 24 24"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline></svg>
+        <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
       </div>
       OpenUtility
     </a>
     <div class="nav-links">
-      <a href="#tools">Tools Directory</a>
-      <a href="https://github.com" target="_blank">GitHub</a>
+      <a href="#tools">Tools</a>
+      <a href="#diagnostics">Diagnostics</a>
+      <a href="#docs">Documentation</a>
+      <a href="#api">API Status</a>
     </div>
     <div class="nav-cta">
-      <button class="btn-ghost" type="button" onclick="openAuthModal('signin')">Sign In</button>
-      <button class="btn-primary" type="button" onclick="openAuthModal('signup')">Get Started</button>
+      <button class="btn-ghost" id="openAuthModal">Sign In</button>
+      <a href="#tools" class="btn-primary">Launch App</a>
     </div>
-    <button class="hamburger" id="hamburgerBtn" type="button" onclick="toggleMobileMenu()">
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
       <span></span>
       <span></span>
       <span></span>
     </button>
   </nav>
 
-  <!-- MOBILE MENU -->
+  <!-- MOBILE MENU DRAWER -->
   <div class="mobile-menu" id="mobileMenu">
-    <button class="mobile-close-btn" type="button" onclick="toggleMobileMenu()">&times;</button>
-    <a href="#tools" onclick="toggleMobileMenu()">Tools Directory</a>
-    <a href="https://github.com" target="_blank" onclick="toggleMobileMenu()">GitHub</a>
-    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
-      <button class="btn-ghost" type="button" style="width: 100%; text-align: center;" onclick="toggleMobileMenu(); openAuthModal('signin')">Sign In</button>
-      <button class="btn-primary" type="button" style="width: 100%; text-align: center;" onclick="toggleMobileMenu(); openAuthModal('signup')">Get Started</button>
-    </div>
+    <button class="mobile-close-btn" id="mobileCloseBtn">&times;</button>
+    <a href="#tools" class="mobile-link">Tools</a>
+    <a href="#diagnostics" class="mobile-link">Diagnostics</a>
+    <a href="#docs" class="mobile-link">Documentation</a>
+    <a href="#api" class="mobile-link">API Status</a>
+    <button class="btn-primary" id="mobileAuthBtn" style="margin-top: 20px; width: 100%;">Sign In / Register</button>
   </div>
 
   <!-- HERO SECTION -->
   <section class="hero">
-    <div>
+    <div class="hero-content">
       <div class="hero-badge">
         <span class="badge-dot"></span>
-        v2.4 Developer Infrastructure Online
+        v2.4.0 Engine Live &bull; Open Source Web Toolkit
       </div>
-      <h1>Next-Gen Tools for Modern <span>Developers</span></h1>
-      <p class="hero-sub">
-        High-performance network diagnostics, instant JSON formatters, secure JWT decoders, and fully open-source utilities built for speed.
-      </p>
+      <h1>Next-Gen Utilities for <span>Modern Developers</span></h1>
+      <p class="hero-sub">Accelerate your workflow with high-performance network diagnostics, instant secure JWT inspection, real-time data formatting, and developer tools built for speed.</p>
       <div class="hero-btns">
         <a href="#tools" class="btn-hero">
-          Explore Tools
+          Explore Utilities
           <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </a>
-        <a href="https://github.com" target="_blank" class="btn-outline">View GitHub</a>
+        <a href="https://github.com" target="_blank" class="btn-outline">GitHub Repo</a>
       </div>
       <div class="hero-trust">
         <div class="hero-avatars">
-          <span>OU</span>
+          <span>TC</span>
+          <span>OX</span>
           <span>DEV</span>
-          <span>API</span>
         </div>
-        <div class="hero-trust-text">
-          Trusted by <strong>10,000+</strong> engineers & infrastructure teams daily.
-        </div>
+        <div class="hero-trust-text">Trusted by <strong>10,000+</strong> engineers & infrastructure teams daily.</div>
       </div>
     </div>
 
-    <!-- HERO VISUAL MOCKUP -->
+    <!-- HERO VISUAL PREVIEW -->
     <div class="hero-visual">
       <div class="dash-card">
         <div class="dash-topbar">
           <div class="dash-dots">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
           </div>
-          <div class="dash-title-bar">openutility-core-v2.js</div>
+          <div class="dash-title-bar">openutility-core-v2.wasm</div>
         </div>
         <div class="dash-body">
           <div class="dash-stats">
             <div class="dash-stat">
-              <div class="dash-stat-label">LATENCY</div>
-              <div class="dash-stat-val" style="color: var(--green);">14ms</div>
+              <div class="dash-stat-label">Response Time</div>
+              <div class="dash-stat-val" style="color: var(--sky2);">1.4ms</div>
             </div>
             <div class="dash-stat">
-              <div class="dash-stat-label">STATUS</div>
-              <div class="dash-stat-val" style="color: var(--sky2);">ONLINE</div>
+              <div class="dash-stat-label">Format Accuracy</div>
+              <div class="dash-stat-val" style="color: var(--green);">100%</div>
             </div>
             <div class="dash-stat">
-              <div class="dash-stat-label">QUERIES</div>
-              <div class="dash-stat-val">99.9%</div>
+              <div class="dash-stat-label">Security</div>
+              <div class="dash-stat-val" style="color: var(--purple);">SSL 256</div>
             </div>
           </div>
           <div class="chart-wrap">
             <div class="chart-head">
-              <span class="chart-head-title">Real-time Diagnostics</span>
-              <span class="chart-badge">LIVE SOCKET</span>
+              <span class="chart-head-title">Live Pipeline Stream</span>
+              <span class="chart-badge">Active Engine</span>
             </div>
             <div class="tx-list">
               <div class="tx-item">
                 <div class="tx-icon">JSON</div>
                 <div class="tx-info">
-                  <div class="tx-name">Formatter Endpoint</div>
-                  <div class="tx-date">Payload validated successfully</div>
+                  <div class="tx-name">Payload Beautified</div>
+                  <div class="tx-date">12s ago &bull; 48KB payload</div>
                 </div>
                 <div class="tx-amount">200 OK</div>
               </div>
               <div class="tx-item">
                 <div class="tx-icon" style="background: rgba(139, 92, 246, 0.2); color: var(--purple);">JWT</div>
                 <div class="tx-info">
-                  <div class="tx-name">Token Decoder</div>
-                  <div class="tx-date">Signature verified (RS256)</div>
+                  <div class="tx-name">Token Claim Verified</div>
+                  <div class="tx-date">45s ago &bull; RS256</div>
                 </div>
-                <div class="tx-amount">SECURE</div>
+                <div class="tx-amount">Valid</div>
               </div>
             </div>
           </div>
@@ -898,66 +893,86 @@
   <!-- TOOLS DIRECTORY SECTION -->
   <section class="tools-section" id="tools">
     <div class="tools-header-bar">
-      <h2 style="font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 700;">Developer Utilities Directory</h2>
-      <input type="text" id="toolSearch" class="tools-search-box" placeholder="Search utilities (e.g., JSON, JWT, Ping, Base64)..." onkeyup="filterTools()">
+      <h2 style="font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 700;">Developer Tool Directory</h2>
+      <input type="text" id="toolSearch" class="tools-search-box" placeholder="Search utilities (e.g. JSON, JWT, Ping, Base64)...">
     </div>
 
-    <!-- Category 1: Web & Data Tools -->
-    <div class="category-section" data-category="web">
-      <h3 class="category-title">
-        <svg style="width: 20px; height: 20px; stroke: var(--sky);" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
-        Data & Web Utilities
-      </h3>
-      <div class="tools-grid">
-        <div class="tool-card" data-name="json formatter validator" onclick="openToolModal('JSON Formatter & Validator', 'Instantly beautifies and validates complex JSON structures.')">
+    <!-- CATEGORY 1: WEB & DATA -->
+    <div class="category-section">
+      <div class="category-title">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        Data & Formatters
+      </div>
+      <div class="tools-grid" id="gridData">
+        <div class="tool-card" data-keywords="json formatter validator beautifier">
           <div>
-            <div class="tool-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></div>
-            <h3>JSON Formatter & Validator</h3>
-            <p>Instantly beautify, minify, validate, and debug complex JSON payloads with syntax highlighting.</p>
+            <div class="tool-icon">
+              <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            </div>
+            <h3>JSON Beautifier & Validator</h3>
+            <p>Instantly parse, validate, minify, or format nested JSON payloads with syntax error highlighting.</p>
           </div>
-          <span class="tool-tag">DATA / PARSER</span>
+          <div class="tool-tag">Data Utility</div>
         </div>
-        <div class="tool-card" data-name="jwt decoder debugger" onclick="openToolModal('JWT Decoder & Debugger', 'Decodes JSON Web Tokens securely on the client side.')">
+        <div class="tool-card" data-keywords="jwt decoder token auth parser">
           <div>
-            <div class="tool-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>
-            <h3>JWT Decoder & Debugger</h3>
-            <p>Decode JSON Web Tokens securely on the client side to inspect headers, payloads, and expiration times.</p>
+            <div class="tool-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
+            <h3>Secure JWT Decoder</h3>
+            <p>Inspect JSON Web Token headers, payloads, and signature expiration timestamps client-side.</p>
           </div>
-          <span class="tool-tag">SECURITY / AUTH</span>
+          <div class="tool-tag">Security Tool</div>
         </div>
-        <div class="tool-card" data-name="base64 url encoder decoder" onclick="openToolModal('Base64 & URL Encoder', 'Converts strings and URLs safely into encoded formats.')">
+        <div class="tool-card" data-keywords="base64 encoder decoder string encode decode">
           <div>
-            <div class="tool-icon"><svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg></div>
+            <div class="tool-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            </div>
             <h3>Base64 & URL Encoder</h3>
-            <p>Convert strings, binary code, or URLs seamlessly into encoded formats without leaving your browser.</p>
+            <p>Encode plain text or binary sequences into standard Base64, URL-safe strings, or Hex hashes.</p>
           </div>
-          <span class="tool-tag">ENCODING</span>
+          <div class="tool-tag">String Toolkit</div>
         </div>
       </div>
     </div>
 
-    <!-- Category 2: Network Diagnostics -->
-    <div class="category-section" data-category="network">
-      <h3 class="category-title">
-        <svg style="width: 20px; height: 20px; stroke: var(--green);" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-        Network Diagnostics
-      </h3>
-      <div class="tools-grid">
-        <div class="tool-card" data-name="ip lookup geolocation" onclick="openToolModal('IP & Geolocation Lookup', 'Inspects public IP network details and ISP information.')">
+    <!-- CATEGORY 2: NETWORK & DIAGNOSTICS -->
+    <div class="category-section">
+      <div class="category-title">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        Network & Diagnostics
+      </div>
+      <div class="tools-grid" id="gridNetwork">
+        <div class="tool-card" data-keywords="ip lookup geolocate geolocation lookup">
           <div>
-            <div class="tool-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
-            <h3>IP & Geolocation Lookup</h3>
-            <p>Inspect public IP network details, ISP info, autonomous system numbers (ASN), and geographical routing.</p>
+            <div class="tool-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </div>
+            <h3>IP Geolocation & Lookup</h3>
+            <p>Analyze public IP addresses, ISP providers, ASN routing numbers, and regional coordinates instantly.</p>
           </div>
-          <span class="tool-tag">NETWORK</span>
+          <div class="tool-tag">Network Diagnostic</div>
         </div>
-        <div class="tool-card" data-name="dns propagation checker" onclick="openToolModal('DNS Propagation Checker', 'Verifies global DNS record updates.')">
+        <div class="tool-card" data-keywords="dns lookup propagation records check">
           <div>
-            <div class="tool-icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg></div>
-            <h3>DNS Propagation Checker</h3>
-            <p>Verify global DNS record updates across multiple regional nameservers instantly.</p>
+            <div class="tool-icon">
+              <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+            </div>
+            <h3>DNS Propagation Inspector</h3>
+            <p>Query A, AAAA, MX, TXT, and CNAME record propagation statuses across global nameservers.</p>
           </div>
-          <span class="tool-tag">DNS / HOSTING</span>
+          <div class="tool-tag">Infrastructure</div>
+        </div>
+        <div class="tool-card" data-keywords="ssl cert inspector certificate checker">
+          <div>
+            <div class="tool-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <h3>SSL Certificate Inspector</h3>
+            <p>Verify certificate chains, cipher strength, issuer authorities, and expiration timelines.</p>
+          </div>
+          <div class="tool-tag">Security Checker</div>
         </div>
       </div>
     </div>
@@ -966,211 +981,93 @@
   <!-- AUTH MODAL -->
   <div class="cmd-palette-overlay" id="authModal">
     <div class="cmd-palette-box">
-      <button class="modal-close" type="button" onclick="closeAuthModal()">&times;</button>
-      <div id="modalHeaderContent">
-        <h3 class="modal-title" id="modalTitle">Welcome Back</h3>
-        <p class="modal-sub" id="modalSub">Sign in to sync your developer configurations and tools.</p>
-      </div>
-
-      <form id="authForm" onsubmit="handleAuthSubmit(event)">
-        <div class="form-group" id="nameFieldGroup" style="display: none;">
-          <label class="form-label">Full Name / Alias</label>
-          <input type="text" id="authName" class="cmd-input" placeholder="e.g. fadest">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Email Address</label>
-          <input type="email" id="authEmail" class="cmd-input" required placeholder="developer@example.com">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Password</label>
-          <input type="password" id="authPassword" class="cmd-input" required placeholder="••••••••">
-        </div>
-        <button type="submit" class="btn-primary modal-submit" id="authSubmitBtn">Sign In</button>
-      </form>
-      <div id="authMessage" style="margin-top: 12px; font-size: 12px; text-align: center;"></div>
-    </div>
-  </div>
-
-  <!-- TOOL MODAL -->
-  <div class="cmd-palette-overlay" id="toolModal">
-    <div class="cmd-palette-box">
-      <button class="modal-close" type="button" onclick="closeToolModal()">&times;</button>
-      <h3 class="modal-title" id="toolModalTitle">Tool Interface</h3>
-      <p class="modal-sub" id="toolModalSub" style="margin-bottom: 16px;">Utility environment active.</p>
+      <button class="modal-close" id="closeAuthModal">&times;</button>
+      <div class="modal-title">Welcome to OpenUtility</div>
+      <div class="modal-sub">Authenticate securely to sync your workspace preferences.</div>
+      
       <div class="form-group">
-        <textarea id="toolInputText" class="cmd-input" rows="5" placeholder="Enter payload or text here..."></textarea>
+        <label class="form-label">Email Address</label>
+        <input type="email" class="cmd-input" id="authEmail" placeholder="developer@domain.com">
       </div>
-      <button type="button" class="btn-primary modal-submit" onclick="runToolAction()">Execute Utility</button>
-      <div id="toolResultMsg" style="margin-top: 12px; font-size: 12px; text-align: center; color: var(--green);"></div>
+      <div class="form-group">
+        <label class="form-label">Password / Access Key</label>
+        <input type="password" class="cmd-input" id="authPass" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
+      </div>
+      <button class="btn-primary modal-submit" id="authSubmitBtn">Continue with Email</button>
     </div>
   </div>
 
   <!-- FOOTER -->
   <footer>
-    &copy; 2026 OpenUtility. Built for high-performance engineering teams. Open source infrastructure.
+    <p>&copy; 2026 OpenUtility &bull; Open-source developer tools platform. All rights reserved.</p>
   </footer>
 
-  <!-- JAVASCRIPT LOGIC -->
+  <!-- SCRIPT ENGINE -->
   <script>
-    // Safe Supabase Initialization with your project details
-    let supabase = null;
-    try {
-      if (window.supabase && typeof window.supabase.createClient === 'function') {
-        supabase = window.supabase.createClient(
-          'https://trfwvxxlxomyolmrjqkb.supabase.co',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRyZnd2eHhseG9teW9sbXJqcWtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk4MDY4NjksImV4cCI6MjEwNTM4Mjg2OX0.it8L4Xi7_uq3e0SZGhVRHtJ6QqlJUeH_qs0fvPpPpxU'
-        );
-      }
-    } catch (err) {
-      console.warn('Supabase initialization skipped.');
-    }
-
-    let currentAuthMode = 'signin';
-
-    function openAuthModal(mode) {
-      currentAuthMode = mode;
-      const modal = document.getElementById('authModal');
-      const title = document.getElementById('modalTitle');
-      const sub = document.getElementById('modalSub');
-      const nameGroup = document.getElementById('nameFieldGroup');
-      const submitBtn = document.getElementById('authSubmitBtn');
-
-      if (mode === 'signup') {
-        title.textContent = 'Create Account';
-        sub.textContent = 'Get started with OpenUtility developer toolkit.';
-        nameGroup.style.display = 'block';
-        submitBtn.textContent = 'Create Account';
-      } else {
-        title.textContent = 'Welcome Back';
-        sub.textContent = 'Sign in to sync your developer configurations.';
-        nameGroup.style.display = 'none';
-        submitBtn.textContent = 'Sign In';
-      }
-
-      if (modal) modal.classList.add('open');
-    }
-
-    function closeAuthModal() {
-      const modal = document.getElementById('authModal');
-      if (modal) modal.classList.remove('open');
-      const msgEl = document.getElementById('authMessage');
-      if (msgEl) msgEl.textContent = '';
-      const form = document.getElementById('authForm');
-      if (form) form.reset();
-    }
-
-    function openToolModal(title, subtitle) {
-      document.getElementById('toolModalTitle').textContent = title;
-      document.getElementById('toolModalSub').textContent = subtitle;
-      document.getElementById('toolModal').classList.add('open');
-    }
-
-    function closeToolModal() {
-      document.getElementById('toolModal').classList.remove('open');
-      document.getElementById('toolInputText').value = '';
-      document.getElementById('toolResultMsg').textContent = '';
-    }
-
-    function runToolAction() {
-      const res = document.getElementById('toolResultMsg');
-      res.textContent = 'Operation completed successfully! [200 OK]';
-    }
-
-    async function handleAuthSubmit(e) {
-      e.preventDefault();
-      const email = document.getElementById('authEmail').value;
-      const password = document.getElementById('authPassword').value;
-      const name = document.getElementById('authName').value;
-      const msgEl = document.getElementById('authMessage');
-      const btn = document.getElementById('authSubmitBtn');
-
-      if (!supabase) {
-        msgEl.style.color = 'var(--red)';
-        msgEl.textContent = 'Supabase client running in offline mock mode.';
-        setTimeout(() => closeAuthModal(), 2000);
-        return;
-      }
-
-      btn.textContent = 'Processing...';
-      btn.disabled = true;
-
-      if (currentAuthMode === 'signup') {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { data: { full_name: name } }
-        });
-
-        btn.textContent = 'Create Account';
-        btn.disabled = false;
-
-        if (error) {
-          msgEl.style.color = 'var(--red)';
-          msgEl.textContent = error.message;
-        } else {
-          msgEl.style.color = 'var(--green)';
-          msgEl.textContent = 'Success! Check your email for confirmation link.';
-          setTimeout(() => closeAuthModal(), 3000);
-        }
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({
-          email,
-          password
-        });
-
-        btn.textContent = 'Sign In';
-        btn.disabled = false;
-
-        if (error) {
-          msgEl.style.color = 'var(--red)';
-          msgEl.textContent = error.message;
-        } else {
-          msgEl.style.color = 'var(--green)';
-          msgEl.textContent = 'Successfully signed in!';
-          setTimeout(() => closeAuthModal(), 2000);
-        }
-      }
-    }
-
-    function toggleMobileMenu() {
-      const menu = document.getElementById('mobileMenu');
-      if (menu) menu.classList.toggle('open');
-    }
-
-    function filterTools() {
-      const queryInput = document.getElementById('toolSearch');
-      if (!queryInput) return;
-      const query = queryInput.value.toLowerCase();
-      const categories = document.querySelectorAll('.category-section');
-
-      categories.forEach(category => {
-        let hasVisibleCard = false;
-        const toolCards = category.querySelectorAll('.tool-card');
-
-        toolCards.forEach(card => {
-          const name = card.getAttribute('data-name') || '';
-          const text = card.textContent.toLowerCase();
-          if (name.includes(query) || text.includes(query)) {
-            card.style.display = 'flex';
-            hasVisibleCard = true;
-          } else {
-            card.style.display = 'none';
-          }
-        });
-
-        category.style.display = hasVisibleCard ? 'block' : 'none';
-      });
-    }
-
-    // Sticky Navbar shadow & background blur intensity update on scroll
+    // Navbar scroll effect
     window.addEventListener('scroll', () => {
       const nav = document.getElementById('navbar');
-      if (!nav) return;
       if (window.scrollY > 20) {
         nav.classList.add('scrolled');
       } else {
         nav.classList.remove('scrolled');
       }
+    });
+
+    // Mobile menu toggle
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+
+    hamburgerBtn.addEventListener('click', () => {
+      mobileMenu.classList.add('open');
+    });
+
+    mobileCloseBtn.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // Auth Modal toggle
+    const authModal = document.getElementById('authModal');
+    const openAuthModal = document.getElementById('openAuthModal');
+    const closeAuthModal = document.getElementById('closeAuthModal');
+    const mobileAuthBtn = document.getElementById('mobileAuthBtn');
+
+    openAuthModal.addEventListener('click', () => authModal.classList.add('open'));
+    if(mobileAuthBtn) {
+      mobileAuthBtn.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        authModal.classList.add('open');
+      });
+    }
+    closeAuthModal.addEventListener('click', () => authModal.classList.remove('open'));
+    authModal.addEventListener('click', (e) => {
+      if (e.target === authModal) authModal.classList.remove('open');
+    });
+
+    // Real-time tool directory search filter
+    const searchInput = document.getElementById('toolSearch');
+    searchInput.addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.tool-card');
+      
+      cards.forEach(card => {
+        const keywords = card.getAttribute('data-keywords') || '';
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        const desc = card.querySelector('p').textContent.toLowerCase();
+        
+        if (keywords.includes(term) || title.includes(term) || desc.includes(term) || term === '') {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
     });
   </script>
 </body>
