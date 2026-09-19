@@ -1,13 +1,9 @@
 /*
 ================================================================================
   OpenUtility — Modern Developer & Web Tools Platform
-  Template: templatemo-623-novapay (Adapted)
   Stylesheet
-  Designed by TemplateMo  (https://templatemo.com)
-
   Color system   : Dark slate base (#0F1319) with sky-blue accent (#4A9EE8)
   Typography     : Outfit for display, DM Sans for body
-  Easing         : --silk cubic-bezier(0.16,1,0.3,1) for premium motion
   Max-width      : 1280px content frame, edge-to-edge backgrounds
   Layout         : Responsive grid breakpoints at 900px and 600px
 ================================================================================
@@ -32,7 +28,6 @@
   --red:#E85A5A;
   --nav-h:68px;
   --silk:cubic-bezier(0.16,1,0.3,1);
-  --silk-fast:cubic-bezier(0.25,1,0.4,1);
   --max-w:1280px;
 }
 html{scroll-behavior:smooth}
