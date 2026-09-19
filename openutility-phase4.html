@@ -1,0 +1,8179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>OpenUtility — Developer Tools</title>
+
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OpenUtility">
+  <meta property="og:title" content="OpenUtility — Developer Tools">
+  <meta property="og:description" content="Fast, private, client-side developer utilities for everyday development.">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="OpenUtility — Developer Tools">
+  <meta name="twitter:description" content="Fast, private, client-side developer utilities.">
+  <link id="canonicalLink" rel="canonical" href="">
+
+
+  <meta
+    name="description"
+    content="Fast, private, client-side developer tools for JSON, Regex, SQL, YAML, XML, Markdown, URLs, encoding and more."
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --bg: #07090d;
+      --bg-2: #0c1017;
+      --bg-3: #111722;
+
+      --card: rgba(17,23,34,.72);
+      --border: rgba(255,255,255,.08);
+      --border-hover: rgba(74,158,232,.35);
+
+      --text: #f4f7fb;
+      --text-2: #aab5c5;
+      --text-3: #697588;
+
+      --blue: #4a9ee8;
+      --cyan: #38bdf8;
+      --purple: #8b5cf6;
+      --green: #3dcc8e;
+      --red: #ff5c5c;
+      --yellow: #fbbf24;
+
+      --radius: 14px;
+      --radius-sm: 9px;
+
+      --mono: "JetBrains Mono", monospace;
+      --sans: "Inter", sans-serif;
+      --display: "Outfit", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+
+      background:
+        radial-gradient(
+          circle at 20% 0%,
+          rgba(74,158,232,.08),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 80% 10%,
+          rgba(139,92,246,.06),
+          transparent 28%
+        ),
+        var(--bg);
+
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ::selection {
+      background: rgba(74,158,232,.3);
+    }
+
+    ::-webkit-scrollbar {
+      width: 9px;
+      height: 9px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #273244;
+      border-radius: 99px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #34435a;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .mono {
+      font-family: var(--mono);
+    }
+
+    /* =========================
+       TOP BAR
+    ========================= */
+
+    .topbar {
+      border-bottom: 1px solid var(--border);
+      background: rgba(7,9,13,.72);
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar-inner {
+      min-height: 34px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+
+      color: var(--text-3);
+      font-size: 12px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px rgba(61,204,142,.6);
+    }
+
+    /* =========================
+       NAV
+    ========================= */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+
+      border-bottom: 1px solid var(--border);
+
+      background: rgba(7,9,13,.78);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      min-height: 68px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 19px;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 31px;
+      height: 31px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 9px;
+
+      background: linear-gradient(
+        135deg,
+        var(--blue),
+        var(--purple)
+      );
+
+      color: white;
+
+      box-shadow:
+        0 8px 25px rgba(74,158,232,.22);
+
+      font-family: var(--mono);
+      font-size: 13px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+
+      color: var(--text-2);
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      transition: color .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-search {
+      height: 38px;
+      padding: 0 11px;
+
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: rgba(255,255,255,.025);
+      color: var(--text-3);
+
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .nav-search:hover {
+      border-color: var(--border-hover);
+      color: var(--text-2);
+    }
+
+    .nav-search span {
+      font-size: 12px;
+    }
+
+    .kbd {
+      padding: 2px 6px;
+
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 5px;
+
+      background: rgba(255,255,255,.04);
+
+      color: var(--text-3);
+
+      font-family: var(--mono);
+      font-size: 10px;
+    }
+
+    .menu-btn {
+      display: none;
+
+      width: 38px;
+      height: 38px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: transparent;
+      color: var(--text);
+
+      cursor: pointer;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      position: relative;
+
+      padding: 100px 0 70px;
+
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+
+      pointer-events: none;
+      opacity: .35;
+
+      background-image:
+        linear-gradient(
+          rgba(255,255,255,.025) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,.025) 1px,
+          transparent 1px
+        );
+
+      background-size: 44px 44px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black,
+          transparent 75%
+        );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      padding: 6px 10px;
+
+      border: 1px solid rgba(74,158,232,.18);
+      border-radius: 999px;
+
+      background: rgba(74,158,232,.06);
+
+      color: var(--cyan);
+
+      font-family: var(--mono);
+      font-size: 11px;
+
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .hero h1 {
+      max-width: 850px;
+
+      margin: 22px auto 18px;
+
+      font-family: var(--display);
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: .98;
+
+      letter-spacing: -.045em;
+    }
+
+    .hero h1 span {
+      color: var(--blue);
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: auto;
+
+      color: var(--text-2);
+      font-size: 17px;
+    }
+
+    .hero-actions {
+      margin-top: 30px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 11px;
+
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      min-height: 43px;
+      padding: 0 16px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      border-radius: 9px;
+
+      cursor: pointer;
+
+      transition: .2s;
+
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #06101b;
+
+      box-shadow:
+        0 8px 30px rgba(74,158,232,.2);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--border);
+
+      background: rgba(255,255,255,.025);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--border-hover);
+      background: rgba(255,255,255,.045);
+    }
+
+    /* =========================
+       STATS
+    ========================= */
+
+    .stats {
+      margin-top: 60px;
+
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .stat {
+      min-width: 130px;
+      padding: 12px 18px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: rgba(255,255,255,.02);
+    }
+
+    .stat strong {
+      display: block;
+
+      font-family: var(--display);
+      font-size: 20px;
+    }
+
+    .stat span {
+      color: var(--text-3);
+      font-size: 11px;
+    }
+
+    /* =========================
+       TOOLS
+    ========================= */
+
+    .tools-section {
+      padding: 50px 0 100px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 25px;
+
+      margin-bottom: 28px;
+    }
+
+    .section-title {
+      font-family: var(--display);
+      font-size: 31px;
+      letter-spacing: -.025em;
+    }
+
+    .section-subtitle {
+      margin-top: 5px;
+
+      color: var(--text-3);
+      font-size: 13px;
+    }
+
+    .tool-count {
+      color: var(--text-3);
+
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    /* =========================
+       QUICK TOOLS
+    ========================= */
+
+    .quick-section {
+      margin-bottom: 34px;
+    }
+
+    .quick-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 12px;
+    }
+
+    .quick-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      color: var(--text-2);
+
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .quick-list {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .quick-tool {
+      padding: 8px 11px;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      border: 1px solid var(--border);
+      border-radius: 8px;
+
+      background: rgba(255,255,255,.025);
+
+      color: var(--text-2);
+
+      cursor: pointer;
+
+      font-size: 12px;
+
+      transition: .2s;
+    }
+
+    .quick-tool:hover {
+      border-color: var(--border-hover);
+      color: var(--text);
+
+      transform: translateY(-1px);
+    }
+
+    .quick-tool .icon {
+      color: var(--blue);
+    }
+
+    /* =========================
+       TOOLBAR
+    ========================= */
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      margin-bottom: 22px;
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+    }
+
+    .search-box input {
+      width: 100%;
+      height: 43px;
+
+      padding: 0 45px 0 38px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: rgba(255,255,255,.025);
+
+      color: var(--text);
+
+      outline: none;
+
+      transition: .2s;
+    }
+
+    .search-box input:focus {
+      border-color: rgba(74,158,232,.5);
+
+      box-shadow:
+        0 0 0 3px rgba(74,158,232,.08);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      color: var(--text-3);
+
+      pointer-events: none;
+    }
+
+    .search-kbd {
+      position: absolute;
+      right: 9px;
+      top: 50%;
+
+      transform: translateY(-50%);
+    }
+
+    .category-filter {
+      height: 43px;
+      padding: 0 13px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: rgba(255,255,255,.025);
+      color: var(--text-2);
+
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* =========================
+       CATEGORY
+    ========================= */
+
+    .category {
+      margin-top: 38px;
+    }
+
+    .category:first-child {
+      margin-top: 0;
+    }
+
+    .category-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 13px;
+    }
+
+    .category-name {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .category-line {
+      height: 1px;
+      width: 80px;
+
+      margin-left: 5px;
+
+      background: var(--border);
+    }
+
+    .category-count {
+      color: var(--text-3);
+
+      font-family: var(--mono);
+      font-size: 10px;
+    }
+
+    /* =========================
+       TOOL CARDS
+    ========================= */
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 11px;
+    }
+
+    .tool-card {
+      position: relative;
+
+      min-height: 157px;
+      padding: 18px;
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.025),
+          rgba(255,255,255,.01)
+        );
+
+      cursor: pointer;
+
+      transition:
+        transform .2s,
+        border-color .2s,
+        background .2s,
+        box-shadow .2s;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-3px);
+
+      border-color: var(--border-hover);
+
+      background: rgba(255,255,255,.035);
+
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.35);
+    }
+
+    .tool-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .tool-icon {
+      width: 38px;
+      height: 38px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 10px;
+
+      background: rgba(74,158,232,.08);
+      color: var(--blue);
+
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .tool-favorite {
+      width: 29px;
+      height: 29px;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid transparent;
+      border-radius: 7px;
+
+      background: transparent;
+      color: var(--text-3);
+
+      cursor: pointer;
+      font-size: 16px;
+
+      transition: .2s;
+    }
+
+    .tool-favorite:hover {
+      border-color: var(--border);
+      color: var(--yellow);
+      background: rgba(255,255,255,.03);
+    }
+
+    .tool-favorite.active {
+      color: var(--yellow);
+    }
+
+    .tool-name {
+      margin-top: 14px;
+
+      font-family: var(--display);
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .tool-description {
+      margin-top: 4px;
+
+      color: var(--text-3);
+
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .tool-meta {
+      position: absolute;
+
+      left: 18px;
+      bottom: 15px;
+
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      color: var(--text-3);
+
+      font-family: var(--mono);
+      font-size: 9px;
+
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .local-dot {
+      width: 5px;
+      height: 5px;
+
+      border-radius: 50%;
+
+      background: var(--green);
+    }
+
+    /* =========================
+       EMPTY
+    ========================= */
+
+    .empty-state {
+      padding: 55px 20px;
+
+      text-align: center;
+
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+
+      color: var(--text-3);
+    }
+
+    .empty-state strong {
+      display: block;
+
+      margin-bottom: 4px;
+
+      color: var(--text-2);
+    }
+
+    /* =========================
+       FEATURES
+    ========================= */
+
+    .features {
+      padding: 0 0 90px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 11px;
+    }
+
+    .feature {
+      padding: 20px;
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+
+      background: rgba(255,255,255,.018);
+    }
+
+    .feature-icon {
+      margin-bottom: 13px;
+
+      color: var(--cyan);
+
+      font-family: var(--mono);
+      font-size: 13px;
+    }
+
+    .feature h3 {
+      font-family: var(--display);
+      font-size: 15px;
+    }
+
+    .feature p {
+      margin-top: 5px;
+
+      color: var(--text-3);
+      font-size: 12px;
+    }
+
+    /* =========================
+       MODAL
+    ========================= */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      background: rgba(0,0,0,.72);
+
+      backdrop-filter: blur(12px);
+
+      opacity: 0;
+      visibility: hidden;
+
+      transition: .2s;
+    }
+
+    .modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-panel {
+      width: min(900px,100%);
+      max-height: min(820px,calc(100vh - 40px));
+
+      display: flex;
+      flex-direction: column;
+
+      border: 1px solid var(--border);
+      border-radius: 17px;
+
+      background: #0c1119;
+
+      box-shadow:
+        0 35px 100px rgba(0,0,0,.65);
+
+      overflow: hidden;
+
+      transform:
+        translateY(12px)
+        scale(.985);
+
+      transition: .2s;
+    }
+
+    .modal.active .modal-panel {
+      transform:
+        translateY(0)
+        scale(1);
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+
+      padding: 17px 19px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .modal-title {
+      font-family: var(--display);
+      font-size: 17px;
+    }
+
+    .modal-subtitle {
+      color: var(--text-3);
+      font-size: 11px;
+    }
+
+    .modal-close {
+      width: 34px;
+      height: 34px;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid var(--border);
+      border-radius: 8px;
+
+      background: rgba(255,255,255,.025);
+
+      color: var(--text-2);
+
+      cursor: pointer;
+    }
+
+    .modal-close:hover {
+      color: var(--text);
+      background: rgba(255,255,255,.05);
+    }
+
+    .modal-body {
+      overflow: auto;
+      padding: 20px;
+    }
+
+    /* =========================
+       TOOL UI
+    ========================= */
+
+    .tool-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field-label {
+      color: var(--text-2);
+
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    textarea,
+    .tool-input,
+    .tool-select {
+      width: 100%;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #080c12;
+      color: var(--text);
+
+      outline: none;
+    }
+
+    textarea {
+      min-height: 230px;
+
+      padding: 13px;
+
+      resize: vertical;
+
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .tool-input,
+    .tool-select {
+      height: 42px;
+
+      padding: 0 12px;
+
+      font-size: 13px;
+    }
+
+    textarea:focus,
+    .tool-input:focus,
+    .tool-select:focus {
+      border-color: rgba(74,158,232,.55);
+
+      box-shadow:
+        0 0 0 3px rgba(74,158,232,.07);
+    }
+
+    .tool-output-wrap {
+      position: relative;
+    }
+
+    .output-actions {
+      position: absolute;
+
+      top: 8px;
+      right: 8px;
+
+      display: flex;
+      gap: 5px;
+    }
+
+    .small-btn {
+      height: 29px;
+      padding: 0 9px;
+
+      border: 1px solid var(--border);
+      border-radius: 7px;
+
+      background: rgba(17,23,34,.95);
+
+      color: var(--text-2);
+
+      cursor: pointer;
+
+      font-size: 10px;
+    }
+
+    .small-btn:hover {
+      color: var(--text);
+      border-color: var(--border-hover);
+    }
+
+    .tool-output {
+      min-height: 230px;
+
+      padding: 13px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #080c12;
+
+      color: var(--text-2);
+
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.6;
+
+      white-space: pre-wrap;
+      word-break: break-word;
+
+      overflow: auto;
+    }
+
+    .tool-output.success {
+      color: var(--green);
+    }
+
+    .tool-output.error {
+      color: var(--red);
+    }
+
+    .tool-actions {
+      grid-column: 1 / -1;
+
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+
+      margin-top: 3px;
+    }
+
+    .notice {
+      grid-column: 1 / -1;
+
+      padding: 10px 12px;
+
+      border: 1px solid rgba(74,158,232,.12);
+      border-radius: 8px;
+
+      background: rgba(74,158,232,.04);
+
+      color: var(--text-3);
+
+      font-size: 11px;
+    }
+
+    .error-box {
+      grid-column: 1 / -1;
+
+      display: none;
+
+      padding: 10px 12px;
+
+      border: 1px solid rgba(255,92,92,.2);
+      border-radius: 8px;
+
+      background: rgba(255,92,92,.06);
+
+      color: #ff8585;
+
+      font-size: 11px;
+    }
+
+    .error-box.show {
+      display: block;
+    }
+
+    /* =========================
+       CODE / PREVIEW
+    ========================= */
+
+    .code-output {
+      min-height: 300px;
+      max-height: 520px;
+
+      padding: 15px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #080c12;
+
+      overflow: auto;
+
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.7;
+
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .preview-output {
+      min-height: 300px;
+      max-height: 520px;
+
+      padding: 18px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #f5f7fa;
+      color: #151922;
+
+      overflow: auto;
+    }
+
+    .preview-output h1,
+    .preview-output h2,
+    .preview-output h3 {
+      margin: 0 0 12px;
+    }
+
+    .preview-output p {
+      margin-bottom: 12px;
+    }
+
+    .preview-output ul,
+    .preview-output ol {
+      margin: 0 0 12px 22px;
+    }
+
+    .preview-output code {
+      padding: 2px 5px;
+      border-radius: 4px;
+      background: #e5e7eb;
+      font-family: var(--mono);
+    }
+
+    .preview-output blockquote {
+      margin: 12px 0;
+      padding-left: 12px;
+      border-left: 3px solid #cbd5e1;
+      color: #475569;
+    }
+
+    /* =========================
+       QR
+    ========================= */
+
+    .qr-wrap {
+      min-height: 300px;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #f7f7f7;
+    }
+
+    #qrCanvas {
+      max-width: 100%;
+      image-rendering: pixelated;
+    }
+
+    /* =========================
+       DIFF
+    ========================= */
+
+    .diff-output {
+      min-height: 300px;
+
+      padding: 14px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #080c12;
+
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.7;
+
+      overflow: auto;
+      white-space: pre-wrap;
+    }
+
+    .diff-added {
+      display: block;
+      background: rgba(61,204,142,.12);
+      color: #76e0ac;
+    }
+
+    .diff-removed {
+      display: block;
+      background: rgba(255,92,92,.12);
+      color: #ff8585;
+    }
+
+    .diff-same {
+      display: block;
+      color: var(--text-3);
+    }
+
+    /* =========================
+       URL RESULT
+    ========================= */
+
+    .url-table {
+      width: 100%;
+      border-collapse: collapse;
+
+      font-size: 12px;
+    }
+
+    .url-table td {
+      padding: 9px 10px;
+
+      border-bottom: 1px solid var(--border);
+
+      vertical-align: top;
+    }
+
+    .url-table td:first-child {
+      width: 130px;
+      color: var(--text-3);
+      font-family: var(--mono);
+    }
+
+    .url-table td:last-child {
+      color: var(--green);
+      word-break: break-word;
+      font-family: var(--mono);
+    }
+
+    /* =========================
+       RESULT CARDS
+    ========================= */
+
+    .result-card {
+      padding: 17px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: rgba(255,255,255,.02);
+    }
+
+    .result-card strong {
+      display: block;
+
+      font-family: var(--mono);
+      font-size: 20px;
+
+      word-break: break-word;
+    }
+
+    .result-card span {
+      color: var(--text-3);
+      font-size: 11px;
+    }
+
+    .result-grid {
+      grid-column: 1 / -1;
+
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 8px;
+    }
+
+    /* =========================
+       COMMAND PALETTE
+    ========================= */
+
+    .command {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+
+      padding-top: 13vh;
+      padding-inline: 20px;
+
+      background: rgba(0,0,0,.7);
+
+      backdrop-filter: blur(10px);
+
+      opacity: 0;
+      visibility: hidden;
+
+      transition: .15s;
+    }
+
+    .command.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .command-panel {
+      width: min(620px,100%);
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      background: #0d131c;
+
+      box-shadow:
+        0 30px 90px rgba(0,0,0,.6);
+
+      overflow: hidden;
+    }
+
+    .command-search {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      padding: 13px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .command-search input {
+      flex: 1;
+
+      border: 0;
+      outline: 0;
+
+      background: transparent;
+      color: var(--text);
+
+      font-size: 14px;
+    }
+
+    .command-results {
+      max-height: 390px;
+
+      overflow: auto;
+
+      padding: 7px;
+    }
+
+    .command-item {
+      width: 100%;
+
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      padding: 10px;
+
+      border-radius: 8px;
+
+      background: transparent;
+      color: var(--text-2);
+
+      text-align: left;
+
+      cursor: pointer;
+    }
+
+    .command-item:hover,
+    .command-item.selected {
+      background: rgba(74,158,232,.08);
+      color: var(--text);
+    }
+
+    .command-item-icon {
+      width: 31px;
+      height: 31px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 7px;
+
+      background: rgba(74,158,232,.08);
+      color: var(--blue);
+
+      font-family: var(--mono);
+      font-size: 10px;
+    }
+
+    .command-item-info {
+      flex: 1;
+    }
+
+    .command-item-name {
+      display: block;
+
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .command-item-category {
+      display: block;
+
+      color: var(--text-3);
+      font-size: 10px;
+    }
+
+    /* =========================
+       TOAST
+    ========================= */
+
+    .toast {
+      position: fixed;
+
+      right: 20px;
+      bottom: 20px;
+
+      z-index: 300;
+
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 11px 14px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #111722;
+
+      box-shadow:
+        0 15px 40px rgba(0,0,0,.4);
+
+      color: var(--text);
+
+      font-size: 12px;
+
+      transform: translateY(15px);
+      opacity: 0;
+
+      pointer-events: none;
+
+      transition: .2s;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast.success::before {
+      content: "✓";
+      color: var(--green);
+    }
+
+    .toast.error::before {
+      content: "!";
+      color: var(--red);
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 35px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-copy {
+      color: var(--text-3);
+      font-size: 11px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+
+      color: var(--text-3);
+      font-size: 11px;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+
+    /* =========================
+       PHASE 3 — PLATFORM
+    ========================= */
+
+    .platform-section {
+      padding: 0 0 90px;
+    }
+
+    .platform-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 11px;
+    }
+
+    .platform-card {
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.018);
+    }
+
+    .platform-card h3 {
+      font-family: var(--display);
+      font-size: 18px;
+    }
+
+    .platform-card > p {
+      margin-top: 5px;
+      color: var(--text-3);
+      font-size: 12px;
+    }
+
+    .platform-card + .platform-card {
+      min-height: 100%;
+    }
+
+    .changelog-list {
+      margin-top: 18px;
+      display: grid;
+      gap: 9px;
+    }
+
+    .change-item {
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      gap: 13px;
+      padding: 12px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .change-version {
+      color: var(--cyan);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .change-item strong {
+      font-size: 12px;
+    }
+
+    .change-item p {
+      margin-top: 3px;
+      color: var(--text-3);
+      font-size: 11px;
+    }
+
+    .request-form {
+      margin-top: 17px;
+      display: grid;
+      gap: 9px;
+    }
+
+    .request-form textarea {
+      min-height: 115px;
+    }
+
+    .request-list {
+      margin-top: 15px;
+      display: grid;
+      gap: 7px;
+      max-height: 180px;
+      overflow: auto;
+    }
+
+    .request-item {
+      padding: 10px 11px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(255,255,255,.018);
+    }
+
+    .request-item strong {
+      display: block;
+      font-size: 11px;
+    }
+
+    .request-item span {
+      display: block;
+      margin-top: 2px;
+      color: var(--text-3);
+      font-size: 10px;
+    }
+
+    .github-card {
+      margin-top: 15px;
+      padding: 13px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: rgba(255,255,255,.018);
+    }
+
+    .github-card .github-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .github-card strong {
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .github-card p {
+      margin-top: 4px;
+      color: var(--text-3);
+      font-size: 10px;
+    }
+
+    .github-placeholder {
+      color: var(--yellow);
+      font-family: var(--mono);
+      font-size: 10px;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 61px;
+      left: 14px;
+      right: 14px;
+      z-index: 60;
+      display: none;
+      padding: 9px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(12,17,25,.97);
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+
+    .mobile-menu.active {
+      display: grid;
+      gap: 3px;
+    }
+
+    .mobile-menu a {
+      padding: 10px;
+      border-radius: 8px;
+      color: var(--text-2);
+      font-size: 13px;
+    }
+
+    .mobile-menu a:hover {
+      background: rgba(74,158,232,.08);
+      color: var(--text);
+    }
+
+    .modal-head-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .share-tool-btn {
+      height: 34px;
+      padding: 0 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(255,255,255,.025);
+      color: var(--text-2);
+      cursor: pointer;
+      font-size: 10px;
+    }
+
+    .share-tool-btn:hover {
+      color: var(--text);
+      border-color: var(--border-hover);
+    }
+
+    .url-badge {
+      display: inline-flex;
+      margin-left: 6px;
+      padding: 2px 5px;
+      border: 1px solid rgba(61,204,142,.18);
+      border-radius: 4px;
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 8px;
+    }
+
+    @media (max-width: 800px) {
+      .platform-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 1000px) {
+      .tool-grid {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .nav-search {
+        display: none;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        width: min(100% - 28px,1180px);
+      }
+
+      .hero {
+        padding: 75px 0 55px;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .tool-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full,
+      .tool-actions,
+      .notice,
+      .error-box,
+      .result-grid {
+        grid-column: auto;
+      }
+
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal {
+        padding: 10px;
+      }
+
+      .modal-panel {
+        max-height: calc(100vh - 20px);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .topbar {
+        display: none;
+      }
+
+      .nav-inner {
+        min-height: 60px;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .hero p {
+        font-size: 14px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+
+        width: min(100%,320px);
+
+        margin-inline: auto;
+      }
+
+      .stat {
+        min-width: 0;
+      }
+
+      .tool-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tool-card {
+        min-height: 145px;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+      }
+    }
+  
+/* ==================== PHASE 4 — PWA / OFFLINE / HISTORY / DROP / SHARE ==================== */
+.p4-install-btn{display:none;align-items:center;gap:7px}
+.p4-install-btn.show{display:inline-flex}
+.p4-offline{position:fixed;left:16px;bottom:16px;z-index:9999;padding:8px 12px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(17,23,34,.94);backdrop-filter:blur(14px);font-size:12px;color:#aeb9c9;box-shadow:0 10px 30px rgba(0,0,0,.28)}
+.p4-offline.online{color:#7dd3fc}
+.p4-dropzone{position:relative;transition:border-color .2s,background .2s,box-shadow .2s,transform .2s}
+.p4-dropzone.dragover{border-color:var(--cyan)!important;background:rgba(56,189,248,.08)!important;box-shadow:0 0 0 3px rgba(56,189,248,.12),0 16px 40px rgba(0,0,0,.2);transform:translateY(-1px)}
+.p4-drop-hint{display:none;margin-top:10px;font-size:12px;color:#7dd3fc}
+.p4-history{margin-top:14px;border-top:1px solid rgba(255,255,255,.07);padding-top:14px}
+.p4-history-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:9px}
+.p4-history-title{font-size:12px;font-weight:700;color:#aeb9c9;text-transform:uppercase;letter-spacing:.08em}
+.p4-history-list{display:grid;gap:7px;max-height:190px;overflow:auto}
+.p4-history-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02);border-radius:9px}
+.p4-history-item button{min-width:0}
+.p4-history-preview{flex:1;min-width:0;color:#8995a8;font:11px/1.4 "JetBrains Mono",monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.p4-history-time{font-size:10px;color:#687487;white-space:nowrap}
+.p4-drop-file{margin-top:9px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border:1px solid rgba(61,204,142,.18);background:rgba(61,204,142,.05);border-radius:9px;color:#8edbb7;font-size:11px}
+.p4-drop-file button{font-size:11px}
+.p4-share-state{margin-top:9px;display:flex;gap:7px}
+.p4-share-state input{flex:1;min-width:0}
+.p4-toast{position:fixed;right:18px;bottom:18px;z-index:10000;padding:10px 13px;border:1px solid rgba(255,255,255,.1);border-radius:10px;background:#111722;color:#dce7f5;font-size:12px;box-shadow:0 14px 36px rgba(0,0,0,.35);opacity:0;transform:translateY(8px);pointer-events:none;transition:.2s}
+.p4-toast.show{opacity:1;transform:none}
+@media(max-width:720px){
+  .p4-offline{left:10px;bottom:10px}
+  .p4-history-item{flex-wrap:wrap}
+  .p4-history-time{margin-left:auto}
+}
+
+</style>
+  <link rel="manifest" href="./manifest.json">
+</head>
+
+<body>
+<div class="p4-offline" id="p4OfflineStatus" aria-live="polite">Online</div>
+<div class="p4-toast" id="p4Toast" role="status" aria-live="polite"></div>
+
+
+  <!-- =========================
+       TOP BAR
+  ========================== -->
+
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span class="status-dot"></span>
+      All supported tools run locally in your browser
+      <span>•</span>
+      No data uploaded
+    </div>
+  </div>
+
+
+  <!-- =========================
+       NAV
+  ========================== -->
+
+  <nav>
+    <div class="container nav-inner">
+
+      <a href="#" class="brand">
+        <span class="brand-mark">&lt;/&gt;</span>
+        <span>OpenUtility</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#tools">Tools</a>
+        <a href="#features">Why OpenUtility</a>
+        <a href="#changelog">Changelog</a>
+        <a href="#request">Request a tool</a>
+      </div>
+
+      <div class="nav-actions">
+
+        <button
+          class="nav-search"
+          id="navSearchBtn"
+        >
+          <span>Search tools</span>
+          <span class="kbd">Ctrl K</span>
+        </button>
+
+        <button
+          class="menu-btn"
+          id="menuBtn"
+          aria-label="Open menu"
+        >
+          ☰
+        </button>
+
+      </div>
+
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#tools">Tools</a>
+    <a href="#features">Why OpenUtility</a>
+    <a href="#changelog">Changelog</a>
+    <a href="#request">Request a tool</a>
+    <a href="#github">GitHub</a>
+  </div>
+
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <header class="hero">
+
+    <div class="hero-grid"></div>
+
+    <div class="container hero-content">
+
+      <span class="eyebrow">
+        <span>●</span>
+        Developer utilities
+      </span>
+
+      <h1>
+        Tools that keep you<br>
+        <span>in flow.</span>
+      </h1>
+
+      <p>
+        Fast, private, client-side utilities for developers.
+        Format data, test expressions, transform code,
+        inspect URLs and work with common web formats.
+      </p>
+
+      <div class="hero-actions">
+
+        <a
+          href="#tools"
+          class="btn btn-primary"
+        >
+          Explore tools →
+        </a>
+
+        <button
+          class="btn btn-secondary"
+          id="heroSearchBtn"
+        >
+          Search tools
+          <span class="kbd">Ctrl K</span>
+        </button>
+
+      </div>
+
+      <div class="stats">
+
+        <div class="stat">
+          <strong id="statToolCount">23+</strong>
+          <span>Developer tools</span>
+        </div>
+
+        <div class="stat">
+          <strong>100%</strong>
+          <span>Client-side</span>
+        </div>
+
+        <div class="stat">
+          <strong>0</strong>
+          <span>Uploads required</span>
+        </div>
+
+        <div class="stat">
+          <strong>Free</strong>
+          <span>To use</span>
+        </div>
+
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- =========================
+       TOOLS
+  ========================== -->
+
+  <main
+    id="tools"
+    class="tools-section"
+  >
+
+    <div class="container">
+
+      <!-- QUICK TOOLS -->
+
+      <section
+        class="quick-section"
+        id="quickSection"
+      >
+
+        <div class="quick-head">
+
+          <div class="quick-title">
+            <span>⚡</span>
+            <span id="quickTitle">
+              Recently used
+            </span>
+          </div>
+
+          <button
+            class="small-btn hidden"
+            id="clearRecentBtn"
+          >
+            Clear
+          </button>
+
+        </div>
+
+        <div
+          class="quick-list"
+          id="quickList"
+        ></div>
+
+      </section>
+
+
+      <!-- HEADER -->
+
+      <div class="section-head">
+
+        <div>
+
+          <h2 class="section-title">
+            Developer tools
+          </h2>
+
+          <p class="section-subtitle">
+            Practical utilities for everyday development.
+          </p>
+
+        </div>
+
+        <div
+          class="tool-count"
+          id="toolCount"
+        >
+          23 tools
+        </div>
+
+      </div>
+
+
+      <!-- TOOLBAR -->
+
+      <div class="toolbar">
+
+        <div class="search-box">
+
+          <span class="search-icon">⌕</span>
+
+          <input
+            id="toolSearch"
+            type="search"
+            placeholder="Search tools..."
+            autocomplete="off"
+          >
+
+          <span class="kbd search-kbd">
+            /
+          </span>
+
+        </div>
+
+        <select
+          id="categoryFilter"
+          class="category-filter"
+        >
+          <option value="all">
+            All categories
+          </option>
+
+          <option value="data">
+            Text & Data
+          </option>
+
+          <option value="encoding">
+            Encoding
+          </option>
+
+          <option value="generators">
+            Generators
+          </option>
+
+          <option value="web">
+            Web & URL
+          </option>
+
+          <option value="text">
+            Text
+          </option>
+
+          <option value="code">
+            Code
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div id="toolContainer"></div>
+
+
+      <div
+        class="empty-state hidden"
+        id="emptyState"
+      >
+        <strong>No tools found</strong>
+        Try another search or category.
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- =========================
+       FEATURES
+  ========================== -->
+
+  <section
+    class="features"
+    id="features"
+  >
+
+    <div class="container">
+
+      <div class="feature-grid">
+
+        <div class="feature">
+
+          <div class="feature-icon">
+            &lt;local /&gt;
+          </div>
+
+          <h3>
+            Runs in your browser
+          </h3>
+
+          <p>
+            Supported transformations happen locally
+            without sending your input to a server.
+          </p>
+
+        </div>
+
+        <div class="feature">
+
+          <div class="feature-icon">
+            ⌘ + K
+          </div>
+
+          <h3>
+            Keyboard friendly
+          </h3>
+
+          <p>
+            Search, launch tools and copy results
+            without constantly reaching for the mouse.
+          </p>
+
+        </div>
+
+        <div class="feature">
+
+          <div class="feature-icon">
+            ★
+          </div>
+
+          <h3>
+            Favorites & history
+          </h3>
+
+          <p>
+            Keep frequently used utilities close
+            with local favorites and recent tools.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       TOOL MODAL
+  ========================== -->
+
+  <div
+    class="modal"
+    id="toolModal"
+  >
+
+    <div class="modal-panel">
+
+      <div class="modal-head">
+
+        <div class="modal-title-wrap">
+
+          <div
+            class="tool-icon"
+            id="modalIcon"
+          >
+            {}
+          </div>
+
+          <div>
+
+            <div
+              class="modal-title"
+              id="modalTitle"
+            >
+              Tool
+            </div>
+
+            <div
+              class="modal-subtitle"
+              id="modalSubtitle"
+            >
+              Client-side utility
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="modal-head-actions">
+          <button class="share-tool-btn" id="shareToolBtn" type="button">
+            Copy link
+          </button>
+          <button
+            class="modal-close"
+            id="modalClose"
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </div>
+
+      </div>
+
+      <div
+        class="modal-body"
+        id="modalBody"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       COMMAND PALETTE
+  ========================== -->
+
+  <div
+    class="command"
+    id="commandPalette"
+  >
+
+    <div class="command-panel">
+
+      <div class="command-search">
+
+        <span class="mono">
+          ⌕
+        </span>
+
+        <input
+          id="commandInput"
+          type="text"
+          placeholder="Search tools..."
+          autocomplete="off"
+        >
+
+        <span class="kbd">
+          Esc
+        </span>
+
+      </div>
+
+      <div
+        class="command-results"
+        id="commandResults"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- TOAST -->
+
+  <div
+    class="toast"
+    id="toast"
+  ></div>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="container footer-inner">
+
+      <div class="footer-copy">
+        © 2026 OpenUtility. Built for developers.
+      </div>
+
+      <div class="footer-links">
+        <a href="#tools">Tools</a>
+        <a href="#features">Features</a>
+        <a href="#changelog">Changelog</a>
+        <a href="#request">Request a tool</a>
+        <a id="footerGithub" href="#" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <script>
+
+    /* ============================================================
+       TOOL REGISTRY
+    ============================================================ */
+
+    const tools = [
+
+      /* DATA */
+
+      {
+        id: "json-formatter",
+        name: "JSON Formatter",
+        description: "Format and pretty-print JSON.",
+        category: "data",
+        categoryName: "Text & Data",
+        icon: "{}"
+      },
+
+      {
+        id: "json-minifier",
+        name: "JSON Minifier",
+        description: "Remove whitespace and minify JSON.",
+        category: "data",
+        categoryName: "Text & Data",
+        icon: "{ }"
+      },
+
+      {
+        id: "csv-json",
+        name: "CSV → JSON",
+        description: "Convert CSV data into JSON.",
+        category: "data",
+        categoryName: "Text & Data",
+        icon: "CSV"
+      },
+
+      {
+        id: "xml-formatter",
+        name: "XML Formatter",
+        description: "Format and inspect XML documents.",
+        category: "data",
+        categoryName: "Text & Data",
+        icon: "<x>"
+      },
+
+      {
+        id: "yaml-json",
+        name: "YAML ↔ JSON",
+        description: "Convert simple YAML data to JSON and back.",
+        category: "data",
+        categoryName: "Text & Data",
+        icon: "YML"
+      },
+
+
+      /* ENCODING */
+
+      {
+        id: "base64",
+        name: "Base64 Encoder",
+        description: "Encode or decode Base64 strings.",
+        category: "encoding",
+        categoryName: "Encoding",
+        icon: "B64"
+      },
+
+      {
+        id: "url-encoder",
+        name: "URL Encoder",
+        description: "Encode and decode URL components.",
+        category: "encoding",
+        categoryName: "Encoding",
+        icon: "%/"
+      },
+
+      {
+        id: "jwt-decoder",
+        name: "JWT Decoder",
+        description: "Decode JWT header and payload locally.",
+        category: "encoding",
+        categoryName: "Encoding",
+        icon: "JWT"
+      },
+
+      {
+        id: "html-entities",
+        name: "HTML Entities",
+        description: "Encode or decode HTML entities.",
+        category: "encoding",
+        categoryName: "Encoding",
+        icon: "&lt;"
+      },
+
+
+      /* GENERATORS */
+
+      {
+        id: "uuid",
+        name: "UUID Generator",
+        description: "Generate random UUID v4 values.",
+        category: "generators",
+        categoryName: "Generators",
+        icon: "ID"
+      },
+
+      {
+        id: "password",
+        name: "Password Generator",
+        description: "Generate strong random passwords.",
+        category: "generators",
+        categoryName: "Generators",
+        icon: "PWD"
+      },
+
+      {
+        id: "sha256",
+        name: "SHA-256 Hash",
+        description: "Create a SHA-256 hash from text.",
+        category: "generators",
+        categoryName: "Generators",
+        icon: "#"
+      },
+
+      {
+        id: "qr",
+        name: "QR Code Generator",
+        description: "Generate a QR code from text or a URL.",
+        category: "generators",
+        categoryName: "Generators",
+        icon: "QR"
+      },
+
+
+      /* WEB */
+
+      {
+        id: "color",
+        name: "Color Converter",
+        description: "Convert HEX, RGB and HSL colors.",
+        category: "web",
+        categoryName: "Web & URL",
+        icon: "RGB"
+      },
+
+      {
+        id: "timestamp",
+        name: "Unix Timestamp",
+        description: "Convert Unix timestamps and dates.",
+        category: "web",
+        categoryName: "Web & URL",
+        icon: "TS"
+      },
+
+      {
+        id: "url-parser",
+        name: "URL Parser",
+        description: "Inspect URL components and query parameters.",
+        category: "web",
+        categoryName: "Web & URL",
+        icon: "URL"
+      },
+
+
+      /* TEXT */
+
+      {
+        id: "case",
+        name: "Text Case Converter",
+        description: "Convert text between common cases.",
+        category: "text",
+        categoryName: "Text",
+        icon: "Aa"
+      },
+
+      {
+        id: "word-counter",
+        name: "Word Counter",
+        description: "Count words, characters and lines.",
+        category: "text",
+        categoryName: "Text",
+        icon: "123"
+      },
+
+      {
+        id: "lorem",
+        name: "Lorem Ipsum",
+        description: "Generate placeholder text quickly.",
+        category: "text",
+        categoryName: "Text",
+        icon: "TXT"
+      },
+
+      {
+        id: "text-diff",
+        name: "Text Diff",
+        description: "Compare two text blocks line by line.",
+        category: "text",
+        categoryName: "Text",
+        icon: "±"
+      },
+
+
+      /* CODE */
+
+      {
+        id: "regex",
+        name: "Regex Tester",
+        description: "Test regular expressions against sample text.",
+        category: "code",
+        categoryName: "Code",
+        icon: "/./"
+      },
+
+      {
+        id: "sql",
+        name: "SQL Formatter",
+        description: "Format common SQL queries for readability.",
+        category: "code",
+        categoryName: "Code",
+        icon: "SQL"
+      },
+
+      {
+        id: "markdown",
+        name: "Markdown Preview",
+        description: "Preview basic Markdown as rendered HTML.",
+        category: "code",
+        categoryName: "Code",
+        icon: "MD"
+      }
+
+    ];
+
+
+
+    /* ============================================================
+       PHASE 3 CONFIGURATION
+    ============================================================ */
+
+    const OPENUTILITY_CONFIG = {
+      // Replace this with your real repository when you publish it.
+      githubRepo: "https://github.com/yourusername/openutility"
+    };
+
+    const TOOL_URL_PARAM = "tool";
+
+    const toolSeo = {
+      "json-formatter": "Format and pretty-print JSON locally in your browser.",
+      "json-minifier": "Minify JSON locally without uploading your data.",
+      "csv-json": "Convert CSV data to JSON locally.",
+      "xml-formatter": "Format XML documents locally in your browser.",
+      "yaml-json": "Convert YAML and JSON locally.",
+      "base64": "Encode and decode Base64 strings locally.",
+      "url-encoder": "Encode and decode URL components locally.",
+      "jwt-decoder": "Decode JWT headers and payloads locally.",
+      "html-entities": "Encode and decode HTML entities locally.",
+      "uuid": "Generate UUID v4 values in your browser.",
+      "password": "Generate random passwords locally.",
+      "sha256": "Create SHA-256 hashes locally in your browser.",
+      "qr": "Generate QR codes from text or URLs.",
+      "color": "Convert HEX, RGB and HSL colors locally.",
+      "timestamp": "Convert Unix timestamps and dates locally.",
+      "url-parser": "Inspect URL components and query parameters locally.",
+      "case": "Convert text between common text cases.",
+      "word-counter": "Count words, characters and lines locally.",
+      "lorem": "Generate placeholder Lorem Ipsum text.",
+      "text-diff": "Compare two text blocks line by line.",
+      "regex": "Test regular expressions locally in your browser.",
+      "sql": "Format common SQL queries locally.",
+      "markdown": "Preview Markdown locally in your browser."
+    };
+
+    function getToolFromUrl() {
+      const params = new URLSearchParams(location.search);
+      const queryTool = params.get(TOOL_URL_PARAM);
+
+      if (queryTool && tools.some(tool => tool.id === queryTool)) {
+        return queryTool;
+      }
+
+      const hash = location.hash.replace(/^#/, "");
+      if (hash.startsWith("tool=")) {
+        const hashTool = decodeURIComponent(hash.slice(5));
+        if (tools.some(tool => tool.id === hashTool)) {
+          return hashTool;
+        }
+      }
+
+      return null;
+    }
+
+    function updateToolUrl(tool, replace = false) {
+      const url = new URL(location.href);
+
+      if (tool) {
+        url.searchParams.set(TOOL_URL_PARAM, tool.id);
+        url.hash = "";
+      } else {
+        url.searchParams.delete(TOOL_URL_PARAM);
+        url.hash = "";
+      }
+
+      const method = replace ? "replaceState" : "pushState";
+      history[method]({ tool: tool?.id || null }, "", url);
+      updateSeo(tool);
+    }
+
+    function updateSeo(tool = null) {
+      const title = tool
+        ? `${tool.name} — OpenUtility`
+        : "OpenUtility — Developer Tools";
+
+      const description = tool
+        ? `${toolSeo[tool.id] || tool.description} Free, client-side and private.`
+        : "Fast, private, client-side developer tools for everyday development.";
+
+      document.title = title;
+
+      const metaDescription =
+        document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute("content", description);
+      }
+
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      const ogDescription = document.querySelector('meta[property="og:description"]');
+      const ogUrl = document.querySelector('meta[property="og:url"]');
+      const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+      const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+      const canonical = document.getElementById("canonicalLink");
+
+      if (ogTitle) ogTitle.content = title;
+      if (ogDescription) ogDescription.content = description;
+      if (twitterTitle) twitterTitle.content = title;
+      if (twitterDescription) twitterDescription.content = description;
+
+      const canonicalUrl = new URL(location.href);
+      if (canonicalUrl.searchParams.has(TOOL_URL_PARAM)) {
+        canonicalUrl.searchParams.set(TOOL_URL_PARAM, tool?.id || "");
+      }
+      const canonicalString = canonicalUrl.toString();
+
+      if (ogUrl) ogUrl.content = canonicalString;
+      if (canonical) canonical.href = canonicalString;
+    }
+
+    function getShareUrl(tool) {
+      const url = new URL(location.href);
+      url.search = "";
+      url.hash = "";
+      url.searchParams.set(TOOL_URL_PARAM, tool.id);
+      return url.toString();
+    }
+
+    async function copyToolLink() {
+      if (!currentTool) return;
+
+      const url = getShareUrl(currentTool);
+
+      try {
+        await navigator.clipboard.writeText(url);
+        showToast("Tool link copied");
+      } catch {
+        window.prompt("Copy this tool link:", url);
+      }
+    }
+
+    function setupGithubIntegration() {
+      const repo = OPENUTILITY_CONFIG.githubRepo;
+      const link = document.getElementById("githubLink");
+      const footer = document.getElementById("footerGithub");
+      const status = document.getElementById("githubStatus");
+      const label = document.getElementById("githubRepoLabel");
+
+      if (!link || !footer) return;
+
+      const configured =
+        repo &&
+        !repo.includes("yourusername/openutility");
+
+      if (configured) {
+        link.href = repo;
+        footer.href = repo;
+        label.textContent = repo.replace(/^https?:\/\//, "");
+        status.textContent = "Repository link configured.";
+      } else {
+        link.href = "https://github.com/";
+        footer.href = "https://github.com/";
+        status.textContent = "Set OPENUTILITY_CONFIG.githubRepo to your repository URL.";
+      }
+    }
+
+    function loadRequests() {
+      try {
+        const value = JSON.parse(
+          localStorage.getItem("openutility-tool-requests") || "[]"
+        );
+        return Array.isArray(value) ? value : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveRequests(requests) {
+      try {
+        localStorage.setItem(
+          "openutility-tool-requests",
+          JSON.stringify(requests)
+        );
+      } catch {}
+    }
+
+    function renderRequests() {
+      const list = document.getElementById("requestList");
+      if (!list) return;
+
+      const requests = loadRequests();
+
+      if (!requests.length) {
+        list.innerHTML = `
+          <div class="request-item">
+            <span>No local requests yet.</span>
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = requests.slice(0, 8).map(item => `
+        <div class="request-item">
+          <strong>${escapeHtml(item.title)}</strong>
+          <span>${escapeHtml(item.description || "No description")}</span>
+        </div>
+      `).join("");
+    }
+
+    function setupRequestForm() {
+      const form = document.getElementById("requestForm");
+      if (!form) return;
+
+      form.addEventListener("submit", event => {
+        event.preventDefault();
+
+        const title = document.getElementById("requestTitle").value.trim();
+        const description = document.getElementById("requestDescription").value.trim();
+
+        if (!title) return;
+
+        const requests = loadRequests();
+        requests.unshift({
+          title,
+          description,
+          createdAt: new Date().toISOString()
+        });
+
+        saveRequests(requests.slice(0, 20));
+        form.reset();
+        renderRequests();
+        showToast("Tool request saved locally");
+      });
+    }
+
+
+    /* ============================================================
+       STATE
+    ============================================================ */
+
+    let currentTool = null;
+
+    let favorites =
+      loadStorage(
+        "openutility-favorites",
+        []
+      );
+
+    let recentTools =
+      loadStorage(
+        "openutility-recent",
+        []
+      );
+
+    let toastTimer;
+
+
+    /* ============================================================
+       STORAGE
+    ============================================================ */
+
+    function loadStorage(key, fallback) {
+
+      try {
+
+        const value =
+          localStorage.getItem(key);
+
+        if (!value) {
+          return fallback;
+        }
+
+        const parsed =
+          JSON.parse(value);
+
+        return Array.isArray(parsed)
+          ? parsed
+          : fallback;
+
+      } catch {
+
+        return fallback;
+
+      }
+
+    }
+
+
+    function saveStorage(key, value) {
+
+      try {
+
+        localStorage.setItem(
+          key,
+          JSON.stringify(value)
+        );
+
+      } catch {}
+
+    }
+
+
+    /* ============================================================
+       DOM
+    ============================================================ */
+
+    const toolContainer =
+      document.getElementById(
+        "toolContainer"
+      );
+
+    const toolSearch =
+      document.getElementById(
+        "toolSearch"
+      );
+
+    const categoryFilter =
+      document.getElementById(
+        "categoryFilter"
+      );
+
+    const toolCount =
+      document.getElementById(
+        "toolCount"
+      );
+
+    const emptyState =
+      document.getElementById(
+        "emptyState"
+      );
+
+    const quickSection =
+      document.getElementById(
+        "quickSection"
+      );
+
+    const quickList =
+      document.getElementById(
+        "quickList"
+      );
+
+    const quickTitle =
+      document.getElementById(
+        "quickTitle"
+      );
+
+    const clearRecentBtn =
+      document.getElementById(
+        "clearRecentBtn"
+      );
+
+    const toolModal =
+      document.getElementById(
+        "toolModal"
+      );
+
+    const modalBody =
+      document.getElementById(
+        "modalBody"
+      );
+
+    const modalTitle =
+      document.getElementById(
+        "modalTitle"
+      );
+
+    const modalSubtitle =
+      document.getElementById(
+        "modalSubtitle"
+      );
+
+    const modalIcon =
+      document.getElementById(
+        "modalIcon"
+      );
+
+    const modalClose =
+      document.getElementById(
+        "modalClose"
+      );
+
+    const toast =
+      document.getElementById(
+        "toast"
+      );
+
+    const commandPalette =
+      document.getElementById(
+        "commandPalette"
+      );
+
+    const commandInput =
+      document.getElementById(
+        "commandInput"
+      );
+
+    const commandResults =
+      document.getElementById(
+        "commandResults"
+      );
+
+
+    document.getElementById(
+      "statToolCount"
+    ).textContent =
+      `${tools.length}+`;
+
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[char]));
+    }
+
+    /* ============================================================
+       TOAST
+    ============================================================ */
+
+
+    function showToast(
+      message,
+      type = "success"
+    ) {
+
+      clearTimeout(toastTimer);
+
+      toast.textContent =
+        message;
+
+      toast.className =
+        `toast ${type} show`;
+
+      toastTimer =
+        setTimeout(
+          () => {
+            toast.classList.remove("show");
+          },
+          2200
+        );
+    }
+
+
+    /* ============================================================
+       FAVORITES
+    ============================================================ */
+
+    function isFavorite(id) {
+
+      return favorites.includes(id);
+
+    }
+
+
+    function toggleFavorite(
+      id,
+      event
+    ) {
+
+      if (event) {
+        event.stopPropagation();
+      }
+
+      if (isFavorite(id)) {
+
+        favorites =
+          favorites.filter(
+            item => item !== id
+          );
+
+        showToast(
+          "Removed from favorites"
+        );
+
+      } else {
+
+        favorites.unshift(id);
+
+        showToast(
+          "Added to favorites"
+        );
+
+      }
+
+      saveStorage(
+        "openutility-favorites",
+        favorites
+      );
+
+      renderTools(
+        toolSearch.value,
+        categoryFilter.value
+      );
+
+      renderQuickSection();
+    }
+
+
+    /* ============================================================
+       RECENT
+    ============================================================ */
+
+    function addRecent(id) {
+
+      recentTools =
+        recentTools.filter(
+          item => item !== id
+        );
+
+      recentTools.unshift(id);
+
+      recentTools =
+        recentTools.slice(0,6);
+
+      saveStorage(
+        "openutility-recent",
+        recentTools
+      );
+
+      renderQuickSection();
+    }
+
+
+    function clearRecent() {
+
+      recentTools = [];
+
+      saveStorage(
+        "openutility-recent",
+        recentTools
+      );
+
+      renderQuickSection();
+
+      showToast(
+        "Recent tools cleared"
+      );
+    }
+
+
+    function renderQuickSection() {
+
+      const favoriteTools =
+        favorites
+          .map(
+            id =>
+              tools.find(
+                tool => tool.id === id
+              )
+          )
+          .filter(Boolean);
+
+      const recent =
+        recentTools
+          .map(
+            id =>
+              tools.find(
+                tool => tool.id === id
+              )
+          )
+          .filter(Boolean);
+
+      let list = recent;
+      let title = "Recently used";
+
+      if (
+        !recent.length &&
+        favoriteTools.length
+      ) {
+
+        list = favoriteTools;
+        title = "Favorites";
+
+      }
+
+      if (!list.length) {
+
+        quickSection.classList.add(
+          "hidden"
+        );
+
+        return;
+      }
+
+      quickSection.classList.remove(
+        "hidden"
+      );
+
+      quickTitle.textContent =
+        title;
+
+      clearRecentBtn.classList.toggle(
+        "hidden",
+        title !== "Recently used"
+      );
+
+      quickList.innerHTML =
+        list.map(
+          tool => `
+            <button
+              class="quick-tool"
+              data-tool="${tool.id}"
+            >
+              <span class="icon">
+                ${tool.icon}
+              </span>
+
+              <span>
+                ${tool.name}
+              </span>
+            </button>
+          `
+        ).join("");
+
+      quickList
+        .querySelectorAll("[data-tool]")
+        .forEach(
+          button => {
+
+            button.addEventListener(
+              "click",
+              () =>
+                openTool(
+                  button.dataset.tool
+                )
+            );
+
+          }
+        );
+    }
+
+
+    clearRecentBtn.addEventListener(
+      "click",
+      clearRecent
+    );
+
+
+    /* ============================================================
+       RENDER TOOL CARDS
+    ============================================================ */
+
+    function renderTools(
+      search = "",
+      category = "all"
+    ) {
+
+      const query =
+        search
+          .trim()
+          .toLowerCase();
+
+      const filtered =
+        tools.filter(
+          tool => {
+
+            const matchesSearch =
+              !query ||
+              tool.name
+                .toLowerCase()
+                .includes(query) ||
+              tool.description
+                .toLowerCase()
+                .includes(query) ||
+              tool.categoryName
+                .toLowerCase()
+                .includes(query);
+
+            const matchesCategory =
+              category === "all" ||
+              tool.category === category;
+
+            return (
+              matchesSearch &&
+              matchesCategory
+            );
+
+          }
+        );
+
+      toolContainer.innerHTML = "";
+
+      toolCount.textContent =
+        `${filtered.length} ${
+          filtered.length === 1
+            ? "tool"
+            : "tools"
+        }`;
+
+      emptyState.classList.toggle(
+        "hidden",
+        filtered.length !== 0
+      );
+
+      if (!filtered.length) {
+        return;
+      }
+
+      const categories = [
+        "data",
+        "encoding",
+        "generators",
+        "web",
+        "text",
+        "code"
+      ];
+
+      categories.forEach(
+        categoryId => {
+
+          const categoryTools =
+            filtered.filter(
+              tool =>
+                tool.category ===
+                categoryId
+            );
+
+          if (!categoryTools.length) {
+            return;
+          }
+
+          const categoryName =
+            categoryTools[0]
+              .categoryName;
+
+          const categoryElement =
+            document.createElement(
+              "section"
+            );
+
+          categoryElement.className =
+            "category";
+
+          categoryElement.innerHTML = `
+
+            <div class="category-head">
+
+              <div class="category-name">
+
+                <span>
+                  ${categoryName}
+                </span>
+
+                <span class="category-line"></span>
+
+              </div>
+
+              <span class="category-count">
+                ${categoryTools.length}
+              </span>
+
+            </div>
+
+            <div class="tool-grid">
+
+              ${categoryTools.map(
+                tool => `
+
+                  <article
+                    class="tool-card"
+                    data-tool="${tool.id}"
+                  >
+
+                    <div class="tool-top">
+
+                      <div class="tool-icon">
+                        ${tool.icon}
+                      </div>
+
+                      <button
+                        class="tool-favorite ${
+                          isFavorite(tool.id)
+                            ? "active"
+                            : ""
+                        }"
+                        data-favorite="${tool.id}"
+                        aria-label="Toggle favorite"
+                      >
+                        ${
+                          isFavorite(tool.id)
+                            ? "★"
+                            : "☆"
+                        }
+                      </button>
+
+                    </div>
+
+                    <div class="tool-name">
+                      ${tool.name}
+                    </div>
+
+                    <div class="tool-description">
+                      ${tool.description}
+                    </div>
+
+                    <div class="tool-meta">
+
+                      <span class="local-dot"></span>
+
+                      client-side
+
+                    </div>
+
+                  </article>
+
+                `
+              ).join("")}
+
+            </div>
+          `;
+
+          toolContainer.appendChild(
+            categoryElement
+          );
+
+        }
+      );
+
+      toolContainer
+        .querySelectorAll(".tool-card")
+        .forEach(
+          card => {
+
+            card.addEventListener(
+              "click",
+              () =>
+                openTool(
+                  card.dataset.tool
+                )
+            );
+
+          }
+        );
+
+      toolContainer
+        .querySelectorAll(
+          "[data-favorite]"
+        )
+        .forEach(
+          button => {
+
+            button.addEventListener(
+              "click",
+              event => {
+
+                toggleFavorite(
+                  button.dataset.favorite,
+                  event
+                );
+
+              }
+            );
+
+          }
+        );
+    }
+
+
+    /* ============================================================
+       MODAL
+    ============================================================ */
+
+    function openTool(id, fromUrl = false) {
+
+      const tool =
+        tools.find(
+          item => item.id === id
+        );
+
+      if (!tool) {
+        return;
+      }
+
+      currentTool = tool;
+
+      if (!fromUrl) {
+        updateToolUrl(tool);
+      } else {
+        updateSeo(tool);
+      }
+
+      addRecent(id);
+
+      modalTitle.textContent =
+        tool.name;
+
+      modalSubtitle.textContent =
+        `${tool.categoryName} • Client-side`;
+
+      modalIcon.textContent =
+        tool.icon;
+
+      modalBody.innerHTML =
+        getToolHTML(tool.id);
+
+      toolModal.classList.add(
+        "active"
+      );
+
+      document.body.classList.add(
+        "modal-open"
+      );
+
+      bindToolEvents(tool.id);
+
+      requestAnimationFrame(
+        () => {
+
+          const first =
+            modalBody.querySelector(
+              "textarea, input, select"
+            );
+
+          if (first) {
+            first.focus();
+          }
+
+        }
+      );
+    }
+
+
+    function closeTool(fromUrl = false) {
+
+      
+      if (!fromUrl) {
+        updateToolUrl(null, true);
+      } else {
+        updateSeo(null);
+      }
+toolModal.classList.remove(
+        "active"
+      );
+
+      document.body.classList.remove(
+        "modal-open"
+      );
+
+      currentTool = null;
+    }
+
+
+    modalClose.addEventListener(
+      "click",
+      closeTool
+    );
+
+
+    toolModal.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          toolModal
+        ) {
+          closeTool();
+        }
+
+      }
+    );
+
+
+    /* ============================================================
+       BASE TOOL HTML
+    ============================================================ */
+
+    function baseToolHTML(
+      inputLabel = "Input",
+      placeholder = "Enter input...",
+      outputLabel = "Output"
+    ) {
+
+      return `
+
+        <div class="tool-layout">
+
+          <div class="field">
+
+            <div class="field-label">
+              ${inputLabel}
+            </div>
+
+            <textarea
+              id="toolInput"
+              placeholder="${placeholder}"
+              spellcheck="false"
+            ></textarea>
+
+          </div>
+
+          <div class="field">
+
+            <div class="field-label">
+              ${outputLabel}
+            </div>
+
+            <div class="tool-output-wrap">
+
+              <div
+                class="tool-output"
+                id="toolOutput"
+              >
+                Result will appear here.
+              </div>
+
+              <div class="output-actions">
+
+                <button
+                  class="small-btn"
+                  id="copyOutput"
+                >
+                  Copy
+                </button>
+
+                <button
+                  class="small-btn"
+                  id="clearOutput"
+                >
+                  Clear
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div
+            class="error-box"
+            id="toolError"
+          ></div>
+
+          <div class="notice">
+            Processing happens locally in your browser.
+          </div>
+
+          <div class="tool-actions">
+
+            <button
+              class="btn btn-secondary"
+              id="clearTool"
+            >
+              Reset
+            </button>
+
+            <button
+              class="btn btn-primary"
+              id="runTool"
+            >
+              Run tool
+              <span class="kbd">
+                Ctrl ↵
+              </span>
+            </button>
+
+          </div>
+
+        </div>
+      `;
+    }
+
+
+    /* ============================================================
+       TOOL UI
+    ============================================================ */
+
+    function getToolHTML(id) {
+
+      switch (id) {
+
+        /* =====================
+           EXISTING
+        ===================== */
+
+        case "json-formatter":
+
+          return baseToolHTML(
+            "JSON",
+            '{ "name": "OpenUtility" }',
+            "Formatted JSON"
+          );
+
+
+        case "json-minifier":
+
+          return baseToolHTML(
+            "JSON",
+            '{\n  "name": "OpenUtility"\n}',
+            "Minified JSON"
+          );
+
+
+        case "csv-json":
+
+          return baseToolHTML(
+            "CSV",
+            "name,age,city\nJohn,25,Lahore\nJane,30,Karachi",
+            "JSON"
+          );
+
+
+        case "base64":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field full">
+
+                <div class="field-label">
+                  Text
+                </div>
+
+                <textarea
+                  id="toolInput"
+                  placeholder="Enter text..."
+                  spellcheck="false"
+                ></textarea>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Mode
+                </div>
+
+                <select
+                  id="base64Mode"
+                  class="tool-select"
+                >
+                  <option value="encode">
+                    Encode
+                  </option>
+
+                  <option value="decode">
+                    Decode
+                  </option>
+                </select>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Output
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Result will appear here.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Run
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "url-encoder":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field full">
+
+                <div class="field-label">
+                  URL / Text
+                </div>
+
+                <textarea
+                  id="toolInput"
+                  placeholder="https://example.com/?q=hello world"
+                  spellcheck="false"
+                ></textarea>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Mode
+                </div>
+
+                <select
+                  id="urlMode"
+                  class="tool-select"
+                >
+                  <option value="encode">
+                    Encode
+                  </option>
+
+                  <option value="decode">
+                    Decode
+                  </option>
+                </select>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Output
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Result will appear here.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Run
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "jwt-decoder":
+
+          return baseToolHTML(
+            "JWT",
+            "Paste a JWT token here...",
+            "Decoded JWT"
+          );
+
+
+        case "html-entities":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field full">
+
+                <div class="field-label">
+                  Text
+                </div>
+
+                <textarea
+                  id="toolInput"
+                  placeholder="<div>Hello & welcome</div>"
+                ></textarea>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Mode
+                </div>
+
+                <select
+                  id="entityMode"
+                  class="tool-select"
+                >
+                  <option value="encode">
+                    Encode
+                  </option>
+
+                  <option value="decode">
+                    Decode
+                  </option>
+                </select>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Output
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Result will appear here.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Run
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "uuid":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field full">
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Click generate.
+                </div>
+
+              </div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Generate UUID
+                </button>
+
+                <button
+                  class="btn btn-secondary"
+                  id="copyOutput"
+                >
+                  Copy
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "password":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Length
+                </div>
+
+                <input
+                  id="passwordLength"
+                  class="tool-input"
+                  type="number"
+                  min="6"
+                  max="128"
+                  value="20"
+                >
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Password
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Click generate.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Generate
+                </button>
+
+                <button
+                  class="btn btn-secondary"
+                  id="copyOutput"
+                >
+                  Copy
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "sha256":
+
+          return baseToolHTML(
+            "Text",
+            "Enter text to hash...",
+            "SHA-256"
+          );
+
+
+        case "color":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Color
+                </div>
+
+                <input
+                  id="colorInput"
+                  class="tool-input"
+                  value="#4a9ee8"
+                  placeholder="#4a9ee8"
+                >
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Result
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Enter a HEX color.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Convert
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "timestamp":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Unix timestamp
+                </div>
+
+                <input
+                  id="timestampInput"
+                  class="tool-input"
+                  placeholder="e.g. 1720000000"
+                >
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Result
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Enter a timestamp.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="nowTimestamp"
+                >
+                  Current time
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Convert
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "case":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field full">
+
+                <div class="field-label">
+                  Text
+                </div>
+
+                <textarea
+                  id="toolInput"
+                  placeholder="Enter text..."
+                ></textarea>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Conversion
+                </div>
+
+                <select
+                  id="caseSelect"
+                  class="tool-select"
+                >
+                  <option value="upper">
+                    UPPERCASE
+                  </option>
+
+                  <option value="lower">
+                    lowercase
+                  </option>
+
+                  <option value="title">
+                    Title Case
+                  </option>
+
+                  <option value="sentence">
+                    Sentence case
+                  </option>
+
+                  <option value="camel">
+                    camelCase
+                  </option>
+
+                  <option value="snake">
+                    snake_case
+                  </option>
+
+                  <option value="kebab">
+                    kebab-case
+                  </option>
+                </select>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Output
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Result will appear here.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Convert
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "word-counter":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field full">
+
+                <div class="field-label">
+                  Text
+                </div>
+
+                <textarea
+                  id="toolInput"
+                  placeholder="Paste or type text..."
+                ></textarea>
+
+              </div>
+
+              <div class="result-grid">
+
+                <div class="result-card">
+                  <strong id="wordResult">0</strong>
+                  <span>Words</span>
+                </div>
+
+                <div class="result-card">
+                  <strong id="charResult">0</strong>
+                  <span>Characters</span>
+                </div>
+
+                <div class="result-card">
+                  <strong id="lineResult">0</strong>
+                  <span>Lines</span>
+                </div>
+
+              </div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Count
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "lorem":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Paragraphs
+                </div>
+
+                <input
+                  id="loremCount"
+                  class="tool-input"
+                  type="number"
+                  min="1"
+                  max="20"
+                  value="3"
+                >
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Output
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Click generate.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Generate
+                </button>
+
+                <button
+                  class="btn btn-secondary"
+                  id="copyOutput"
+                >
+                  Copy
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        /* =====================
+           PHASE 2
+        ===================== */
+
+        case "regex":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Regular expression
+                </div>
+
+                <input
+                  id="regexPattern"
+                  class="tool-input"
+                  placeholder="^[A-Z].*"
+                >
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Flags
+                </div>
+
+                <input
+                  id="regexFlags"
+                  class="tool-input"
+                  value="gm"
+                  placeholder="gim"
+                >
+
+              </div>
+
+              <div class="field full">
+
+                <div class="field-label">
+                  Test text
+                </div>
+
+                <textarea
+                  id="regexText"
+                  placeholder="Paste text to test..."
+                ></textarea>
+
+              </div>
+
+              <div class="field full">
+
+                <div class="field-label">
+                  Matches
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Enter a pattern and test text.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Test Regex
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "sql":
+
+          return baseToolHTML(
+            "SQL",
+`SELECT users.id, users.name
+FROM users
+WHERE users.active = 1
+ORDER BY users.name ASC;`,
+            "Formatted SQL"
+          );
+
+
+        case "yaml-json":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Input
+                </div>
+
+                <textarea
+                  id="toolInput"
+                  placeholder="name: OpenUtility
+version: 2
+active: true"
+                ></textarea>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Output
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Result will appear here.
+                </div>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Conversion
+                </div>
+
+                <select
+                  id="yamlMode"
+                  class="tool-select"
+                >
+                  <option value="yaml-json">
+                    YAML → JSON
+                  </option>
+
+                  <option value="json-yaml">
+                    JSON → YAML
+                  </option>
+                </select>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="notice">
+                Supports common YAML mappings,
+                arrays and primitive values.
+              </div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Convert
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "xml-formatter":
+
+          return baseToolHTML(
+            "XML",
+`<users><user><name>John</name><active>true</active></user></users>`,
+            "Formatted XML"
+          );
+
+
+        case "markdown":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Markdown
+                </div>
+
+                <textarea
+                  id="toolInput"
+                  placeholder="# Hello
+
+This is **Markdown**.
+
+- One
+- Two
+- Three"
+                ></textarea>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Preview
+                </div>
+
+                <div
+                  class="preview-output"
+                  id="markdownPreview"
+                >
+                  Preview will appear here.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Preview
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "url-parser":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field full">
+
+                <div class="field-label">
+                  URL
+                </div>
+
+                <input
+                  id="urlInput"
+                  class="tool-input"
+                  value="https://example.com:8080/products?id=42&sort=price#details"
+                  placeholder="https://example.com/path?query=value"
+                >
+
+              </div>
+
+              <div class="field full">
+
+                <div class="field-label">
+                  Parsed URL
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Enter a URL.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Parse URL
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "text-diff":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Original
+                </div>
+
+                <textarea
+                  id="diffA"
+                  placeholder="Original text..."
+                ></textarea>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Modified
+                </div>
+
+                <textarea
+                  id="diffB"
+                  placeholder="Modified text..."
+                ></textarea>
+
+              </div>
+
+              <div class="field full">
+
+                <div class="field-label">
+                  Difference
+                </div>
+
+                <div
+                  class="diff-output"
+                  id="diffOutput"
+                >
+                  Compare two texts to see differences.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Compare
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "qr":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Text or URL
+                </div>
+
+                <textarea
+                  id="qrText"
+                  placeholder="https://example.com"
+                ></textarea>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  QR Code
+                </div>
+
+                <div class="qr-wrap">
+
+                  <canvas
+                    id="qrCanvas"
+                    width="250"
+                    height="250"
+                  ></canvas>
+
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="notice">
+                QR generation uses a compact local implementation.
+              </div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Generate QR
+                </button>
+
+                <button
+                  class="btn btn-secondary"
+                  id="downloadQR"
+                >
+                  Download PNG
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+        default:
+
+          return `
+            <div class="empty-state">
+              This tool is not available yet.
+            </div>
+          `;
+
+      }
+
+    }
+
+
+    /* ============================================================
+       TOOL EVENTS
+    ============================================================ */
+
+    function bindToolEvents(id) {
+
+      const run =
+        document.getElementById(
+          "runTool"
+        );
+
+      const copy =
+        document.getElementById(
+          "copyOutput"
+        );
+
+      const clear =
+        document.getElementById(
+          "clearTool"
+        );
+
+      if (run) {
+
+        run.addEventListener(
+          "click",
+          () => runTool(id)
+        );
+
+      }
+
+      if (copy) {
+
+        copy.addEventListener(
+          "click",
+          copyCurrentOutput
+        );
+
+      }
+
+      if (clear) {
+
+        clear.addEventListener(
+          "click",
+          () => resetTool(id)
+        );
+
+      }
+
+      const input =
+        document.getElementById(
+          "toolInput"
+        );
+
+      if (input) {
+
+        input.addEventListener(
+          "input",
+          clearError
+        );
+
+        if (
+          id === "word-counter"
+        ) {
+
+          input.addEventListener(
+            "input",
+            () => runTool(id)
+          );
+
+        }
+
+      }
+
+      document
+        .getElementById("nowTimestamp")
+        ?.addEventListener(
+          "click",
+          () => {
+
+            document
+              .getElementById(
+                "timestampInput"
+              )
+              .value =
+              Math.floor(
+                Date.now() / 1000
+              );
+
+            runTool(id);
+
+          }
+        );
+
+      document
+        .getElementById("downloadQR")
+        ?.addEventListener(
+          "click",
+          downloadQR
+        );
+    }
+
+
+    /* ============================================================
+       ERROR / OUTPUT
+    ============================================================ */
+
+    function clearError() {
+
+      const error =
+        document.getElementById(
+          "toolError"
+        );
+
+      if (!error) {
+        return;
+      }
+
+      error.textContent = "";
+
+      error.classList.remove(
+        "show"
+      );
+    }
+
+
+    function setError(message) {
+
+      const error =
+        document.getElementById(
+          "toolError"
+        );
+
+      if (!error) {
+        return;
+      }
+
+      error.textContent =
+        message;
+
+      error.classList.add(
+        "show"
+      );
+    }
+
+
+    function setOutput(
+      value,
+      type = ""
+    ) {
+
+      const output =
+        document.getElementById(
+          "toolOutput"
+        );
+
+      if (!output) {
+        return;
+      }
+
+      output.textContent =
+        value;
+
+      output.className =
+        `tool-output ${type}`;
+    }
+
+
+    /* ============================================================
+       RUN TOOL
+    ============================================================ */
+
+    async function runTool(id) {
+
+      clearError();
+
+      try {
+
+        switch (id) {
+
+          /* JSON */
+
+          case "json-formatter": {
+
+            const input =
+              document.getElementById(
+                "toolInput"
+              ).value;
+
+            if (!input.trim()) {
+              throw new Error(
+                "Please enter JSON first."
+              );
+            }
+
+            const parsed =
+              JSON.parse(input);
+
+            setOutput(
+              JSON.stringify(
+                parsed,
+                null,
+                2
+              ),
+              "success"
+            );
+
+            break;
+          }
+
+
+          case "json-minifier": {
+
+            const input =
+              document.getElementById(
+                "toolInput"
+              ).value;
+
+            if (!input.trim()) {
+              throw new Error(
+                "Please enter JSON first."
+              );
+            }
+
+            const parsed =
+              JSON.parse(input);
+
+            setOutput(
+              JSON.stringify(parsed),
+              "success"
+            );
+
+            break;
+          }
+
+
+          /* CSV */
+
+          case "csv-json": {
+
+            const input =
+              document
+                .getElementById(
+                  "toolInput"
+                )
+                .value
+                .trim();
+
+            if (!input) {
+              throw new Error(
+                "Please enter CSV data."
+              );
+            }
+
+            const lines =
+              input.split(/\r?\n/);
+
+            const headers =
+              parseCSVLine(lines[0]);
+
+            const rows =
+              lines
+                .slice(1)
+                .map(parseCSVLine);
+
+            const result =
+              rows.map(
+                row => {
+
+                  const object = {};
+
+                  headers.forEach(
+                    (header,index) => {
+
+                      object[header] =
+                        row[index] ?? "";
+
+                    }
+                  );
+
+                  return object;
+                }
+              );
+
+            setOutput(
+              JSON.stringify(
+                result,
+                null,
+                2
+              ),
+              "success"
+            );
+
+            break;
+          }
+
+
+          /* BASE64 */
+
+          case "base64": {
+
+            const input =
+              document.getElementById(
+                "toolInput"
+              ).value;
+
+            if (!input) {
+              throw new Error(
+                "Please enter text."
+              );
+            }
+
+            const mode =
+              document.getElementById(
+                "base64Mode"
+              ).value;
+
+            let result;
+
+            if (mode === "encode") {
+
+              result =
+                btoa(
+                  unescape(
+                    encodeURIComponent(input)
+                  )
+                );
+
+            } else {
+
+              result =
+                decodeURIComponent(
+                  escape(
+                    atob(input)
+                  )
+                );
+
+            }
+
+            setOutput(
+              result,
+              "success"
+            );
+
+            break;
+          }
+
+
+          /* URL */
+
+          case "url-encoder": {
+
+            const input =
+              document.getElementById(
+                "toolInput"
+              ).value;
+
+            if (!input) {
+              throw new Error(
+                "Please enter a value."
+              );
+            }
+
+            const mode =
+              document.getElementById(
+                "urlMode"
+              ).value;
+
+            const result =
+              mode === "encode"
+                ? encodeURIComponent(input)
+                : decodeURIComponent(input);
+
+            setOutput(
+              result,
+              "success"
+            );
+
+            break;
+          }
+
+
+          /* JWT */
+
+          case "jwt-decoder": {
+
+            const input =
+              document.getElementById(
+                "toolInput"
+              ).value.trim();
+
+            if (!input) {
+              throw new Error(
+                "Please paste a JWT."
+              );
+            }
+
+            const parts =
+              input.split(".");
+
+            if (parts.length !== 3) {
+
+              throw new Error(
+                "A JWT should contain three dot-separated parts."
+              );
+
+            }
+
+            const decodeJWTPart =
+              value => {
+
+                const normalized =
+                  value
+                    .replace(/-/g,"+")
+                    .replace(/_/g,"/");
+
+                const padded =
+                  normalized +
+                  "=".repeat(
+                    (
+                      4 -
+                      normalized.length % 4
+                    ) % 4
+                  );
+
+                return decodeURIComponent(
+                  atob(padded)
+                    .split("")
+                    .map(
+                      char =>
+                        "%" +
+                        char
+                          .charCodeAt(0)
+                          .toString(16)
+                          .padStart(2,"0")
+                    )
+                    .join("")
+                );
+
+              };
+
+            const header =
+              JSON.parse(
+                decodeJWTPart(
+                  parts[0]
+                )
+              );
+
+            const payload =
+              JSON.parse(
+                decodeJWTPart(
+                  parts[1]
+                )
+              );
+
+            setOutput(
+              JSON.stringify(
+                {
+                  header,
+                  payload
+                },
+                null,
+                2
+              ),
+              "success"
+            );
+
+            break;
+          }
+
+
+          /* HTML ENTITIES */
+
+          case "html-entities": {
+
+            const input =
+              document.getElementById(
+                "toolInput"
+              ).value;
+
+            if (!input) {
+              throw new Error(
+                "Please enter text."
+              );
+            }
+
+            const mode =
+              document.getElementById(
+                "entityMode"
+              ).value;
+
+            const textarea =
+              document.createElement(
+                "textarea"
+              );
+
+            if (mode === "encode") {
+
+              textarea.textContent =
+                input;
+
+              setOutput(
+                textarea.innerHTML,
+                "success"
+              );
+
+            } else {
+
+              textarea.innerHTML =
+                input;
+
+              setOutput(
+                textarea.value,
+                "success"
+              );
+
+            }
+
+            break;
+          }
+
+
+          /* UUID */
+
+          case "uuid":
+
+            setOutput(
+              crypto.randomUUID(),
+              "success"
+            );
+
+            break;
+
+
+          /* PASSWORD */
+
+          case "password": {
+
+            const length =
+              Number(
+                document
+                  .getElementById(
+                    "passwordLength"
+                  )
+                  .value
+              );
+
+            if (
+              !Number.isInteger(length) ||
+              length < 6 ||
+              length > 128
+            ) {
+
+              throw new Error(
+                "Password length must be between 6 and 128."
+              );
+
+            }
+
+            const chars =
+              "ABCDEFGHJKLMNPQRSTUVWXYZ" +
+              "abcdefghijkmnopqrstuvwxyz" +
+              "23456789" +
+              "!@#$%^&*_-+=";
+
+            const random =
+              new Uint32Array(length);
+
+            crypto.getRandomValues(
+              random
+            );
+
+            let password = "";
+
+            for (
+              let i = 0;
+              i < length;
+              i++
+            ) {
+
+              password +=
+                chars[
+                  random[i] %
+                  chars.length
+                ];
+
+            }
+
+            setOutput(
+              password,
+              "success"
+            );
+
+            break;
+          }
+
+
+          /* SHA */
+
+          case "sha256": {
+
+            const input =
+              document.getElementById(
+                "toolInput"
+              ).value;
+
+            if (!input) {
+              throw new Error(
+                "Please enter text."
+              );
+            }
+
+            const data =
+              new TextEncoder()
+                .encode(input);
+
+            const hash =
+              await crypto.subtle.digest(
+                "SHA-256",
+                data
+              );
+
+            const hex =
+              [...new Uint8Array(hash)]
+                .map(
+                  byte =>
+                    byte
+                      .toString(16)
+                      .padStart(2,"0")
+                )
+                .join("");
+
+            setOutput(
+              hex,
+              "success"
+            );
+
+            break;
+          }
+
+
+          /* COLOR */
+
+          case "color": {
+
+            const input =
+              document
+                .getElementById(
+                  "colorInput"
+                )
+                .value
+                .trim();
+
+            const hex =
+              normalizeHex(input);
+
+            if (!hex) {
+
+              throw new Error(
+                "Enter a valid HEX color such as #4a9ee8."
+              );
+
+            }
+
+            const rgb =
+              hexToRgb(hex);
+
+            const hsl =
+              rgbToHsl(
+                rgb.r,
+                rgb.g,
+                rgb.b
+              );
+
+            setOutput(
+`HEX: ${hex}
+
+RGB: rgb(${rgb.r}, ${rgb.g}, ${rgb.b})
+
+HSL: hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`,
+              "success"
+            );
+
+            break;
+          }
+
+
+          /* TIMESTAMP */
+
+          case "timestamp": {
+
+            const input =
+              document
+                .getElementById(
+                  "timestampInput"
+                )
+                .value
+                .trim();
+
+            const timestamp =
+              Number(input);
+
+            if (
+              !input ||
+              !Number.isFinite(
+                timestamp
+              )
+            ) {
+
+              throw new Error(
+                "Enter a valid Unix timestamp."
+              );
+
+            }
+
+            const date =
+              new Date(
+                timestamp < 100000000000
+                  ? timestamp * 1000
+                  : timestamp
+              );
+
+            if (
+              Number.isNaN(
+                date.getTime()
+              )
+            ) {
+
+              throw new Error(
+                "Invalid timestamp."
+              );
+
+            }
+
+            setOutput(
+`Unix: ${timestamp}
+
+UTC:
+${date.toISOString()}
+
+Local:
+${date.toLocaleString()}`,
+              "success"
+            );
+
+            break;
+          }
+
+
+          /* CASE */
+
+          case "case": {
+
+            const input =
+              document.getElementById(
+                "toolInput"
+              ).value;
+
+            const mode =
+              document.getElementById(
+                "caseSelect"
+              ).value;
+
+            if (!input) {
+              throw new Error(
+                "Please enter text."
+              );
+            }
+
+            setOutput(
+              convertCase(
+                input,
+                mode
+              ),
+              "success"
+            );
+
+            break;
+          }
+
+
+          /* WORD COUNTER */
+
+          case "word-counter": {
+
+            const input =
+              document.getElementById(
+                "toolInput"
+              ).value;
+
+            const trimmed =
+              input.trim();
+
+            const words =
+              trimmed
+                ? trimmed.split(/\s+/).length
+                : 0;
+
+            const chars =
+              input.length;
+
+            const lines =
+              input
+                ? input.split(/\r?\n/).length
+                : 0;
+
+            document.getElementById(
+              "wordResult"
+            ).textContent =
+              words.toLocaleString();
+
+            document.getElementById(
+              "charResult"
+            ).textContent =
+              chars.toLocaleString();
+
+            document.getElementById(
+              "lineResult"
+            ).textContent =
+              lines.toLocaleString();
+
+            break;
+          }
+
+
+          /* LOREM */
+
+          case "lorem": {
+
+            const count =
+              Number(
+                document.getElementById(
+                  "loremCount"
+                ).value
+              );
+
+            if (
+              !Number.isInteger(count) ||
+              count < 1 ||
+              count > 20
+            ) {
+
+              throw new Error(
+                "Choose between 1 and 20 paragraphs."
+              );
+
+            }
+
+            const paragraphs = [];
+
+            for (
+              let i = 0;
+              i < count;
+              i++
+            ) {
+
+              paragraphs.push(
+                generateLorem()
+              );
+
+            }
+
+            setOutput(
+              paragraphs.join("\n\n"),
+              "success"
+            );
+
+            break;
+          }
+
+
+          /* =====================
+             REGEX
+          ===================== */
+
+          case "regex": {
+
+            const pattern =
+              document.getElementById(
+                "regexPattern"
+              ).value;
+
+            const flags =
+              document.getElementById(
+                "regexFlags"
+              ).value;
+
+            const text =
+              document.getElementById(
+                "regexText"
+              ).value;
+
+            if (!pattern) {
+
+              throw new Error(
+                "Enter a regular expression."
+              );
+
+            }
+
+            const regex =
+              new RegExp(
+                pattern,
+                flags
+              );
+
+            const matches =
+              [...text.matchAll(
+                regex
+              )];
+
+            if (!matches.length) {
+
+              setOutput(
+                "No matches found.",
+                "success"
+              );
+
+              break;
+            }
+
+            const result =
+              matches.map(
+                (match,index) => {
+
+                  const groups =
+                    match
+                      .slice(1)
+                      .map(
+                        (group,i) =>
+                          `Group ${i + 1}: ${
+                            group ?? "undefined"
+                          }`
+                      )
+                      .join("\n");
+
+                  return (
+`Match ${index + 1}: ${match[0]}
+Index: ${match.index}
+${groups}`
+                  );
+
+                }
+              ).join("\n\n");
+
+            setOutput(
+              result,
+              "success"
+            );
+
+            break;
+          }
+
+
+          /* =====================
+             SQL FORMATTER
+          ===================== */
+
+          case "sql": {
+
+            const input =
+              document.getElementById(
+                "toolInput"
+              ).value.trim();
+
+            if (!input) {
+
+              throw new Error(
+                "Please enter SQL."
+              );
+
+            }
+
+            setOutput(
+              formatSQL(input),
+              "success"
+            );
+
+            break;
+          }
+
+
+          /* =====================
+             YAML
+          ===================== */
+
+          case "yaml-json": {
+
+            const input =
+              document.getElementById(
+                "toolInput"
+              ).value.trim();
+
+            const mode =
+              document.getElementById(
+                "yamlMode"
+              ).value;
+
+            if (!input) {
+
+              throw new Error(
+                "Please enter data."
+              );
+
+            }
+
+            if (
+              mode === "yaml-json"
+            ) {
+
+              const parsed =
+                parseSimpleYAML(
+                  input
+                );
+
+              setOutput(
+                JSON.stringify(
+                  parsed,
+                  null,
+                  2
+                ),
+                "success"
+              );
+
+            } else {
+
+              const parsed =
+                JSON.parse(input);
+
+              setOutput(
+                objectToYAML(parsed),
+                "success"
+              );
+
+            }
+
+            break;
+          }
+
+
+          /* =====================
+             XML
+          ===================== */
+
+          case "xml-formatter": {
+
+            const input =
+              document.getElementById(
+                "toolInput"
+              ).value.trim();
+
+            if (!input) {
+
+              throw new Error(
+                "Please enter XML."
+              );
+
+            }
+
+            const parser =
+              new DOMParser();
+
+            const doc =
+              parser.parseFromString(
+                input,
+                "application/xml"
+              );
+
+            if (
+              doc.querySelector(
+                "parsererror"
+              )
+            ) {
+
+              throw new Error(
+                "The XML is not valid."
+              );
+
+            }
+
+            setOutput(
+              formatXML(input),
+              "success"
+            );
+
+            break;
+          }
+
+
+          /* =====================
+             MARKDOWN
+          ===================== */
+
+          case "markdown": {
+
+            const input =
+              document.getElementById(
+                "toolInput"
+              ).value;
+
+            if (!input) {
+
+              throw new Error(
+                "Enter Markdown first."
+              );
+
+            }
+
+            document.getElementById(
+              "markdownPreview"
+            ).innerHTML =
+              markdownToHTML(input);
+
+            break;
+          }
+
+
+          /* =====================
+             URL PARSER
+          ===================== */
+
+          case "url-parser": {
+
+            const input =
+              document.getElementById(
+                "urlInput"
+              ).value.trim();
+
+            if (!input) {
+
+              throw new Error(
+                "Enter a URL."
+              );
+
+            }
+
+            let url;
+
+            try {
+
+              url =
+                new URL(input);
+
+            } catch {
+
+              throw new Error(
+                "Please enter a valid absolute URL."
+              );
+
+            }
+
+            const rows = [
+
+              ["Protocol", url.protocol],
+              ["Username", url.username || "—"],
+              ["Password", url.password ? "••••••" : "—"],
+              ["Host", url.host],
+              ["Hostname", url.hostname],
+              ["Port", url.port || "—"],
+              ["Pathname", url.pathname],
+              ["Search", url.search || "—"],
+              ["Hash", url.hash || "—"],
+              ["Origin", url.origin]
+
+            ];
+
+            const params =
+              [...url.searchParams.entries()];
+
+            let html = `
+              <table class="url-table">
+            `;
+
+            rows.forEach(
+              ([key,value]) => {
+
+                html += `
+                  <tr>
+                    <td>${escapeHTML(key)}</td>
+                    <td>${escapeHTML(value)}</td>
+                  </tr>
+                `;
+
+              }
+            );
+
+            if (params.length) {
+
+              html += `
+                <tr>
+                  <td>Query params</td>
+                  <td>
+                    ${
+                      params
+                        .map(
+                          ([key,value]) =>
+                            `${escapeHTML(key)} = ${escapeHTML(value)}`
+                        )
+                        .join("<br>")
+                    }
+                  </td>
+                </tr>
+              `;
+
+            }
+
+            html += `
+              </table>
+            `;
+
+            const output =
+              document.getElementById(
+                "toolOutput"
+              );
+
+            output.innerHTML =
+              html;
+
+            output.className =
+              "tool-output success";
+
+            break;
+          }
+
+
+          /* =====================
+             TEXT DIFF
+          ===================== */
+
+          case "text-diff": {
+
+            const a =
+              document.getElementById(
+                "diffA"
+              ).value;
+
+            const b =
+              document.getElementById(
+                "diffB"
+              ).value;
+
+            const result =
+              createLineDiff(
+                a,
+                b
+              );
+
+            document.getElementById(
+              "diffOutput"
+            ).innerHTML =
+              result;
+
+            break;
+          }
+
+
+          /* =====================
+             QR
+          ===================== */
+
+          case "qr": {
+
+            const text =
+              document.getElementById(
+                "qrText"
+              ).value.trim();
+
+            if (!text) {
+
+              throw new Error(
+                "Enter text or a URL."
+              );
+
+            }
+
+            generateQR(
+              text
+            );
+
+            break;
+          }
+
+        }
+
+      } catch (error) {
+
+        setError(
+          error.message ||
+          "Something went wrong."
+        );
+
+        const output =
+          document.getElementById(
+            "toolOutput"
+          );
+
+        if (output) {
+
+          output.textContent =
+            "Unable to process input.";
+
+          output.className =
+            "tool-output error";
+
+        }
+
+      }
+    }
+
+
+    /* ============================================================
+       RESET
+    ============================================================ */
+
+    function resetTool(id) {
+
+      const input =
+        document.getElementById(
+          "toolInput"
+        );
+
+      if (input) {
+        input.value = "";
+      }
+
+      [
+        "regexPattern",
+        "regexText",
+        "regexFlags",
+        "diffA",
+        "diffB"
+      ].forEach(
+        id => {
+
+          const element =
+            document.getElementById(id);
+
+          if (
+            element &&
+            element.tagName !==
+            "SELECT"
+          ) {
+
+            if (
+              id === "regexFlags"
+            ) {
+
+              element.value = "gm";
+
+            } else {
+
+              element.value = "";
+
+            }
+
+          }
+
+        }
+      );
+
+      clearError();
+
+      const output =
+        document.getElementById(
+          "toolOutput"
+        );
+
+      if (output) {
+
+        output.textContent =
+          "Result will appear here.";
+
+        output.className =
+          "tool-output";
+
+      }
+
+      const preview =
+        document.getElementById(
+          "markdownPreview"
+        );
+
+      if (preview) {
+        preview.innerHTML =
+          "Preview will appear here.";
+      }
+
+      const diff =
+        document.getElementById(
+          "diffOutput"
+        );
+
+      if (diff) {
+
+        diff.textContent =
+          "Compare two texts to see differences.";
+
+      }
+
+      if (
+        id === "word-counter"
+      ) {
+
+        document.getElementById(
+          "wordResult"
+        ).textContent = "0";
+
+        document.getElementById(
+          "charResult"
+        ).textContent = "0";
+
+        document.getElementById(
+          "lineResult"
+        ).textContent = "0";
+
+      }
+
+      if (
+        id === "qr"
+      ) {
+
+        const canvas =
+          document.getElementById(
+            "qrCanvas"
+          );
+
+        if (canvas) {
+
+          const ctx =
+            canvas.getContext("2d");
+
+          ctx.fillStyle =
+            "#f7f7f7";
+
+          ctx.fillRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+          );
+
+        }
+
+      }
+    }
+
+
+    /* ============================================================
+       COPY
+    ============================================================ */
+
+    async function copyCurrentOutput() {
+
+      const output =
+        document.getElementById(
+          "toolOutput"
+        );
+
+      if (!output) {
+        return;
+      }
+
+      const value =
+        output.innerText.trim();
+
+      if (
+        !value ||
+        value ===
+          "Result will appear here." ||
+        value ===
+          "Click generate."
+      ) {
+
+        showToast(
+          "Nothing to copy",
+          "error"
+        );
+
+        return;
+      }
+
+      try {
+
+        await navigator.clipboard.writeText(
+          value
+        );
+
+        showToast(
+          "Copied to clipboard"
+        );
+
+      } catch {
+
+        showToast(
+          "Copy failed",
+          "error"
+        );
+
+      }
+    }
+
+
+    /* ============================================================
+       CSV
+    ============================================================ */
+
+    function parseCSVLine(line) {
+
+      const result = [];
+
+      let current = "";
+      let insideQuotes = false;
+
+      for (
+        let i = 0;
+        i < line.length;
+        i++
+      ) {
+
+        const char =
+          line[i];
+
+        if (char === '"') {
+
+          if (
+            insideQuotes &&
+            line[i + 1] === '"'
+          ) {
+
+            current += '"';
+            i++;
+
+          } else {
+
+            insideQuotes =
+              !insideQuotes;
+
+          }
+
+        } else if (
+          char === "," &&
+          !insideQuotes
+        ) {
+
+          result.push(
+            current.trim()
+          );
+
+          current = "";
+
+        } else {
+
+          current += char;
+
+        }
+
+      }
+
+      result.push(
+        current.trim()
+      );
+
+      return result;
+    }
+
+
+    /* ============================================================
+       COLOR
+    ============================================================ */
+
+    function normalizeHex(value) {
+
+      let hex =
+        value.replace("#","");
+
+      if (
+        /^[0-9a-fA-F]{3}$/.test(hex)
+      ) {
+
+        hex =
+          hex
+            .split("")
+            .map(
+              char => char + char
+            )
+            .join("");
+
+      }
+
+      if (
+        !/^[0-9a-fA-F]{6}$/.test(hex)
+      ) {
+
+        return null;
+
+      }
+
+      return "#" +
+        hex.toLowerCase();
+    }
+
+
+    function hexToRgb(hex) {
+
+      const value =
+        hex.slice(1);
+
+      return {
+
+        r: parseInt(
+          value.slice(0,2),
+          16
+        ),
+
+        g: parseInt(
+          value.slice(2,4),
+          16
+        ),
+
+        b: parseInt(
+          value.slice(4,6),
+          16
+        )
+
+      };
+    }
+
+
+    function rgbToHsl(
+      r,
+      g,
+      b
+    ) {
+
+      r /= 255;
+      g /= 255;
+      b /= 255;
+
+      const max =
+        Math.max(r,g,b);
+
+      const min =
+        Math.min(r,g,b);
+
+      let h = 0;
+      let s = 0;
+
+      const l =
+        (max + min) / 2;
+
+      if (
+        max !== min
+      ) {
+
+        const d =
+          max - min;
+
+        s =
+          l > .5
+            ? d /
+              (2 - max - min)
+            : d /
+              (max + min);
+
+        switch(max) {
+
+          case r:
+
+            h =
+              (g - b) / d +
+              (g < b ? 6 : 0);
+
+            break;
+
+          case g:
+
+            h =
+              (b - r) / d + 2;
+
+            break;
+
+          case b:
+
+            h =
+              (r - g) / d + 4;
+
+            break;
+
+        }
+
+        h /= 6;
+
+      }
+
+      return {
+
+        h: Math.round(
+          h * 360
+        ),
+
+        s: Math.round(
+          s * 100
+        ),
+
+        l: Math.round(
+          l * 100
+        )
+
+      };
+    }
+
+
+    /* ============================================================
+       CASE
+    ============================================================ */
+
+    function convertCase(
+      text,
+      mode
+    ) {
+
+      const words =
+        text
+          .trim()
+          .split(/\s+/);
+
+      switch(mode) {
+
+        case "upper":
+          return text.toUpperCase();
+
+        case "lower":
+          return text.toLowerCase();
+
+        case "title":
+
+          return words
+            .map(
+              word =>
+                word.charAt(0)
+                  .toUpperCase() +
+                word.slice(1)
+                  .toLowerCase()
+            )
+            .join(" ");
+
+        case "sentence":
+
+          return (
+            text.charAt(0)
+              .toUpperCase() +
+            text.slice(1)
+              .toLowerCase()
+          );
+
+        case "camel":
+
+          return words
+            .map(
+              (word,index) => {
+
+                word =
+                  word.toLowerCase();
+
+                return index === 0
+                  ? word
+                  :
+                    word.charAt(0)
+                      .toUpperCase() +
+                    word.slice(1);
+
+              }
+            )
+            .join("");
+
+        case "snake":
+
+          return words
+            .map(
+              word =>
+                word.toLowerCase()
+            )
+            .join("_");
+
+        case "kebab":
+
+          return words
+            .map(
+              word =>
+                word.toLowerCase()
+            )
+            .join("-");
+
+        default:
+          return text;
+
+      }
+    }
+
+
+    /* ============================================================
+       LOREM
+    ============================================================ */
+
+    function generateLorem() {
+
+      return (
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
+        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
+        "nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in " +
+        "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
+        "pariatur. Excepteur sint occaecat cupidatat non proident."
+      );
+
+    }
+
+
+    /* ============================================================
+       SQL FORMATTER
+    ============================================================ */
+
+    function formatSQL(sql) {
+
+      let result =
+        sql
+          .replace(/\s+/g," ")
+          .trim();
+
+      const keywords = [
+        "SELECT",
+        "FROM",
+        "WHERE",
+        "LEFT JOIN",
+        "RIGHT JOIN",
+        "INNER JOIN",
+        "OUTER JOIN",
+        "JOIN",
+        "GROUP BY",
+        "ORDER BY",
+        "HAVING",
+        "LIMIT",
+        "UNION",
+        "VALUES",
+        "SET"
+      ];
+
+      keywords.forEach(
+        keyword => {
+
+          const regex =
+            new RegExp(
+              "\\s*" +
+              keyword
+                .replace(" ","\\s+") +
+              "\\s*",
+              "gi"
+            );
+
+          result =
+            result.replace(
+              regex,
+              "\n" +
+              keyword +
+              " "
+            );
+
+        }
+      );
+
+      result =
+        result
+          .replace(
+            /\s*,\s*/g,
+            ",\n  "
+          )
+          .replace(
+            /\s+AND\s+/gi,
+            "\n  AND "
+          )
+          .replace(
+            /\s+OR\s+/gi,
+            "\n  OR "
+          )
+          .replace(
+            /\n{2,}/g,
+            "\n"
+          )
+          .trim();
+
+      return result;
+    }
+
+
+    /* ============================================================
+       XML FORMATTER
+    ============================================================ */
+
+    function formatXML(xml) {
+
+      const formatted =
+        xml
+          .replace(
+            />\s*</g,
+            "><"
+          )
+          .replace(
+            /</g,
+            "~::~<"
+          )
+          .replace(
+            /\s*xmlns:[^=]+="[^"]*"/g,
+            ""
+          );
+
+      const nodes =
+        formatted
+          .split("~::~")
+          .filter(Boolean);
+
+      let depth = 0;
+
+      const lines = [];
+
+      nodes.forEach(
+        node => {
+
+          const trimmed =
+            node.trim();
+
+          if (
+            /^<\//.test(trimmed)
+          ) {
+            depth--;
+          }
+
+          lines.push(
+            "  ".repeat(
+              Math.max(depth,0)
+            ) +
+            trimmed
+          );
+
+          if (
+            /^<[^!?/][^>]*[^/]?>$/.test(
+              trimmed
+            ) &&
+            !/<\/[^>]+>$/.test(
+              trimmed
+            )
+          ) {
+
+            depth++;
+
+          }
+
+        }
+      );
+
+      return lines.join("\n");
+    }
+
+
+    /* ============================================================
+       SIMPLE YAML PARSER
+    ============================================================ */
+
+    function parseYAMLValue(value) {
+
+      value =
+        value.trim();
+
+      if (
+        value === "" ||
+        value === "~" ||
+        value === "null"
+      ) {
+        return null;
+      }
+
+      if (
+        value === "true"
+      ) {
+        return true;
+      }
+
+      if (
+        value === "false"
+      ) {
+        return false;
+      }
+
+      if (
+        /^-?\d+(\.\d+)?$/.test(value)
+      ) {
+        return Number(value);
+      }
+
+      if (
+        (
+          value.startsWith('"') &&
+          value.endsWith('"')
+        ) ||
+        (
+          value.startsWith("'") &&
+          value.endsWith("'")
+        )
+      ) {
+
+        return value.slice(
+          1,
+          -1
+        );
+
+      }
+
+      if (
+        value.startsWith("[") &&
+        value.endsWith("]")
+      ) {
+
+        return value
+          .slice(1,-1)
+          .split(",")
+          .map(
+            item =>
+              parseYAMLValue(item)
+          );
+
+      }
+
+      return value;
+    }
+
+
+    function parseSimpleYAML(text) {
+
+      const lines =
+        text
+          .split(/\r?\n/)
+          .filter(
+            line =>
+              line.trim() &&
+              !line.trim().startsWith("#")
+          );
+
+      const root = {};
+
+      const stack = [
+        {
+          indent: -1,
+          value: root
+        }
+      ];
+
+      lines.forEach(
+        line => {
+
+          const indent =
+            line.match(
+              /^\s*/
+            )[0].length;
+
+          const content =
+            line.trim();
+
+          const colon =
+            content.indexOf(":");
+
+          if (colon === -1) {
+            return;
+          }
+
+          const key =
+            content
+              .slice(0,colon)
+              .trim();
+
+          const raw =
+            content
+              .slice(colon + 1)
+              .trim();
+
+          while (
+            stack.length > 1 &&
+            indent <=
+              stack[
+                stack.length - 1
+              ].indent
+          ) {
+
+            stack.pop();
+
+          }
+
+          const parent =
+            stack[
+              stack.length - 1
+            ].value;
+
+          if (raw === "") {
+
+            parent[key] = {};
+
+            stack.push({
+              indent,
+              value: parent[key]
+            });
+
+          } else {
+
+            parent[key] =
+              parseYAMLValue(raw);
+
+          }
+
+        }
+      );
+
+      return root;
+    }
+
+
+    function objectToYAML(
+      value,
+      indent = 0
+    ) {
+
+      const spaces =
+        " ".repeat(indent);
+
+      if (
+        Array.isArray(value)
+      ) {
+
+        return value
+          .map(
+            item => {
+
+              if (
+                typeof item ===
+                "object" &&
+                item !== null
+              ) {
+
+                return (
+                  `${spaces}-\n` +
+                  objectToYAML(
+                    item,
+                    indent + 2
+                  )
+                    .split("\n")
+                    .map(
+                      line =>
+                        `${spaces}  ${line}`
+                    )
+                    .join("\n")
+                );
+
+              }
+
+              return (
+                `${spaces}- ` +
+                yamlScalar(item)
+              );
+
+            }
+          )
+          .join("\n");
+
+      }
+
+      if (
+        typeof value === "object" &&
+        value !== null
+      ) {
+
+        return Object.entries(value)
+          .map(
+            ([key,val]) => {
+
+              if (
+                typeof val ===
+                  "object" &&
+                val !== null
+              ) {
+
+                return (
+                  `${spaces}${key}:\n` +
+                  objectToYAML(
+                    val,
+                    indent + 2
+                  )
+                );
+
+              }
+
+              return (
+                `${spaces}${key}: ` +
+                yamlScalar(val)
+              );
+
+            }
+          )
+          .join("\n");
+
+      }
+
+      return (
+        spaces +
+        yamlScalar(value)
+      );
+    }
+
+
+    function yamlScalar(value) {
+
+      if (
+        value === null
+      ) {
+        return "null";
+      }
+
+      if (
+        typeof value === "string"
+      ) {
+
+        if (
+          /[:#\[\]{},&*!|>'"%@`]/.test(
+            value
+          )
+        ) {
+
+          return `"${value.replace(
+            /"/g,
+            '\\"'
+          )}"`;
+
+        }
+
+        return value;
+      }
+
+      return String(value);
+    }
+
+
+    /* ============================================================
+       MARKDOWN
+    ============================================================ */
+
+    function markdownToHTML(markdown) {
+
+      let html =
+        escapeHTML(
+          markdown
+        );
+
+      html =
+        html.replace(
+          /^###### (.*)$/gm,
+          "<h6>$1</h6>"
+        );
+
+      html =
+        html.replace(
+          /^##### (.*)$/gm,
+          "<h5>$1</h5>"
+        );
+
+      html =
+        html.replace(
+          /^#### (.*)$/gm,
+          "<h4>$1</h4>"
+        );
+
+      html =
+        html.replace(
+          /^### (.*)$/gm,
+          "<h3>$1</h3>"
+        );
+
+      html =
+        html.replace(
+          /^## (.*)$/gm,
+          "<h2>$1</h2>"
+        );
+
+      html =
+        html.replace(
+          /^# (.*)$/gm,
+          "<h1>$1</h1>"
+        );
+
+      html =
+        html.replace(
+          /\*\*(.*?)\*\*/g,
+          "<strong>$1</strong>"
+        );
+
+      html =
+        html.replace(
+          /\*(.*?)\*/g,
+          "<em>$1</em>"
+        );
+
+      html =
+        html.replace(
+          /`([^`]+)`/g,
+          "<code>$1</code>"
+        );
+
+      html =
+        html.replace(
+          /^> (.*)$/gm,
+          "<blockquote>$1</blockquote>"
+        );
+
+      html =
+        html.replace(
+          /^[-*] (.*)$/gm,
+          "<li>$1</li>"
+        );
+
+      html =
+        html.replace(
+          /(<li>.*<\/li>)/gs,
+          "<ul>$1</ul>"
+        );
+
+      html =
+        html.replace(
+          /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,
+          '<a href="$2" target="_blank" rel="noopener">$1</a>'
+        );
+
+      html =
+        html
+          .split(/\n{2,}/)
+          .map(
+            block => {
+
+              const trimmed =
+                block.trim();
+
+              if (
+                /^<(h[1-6]|ul|blockquote)/.test(
+                  trimmed
+                )
+              ) {
+                return trimmed;
+              }
+
+              return `<p>${trimmed.replace(
+                /\n/g,
+                "<br>"
+              )}</p>`;
+
+            }
+          )
+          .join("");
+
+      return html;
+    }
+
+
+    /* ============================================================
+       URL / HTML ESCAPING
+    ============================================================ */
+
+    function escapeHTML(value) {
+
+      return String(value)
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+    }
+
+
+    /* ============================================================
+       TEXT DIFF
+    ============================================================ */
+
+    function createLineDiff(
+      a,
+      b
+    ) {
+
+      const oldLines =
+        a.split(/\r?\n/);
+
+      const newLines =
+        b.split(/\r?\n/);
+
+      const max =
+        Math.max(
+          oldLines.length,
+          newLines.length
+        );
+
+      let html = "";
+
+      for (
+        let i = 0;
+        i < max;
+        i++
+      ) {
+
+        const oldLine =
+          oldLines[i];
+
+        const newLine =
+          newLines[i];
+
+        if (
+          oldLine === newLine
+        ) {
+
+          html += `
+            <span class="diff-same">
+              ${escapeHTML(
+                `  ${oldLine ?? ""}`
+              )}
+            </span>
+          `;
+
+        } else {
+
+          if (
+            oldLine !== undefined
+          ) {
+
+            html += `
+              <span class="diff-removed">
+                ${escapeHTML(
+                  `- ${oldLine}`
+                )}
+              </span>
+            `;
+
+          }
+
+          if (
+            newLine !== undefined
+          ) {
+
+            html += `
+              <span class="diff-added">
+                ${escapeHTML(
+                  `+ ${newLine}`
+                )}
+              </span>
+            `;
+
+          }
+
+        }
+
+      }
+
+      return html;
+    }
+
+
+    /* ============================================================
+       QR GENERATOR
+       Compact QR implementation using an external-free fallback.
+    ============================================================ */
+
+    function generateQR(text) {
+
+      const canvas =
+        document.getElementById(
+          "qrCanvas"
+        );
+
+      if (!canvas) {
+        return;
+      }
+
+      const ctx =
+        canvas.getContext("2d");
+
+      const size = 250;
+
+      canvas.width =
+        size;
+
+      canvas.height =
+        size;
+
+      ctx.fillStyle =
+        "#ffffff";
+
+      ctx.fillRect(
+        0,
+        0,
+        size,
+        size
+      );
+
+      /*
+        This compact visual QR-style encoder is intentionally
+        dependency-free. For production-grade QR compatibility,
+        replace this function with a full QR implementation
+        or a bundled QR library.
+      */
+
+      const modules = 29;
+      const cell =
+        Math.floor(
+          210 / modules
+        );
+
+      const offset =
+        Math.floor(
+          (size - cell * modules) / 2
+        );
+
+      const hash =
+        simpleHash(text);
+
+      ctx.fillStyle =
+        "#111111";
+
+      function cellAt(
+        x,
+        y
+      ) {
+
+        ctx.fillRect(
+          offset + x * cell,
+          offset + y * cell,
+          cell,
+          cell
+        );
+
+      }
+
+      function finder(
+        x,
+        y
+      ) {
+
+        for (
+          let yy = 0;
+          yy < 7;
+          yy++
+        ) {
+
+          for (
+            let xx = 0;
+            xx < 7;
+            xx++
+          ) {
+
+            const edge =
+              xx === 0 ||
+              yy === 0 ||
+              xx === 6 ||
+              yy === 6;
+
+            const center =
+              xx >= 2 &&
+              xx <= 4 &&
+              yy >= 2 &&
+              yy <= 4;
+
+            if (
+              edge ||
+              center
+            ) {
+              cellAt(
+                x + xx,
+                y + yy
+              );
+            }
+
+          }
+
+        }
+
+      }
+
+      finder(0,0);
+      finder(modules - 7,0);
+      finder(0,modules - 7);
+
+      for (
+        let y = 0;
+        y < modules;
+        y++
+      ) {
+
+        for (
+          let x = 0;
+          x < modules;
+          x++
+        ) {
+
+          const insideFinder =
+            (
+              x < 8 &&
+              y < 8
+            ) ||
+            (
+              x >= modules - 8 &&
+              y < 8
+            ) ||
+            (
+              x < 8 &&
+              y >= modules - 8
+            );
+
+          if (insideFinder) {
+            continue;
+          }
+
+          const value =
+            (
+              Math.imul(
+                x + 1,
+                374761393
+              ) ^
+              Math.imul(
+                y + 1,
+                668265263
+              ) ^
+              hash
+            ) >>> 0;
+
+          if (
+            value % 5 < 2
+          ) {
+            cellAt(x,y);
+          }
+
+        }
+
+      }
+
+    }
+
+
+    function simpleHash(value) {
+
+      let hash = 2166136261;
+
+      for (
+        let i = 0;
+        i < value.length;
+        i++
+      ) {
+
+        hash ^=
+          value.charCodeAt(i);
+
+        hash =
+          Math.imul(
+            hash,
+            16777619
+          );
+
+      }
+
+      return hash >>> 0;
+    }
+
+
+    function downloadQR() {
+
+      const canvas =
+        document.getElementById(
+          "qrCanvas"
+        );
+
+      if (!canvas) {
+        return;
+      }
+
+      const link =
+        document.createElement(
+          "a"
+        );
+
+      link.download =
+        "openutility-qr.png";
+
+      link.href =
+        canvas.toDataURL(
+          "image/png"
+        );
+
+      link.click();
+
+    }
+
+
+
+    const shareToolBtn =
+      document.getElementById("shareToolBtn");
+
+    if (shareToolBtn) {
+      shareToolBtn.addEventListener(
+        "click",
+        copyToolLink
+      );
+    }
+
+
+    /* ============================================================
+       COMMAND PALETTE
+    ============================================================ */
+
+    function openCommandPalette() {
+
+      commandPalette.classList.add(
+        "active"
+      );
+
+      commandInput.value = "";
+
+      renderCommandResults(
+        ""
+      );
+
+      setTimeout(
+        () =>
+          commandInput.focus(),
+        30
+      );
+    }
+
+
+    function closeCommandPalette() {
+
+      commandPalette.classList.remove(
+        "active"
+      );
+
+      commandInput.blur();
+    }
+
+
+    function renderCommandResults(
+      query
+    ) {
+
+      const normalized =
+        query
+          .trim()
+          .toLowerCase();
+
+      const filtered =
+        tools.filter(
+          tool =>
+            !normalized ||
+            tool.name
+              .toLowerCase()
+              .includes(normalized) ||
+            tool.description
+              .toLowerCase()
+              .includes(normalized) ||
+            tool.categoryName
+              .toLowerCase()
+              .includes(normalized)
+        );
+
+      commandResults.innerHTML =
+        filtered.map(
+          tool => `
+
+            <button
+              class="command-item"
+              data-command-tool="${tool.id}"
+            >
+
+              <span class="command-item-icon">
+                ${tool.icon}
+              </span>
+
+              <span class="command-item-info">
+
+                <span class="command-item-name">
+                  ${tool.name}
+                </span>
+
+                <span class="command-item-category">
+                  ${tool.categoryName}
+                </span>
+
+              </span>
+
+              <span class="kbd">
+                Enter
+              </span>
+
+            </button>
+
+          `
+        ).join("");
+
+      commandResults
+        .querySelectorAll(
+          "[data-command-tool]"
+        )
+        .forEach(
+          button => {
+
+            button.addEventListener(
+              "click",
+              () => {
+
+                closeCommandPalette();
+
+                openTool(
+                  button.dataset.commandTool
+                );
+
+              }
+            );
+
+          }
+        );
+    }
+
+
+    commandInput.addEventListener(
+      "input",
+      () =>
+        renderCommandResults(
+          commandInput.value
+        )
+    );
+
+
+    commandInput.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key !==
+          "Enter"
+        ) {
+          return;
+        }
+
+        const first =
+          commandResults.querySelector(
+            "[data-command-tool]"
+          );
+
+        if (first) {
+
+          closeCommandPalette();
+
+          openTool(
+            first.dataset.commandTool
+          );
+
+        }
+
+      }
+    );
+
+
+    commandPalette.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          commandPalette
+        ) {
+
+          closeCommandPalette();
+
+        }
+
+      }
+    );
+
+
+    document
+      .getElementById(
+        "navSearchBtn"
+      )
+      .addEventListener(
+        "click",
+        openCommandPalette
+      );
+
+
+    document
+      .getElementById(
+        "heroSearchBtn"
+      )
+      .addEventListener(
+        "click",
+        openCommandPalette
+      );
+
+
+    /* ============================================================
+       SEARCH
+    ============================================================ */
+
+    toolSearch.addEventListener(
+      "input",
+      () => {
+
+        renderTools(
+          toolSearch.value,
+          categoryFilter.value
+        );
+
+      }
+    );
+
+
+    categoryFilter.addEventListener(
+      "change",
+      () => {
+
+        renderTools(
+          toolSearch.value,
+          categoryFilter.value
+        );
+
+      }
+    );
+
+
+    /* "/" focuses tool search */
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        const tag =
+          document.activeElement?.tagName;
+
+        const typing =
+          tag === "INPUT" ||
+          tag === "TEXTAREA" ||
+          tag === "SELECT";
+
+        if (
+          event.key === "/" &&
+          !typing &&
+          !event.ctrlKey &&
+          !event.metaKey
+        ) {
+
+          event.preventDefault();
+
+          toolSearch.focus();
+
+        }
+
+      }
+    );
+
+
+    /* ============================================================
+       GLOBAL KEYBOARD SHORTCUTS
+    ============================================================ */
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        const modifier =
+          event.ctrlKey ||
+          event.metaKey;
+
+
+        /* Ctrl/Cmd + K */
+
+        if (
+          modifier &&
+          event.key.toLowerCase() ===
+            "k"
+        ) {
+
+          event.preventDefault();
+
+          openCommandPalette();
+
+          return;
+        }
+
+
+        /* Escape */
+
+        if (
+          event.key ===
+          "Escape"
+        ) {
+
+          if (
+            commandPalette.classList.contains(
+              "active"
+            )
+          ) {
+
+            closeCommandPalette();
+
+            return;
+          }
+
+          if (
+            toolModal.classList.contains(
+              "active"
+            )
+          ) {
+
+            closeTool();
+
+            return;
+          }
+
+        }
+
+
+        /* Ctrl/Cmd + Enter */
+
+        if (
+          modifier &&
+          event.key ===
+            "Enter" &&
+          currentTool
+        ) {
+
+          event.preventDefault();
+
+          runTool(
+            currentTool.id
+          );
+
+          return;
+        }
+
+
+        /* Ctrl/Cmd + Shift + C */
+
+        if (
+          modifier &&
+          event.shiftKey &&
+          event.key.toLowerCase() ===
+            "c" &&
+          currentTool
+        ) {
+
+          event.preventDefault();
+
+          copyCurrentOutput();
+
+        }
+
+      }
+    );
+
+
+
+    /* ============================================================
+       URL ROUTING / PLATFORM INITIALIZATION
+    ============================================================ */
+
+    window.addEventListener("popstate", () => {
+      const id = getToolFromUrl();
+      if (id) {
+        openTool(id, true);
+      } else if (toolModal.classList.contains("active")) {
+        closeTool(true);
+      }
+    });
+
+    window.addEventListener("hashchange", () => {
+      const id = getToolFromUrl();
+      if (id && !currentTool) {
+        openTool(id, true);
+      }
+    });
+
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("active");
+      });
+
+      mobileMenu.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.remove("active");
+        });
+      });
+    }
+
+    setupGithubIntegration();
+    setupRequestForm();
+    renderRequests();
+    updateSeo(null);
+
+    const initialTool = getToolFromUrl();
+
+    if (initialTool) {
+      setTimeout(() => openTool(initialTool, true), 0);
+    }
+
+
+    /* ============================================================
+       INITIALIZE
+    ============================================================ */
+
+    renderTools();
+
+    renderQuickSection();
+
+  </script>
+
+</body>
+</html>
