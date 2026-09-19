@@ -10,6 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
 
+  <!-- SUPABASE CLIENT SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <!-- COMBINED STYLESHEET -->
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -453,7 +456,7 @@
     .pm-list-info{flex:1}
     .pm-list-name{font-size:11px;font-weight:500}
 
-    /* COMMAND PALETTE */
+    /* COMMAND PALETTE & AUTH MODAL */
     .cmd-palette-overlay{
       position:fixed;inset:0;background:rgba(10,14,20,0.85);backdrop-filter:blur(6px);
       z-index:1000;display:flex;align-items:flex-start;justify-content:center;padding:80px 16px 16px;
@@ -562,9 +565,9 @@
       <a href="#" onclick="openCmdPalette(event)">Search <span class="cmd-shortcut" style="margin-left:4px;">Ctrl K</span></a>
       <a href="https://github.com" target="_blank">GitHub</a>
     </div>
-    <div class="nav-cta">
-      <button class="btn-ghost" onclick="openCmdPalette(event)">Quick Search</button>
-      <a href="#features" class="btn-primary">Get Started</a>
+    <div class="nav-cta" id="navCtaArea">
+      <button class="btn-ghost" onclick="openAuthModal('signin')">Sign In</button>
+      <a href="#" class="btn-primary" onclick="openAuthModal('signup')">Get Started</a>
     </div>
     <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" onclick="toggleMobileMenu()">
       <span></span><span></span><span></span>
@@ -578,8 +581,9 @@
     <a href="#stats" onclick="closeMobileMenu()">Network</a>
     <a href="#" onclick="openCmdPalette(); closeMobileMenu();">Command Palette</a>
     <a href="https://github.com" target="_blank" onclick="closeMobileMenu()">GitHub</a>
-    <div class="m-btns">
-      <a href="#features" class="btn-primary" onclick="closeMobileMenu()">Get Started</a>
+    <div class="m-btns" id="mobileAuthArea">
+      <button class="btn-ghost" onclick="closeMobileMenu(); openAuthModal('signin');" style="width:150px; margin: 0 auto;">Sign In</button>
+      <a href="#" class="btn-primary" onclick="closeMobileMenu(); openAuthModal('signup');">Get Started</a>
     </div>
   </div>
 
@@ -825,8 +829,155 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT INTERACTIONS -->
+  <!-- SUPABASE AUTH MODAL -->
+  <div class="cmd-palette-overlay" id="authModal" onclick="closeAuthModalOnOutside(event)">
+    <div class="cmd-palette-box" style="max-width: 400px; padding: 24px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 id="authModalTitle" style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; color: var(--text);">Sign In to OpenUtility</h3>
+        <button onclick="closeAuthModal()" style="background:none; border:none; color: var(--text2); font-size: 18px; cursor: pointer;">✕</button>
+      </div>
+      
+      <form id="authForm" onsubmit="handleAuthSubmit(event)" style="display: flex; flex-direction: column; gap: 14px;">
+        <div>
+          <label style="font-size: 12px; color: var(--text3); display: block; margin-bottom: 6px;">Email Address</label>
+          <input type="email" id="authEmail" required class="cmd-input" style="border: 1px solid var(--border); border-radius: 8px; padding: 12px;" placeholder="name@example.com">
+        </div>
+        <div>
+          <label style="font-size: 12px; color: var(--text3); display: block; margin-bottom: 6px;">Password</label>
+          <input type="password" id="authPassword" required class="cmd-input" style="border: 1px solid var(--border); border-radius: 8px; padding: 12px;" placeholder="••••••••">
+        </div>
+        
+        <button type="submit" class="btn-primary" id="authSubmitBtn" style="width: 100%; text-align: center; margin-top: 10px; padding: 12px;">Sign In</button>
+      </form>
+
+      <div style="text-align: center; margin-top: 16px;">
+        <p id="authToggleText" style="font-size: 13px; color: var(--text2);">
+          Don't have an account? <a href="#" onclick="toggleAuthMode(event)" style="color: var(--sky); text-decoration: none; font-weight: 600;">Sign up</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT INTERACTIONS & SUPABASE CONFIG -->
   <script>
+    // SUPABASE INITIALIZATION USING YOUR CREDENTIALS
+    const SUPABASE_URL = 'https://trfwvxxlxomyolmrjqkb.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRyZnd2eHhseG9teW9sbXJqcWtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk4MDY4NjksImV4cCI6MjEwNTM4Mjg2OX0.it8L4Xi7_uq3e0SZGhVRHtJ6QqlJUeH_qs0fvPpPpxU';
+    
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    let isSignUpMode = false;
+
+    function openAuthModal(mode) {
+      const modal = document.getElementById('authModal');
+      modal.classList.add('open');
+      setAuthMode(mode === 'signup');
+    }
+
+    function closeAuthModal() {
+      document.getElementById('authModal').classList.remove('open');
+      document.getElementById('authForm').reset();
+    }
+
+    function closeAuthModalOnOutside(e) {
+      if (e.target === document.getElementById('authModal')) closeAuthModal();
+    }
+
+    function toggleAuthMode(e) {
+      e.preventDefault();
+      setAuthMode(!isSignUpMode);
+    }
+
+    function setAuthMode(signUp) {
+      isSignUpMode = signUp;
+      document.getElementById('authModalTitle').textContent = isSignUpMode ? 'Create an Account' : 'Sign In to OpenUtility';
+      document.getElementById('authSubmitBtn').textContent = isSignUpMode ? 'Sign Up' : 'Sign In';
+      document.getElementById('authToggleText').innerHTML = isSignUpMode 
+        ? 'Already have an account? <a href="#" onclick="toggleAuthMode(event)" style="color: var(--sky); text-decoration: none; font-weight: 600;">Sign in</a>'
+        : 'Don\'t have an account? <a href="#" onclick="toggleAuthMode(event)" style="color: var(--sky); text-decoration: none; font-weight: 600;">Sign up</a>';
+    }
+
+    async function handleAuthSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('authEmail').value;
+      const password = document.getElementById('authPassword').value;
+      const submitBtn = document.getElementById('authSubmitBtn');
+      
+      submitBtn.textContent = 'Processing...';
+      submitBtn.disabled = true;
+
+      if (isSignUpMode) {
+        const { data, error } = await supabaseClient.auth.signUp({ email, password });
+        if (error) {
+          alert('Error: ' + error.message);
+        } else {
+          alert('Success! Check your email for the confirmation link or sign in if email confirmations are disabled.');
+          closeAuthModal();
+        }
+      } else {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+        if (error) {
+          alert('Error: ' + error.message);
+        } else {
+          alert('Logged in successfully!');
+          closeAuthModal();
+          updateNavForUser(data.user);
+        }
+      }
+      
+      submitBtn.textContent = isSignUpMode ? 'Sign Up' : 'Sign In';
+      submitBtn.disabled = false;
+    }
+
+    function updateNavForUser(user) {
+      const ctaArea = document.getElementById('navCtaArea');
+      const mobileAuthArea = document.getElementById('mobileAuthArea');
+      
+      if (user) {
+        ctaArea.innerHTML = `
+          <span style="font-size: 13px; color: var(--text2); margin-right: 8px;">${user.email}</span>
+          <button class="btn-ghost" onclick="handleLogout()">Sign Out</button>
+        `;
+        if (mobileAuthArea) {
+          mobileAuthArea.innerHTML = `
+            <span style="font-size: 13px; color: var(--text2); text-align: center;">${user.email}</span>
+            <button class="btn-ghost" onclick="handleLogout(); closeMobileMenu();" style="width:100%; text-align:center;">Sign Out</button>
+          `;
+        }
+      } else {
+        ctaArea.innerHTML = `
+          <button class="btn-ghost" onclick="openAuthModal('signin')">Sign In</button>
+          <a href="#" class="btn-primary" onclick="openAuthModal('signup')">Get Started</a>
+        `;
+        if (mobileAuthArea) {
+          mobileAuthArea.innerHTML = `
+            <button class="btn-ghost" onclick="closeMobileMenu(); openAuthModal('signin');" style="width:150px; margin: 0 auto;">Sign In</button>
+            <a href="#" class="btn-primary" onclick="closeMobileMenu(); openAuthModal('signup');">Get Started</a>
+          `;
+        }
+      }
+    }
+
+    async function handleLogout() {
+      await supabaseClient.auth.signOut();
+      updateNavForUser(null);
+      alert('Logged out successfully.');
+    }
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      if (session) {
+        updateNavForUser(session.user);
+      }
+
+      supabaseClient.auth.onAuthStateChange((event, session) => {
+        if (session) {
+          updateNavForUser(session.user);
+        }
+      });
+    });
+
+    // Scroll & Navbar UI effects
     window.addEventListener('scroll', () => {
       const nav = document.getElementById('navbar');
       if (window.scrollY > 20) {
@@ -905,6 +1056,9 @@
       }
       if (e.key === 'Escape' && cmdPalette.classList.contains('open')) {
         closeCmdPalette();
+      }
+      if (e.key === 'Escape' && authModal.classList.contains('open')) {
+        closeAuthModal();
       }
       if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
         closeMobileMenu();
