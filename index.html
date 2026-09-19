@@ -1,427 +1,455 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OpenUtility — Modern Developer & Web Tools Platform</title>
-<meta name="description" content="OpenUtility is the modern open-source platform built for developers. Fast web utilities, network speed test tools, API diagnostics, and developer toolkits.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="templatemo-623-novapay-style.css">
-
-<!--
-================================================================================
-  OpenUtility — Modern Web Tools & Developer Utilities Platform
-  Adapted from Template: templatemo-623-novapay
-  Designed by: TemplateMo  (https://templatemo.com)
-  Free for personal and commercial use under CC BY 3.0 license.
-================================================================================
--->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenUtility — Modern Developer & Web Tools Platform</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-track" id="tickerTrack"></div>
-</div>
+  <!-- TICKER BAR -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <div class="ticker-item"><span class="ticker-sym">STATUS:</span> <span class="ticker-price ticker-up">ALL SYSTEMS OPERATIONAL</span></div>
+      <div class="ticker-item"><span class="ticker-sym">UPTIME:</span> <span class="ticker-price">99.99%</span></div>
+      <div class="ticker-item"><span class="ticker-sym">LATENCY:</span> <span class="ticker-price ticker-up">14ms</span></div>
+      <div class="ticker-item"><span class="ticker-sym">NODES:</span> <span class="ticker-price">32 ACTIVE</span></div>
+      <div class="ticker-item"><span class="ticker-sym">API:</span> <span class="ticker-price ticker-up">v2.4 ONLINE</span></div>
+      <!-- Duplicate for seamless infinite ticker -->
+      <div class="ticker-item"><span class="ticker-sym">STATUS:</span> <span class="ticker-price ticker-up">ALL SYSTEMS OPERATIONAL</span></div>
+      <div class="ticker-item"><span class="ticker-sym">UPTIME:</span> <span class="ticker-price">99.99%</span></div>
+      <div class="ticker-item"><span class="ticker-sym">LATENCY:</span> <span class="ticker-price ticker-up">14ms</span></div>
+      <div class="ticker-item"><span class="ticker-sym">NODES:</span> <span class="ticker-price">32 ACTIVE</span></div>
+      <div class="ticker-item"><span class="ticker-sym">API:</span> <span class="ticker-price ticker-up">v2.4 ONLINE</span></div>
+    </div>
+  </div>
 
-<!-- NAV -->
-<nav id="mainNav">
-  <a href="#" class="nav-logo">
-    <div class="nav-logo-mark">
-      <svg viewBox="0 0 16 16"><polyline points="2,12 6,7 10,9 14,4"/><circle cx="14" cy="4" r="1.5" fill="white" stroke="none"/></svg>
+  <!-- NAVIGATION -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+      </div>
+      OpenUtility
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#tools">Tools</a>
+      <a href="#ecosystem">Ecosystem</a>
+      <a href="#docs">Docs</a>
     </div>
-    OpenUtility
-  </a>
-  <div class="nav-links">
-    <a href="#features">Tools</a>
-    <a href="#dashboard">Platform</a>
-    <a href="#pricing">Open Source</a>
-    <a href="#security">Security</a>
-    <a href="#faq">FAQ</a>
-  </div>
-  <div class="nav-cta">
-    <a href="#" class="btn-ghost">GitHub</a>
-    <a href="#" class="btn-primary">Launch App</a>
-  </div>
-  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+    <div class="nav-cta">
+      <a href="https://github.com" target="_blank" class="btn-ghost">GitHub</a>
+      <a href="#tools" class="btn-primary">Launch App</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#features">Tools</a>
-  <a href="#dashboard">Platform</a>
-  <a href="#pricing">Open Source</a>
-  <a href="#security">Security</a>
-  <a href="#faq">FAQ</a>
-  <div class="m-btns">
-    <a href="#" class="btn-ghost">GitHub</a>
-    <a href="#" class="btn-primary">Launch App</a>
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#features" class="mob-link">Features</a>
+    <a href="#tools" class="mob-link">Tools</a>
+    <a href="#ecosystem" class="mob-link">Ecosystem</a>
+    <a href="#docs" class="mob-link">Docs</a>
+    <div class="m-btns">
+      <a href="https://github.com" target="_blank" class="btn-ghost">GitHub</a>
+      <a href="#tools" class="btn-primary">Launch App</a>
+    </div>
   </div>
-</div>
 
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-content silk-reveal-left">
-    <div class="hero-badge">
-      <span class="badge-dot"></span>
-      Open-source developer utility platform
-    </div>
-    <h1>Web tools that<br>run at<br><span>lightning speed</span></h1>
-    <p class="hero-sub">OpenUtility provides a powerful suite of open-source web tools, network diagnostic interfaces, and developer utilities built for creators who move fast.</p>
-    <div class="hero-btns">
-      <a href="#" class="btn-hero">
-        Explore utilities
-        <svg viewBox="0 0 16 16"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>
-      </a>
-      <a href="#dashboard" class="btn-outline">View live status</a>
-    </div>
-    <div class="hero-trust">
-      <div class="hero-avatars">
-        <span>JS</span><span>PY</span><span>TS</span><span>+</span>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-content silk-reveal">
+      <div class="hero-badge">
+        <span class="badge-dot"></span> Open-Source Developer Suite
       </div>
-      <p class="hero-trust-text"><strong>Open-source</strong> & trusted by developers worldwide</p>
-    </div>
-  </div>
-  <div class="hero-visual silk-reveal-right">
-    <div class="float-badge fb-left">
-      <div class="float-badge-icon" style="background:rgba(61,204,142,.12)">
-        <svg width="18" height="18" fill="none" stroke="#3DCC8E" stroke-width="2" stroke-linecap="round" viewBox="0 0 18 18"><polyline points="2,12 7,7 11,10 16,4"/></svg>
+      <h1>Next-Gen Tools for <span>Modern Builders</span></h1>
+      <p class="hero-sub">A high-performance collection of open-source web utilities, network diagnostics, and developer tools engineered for speed and precision.</p>
+      <div class="hero-btns">
+        <a href="#tools" class="btn-hero">
+          Explore Utilities
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+        <a href="https://github.com" target="_blank" class="btn-outline">View Repository</a>
       </div>
-      <div class="float-badge-info">
-        <div class="val">99.9%</div>
-        <div class="lbl">Uptime reliability</div>
-      </div>
-    </div>
-    <div class="float-badge fb-right">
-      <div class="float-badge-icon" style="background:rgba(74,158,232,.12)">
-        <svg width="18" height="18" fill="none" stroke="#4A9EE8" stroke-width="2" stroke-linecap="round" viewBox="0 0 18 18"><circle cx="9" cy="9" r="7"/><polyline points="9,5 9,9 12,11"/></svg>
-      </div>
-      <div class="float-badge-info">
-        <div class="val">&lt; 15ms</div>
-        <div class="lbl">API latency</div>
-      </div>
-    </div>
-    <div class="dash-card">
-      <div class="dash-topbar">
-        <div class="dash-dots">
-          <span style="background:#E85A5A"></span>
-          <span style="background:#F0A030"></span>
-          <span style="background:#3DCC8E"></span>
+      <div class="hero-trust">
+        <div class="hero-avatars">
+          <span>OU</span>
+          <span>VX</span>
+          <span>JS</span>
         </div>
-        <span class="dash-title-bar">OPENUTILITY DASHBOARD</span>
-        <span style="font-size:10px;color:var(--green);font-weight:500">● Live</span>
-      </div>
-      <div class="dash-body">
-        <div class="dash-stats">
-          <div class="dash-stat">
-            <div class="dash-stat-label">Active Nodes</div>
-            <div class="dash-stat-val">24 / 24</div>
-            <div class="dash-stat-change" style="color:var(--green)">All systems nominal</div>
-          </div>
-          <div class="dash-stat">
-            <div class="dash-stat-label">Requests</div>
-            <div class="dash-stat-val">1.4M</div>
-            <div class="dash-stat-change" style="color:var(--text3)">This week</div>
-          </div>
-          <div class="dash-stat">
-            <div class="dash-stat-label">Speed Test</div>
-            <div class="dash-stat-val">940 Mbps</div>
-            <div class="dash-stat-change" style="color:var(--green)">Optimal throughput</div>
-          </div>
-        </div>
-        <div class="chart-wrap">
-          <div class="chart-head">
-            <span class="chart-head-title">Network Throughput — 7 days</span>
-            <span class="chart-badge">+18.2%</span>
-          </div>
-          <div style="display:flex;align-items:flex-end;gap:6px;height:64px">
-            <div style="flex:1;background:rgba(74,158,232,.18);border-radius:3px 3px 0 0;height:55%;border-top:2px solid var(--sky)"></div>
-            <div style="flex:1;background:rgba(74,158,232,.18);border-radius:3px 3px 0 0;height:72%;border-top:2px solid var(--sky)"></div>
-            <div style="flex:1;background:rgba(74,158,232,.18);border-radius:3px 3px 0 0;height:48%;border-top:2px solid var(--sky)"></div>
-            <div style="flex:1;background:rgba(74,158,232,.18);border-radius:3px 3px 0 0;height:88%;border-top:2px solid var(--sky)"></div>
-            <div style="flex:1;background:rgba(74,158,232,.18);border-radius:3px 3px 0 0;height:65%;border-top:2px solid var(--sky)"></div>
-            <div style="flex:1;background:rgba(74,158,232,.25);border-radius:3px 3px 0 0;height:92%;border-top:2px solid var(--sky2)"></div>
-            <div style="flex:1;background:rgba(74,158,232,.35);border-radius:3px 3px 0 0;height:100%;border-top:2px solid var(--sky2)"></div>
-          </div>
-          <div style="display:flex;justify-content:space-between;margin-top:5px">
-            <span style="font-size:10px;color:var(--text3)">Mon</span>
-            <span style="font-size:10px;color:var(--text3)">Tue</span>
-            <span style="font-size:10px;color:var(--text3)">Wed</span>
-            <span style="font-size:10px;color:var(--text3)">Thu</span>
-            <span style="font-size:10px;color:var(--text3)">Fri</span>
-            <span style="font-size:10px;color:var(--text3)">Sat</span>
-            <span style="font-size:10px;color:var(--sky)">Today</span>
-          </div>
-        </div>
-        <div class="tx-list">
-          <div class="tx-item">
-            <div class="tx-icon" style="background:#0E2230;color:#4A9EE8">API</div>
-            <div class="tx-info">
-              <div class="tx-name">Speed Test Endpoint Ping</div>
-              <div class="tx-date">Today, 9:14 AM</div>
-            </div>
-            <div class="tx-amount" style="color:var(--green)">12ms</div>
-          </div>
-          <div class="tx-item">
-            <div class="tx-icon" style="background:#1A1020;color:#A87EE8">DNS</div>
-            <div class="tx-info">
-              <div class="tx-name">DNS Propagation Check</div>
-              <div class="tx-date">Yesterday, 3:40 PM</div>
-            </div>
-            <div class="tx-amount" style="color:var(--green)">Synced</div>
-          </div>
+        <div class="hero-trust-text">
+          Trusted by <strong>10,000+</strong> developers & creators
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- LOGOS -->
-<div class="logos-section">
-  <div class="logos-label">Powered by open technologies</div>
-  <div class="logos-track-wrap">
-    <div class="logos-track" id="logosTrack"></div>
-  </div>
-</div>
-
-<!-- STATS -->
-<section class="stats-section">
-  <div class="stat-block">
-    <div class="stat-icon">
-      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-    </div>
-    <div class="stat-num" data-target="50" data-prefix="" data-suffix="M+">0</div>
-    <div class="stat-label">API Requests Handled</div>
-    <div class="stat-bar-wrap"><div class="stat-bar" style="width:0%" data-width="92%"></div></div>
-    <div class="stat-trend" style="color:var(--green)">
-      <svg viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg>
-      +45% this month
-    </div>
-  </div>
-  <div class="stat-block">
-    <div class="stat-icon">
-      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-    </div>
-    <div class="stat-num" data-target="25" data-suffix="K+">0</div>
-    <div class="stat-label">Active Developers</div>
-    <div class="stat-bar-wrap"><div class="stat-bar" style="width:0%;background:#3DCC8E" data-width="76%"></div></div>
-    <div class="stat-trend" style="color:var(--green)">
-      <svg viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg>
-      +2,400 new users
-    </div>
-  </div>
-  <div class="stat-block">
-    <div class="stat-icon" style="background:rgba(61,204,142,.1);border-color:rgba(61,204,142,.15)">
-      <svg viewBox="0 0 24 24" style="stroke:var(--green)"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
-    </div>
-    <div class="stat-num" data-target="99.99" data-suffix="%" data-decimal="2">0</div>
-    <div class="stat-label">Network Uptime</div>
-    <div class="stat-bar-wrap"><div class="stat-bar" style="width:0%;background:#3DCC8E" data-width="99.99%"></div></div>
-    <div class="stat-trend" style="color:var(--green)">
-      <svg viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg>
-      Robust redundancy
-    </div>
-  </div>
-  <div class="stat-block">
-    <div class="stat-icon" style="background:rgba(136,136,248,.1);border-color:rgba(136,136,248,.15)">
-      <svg viewBox="0 0 24 24" style="stroke:#8888F8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-    </div>
-    <div class="stat-num" data-target="100" data-suffix="%">0</div>
-    <div class="stat-label">Open Source Code</div>
-    <div class="stat-bar-wrap"><div class="stat-bar" style="width:0%;background:#8888F8" data-width="100%"></div></div>
-    <div class="stat-trend" style="color:#8888F8">
-      <svg viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg>
-      Hosted on GitHub Pages
-    </div>
-  </div>
-</section>
-
-<!-- FEATURES — STICKY STACK -->
-<section class="features-section" id="features">
-  <div class="features-header silk-reveal">
-    <div class="section-tag">Platform features</div>
-    <h2 class="section-title">Essential web tools & utilities</h2>
-    <p class="section-sub">Everything you need to test speeds, debug network endpoints, and manage web projects under one open platform.</p>
-  </div>
-  <div class="sticky-layout">
-    <div class="sticky-cards">
-
-      <div class="sticky-card active" data-panel="0">
-        <div class="sticky-card-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-        </div>
-        <h3>Speed Test Tool</h3>
-        <p>Measure real-time download speeds, upload bandwidth, jitter, and latency instantly with optimized global testing endpoints.</p>
-        <div class="sticky-card-pills">
-          <span class="sc-pill">Real-time metrics</span>
-          <span class="sc-pill">Low latency</span>
-          <span class="sc-pill">Accurate ping</span>
-        </div>
-      </div>
-
-      <div class="sticky-card" data-panel="1">
-        <div class="sticky-card-icon">
-          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        </div>
-        <h3>Developer Utilities</h3>
-        <p>Handy web tools including JSON formatters, base64 encoders, hash generators, and unit converters built for seamless workflows.</p>
-        <div class="sticky-card-pills">
-          <span class="sc-pill">JSON formatters</span>
-          <span class="sc-pill">Encoders</span>
-          <span class="sc-pill">Converters</span>
-        </div>
-      </div>
-
-      <div class="sticky-card" data-panel="2">
-        <div class="sticky-card-icon">
-          <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-        </div>
-        <h3>API Diagnostics</h3>
-        <p>Test webhooks, inspect HTTP headers, verify SSL certificates, and monitor endpoint response times instantly from your browser.</p>
-        <div class="sticky-card-pills">
-          <span class="sc-pill">Webhook tester</span>
-          <span class="sc-pill">SSL checker</span>
-          <span class="sc-pill">HTTP headers</span>
-        </div>
-      </div>
-
-      <div class="sticky-card" data-panel="3">
-        <div class="sticky-card-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <h3>Open Source & Secure</h3>
-        <p>Transparent codebases, zero proprietary lock-in, and fully inspectable web tool logic. Securely run utilities directly on your infrastructure.</p>
-        <div class="sticky-card-pills">
-          <span class="sc-pill">100% open source</span>
-          <span class="sc-pill">Client-side processing</span>
-          <span class="sc-pill">Zero logs</span>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="sticky-panel-wrap">
-      <div class="sticky-panel">
-        <div class="panel-topbar">
-          <div class="panel-dots">
+    <!-- HERO VISUAL MOCKUP -->
+    <div class="hero-visual silk-reveal-right">
+      <div class="dash-card">
+        <div class="dash-topbar">
+          <div class="dash-dots">
             <span style="background:#E85A5A"></span>
-            <span style="background:#F0A030"></span>
+            <span style="background:#F5A623"></span>
             <span style="background:#3DCC8E"></span>
           </div>
-          <span style="font-size:11px;color:var(--text3);margin-left:8px" id="panelLabel">Speed Test</span>
+          <div class="dash-title-bar">openutility-core.js</div>
+          <div style="width:30px"></div>
         </div>
-        <div class="panel-content">
-
-          <!-- Panel 0: Speed Test -->
-          <div class="panel-view active" id="panel-0">
-            <div class="pm-row">
-              <div class="pm-card">
-                <div class="pm-label">Download Speed</div>
-                <div class="pm-val">482 Mbps</div>
-                <div class="pm-change" style="color:var(--green)">Optimal throughput</div>
-              </div>
-              <div class="pm-card">
-                <div class="pm-label">Ping Latency</div>
-                <div class="pm-val">11ms</div>
-                <div class="pm-change" style="color:var(--text3)">Server response</div>
-              </div>
+        <div class="dash-body">
+          <div class="dash-stats">
+            <div class="dash-stat">
+              <div class="dash-stat-label">Requests</div>
+              <div class="dash-stat-val">1.2M</div>
+              <div class="dash-stat-change" style="color:var(--green)">+12.4%</div>
             </div>
-            <div class="pm-list">
-              <div class="pm-list-item">
-                <div class="pm-list-icon" style="background:#0A2030;color:#4A9EE8">US</div>
-                <div class="pm-list-info">
-                  <div class="pm-list-name">North America Node</div>
-                  <div class="pm-list-sub">TCP • 9ms ping</div>
+            <div class="dash-stat">
+              <div class="dash-stat-label">Latency</div>
+              <div class="dash-stat-val">14ms</div>
+              <div class="dash-stat-change" style="color:var(--sky)">Optimal</div>
+            </div>
+            <div class="dash-stat">
+              <div class="dash-stat-label">Status</div>
+              <div class="dash-stat-val" style="color:var(--green)">100%</div>
+              <div class="dash-stat-change" style="color:var(--text3)">Stable</div>
+            </div>
+          </div>
+          <div class="chart-wrap">
+            <div class="chart-head">
+              <span class="chart-head-title">Network Throughput (Gbps)</span>
+              <span class="chart-badge">Live Stream</span>
+            </div>
+            <div class="tx-list">
+              <div class="tx-item">
+                <div class="tx-icon" style="background:rgba(74,158,232,.15);color:var(--sky)">DNS</div>
+                <div class="tx-info">
+                  <div class="tx-name">Query Lookup & Propagation</div>
+                  <div class="tx-date">Global DNS Nodes • 4ms</div>
                 </div>
-                <div class="pm-list-amt" style="color:var(--green)">Online</div>
+                <div class="tx-amount" style="color:var(--green)">Passed</div>
               </div>
-              <div class="pm-list-item">
-                <div class="pm-list-icon" style="background:#0A1A28;color:#7EC8F0">EU</div>
-                <div class="pm-list-info">
-                  <div class="pm-list-name">Europe Central Node</div>
-                  <div class="pm-list-sub">TCP • 34ms ping</div>
+              <div class="tx-item">
+                <div class="tx-icon" style="background:rgba(61,204,142,.15);color:var(--green)">SSL</div>
+                <div class="tx-info">
+                  <div class="tx-name">Certificate Chain Verification</div>
+                  <div class="tx-date">TLS 1.3 • Valid 90 Days</div>
                 </div>
-                <div class="pm-list-amt" style="color:var(--green)">Online</div>
-              </div>
-              <div class="pm-list-item">
-                <div class="pm-list-icon" style="background:#101828;color:#8888F8">AP</div>
-                <div class="pm-list-info">
-                  <div class="pm-list-name">Asia Pacific Node</div>
-                  <div class="pm-list-sub">TCP • 78ms ping</div>
-                </div>
-                <div class="pm-list-amt" style="color:var(--green)">Online</div>
+                <div class="tx-amount" style="color:var(--green)">Secured</div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
 
-          <!-- Panel 1: Utilities -->
-          <div class="panel-view" id="panel-1">
-            <div class="pm-row">
-              <div class="pm-card">
-                <div class="pm-label">Active Tools</div>
-                <div class="pm-val">12+</div>
-                <div class="pm-change" style="color:var(--green)">Ready to use</div>
-              </div>
-              <div class="pm-card">
-                <div class="pm-label">Parsing Errors</div>
-                <div class="pm-val">0</div>
-                <div class="pm-change" style="color:var(--text3)">Clean status</div>
-              </div>
-            </div>
-            <div class="pm-chart-mini">
-              <div class="pm-label">Tool Usage Trend — 8 weeks</div>
-              <div class="pm-sparkline" id="sparkline"></div>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-                  <span style="font-size:12px;color:var(--text2)">Speed Test Interface</span>
-                  <span style="font-size:12px;font-weight:600">45% usage</span>
-                </div>
-                <div class="pm-bar-wrap"><div class="pm-bar" style="width:72%"></div></div>
-              </div>
-              <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-                  <span style="font-size:12px;color:var(--text2)">Network Diagnostics</span>
-                  <span style="font-size:12px;font-weight:600">30% usage</span>
-                </div>
-                <div class="pm-bar-wrap"><div class="pm-bar" style="width:42%;background:var(--sky2)"></div></div>
-              </div>
-              <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-                  <span style="font-size:12px;color:var(--text2)">Developer Code Tools</span>
-                  <span style="font-size:12px;font-weight:600">25% usage</span>
-                </div>
-                <div class="pm-bar-wrap"><div class="pm-bar" style="width:24%;background:#8888F8"></div></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Panel 2: Diagnostics -->
-          <div class="panel-view" id="panel-2">
-            <div class="pm-row">
-              <div class="pm-card">
-                <div class="pm-label">Endpoints Monitored</div>
-                <div class="pm-val">64</div>
-                <div class="pm-change" style="color:var(--text3)">Active scans</div>
-              </div>
-              <div class="pm-card">
-                <div class="pm-label">SSL Validity</div>
-                <div class="pm-val">Valid</div>
-                <div class="pm-change" style="color:var(--green)">Expires in 360d</div>
-              </div>
-            </div>
-          </div>
-
+      <!-- Floating Badges -->
+      <div class="float-badge fb-left">
+        <div class="float-badge-icon" style="background:rgba(61,204,142,.15);color:var(--green)">⚡</div>
+        <div class="float-badge-info">
+          <div class="val">Zero Latency</div>
+          <div class="lbl">Client-Side Execution</div>
+        </div>
+      </div>
+      <div class="float-badge fb-right">
+        <div class="float-badge-icon" style="background:rgba(74,158,232,.15);color:var(--sky)">🔒</div>
+        <div class="float-badge-info">
+          <div class="val">Open Source</div>
+          <div class="lbl">MIT License</div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
+  <!-- LOGOS TRACK -->
+  <section class="logos-section">
+    <div class="logos-label">POWERING MODERN WORKFLOWS & ECOSYSTEMS</div>
+    <div class="logos-track-wrap">
+      <div class="logos-track">
+        <div class="logo-item">VOXELHOSTING</div>
+        <div class="logo-item">PTERODACTYL</div>
+        <div class="logo-item">GITHUB PAGES</div>
+        <div class="logo-item">LINUX VPS</div>
+        <div class="logo-item">NGINX</div>
+        <div class="logo-item">OPENUTILITY</div>
+        <!-- Duplicate for smooth loop -->
+        <div class="logo-item">VOXELHOSTING</div>
+        <div class="logo-item">PTERODACTYL</div>
+        <div class="logo-item">GITHUB PAGES</div>
+        <div class="logo-item">LINUX VPS</div>
+        <div class="logo-item">NGINX</div>
+        <div class="logo-item">OPENUTILITY</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS GRID -->
+  <section class="stats-section">
+    <div class="stat-block silk-reveal">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+      </div>
+      <div class="stat-num">0.1ms</div>
+      <div class="stat-label">Average Execution Time</div>
+      <div class="stat-bar-wrap"><div class="stat-bar" style="width:95%"></div></div>
+      <div class="stat-trend" style="color:var(--green)">
+        <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+        Instant client-side scripts
+      </div>
+    </div>
+    <div class="stat-block silk-reveal" style="animation-delay:.1s">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      </div>
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Open Source & Free</div>
+      <div class="stat-bar-wrap"><div class="stat-bar" style="width:100%"></div></div>
+      <div class="stat-trend" style="color:var(--sky)">
+        <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+        Community driven codebase
+      </div>
+    </div>
+    <div class="stat-block silk-reveal" style="animation-delay:.2s">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+      </div>
+      <div class="stat-num">25+</div>
+      <div class="stat-label">Developer Utilities</div>
+      <div class="stat-bar-wrap"><div class="stat-bar" style="width:85%"></div></div>
+      <div class="stat-trend" style="color:var(--green)">
+        <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+        Expanding weekly catalog
+      </div>
+    </div>
+    <div class="stat-block silk-reveal" style="animation-delay:.3s">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+      </div>
+      <div class="stat-num">0 Ads</div>
+      <div class="stat-label">Clean Minimal UI</div>
+      <div class="stat-bar-wrap"><div class="stat-bar" style="width:100%"></div></div>
+      <div class="stat-trend" style="color:var(--sky)">
+        <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+        No tracking or clutter
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES SECTION (Interactive Sticky Stack) -->
+  <section class="features-section" id="features">
+    <div class="features-header silk-reveal">
+      <span class="section-tag">ENGINEERED FOR EFFICIENCY</span>
+      <h2 class="section-title">Powerful Utilities at Your Fingertips</h2>
+      <p class="section-sub">Switch between panels below to inspect how OpenUtility streamlines web diagnostics, network tools, and developer workflows.</p>
+    </div>
+
+    <div class="sticky-layout">
+      <!-- Cards Column -->
+      <div class="sticky-cards">
+        <div class="sticky-card active" data-panel="panel-1">
+          <div class="sticky-card-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          </div>
+          <h3>Network & DNS Diagnostics</h3>
+          <p>Instant IP lookup, DNS record propagation checks, and ping routing tests right from your browser.</p>
+          <div class="sticky-card-pills">
+            <span class="sc-pill">IP Lookup</span>
+            <span class="sc-pill">DNS Check</span>
+            <span class="sc-pill">TraceRoute</span>
+          </div>
+        </div>
+
+        <div class="sticky-card" data-panel="panel-2">
+          <div class="sticky-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          </div>
+          <h3>Web Developer Toolkits</h3>
+          <p>JSON formatters, base64 encoders, hash generators, and CSS minifiers built for rapid client-side use.</p>
+          <div class="sticky-card-pills">
+            <span class="sc-pill">JSON Lint</span>
+            <span class="sc-pill">Encoders</span>
+            <span class="sc-pill">Minifier</span>
+          </div>
+        </div>
+
+        <div class="sticky-card" data-panel="panel-3" id="tools">
+          <div class="sticky-card-icon">
+            <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line></svg>
+          </div>
+          <h3>Infrastructure Status</h3>
+          <p>Real-time uptime tracking for nodes, game servers, and API endpoints with seamless status embedding.</p>
+          <div class="sticky-card-pills">
+            <span class="sc-pill">Uptime 99.9%</span>
+            <span class="sc-pill">Webhooks</span>
+            <span class="sc-pill">Node Monitor</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview Sticky Panel -->
+      <div class="sticky-panel-wrap">
+        <div class="sticky-panel">
+          <div class="panel-topbar">
+            <div class="panel-dots">
+              <span style="background:#E85A5A"></span>
+              <span style="background:#F5A623"></span>
+              <span style="background:#3DCC8E"></span>
+            </div>
+            <div style="font-size:11px;color:var(--text3);font-family:monospace">openutility://tools/preview</div>
+          </div>
+          <div class="panel-content">
+            <!-- Panel View 1 -->
+            <div class="panel-view active" id="panel-1">
+              <div class="pm-row">
+                <div class="pm-card">
+                  <div class="pm-label">Target Host</div>
+                  <div class="pm-val" style="font-size:15px;font-family:monospace">api.openutility.dev</div>
+                  <div class="pm-change" style="color:var(--green)">● Resolved (124.16.82.1)</div>
+                </div>
+                <div class="pm-card">
+                  <div class="pm-label">Response Time</div>
+                  <div class="pm-val">12 ms</div>
+                  <div class="pm-change" style="color:var(--sky)">Global Edge Node</div>
+                </div>
+              </div>
+              <div class="pm-list">
+                <div class="pm-list-item">
+                  <div class="pm-list-icon" style="background:rgba(61,204,142,.15);color:var(--green)">DNS</div>
+                  <div class="pm-list-info">
+                    <div class="pm-list-name">A Record Check</div>
+                    <div class="pm-list-sub">Cloudflare DNS Propagation</div>
+                  </div>
+                  <div class="pm-list-amt" style="color:var(--green)">OK</div>
+                </div>
+                <div class="pm-list-item">
+                  <div class="pm-list-icon" style="background:rgba(74,158,232,.15);color:var(--sky)">SSL</div>
+                  <div class="pm-list-info">
+                    <div class="pm-list-name">TLS Handshake</div>
+                    <div class="pm-list-sub">Let's Encrypt RSA 4096</div>
+                  </div>
+                  <div class="pm-list-amt" style="color:var(--sky)">Valid</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel View 2 -->
+            <div class="panel-view" id="panel-2">
+              <div class="pm-card">
+                <div class="pm-label">Active Formatter Output</div>
+                <div class="pm-val" style="font-size:13px;font-family:monospace;color:var(--sky2);background:var(--bg);padding:10px;border-radius:6px;margin-top:6px;">
+                  { "status": "success", "code": 200, "tool": "parser" }
+                </div>
+              </div>
+              <div class="pm-list">
+                <div class="pm-list-item">
+                  <div class="pm-list-icon" style="background:rgba(74,158,232,.15);color:var(--sky)">JSON</div>
+                  <div class="pm-list-info">
+                    <div class="pm-list-name">Syntax Validation</div>
+                    <div class="pm-list-sub">Zero parsing errors detected</div>
+                  </div>
+                  <div class="pm-list-amt" style="color:var(--green)">Passed</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel View 3 -->
+            <div class="panel-view" id="panel-3">
+              <div class="pm-row">
+                <div class="pm-card">
+                  <div class="pm-label">Active Nodes</div>
+                  <div class="pm-val">32 / 32</div>
+                  <div class="pm-bar-wrap"><div class="pm-bar" style="width:100%"></div></div>
+                </div>
+                <div class="pm-card">
+                  <div class="pm-label">System Load</div>
+                  <div class="pm-val">4.2%</div>
+                  <div class="pm-bar-wrap"><div class="pm-bar" style="width:25%;background:var(--green)"></div></div>
+                </div>
+              </div>
+              <div class="pm-chart-mini">
+                <div style="font-size:11px;color:var(--text2);margin-bottom:4px">24-Hour Uptime Monitor</div>
+                <div class="pm-sparkline">
+                  <div class="pm-spark-bar" style="height:90%"></div>
+                  <div class="pm-spark-bar" style="height:95%"></div>
+                  <div class="pm-spark-bar" style="height:100%"></div>
+                  <div class="pm-spark-bar" style="height:92%"></div>
+                  <div class="pm-spark-bar" style="height:98%"></div>
+                  <div class="pm-spark-bar" style="height:100%"></div>
+                  <div class="pm-spark-bar" style="height:100%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JAVASCRIPT FOR INTERACTIVITY -->
+  <script>
+    // Navbar Scroll Effect
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 20) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile Menu Toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.mob-link').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // Sticky Features Tab Switcher
+    const cards = document.querySelectorAll('.sticky-card');
+    const views = document.querySelectorAll('.panel-view');
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        cards.forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+
+        const targetPanel = card.getAttribute('data-panel');
+        views.forEach(v => {
+          v.classList.remove('active');
+          if (v.id === targetPanel) {
+            v.classList.add('active');
+          }
+        });
+      });
+    });
+
+    // Scroll Reveal Observer
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.silk-reveal, .silk-reveal-left, .silk-reveal-right').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>
