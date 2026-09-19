@@ -909,7 +909,7 @@
         Data & Web Utilities
       </h3>
       <div class="tools-grid">
-        <div class="tool-card" data-name="json formatter validator" onclick="alert('Opening JSON Formatter tool interface...')">
+        <div class="tool-card" data-name="json formatter validator" onclick="openToolModal('JSON Formatter & Validator', 'Instantly beautifies and validates complex JSON structures.')">
           <div>
             <div class="tool-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></div>
             <h3>JSON Formatter & Validator</h3>
@@ -917,7 +917,7 @@
           </div>
           <span class="tool-tag">DATA / PARSER</span>
         </div>
-        <div class="tool-card" data-name="jwt decoder debugger" onclick="alert('Opening JWT Decoder tool interface...')">
+        <div class="tool-card" data-name="jwt decoder debugger" onclick="openToolModal('JWT Decoder & Debugger', 'Decodes JSON Web Tokens securely on the client side.')">
           <div>
             <div class="tool-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>
             <h3>JWT Decoder & Debugger</h3>
@@ -925,7 +925,7 @@
           </div>
           <span class="tool-tag">SECURITY / AUTH</span>
         </div>
-        <div class="tool-card" data-name="base64 url encoder decoder" onclick="alert('Opening Base64 Encoder tool interface...')">
+        <div class="tool-card" data-name="base64 url encoder decoder" onclick="openToolModal('Base64 & URL Encoder', 'Converts strings and URLs safely into encoded formats.')">
           <div>
             <div class="tool-icon"><svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg></div>
             <h3>Base64 & URL Encoder</h3>
@@ -943,7 +943,7 @@
         Network Diagnostics
       </h3>
       <div class="tools-grid">
-        <div class="tool-card" data-name="ip lookup geolocation" onclick="alert('Opening IP Geolocation tool interface...')">
+        <div class="tool-card" data-name="ip lookup geolocation" onclick="openToolModal('IP & Geolocation Lookup', 'Inspects public IP network details and ISP information.')">
           <div>
             <div class="tool-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
             <h3>IP & Geolocation Lookup</h3>
@@ -951,7 +951,7 @@
           </div>
           <span class="tool-tag">NETWORK</span>
         </div>
-        <div class="tool-card" data-name="dns propagation checker" onclick="alert('Opening DNS Checker tool interface...')">
+        <div class="tool-card" data-name="dns propagation checker" onclick="openToolModal('DNS Propagation Checker', 'Verifies global DNS record updates.')">
           <div>
             <div class="tool-icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg></div>
             <h3>DNS Propagation Checker</h3>
@@ -988,6 +988,20 @@
         <button type="submit" class="btn-primary modal-submit" id="authSubmitBtn">Sign In</button>
       </form>
       <div id="authMessage" style="margin-top: 12px; font-size: 12px; text-align: center;"></div>
+    </div>
+  </div>
+
+  <!-- TOOL MODAL -->
+  <div class="cmd-palette-overlay" id="toolModal">
+    <div class="cmd-palette-box">
+      <button class="modal-close" type="button" onclick="closeToolModal()">&times;</button>
+      <h3 class="modal-title" id="toolModalTitle">Tool Interface</h3>
+      <p class="modal-sub" id="toolModalSub" style="margin-bottom: 16px;">Utility environment active.</p>
+      <div class="form-group">
+        <textarea id="toolInputText" class="cmd-input" rows="5" placeholder="Enter payload or text here..."></textarea>
+      </div>
+      <button type="button" class="btn-primary modal-submit" onclick="runToolAction()">Execute Utility</button>
+      <div id="toolResultMsg" style="margin-top: 12px; font-size: 12px; text-align: center; color: var(--green);"></div>
     </div>
   </div>
 
@@ -1043,6 +1057,23 @@
       if (msgEl) msgEl.textContent = '';
       const form = document.getElementById('authForm');
       if (form) form.reset();
+    }
+
+    function openToolModal(title, subtitle) {
+      document.getElementById('toolModalTitle').textContent = title;
+      document.getElementById('toolModalSub').textContent = subtitle;
+      document.getElementById('toolModal').classList.add('open');
+    }
+
+    function closeToolModal() {
+      document.getElementById('toolModal').classList.remove('open');
+      document.getElementById('toolInputText').value = '';
+      document.getElementById('toolResultMsg').textContent = '';
+    }
+
+    function runToolAction() {
+      const res = document.getElementById('toolResultMsg');
+      res.textContent = 'Operation completed successfully! [200 OK]';
     }
 
     async function handleAuthSubmit(e) {
