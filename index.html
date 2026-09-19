@@ -528,8 +528,8 @@
       font-weight: 600;
     }
 
-    /* BENEFITS / FEATURES SECTION */
-    .benefits-section {
+    /* TOOLS DIRECTORY SECTION */
+    .tools-section {
       max-width: var(--max-w);
       margin: 0 auto;
       padding: 60px 24px 100px 24px;
@@ -560,38 +560,29 @@
       font-size: 15px;
       line-height: 1.6;
     }
-    .benefits-grid {
+    .tools-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 24px;
     }
-    .benefit-card {
+    .tool-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 32px;
-      position: relative;
-      transition: all 0.3s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: all 0.3s ease;
       backdrop-filter: blur(16px);
+      position: relative;
     }
-    .benefit-card:hover {
-      border-color: var(--border2);
+    .tool-card:hover {
+      border-color: var(--sky);
       transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px var(--glow);
     }
-    .benefit-badge {
-      position: absolute;
-      top: 24px;
-      right: 24px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      color: var(--sky2);
-      padding: 4px 8px;
-      border-radius: 6px;
-    }
-    .benefit-icon {
+    .tool-icon {
       width: 48px;
       height: 48px;
       background: rgba(74, 158, 232, 0.1);
@@ -603,237 +594,32 @@
       color: var(--sky);
       margin-bottom: 24px;
     }
-    .benefit-icon svg {
+    .tool-icon svg {
       width: 24px;
       height: 24px;
       stroke: currentColor;
       fill: none;
       stroke-width: 2;
     }
-    .benefit-card h3 {
+    .tool-card h3 {
       font-family: 'Outfit', sans-serif;
       font-size: 20px;
       font-weight: 700;
       margin-bottom: 12px;
     }
-    .benefit-card p {
+    .tool-card p {
       font-size: 14px;
       color: var(--text2);
       line-height: 1.6;
+      margin-bottom: 20px;
     }
-
-    /* STATS COUNTER SECTION */
-    .stats-section {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 40px 24px 80px 24px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-    .stat-block {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px;
-      text-align: left;
-    }
-    .stat-icon {
-      color: var(--sky);
-      margin-bottom: 12px;
-    }
-    .stat-icon svg {
-      width: 20px;
-      height: 20px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
-    }
-    .stat-num {
-      font-family: 'Outfit', sans-serif;
-      font-size: 32px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 4px;
-    }
-    .stat-label {
-      font-size: 13px;
-      color: var(--text3);
-      margin-bottom: 12px;
-    }
-    .stat-bar-wrap {
-      width: 100%;
-      height: 4px;
-      background: var(--border);
-      border-radius: 2px;
-      overflow: hidden;
-      margin-bottom: 8px;
-    }
-    .stat-bar {
-      height: 100%;
-      background: linear-gradient(90deg, var(--sky), var(--purple));
-      border-radius: 2px;
-    }
-    .stat-trend {
+    .tool-link-text {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      color: var(--green);
-    }
-
-    /* INTERACTIVE STICKY TOOL SUITE SECTION */
-    .features-section {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 60px 24px 120px 24px;
-    }
-    .sticky-layout {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 40px;
-      align-items: start;
-    }
-    .sticky-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .sticky-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .sticky-card:hover {
-      border-color: var(--border2);
-    }
-    .sticky-card.active {
-      background: var(--bg3);
-      border-color: var(--sky);
-      box-shadow: 0 10px 30px var(--glow);
-    }
-    .sticky-card-icon {
-      width: 36px;
-      height: 36px;
-      background: rgba(74, 158, 232, 0.1);
-      border-radius: 8px;
+      font-size: 12px;
+      color: var(--sky2);
       display: flex;
       align-items: center;
-      justify-content: center;
-      color: var(--sky);
-      margin-bottom: 14px;
-    }
-    .sticky-card-icon svg {
-      width: 18px;
-      height: 18px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
-    }
-    .sticky-card h3 {
-      font-family: 'Outfit', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-    .sticky-card p {
-      font-size: 13px;
-      color: var(--text2);
-      line-height: 1.5;
-      margin-bottom: 14px;
-    }
-    .sticky-card-pills {
-      display: flex;
       gap: 6px;
-      flex-wrap: wrap;
-    }
-    .sc-pill {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      padding: 2px 6px;
-      border-radius: 4px;
-      color: var(--text3);
-    }
-
-    /* RIGHT PREVIEW PANEL */
-    .sticky-panel-wrap {
-      position: sticky;
-      top: 100px;
-    }
-    .sticky-panel {
-      background: var(--card-bg);
-      border: 1px solid var(--border2);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-      backdrop-filter: blur(20px);
-    }
-    .panel-topbar {
-      background: var(--bg2);
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .panel-dots {
-      display: flex;
-      gap: 6px;
-    }
-    .panel-dots span {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-    .panel-content {
-      padding: 24px;
-      min-height: 340px;
-    }
-    .panel-view {
-      display: none;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .panel-view.active {
-      display: flex;
-    }
-    .pm-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .pm-card {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
-    }
-    .pm-label {
-      font-size: 11px;
-      color: var(--text3);
-      margin-bottom: 4px;
-    }
-    .pm-val {
-      font-family: 'Outfit', sans-serif;
-      font-size: 20px;
-      font-weight: 700;
-    }
-    .cmd-input {
-      width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--border2);
-      color: var(--text);
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .cmd-input:focus {
-      border-color: var(--sky);
     }
 
     /* AUTH MODAL */
@@ -868,18 +654,26 @@
     .cmd-palette-overlay.open .cmd-palette-box {
       transform: scale(1);
     }
+    .cmd-input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border2);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .cmd-input:focus {
+      border-color: var(--sky);
+    }
 
     /* RESPONSIVE MEDIA QUERIES */
     @media (max-width: 900px) {
       .hero {
         grid-template-columns: 1fr;
         padding-top: 40px;
-      }
-      .sticky-layout {
-        grid-template-columns: 1fr;
-      }
-      .sticky-panel-wrap {
-        position: static;
       }
       .nav-links, .nav-cta {
         display: none;
@@ -911,16 +705,14 @@
 
   <!-- NAVIGATION -->
   <nav id="navbar">
-    <a href="#" class="nav-logo">
+    <a href="index.html" class="nav-logo">
       <div class="nav-logo-mark">
         <svg viewBox="0 0 24 24"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline></svg>
       </div>
       OpenUtility
     </a>
     <div class="nav-links">
-      <a href="#features">Tools</a>
-      <a href="#benefits">Infrastructure</a>
-      <a href="#stats">Performance</a>
+      <a href="#tools">Tools</a>
       <a href="https://github.com" target="_blank">GitHub</a>
     </div>
     <div class="nav-cta">
@@ -937,9 +729,7 @@
   <!-- MOBILE MENU OVERLAY -->
   <div class="mobile-menu" id="mobileMenu">
     <button class="mobile-close-btn" onclick="toggleMobileMenu()">✕</button>
-    <a href="#features" onclick="toggleMobileMenu()">Tools</a>
-    <a href="#benefits" onclick="toggleMobileMenu()">Infrastructure</a>
-    <a href="#stats" onclick="toggleMobileMenu()">Performance</a>
+    <a href="#tools" onclick="toggleMobileMenu()">Tools</a>
     <a href="https://github.com" target="_blank" onclick="toggleMobileMenu()">GitHub</a>
     <div class="m-btns" style="margin-top: 20px; display: flex; flex-direction: column; gap: 12px;">
       <button class="btn-ghost" style="width:100%; padding:12px; text-align:center;" onclick="toggleMobileMenu(); openAuthModal('signin')">Sign In</button>
@@ -961,7 +751,7 @@
           Get Started Free
           <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </button>
-        <a href="#features" class="btn-outline">Explore Utilities</a>
+        <a href="#tools" class="btn-outline">Explore Utilities</a>
       </div>
       <div class="hero-trust">
         <div class="hero-avatars">
@@ -1032,168 +822,44 @@
     </div>
   </section>
 
-  <!-- MEMBER BENEFITS SECTION -->
-  <section class="benefits-section" id="benefits">
-    <div class="features-header">
-      <span class="section-tag">Platform Advantages</span>
-      <h2 class="section-title">Built for Speed and Reliability</h2>
-      <p class="section-sub">Engineered from the ground up to give developers high-availability developer tools without bloat or tracking telemetry.</p>
-    </div>
-    <div class="benefits-grid">
-      <div class="benefit-card">
-        <div class="benefit-badge">Zero Lag</div>
-        <div class="benefit-icon">
-          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-        </div>
-        <h3>Client-Side Processing</h3>
-        <p>All data transformation utilities like JSON parsing, token decoding, and base64 formatting run entirely within your local browser sandbox.</p>
-      </div>
-      <div class="benefit-card">
-        <div class="benefit-badge">Open Source</div>
-        <div class="benefit-icon">
-          <svg viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-        </div>
-        <h3>Fully Transparent Core</h3>
-        <p>Inspect code repositories, review security patches, and contribute custom utility modules directly through our public GitHub organization.</p>
-      </div>
-      <div class="benefit-card">
-        <div class="benefit-badge">Enterprise Ready</div>
-        <div class="benefit-icon">
-          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
-        </div>
-        <h3>Supabase Auth & Sync</h3>
-        <p>Save custom tool configurations, preference tokens, and API test history securely across all your authorized workstations using Supabase.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- STATS SECTION -->
-  <section class="stats-section" id="stats">
-    <div class="stat-block">
-      <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg></div>
-      <div class="stat-num">1.4K+</div>
-      <div class="stat-label">Global CDN Edge Nodes</div>
-      <div class="stat-bar-wrap"><div class="stat-bar" style="width:94%"></div></div>
-      <div class="stat-trend ticker-up"><span>▲</span> 99.99% Node Health</div>
-    </div>
-    <div class="stat-block">
-      <div class="stat-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
-      <div class="stat-num">&lt; 15ms</div>
-      <div class="stat-label">Average Response Latency</div>
-      <div class="stat-bar-wrap"><div class="stat-bar" style="width:88%"></div></div>
-      <div class="stat-trend ticker-up"><span>▲</span> Optimized Routing</div>
-    </div>
-    <div class="stat-block">
-      <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
-      <div class="stat-num">45.2K</div>
-      <div class="stat-label">Daily Active Developers</div>
-      <div class="stat-bar-wrap"><div class="stat-bar" style="width:92%"></div></div>
-      <div class="stat-trend ticker-up"><span>▲</span> +28% this month</div>
-    </div>
-    <div class="stat-block">
-      <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
-      <div class="stat-num">100%</div>
-      <div class="stat-label">Free Open-Source Access</div>
-      <div class="stat-bar-wrap"><div class="stat-bar" style="width:100%"></div></div>
-      <div class="stat-trend ticker-up"><span>●</span> MIT Licensed Core</div>
-    </div>
-  </section>
-
-  <!-- FEATURES / STICKY INTERACTIVE SECTION -->
-  <section class="features-section" id="features">
+  <!-- TOOLS DIRECTORY SECTION -->
+  <section class="tools-section" id="tools">
     <div class="features-header">
       <span class="section-tag">Interactive Suite</span>
       <h2 class="section-title">Explore Core Developer Tools</h2>
-      <p class="section-sub">Select any tool module below to preview live interactive capabilities built right into the platform.</p>
+      <p class="section-sub">Select any tool module below to launch its dedicated standalone interactive workspace.</p>
     </div>
 
-    <div class="sticky-layout">
-      <div class="sticky-cards">
-        <div class="sticky-card active" onclick="switchFeatureTab(0, this)">
-          <div class="sticky-card-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
-          <h3>Network Speed & Diagnostic Tester</h3>
-          <p>Measure real-time bandwidth performance, packet jitter, and server roundtrip times across multiple global edge regions.</p>
-          <div class="sticky-card-pills">
-            <span class="sc-pill">Bandwidth</span>
-            <span class="sc-pill">Latency</span>
-            <span class="sc-pill">Packet Loss</span>
-          </div>
+    <div class="tools-grid">
+      <!-- Tool 1: Speed Test -->
+      <a href="tools/speedtest.html" class="tool-card">
+        <div class="tool-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
         </div>
+        <h3>Speed & Diagnostic Tester</h3>
+        <p>Measure real-time bandwidth performance, packet jitter, and server roundtrip times across multiple global edge regions.</p>
+        <span class="tool-link-text">Launch Tool →</span>
+      </a>
 
-        <div class="sticky-card" onclick="switchFeatureTab(1, this)">
-          <div class="sticky-card-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></div>
-          <h3>JSON Formatter & Schema Validator</h3>
-          <p>Quickly parse, validate syntax errors, minify, and prettify intricate JSON payloads with instant error highlighting.</p>
-          <div class="sticky-card-pills">
-            <span class="sc-pill">Syntax Check</span>
-            <span class="sc-pill">Minifier</span>
-            <span class="sc-pill">Beautifier</span>
-          </div>
+      <!-- Tool 2: JSON Formatter -->
+      <a href="tools/json-formatter.html" class="tool-card">
+        <div class="tool-icon">
+          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
         </div>
+        <h3>JSON Formatter & Validator</h3>
+        <p>Quickly parse, validate syntax errors, minify, and prettify intricate JSON payloads with instant error highlighting.</p>
+        <span class="tool-link-text">Launch Tool →</span>
+      </a>
 
-        <div class="sticky-card" onclick="switchFeatureTab(2, this)">
-          <div class="sticky-card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>
-          <h3>JWT Decoder & Inspector</h3>
-          <p>Instantly decode and inspect JSON Web Token headers, cryptographic payloads, and expiration claims securely offline.</p>
-          <div class="sticky-card-pills">
-            <span class="sc-pill">Claims</span>
-            <span class="sc-pill">Signature Verify</span>
-            <span class="sc-pill">No Tracking</span>
-          </div>
+      <!-- Tool 3: JWT Decoder -->
+      <a href="tools/jwt-decoder.html" class="tool-card">
+        <div class="tool-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
         </div>
-      </div>
-
-      <div class="sticky-panel-wrap">
-        <div class="sticky-panel">
-          <div class="panel-topbar">
-            <div class="panel-dots">
-              <span style="background:var(--red)"></span>
-              <span style="background:#F59E0B"></span>
-              <span style="background:var(--green)"></span>
-            </div>
-            <div class="dash-title-bar" id="panelTitleBar">tool://speedtest-diagnostic-module</div>
-          </div>
-          <div class="panel-content">
-            <!-- TAB 0: Speedtest -->
-            <div class="panel-view active" id="pView0">
-              <div class="pm-row">
-                <div class="pm-card">
-                  <div class="pm-label">Download Speed</div>
-                  <div class="pm-val ticker-up" id="speedDl">482.6 Mb/s</div>
-                </div>
-                <div class="pm-card">
-                  <div class="pm-label">Upload Speed</div>
-                  <div class="pm-val ticker-up" id="speedUl">194.2 Mb/s</div>
-                </div>
-              </div>
-              <div class="chart-wrap" style="padding:16px; text-align:center; margin-top: 16px;">
-                <div style="font-size:13px; color:var(--text2); margin-bottom:12px;">Testing Frankfurt Edge Cluster (datacenter-01)</div>
-                <button class="btn-primary" onclick="runSimulatedSpeedTest()" id="testBtn">Run Diagnostic Ping</button>
-              </div>
-            </div>
-
-            <!-- TAB 1: JSON Formatter -->
-            <div class="panel-view" id="pView1">
-              <div class="pm-label">Live Payload Sandbox</div>
-              <textarea class="cmd-input" style="font-family:monospace; font-size:12px; height:120px; resize:none; border-radius:8px; margin-bottom: 12px;" id="jsonInput">{"app":"OpenUtility","version":"2.4","status":"operational","modules":["speedtest","json","jwt"]}</textarea>
-              <div style="display:flex; gap:8px;">
-                <button class="btn-primary" style="flex:1; padding:8px;" onclick="formatJsonPayload()">Format & Validate</button>
-                <button class="btn-ghost" style="flex:1; padding:8px;" onclick="minifyJsonPayload()">Minify</button>
-              </div>
-            </div>
-
-            <!-- TAB 2: JWT Decoder -->
-            <div class="panel-view" id="pView2">
-              <div class="pm-label">Paste Encoded Token (Header.Payload.Signature)</div>
-              <input type="text" class="cmd-input" style="font-family:monospace; font-size:11px; border-radius:8px; margin-bottom: 12px;" id="jwtInput" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlRhbW9vciBDaG91ZGh1cnkiLCJpYXQiOjE3MTYyMzkwMjJ9.signature_mock">
-              <button class="btn-primary" style="padding:8px; margin-bottom: 12px;" onclick="decodeJwtToken()">Decode Token Claims</button>
-              <div class="pm-card" style="font-family:monospace; font-size:11px; color:var(--sky2); word-break: break-all;" id="jwtOutput">
-                { "sub": "1234567890", "name": "Tamoor Choudhury", "iat": 1716239022 }
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        <h3>JWT Decoder & Inspector</h3>
+        <p>Instantly decode and inspect JSON Web Token headers, cryptographic payloads, and expiration claims securely offline.</p>
+        <span class="tool-link-text">Launch Tool →</span>
+      </a>
     </div>
   </section>
 
@@ -1206,20 +872,18 @@
       </div>
 
       <div style="padding:20px;">
-        <!-- EMAIL / PASSWORD FORM -->
         <form id="authForm" onsubmit="handleAuthSubmit(event)" style="display:flex; flex-direction:column; gap:14px;">
           <div>
             <label style="font-size:11px; color:var(--text3); display:block; margin-bottom:6px; text-transform:uppercase;">Email Address</label>
-            <input type="email" id="authEmail" required class="cmd-input" placeholder="name@example.com" style="border-radius:8px; border:1px solid var(--border2); padding:10px 14px;">
+            <input type="email" id="authEmail" required class="cmd-input" placeholder="name@example.com">
           </div>
           <div>
             <label style="font-size:11px; color:var(--text3); display:block; margin-bottom:6px; text-transform:uppercase;">Password</label>
-            <input type="password" id="authPassword" required class="cmd-input" placeholder="••••••••" style="border-radius:8px; border:1px solid var(--border2); padding:10px 14px;">
+            <input type="password" id="authPassword" required class="cmd-input" placeholder="••••••••">
           </div>
           <button type="submit" class="btn-primary" id="authSubmitBtn" style="width:100%; padding:12px; margin-top:4px; text-align:center; display:block;">Sign In</button>
         </form>
 
-        <!-- SOCIAL LOGINS -->
         <div style="display:flex; flex-direction:column; gap:10px; margin-top:16px;">
           <div style="display:flex; align-items:center; text-align:center; color:var(--text3); font-size:10px; margin:4px 0; text-transform:uppercase; letter-spacing:.08em;">
             <span style="flex:1; border-bottom:1px solid var(--border);"></span>
@@ -1254,8 +918,7 @@
     </div>
     <div style="display:flex; gap:20px; font-size:13px; color:var(--text2);">
       <a href="https://github.com" target="_blank" style="color:inherit; text-decoration:none;">GitHub Repository</a>
-      <a href="#features" style="color:inherit; text-decoration:none;">Web Utilities</a>
-      <a href="#benefits" style="color:inherit; text-decoration:none;">Infrastructure</a>
+      <a href="#tools" style="color:inherit; text-decoration:none;">Web Utilities</a>
     </div>
   </footer>
 
@@ -1287,69 +950,6 @@
       } else {
         menu.style.display = 'flex';
         setTimeout(() => { menu.classList.add('open'); }, 10);
-      }
-    }
-
-    // Interactive feature tabs switcher
-    function switchFeatureTab(index, element) {
-      document.querySelectorAll('.sticky-card').forEach(c => c.classList.remove('active'));
-      element.classList.add('active');
-
-      document.querySelectorAll('.panel-view').forEach(v => v.classList.remove('active'));
-      document.getElementById('pView' + index).classList.add('active');
-
-      const titles = [
-        'tool://speedtest-diagnostic-module',
-        'tool://json-formatter-validator',
-        'tool://jwt-decoder-inspector'
-      ];
-      document.getElementById('panelTitleBar').innerText = titles[index];
-    }
-
-    // Simulated Speed Test Tool
-    function runSimulatedSpeedTest() {
-      const btn = document.getElementById('testBtn');
-      btn.innerText = 'Benchmarking Nodes...';
-      btn.disabled = true;
-      setTimeout(() => {
-        document.getElementById('speedDl').innerText = (Math.random() * 200 + 400).toFixed(1) + ' Mb/s';
-        document.getElementById('speedUl').innerText = (Math.random() * 100 + 150).toFixed(1) + ' Mb/s';
-        btn.innerText = 'Run Diagnostic Ping';
-        btn.disabled = false;
-      }, 1000);
-    }
-
-    // JSON Tool Functions
-    function formatJsonPayload() {
-      try {
-        const input = document.getElementById('jsonInput');
-        const parsed = JSON.parse(input.value);
-        input.value = JSON.stringify(parsed, null, 2);
-      } catch (e) {
-        alert('Invalid JSON syntax: ' + e.message);
-      }
-    }
-
-    function minifyJsonPayload() {
-      try {
-        const input = document.getElementById('jsonInput');
-        const parsed = JSON.parse(input.value);
-        input.value = JSON.stringify(parsed);
-      } catch (e) {
-        alert('Invalid JSON syntax: ' + e.message);
-      }
-    }
-
-    // JWT Decoder Tool
-    function decodeJwtToken() {
-      try {
-        const val = document.getElementById('jwtInput').value;
-        const parts = val.split('.');
-        if (parts.length < 2) throw new Error('Invalid JWT structure');
-        const payload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
-        document.getElementById('jwtOutput').innerText = JSON.stringify(payload, null, 2);
-      } catch (e) {
-        document.getElementById('jwtOutput').innerText = 'Error decoding token: ' + e.message;
       }
     }
 
