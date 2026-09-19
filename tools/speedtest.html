@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speed Check - Powered by OpenUtility</title>
+  <style>
+    :root {
+      --bg-color: #0b0f19;
+      --card-bg: rgba(22, 28, 45, 0.6);
+      --primary-blue: #00a8ff;
+      --primary-green: #7bed9f;
+      --accent-glow: rgba(0, 168, 255, 0.25);
+      --text-main: #ffffff;
+      --text-muted: #8a99ad;
+      --border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      background-image: 
+        radial-gradient(circle at 50% 30%, rgba(0, 168, 255, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(123, 237, 159, 0.08) 0%, transparent 50%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 1.5rem;
+      overflow-x: hidden;
+    }
+
+    header {
+      width: 100%;
+      max-width: 1000px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, var(--primary-blue), var(--primary-green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      background: rgba(0, 168, 255, 0.1);
+      border: 1px solid rgba(0, 168, 255, 0.2);
+      color: var(--primary-blue);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: auto 0;
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    /* Radial Speed Meter Container */
+    .gauge-wrapper {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gauge-svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .gauge-bg {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.05);
+      stroke-width: 8;
+    }
+
+    .gauge-progress {
+      fill: none;
+      stroke: url(#gradient);
+      stroke-width: 8;
+      stroke-linecap: round;
+      stroke-dasharray: 754;
+      stroke-dashoffset: 754;
+      transition: stroke-dashoffset 0.2s cubic-bezier(0.1, 0.7, 0.1, 1);
+      filter: drop-shadow(0px 0px 8px var(--primary-blue));
+    }
+
+    .speed-content {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .speed-value {
+      font-size: 5rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -2px;
+      background: linear-gradient(180deg, #ffffff 40%, var(--text-muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .speed-unit {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 0.2rem;
+      color: var(--primary-blue);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .status {
+      margin-top: 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      height: 24px;
+    }
+
+    /* Action Button */
+    .btn-container {
+      margin-top: 1.5rem;
+      height: 60px;
+    }
+
+    .restart-btn {
+      background: linear-gradient(135deg, var(--primary-blue), #0072ff);
+      border: none;
+      color: #fff;
+      border-radius: 30px;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 10px 25px var(--accent-glow);
+      transition: all 0.3s ease;
+    }
+
+    .restart-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px rgba(0, 168, 255, 0.4);
+    }
+
+    .restart-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* Detailed Metrics Grid */
+    .metrics-card {
+      width: 100%;
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .metric-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.4rem;
+    }
+
+    .metric-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* OpenUtility Footer Branding */
+    footer {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 2rem;
+    }
+
+    .brand-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .openutility-logo {
+      width: 22px;
+      height: 22px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <span>FAST</span><span style="color: #fff; font-weight: 300;">SPEED</span>
+    </div>
+    <div class="badge">Pro Engine</div>
+  </header>
+
+  <main>
+    <div class="gauge-wrapper">
+      <svg class="gauge-svg" viewBox="0 0 260 260">
+        <defs>
+          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00a8ff" />
+            <stop offset="100%" stop-color="#7bed9f" />
+          </linearGradient>
+        </defs>
+        <circle class="gauge-bg" cx="130" cy="130" r="120" />
+        <circle class="gauge-progress" id="progressRing" cx="130" cy="130" r="120" />
+      </svg>
+
+      <div class="speed-content">
+        <span class="speed-value" id="speed">0</span>
+        <span class="speed-unit" id="unit">Mbps</span>
+      </div>
+    </div>
+
+    <div class="status" id="status">Initializing...</div>
+
+    <div class="btn-container">
+      <button class="restart-btn" id="restartBtn" style="display: none;" onclick="startTest()">
+        <svg viewBox="0 0 24 24">
+          <path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+        </svg>
+        Re-test
+      </button>
+    </div>
+
+    <div class="metrics-card">
+      <div class="metric-item">
+        <span class="metric-label">Latency</span>
+        <span class="metric-value" id="latency">-</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-label">Download</span>
+        <span class="metric-value" id="downloadVal">-</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-label">Upload</span>
+        <span class="metric-value" id="uploadVal">-</span>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span>Powered by</span>
+    <div class="brand-container">
+      <!-- OpenUtility Inline SVG Logo generated from reference -->
+      <svg class="openutility-logo" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 86.8 200 C 86.8 137.4 137.4 86.8 200 86.8 C 262.5 86.8 313.1 137.4 313.1 200 C 313.1 262.5 262.5 313.1 200 313.1 L 200 352.8 C 284.4 352.8 352.8 284.4 352.8 200 C 352.8 115.5 284.4 47.1 200 47.1 C 115.5 47.1 47.1 115.5 47.1 200 L 86.8 200 Z" fill="#00a8ff"/>
+        <path d="M 173.3 173.3 C 158.6 188 158.6 211.9 173.3 226.6 C 188 241.3 211.9 241.3 226.6 226.6 L 277.6 226.6 C 262.9 270.8 221 302 171.9 302 C 112.5 302 64.3 253.8 64.3 194.4 C 64.3 145.3 95.5 103.4 139.7 88.7 L 173.3 173.3 Z" fill="#7bed9f"/>
+      </svg>
+      <span>OpenUtility</span>
+    </div>
+  </footer>
+
+  <script>
+    const TEST_FILE_URL = 'https://speed.cloudflare.com/__down?bytes=25000000'; // 25MB test file
+    const PING_URL = 'https://speed.cloudflare.com/__down?bytes=0';
+
+    const speedEl = document.getElementById('speed');
+    const statusEl = document.getElementById('status');
+    const restartBtn = document.getElementById('restartBtn');
+    const latencyEl = document.getElementById('latency');
+    const downloadValEl = document.getElementById('downloadVal');
+    const uploadValEl = document.getElementById('uploadVal');
+    const progressRing = document.getElementById('progressRing');
+
+    const CIRCUMFERENCE = 2 * Math.PI * 120; // 753.98px
+
+    function setGaugeProgress(speedMbps) {
+      // Scale gauge visually (e.g. maxing out at 100 Mbps for visual feedback)
+      const maxSpeed = 100;
+      const progress = Math.min(speedMbps / maxSpeed, 1);
+      const offset = CIRCUMFERENCE - (progress * CIRCUMFERENCE);
+      progressRing.style.strokeDashoffset = offset;
+    }
+
+    async function measureLatency() {
+      const start = performance.now();
+      await fetch(PING_URL + '&r=' + Math.random(), { cache: 'no-store' });
+      const end = performance.now();
+      return Math.round(end - start);
+    }
+
+    async function measureUpload() {
+      // Dynamic upload test sending 2MB of dummy data
+      const bytes = 2000000;
+      const data = new Uint8Array(bytes);
+      const start = performance.now();
+      
+      try {
+        await fetch('https://httpbin.org/post', {
+          method: 'POST',
+          body: data,
+          cache: 'no-store'
+        });
+        const duration = (performance.now() - start) / 1000;
+        const speedMbps = ((bytes * 8) / duration / 1000000).toFixed(1);
+        return speedMbps;
+      } catch (e) {
+        return 'N/A';
+      }
+    }
+
+    async function startTest() {
+      // Reset UI state
+      speedEl.innerText = '0';
+      setGaugeProgress(0);
+      statusEl.innerText = 'Ping Latency...';
+      restartBtn.style.display = 'none';
+      latencyEl.innerText = '-';
+      downloadValEl.innerText = '-';
+      uploadValEl.innerText = '-';
+
+      try {
+        // 1. Latency Test
+        const ping = await measureLatency();
+        latencyEl.innerText = `${ping} ms`;
+
+        // 2. Download Speed Test
+        statusEl.innerText = 'Testing Download...';
+        const startTime = performance.now();
+        let loadedBytes = 0;
+
+        const response = await fetch(TEST_FILE_URL + '&r=' + Math.random(), { cache: 'no-store' });
+        const reader = response.body.getReader();
+
+        let finalDownloadSpeed = 0;
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          loadedBytes += value.byteLength;
+          const currentTime = performance.now();
+          const durationSeconds = (currentTime - startTime) / 1000;
+
+          if (durationSeconds > 0) {
+            const bitsLoaded = loadedBytes * 8;
+            finalDownloadSpeed = (bitsLoaded / durationSeconds / 1000000).toFixed(1);
+            
+            speedEl.innerText = finalDownloadSpeed;
+            setGaugeProgress(finalDownloadSpeed);
+          }
+        }
+
+        downloadValEl.innerText = `${finalDownloadSpeed} Mbps`;
+
+        // 3. Upload Speed Test
+        statusEl.innerText = 'Testing Upload...';
+        const uploadSpeed = await measureUpload();
+        uploadValEl.innerText = uploadSpeed !== 'N/A' ? `${uploadSpeed} Mbps` : 'N/A';
+
+        // Finish Test
+        statusEl.innerText = 'Test Completed';
+        restartBtn.style.display = 'flex';
+
+      } catch (error) {
+        statusEl.innerText = 'Test Failed (Connection Error)';
+        console.error(error);
+        restartBtn.style.display = 'flex';
+      }
+    }
+
+    window.onload = startTest;
+  </script>
+</body>
+</html>
