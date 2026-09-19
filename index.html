@@ -6,6 +6,20 @@
 
   <title>OpenUtility — Developer Tools</title>
 
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OpenUtility">
+  <meta property="og:title" content="OpenUtility — Developer Tools">
+  <meta property="og:description" content="Fast, private, client-side developer utilities for everyday development.">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="OpenUtility — Developer Tools">
+  <meta name="twitter:description" content="Fast, private, client-side developer utilities.">
+  <link id="canonicalLink" rel="canonical" href="">
+
+
   <meta
     name="description"
     content="Fast, private, client-side developer tools for JSON, Regex, SQL, YAML, XML, Markdown, URLs, encoding and more."
@@ -1628,6 +1642,213 @@
       color: var(--text);
     }
 
+
+    /* =========================
+       PHASE 3 — PLATFORM
+    ========================= */
+
+    .platform-section {
+      padding: 0 0 90px;
+    }
+
+    .platform-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 11px;
+    }
+
+    .platform-card {
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.018);
+    }
+
+    .platform-card h3 {
+      font-family: var(--display);
+      font-size: 18px;
+    }
+
+    .platform-card > p {
+      margin-top: 5px;
+      color: var(--text-3);
+      font-size: 12px;
+    }
+
+    .platform-card + .platform-card {
+      min-height: 100%;
+    }
+
+    .changelog-list {
+      margin-top: 18px;
+      display: grid;
+      gap: 9px;
+    }
+
+    .change-item {
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      gap: 13px;
+      padding: 12px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .change-version {
+      color: var(--cyan);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .change-item strong {
+      font-size: 12px;
+    }
+
+    .change-item p {
+      margin-top: 3px;
+      color: var(--text-3);
+      font-size: 11px;
+    }
+
+    .request-form {
+      margin-top: 17px;
+      display: grid;
+      gap: 9px;
+    }
+
+    .request-form textarea {
+      min-height: 115px;
+    }
+
+    .request-list {
+      margin-top: 15px;
+      display: grid;
+      gap: 7px;
+      max-height: 180px;
+      overflow: auto;
+    }
+
+    .request-item {
+      padding: 10px 11px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(255,255,255,.018);
+    }
+
+    .request-item strong {
+      display: block;
+      font-size: 11px;
+    }
+
+    .request-item span {
+      display: block;
+      margin-top: 2px;
+      color: var(--text-3);
+      font-size: 10px;
+    }
+
+    .github-card {
+      margin-top: 15px;
+      padding: 13px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: rgba(255,255,255,.018);
+    }
+
+    .github-card .github-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .github-card strong {
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .github-card p {
+      margin-top: 4px;
+      color: var(--text-3);
+      font-size: 10px;
+    }
+
+    .github-placeholder {
+      color: var(--yellow);
+      font-family: var(--mono);
+      font-size: 10px;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 61px;
+      left: 14px;
+      right: 14px;
+      z-index: 60;
+      display: none;
+      padding: 9px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(12,17,25,.97);
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+
+    .mobile-menu.active {
+      display: grid;
+      gap: 3px;
+    }
+
+    .mobile-menu a {
+      padding: 10px;
+      border-radius: 8px;
+      color: var(--text-2);
+      font-size: 13px;
+    }
+
+    .mobile-menu a:hover {
+      background: rgba(74,158,232,.08);
+      color: var(--text);
+    }
+
+    .modal-head-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .share-tool-btn {
+      height: 34px;
+      padding: 0 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(255,255,255,.025);
+      color: var(--text-2);
+      cursor: pointer;
+      font-size: 10px;
+    }
+
+    .share-tool-btn:hover {
+      color: var(--text);
+      border-color: var(--border-hover);
+    }
+
+    .url-badge {
+      display: inline-flex;
+      margin-left: 6px;
+      padding: 2px 5px;
+      border: 1px solid rgba(61,204,142,.18);
+      border-radius: 4px;
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 8px;
+    }
+
+    @media (max-width: 800px) {
+      .platform-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* =========================
        RESPONSIVE
     ========================= */
@@ -1786,6 +2007,8 @@
       <div class="nav-links">
         <a href="#tools">Tools</a>
         <a href="#features">Why OpenUtility</a>
+        <a href="#changelog">Changelog</a>
+        <a href="#request">Request a tool</a>
       </div>
 
       <div class="nav-actions">
@@ -1810,6 +2033,14 @@
 
     </div>
   </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#tools">Tools</a>
+    <a href="#features">Why OpenUtility</a>
+    <a href="#changelog">Changelog</a>
+    <a href="#request">Request a tool</a>
+    <a href="#github">GitHub</a>
+  </div>
 
 
   <!-- =========================
@@ -2142,13 +2373,18 @@
 
         </div>
 
-        <button
-          class="modal-close"
-          id="modalClose"
-          aria-label="Close"
-        >
-          ×
-        </button>
+        <div class="modal-head-actions">
+          <button class="share-tool-btn" id="shareToolBtn" type="button">
+            Copy link
+          </button>
+          <button
+            class="modal-close"
+            id="modalClose"
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </div>
 
       </div>
 
@@ -2223,7 +2459,9 @@
       <div class="footer-links">
         <a href="#tools">Tools</a>
         <a href="#features">Features</a>
-        <a href="#">Privacy</a>
+        <a href="#changelog">Changelog</a>
+        <a href="#request">Request a tool</a>
+        <a id="footerGithub" href="#" target="_blank" rel="noopener noreferrer">GitHub</a>
       </div>
 
     </div>
@@ -2466,6 +2704,234 @@
     ];
 
 
+
+    /* ============================================================
+       PHASE 3 CONFIGURATION
+    ============================================================ */
+
+    const OPENUTILITY_CONFIG = {
+      // Replace this with your real repository when you publish it.
+      githubRepo: "https://github.com/yourusername/openutility"
+    };
+
+    const TOOL_URL_PARAM = "tool";
+
+    const toolSeo = {
+      "json-formatter": "Format and pretty-print JSON locally in your browser.",
+      "json-minifier": "Minify JSON locally without uploading your data.",
+      "csv-json": "Convert CSV data to JSON locally.",
+      "xml-formatter": "Format XML documents locally in your browser.",
+      "yaml-json": "Convert YAML and JSON locally.",
+      "base64": "Encode and decode Base64 strings locally.",
+      "url-encoder": "Encode and decode URL components locally.",
+      "jwt-decoder": "Decode JWT headers and payloads locally.",
+      "html-entities": "Encode and decode HTML entities locally.",
+      "uuid": "Generate UUID v4 values in your browser.",
+      "password": "Generate random passwords locally.",
+      "sha256": "Create SHA-256 hashes locally in your browser.",
+      "qr": "Generate QR codes from text or URLs.",
+      "color": "Convert HEX, RGB and HSL colors locally.",
+      "timestamp": "Convert Unix timestamps and dates locally.",
+      "url-parser": "Inspect URL components and query parameters locally.",
+      "case": "Convert text between common text cases.",
+      "word-counter": "Count words, characters and lines locally.",
+      "lorem": "Generate placeholder Lorem Ipsum text.",
+      "text-diff": "Compare two text blocks line by line.",
+      "regex": "Test regular expressions locally in your browser.",
+      "sql": "Format common SQL queries locally.",
+      "markdown": "Preview Markdown locally in your browser."
+    };
+
+    function getToolFromUrl() {
+      const params = new URLSearchParams(location.search);
+      const queryTool = params.get(TOOL_URL_PARAM);
+
+      if (queryTool && tools.some(tool => tool.id === queryTool)) {
+        return queryTool;
+      }
+
+      const hash = location.hash.replace(/^#/, "");
+      if (hash.startsWith("tool=")) {
+        const hashTool = decodeURIComponent(hash.slice(5));
+        if (tools.some(tool => tool.id === hashTool)) {
+          return hashTool;
+        }
+      }
+
+      return null;
+    }
+
+    function updateToolUrl(tool, replace = false) {
+      const url = new URL(location.href);
+
+      if (tool) {
+        url.searchParams.set(TOOL_URL_PARAM, tool.id);
+        url.hash = "";
+      } else {
+        url.searchParams.delete(TOOL_URL_PARAM);
+        url.hash = "";
+      }
+
+      const method = replace ? "replaceState" : "pushState";
+      history[method]({ tool: tool?.id || null }, "", url);
+      updateSeo(tool);
+    }
+
+    function updateSeo(tool = null) {
+      const title = tool
+        ? `${tool.name} — OpenUtility`
+        : "OpenUtility — Developer Tools";
+
+      const description = tool
+        ? `${toolSeo[tool.id] || tool.description} Free, client-side and private.`
+        : "Fast, private, client-side developer tools for everyday development.";
+
+      document.title = title;
+
+      const metaDescription =
+        document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute("content", description);
+      }
+
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      const ogDescription = document.querySelector('meta[property="og:description"]');
+      const ogUrl = document.querySelector('meta[property="og:url"]');
+      const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+      const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+      const canonical = document.getElementById("canonicalLink");
+
+      if (ogTitle) ogTitle.content = title;
+      if (ogDescription) ogDescription.content = description;
+      if (twitterTitle) twitterTitle.content = title;
+      if (twitterDescription) twitterDescription.content = description;
+
+      const canonicalUrl = new URL(location.href);
+      if (canonicalUrl.searchParams.has(TOOL_URL_PARAM)) {
+        canonicalUrl.searchParams.set(TOOL_URL_PARAM, tool?.id || "");
+      }
+      const canonicalString = canonicalUrl.toString();
+
+      if (ogUrl) ogUrl.content = canonicalString;
+      if (canonical) canonical.href = canonicalString;
+    }
+
+    function getShareUrl(tool) {
+      const url = new URL(location.href);
+      url.search = "";
+      url.hash = "";
+      url.searchParams.set(TOOL_URL_PARAM, tool.id);
+      return url.toString();
+    }
+
+    async function copyToolLink() {
+      if (!currentTool) return;
+
+      const url = getShareUrl(currentTool);
+
+      try {
+        await navigator.clipboard.writeText(url);
+        showToast("Tool link copied");
+      } catch {
+        window.prompt("Copy this tool link:", url);
+      }
+    }
+
+    function setupGithubIntegration() {
+      const repo = OPENUTILITY_CONFIG.githubRepo;
+      const link = document.getElementById("githubLink");
+      const footer = document.getElementById("footerGithub");
+      const status = document.getElementById("githubStatus");
+      const label = document.getElementById("githubRepoLabel");
+
+      if (!link || !footer) return;
+
+      const configured =
+        repo &&
+        !repo.includes("yourusername/openutility");
+
+      if (configured) {
+        link.href = repo;
+        footer.href = repo;
+        label.textContent = repo.replace(/^https?:\/\//, "");
+        status.textContent = "Repository link configured.";
+      } else {
+        link.href = "https://github.com/";
+        footer.href = "https://github.com/";
+        status.textContent = "Set OPENUTILITY_CONFIG.githubRepo to your repository URL.";
+      }
+    }
+
+    function loadRequests() {
+      try {
+        const value = JSON.parse(
+          localStorage.getItem("openutility-tool-requests") || "[]"
+        );
+        return Array.isArray(value) ? value : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveRequests(requests) {
+      try {
+        localStorage.setItem(
+          "openutility-tool-requests",
+          JSON.stringify(requests)
+        );
+      } catch {}
+    }
+
+    function renderRequests() {
+      const list = document.getElementById("requestList");
+      if (!list) return;
+
+      const requests = loadRequests();
+
+      if (!requests.length) {
+        list.innerHTML = `
+          <div class="request-item">
+            <span>No local requests yet.</span>
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = requests.slice(0, 8).map(item => `
+        <div class="request-item">
+          <strong>${escapeHtml(item.title)}</strong>
+          <span>${escapeHtml(item.description || "No description")}</span>
+        </div>
+      `).join("");
+    }
+
+    function setupRequestForm() {
+      const form = document.getElementById("requestForm");
+      if (!form) return;
+
+      form.addEventListener("submit", event => {
+        event.preventDefault();
+
+        const title = document.getElementById("requestTitle").value.trim();
+        const description = document.getElementById("requestDescription").value.trim();
+
+        if (!title) return;
+
+        const requests = loadRequests();
+        requests.unshift({
+          title,
+          description,
+          createdAt: new Date().toISOString()
+        });
+
+        saveRequests(requests.slice(0, 20));
+        form.reset();
+        renderRequests();
+        showToast("Tool request saved locally");
+      });
+    }
+
+
     /* ============================================================
        STATE
     ============================================================ */
@@ -2638,9 +3104,20 @@
       `${tools.length}+`;
 
 
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[char]));
+    }
+
     /* ============================================================
        TOAST
     ============================================================ */
+
 
     function showToast(
       message,
@@ -3084,7 +3561,7 @@
        MODAL
     ============================================================ */
 
-    function openTool(id) {
+    function openTool(id, fromUrl = false) {
 
       const tool =
         tools.find(
@@ -3096,6 +3573,12 @@
       }
 
       currentTool = tool;
+
+      if (!fromUrl) {
+        updateToolUrl(tool);
+      } else {
+        updateSeo(tool);
+      }
 
       addRecent(id);
 
@@ -3138,9 +3621,15 @@
     }
 
 
-    function closeTool() {
+    function closeTool(fromUrl = false) {
 
-      toolModal.classList.remove(
+      
+      if (!fromUrl) {
+        updateToolUrl(null, true);
+      } else {
+        updateSeo(null);
+      }
+toolModal.classList.remove(
         "active"
       );
 
@@ -7229,6 +7718,18 @@ ${groups}`
     }
 
 
+
+    const shareToolBtn =
+      document.getElementById("shareToolBtn");
+
+    if (shareToolBtn) {
+      shareToolBtn.addEventListener(
+        "click",
+        copyToolLink
+      );
+    }
+
+
     /* ============================================================
        COMMAND PALETTE
     ============================================================ */
@@ -7581,6 +8082,54 @@ ${groups}`
 
       }
     );
+
+
+
+    /* ============================================================
+       URL ROUTING / PLATFORM INITIALIZATION
+    ============================================================ */
+
+    window.addEventListener("popstate", () => {
+      const id = getToolFromUrl();
+      if (id) {
+        openTool(id, true);
+      } else if (toolModal.classList.contains("active")) {
+        closeTool(true);
+      }
+    });
+
+    window.addEventListener("hashchange", () => {
+      const id = getToolFromUrl();
+      if (id && !currentTool) {
+        openTool(id, true);
+      }
+    });
+
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("active");
+      });
+
+      mobileMenu.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.remove("active");
+        });
+      });
+    }
+
+    setupGithubIntegration();
+    setupRequestForm();
+    renderRequests();
+    updateSeo(null);
+
+    const initialTool = getToolFromUrl();
+
+    if (initialTool) {
+      setTimeout(() => openTool(initialTool, true), 0);
+    }
 
 
     /* ============================================================
