@@ -457,11 +457,6 @@
       font-size: 18px;
       font-weight: 700;
     }
-    .dash-stat-change {
-      font-size: 10px;
-      font-family: 'JetBrains Mono', monospace;
-      margin-top: 2px;
-    }
     .chart-wrap {
       background: rgba(9, 11, 16, 0.6);
       border: 1px solid var(--border);
@@ -528,54 +523,67 @@
       font-weight: 600;
     }
 
-    /* TOOLS DIRECTORY SECTION */
+    /* TOOLS DIRECTORY SECTION (CATEGORIZED & SEARCHABLE) */
     .tools-section {
       max-width: var(--max-w);
       margin: 0 auto;
       padding: 60px 24px 100px 24px;
     }
-    .features-header {
-      text-align: center;
-      max-width: 640px;
-      margin: 0 auto 60px auto;
+    .tools-header-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 48px;
     }
-    .section-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: var(--sky);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 12px;
-      display: block;
-    }
-    .section-title {
-      font-family: 'Outfit', sans-serif;
-      font-size: 32px;
-      font-weight: 800;
-      margin-bottom: 16px;
-      letter-spacing: -0.02em;
-    }
-    .section-sub {
-      color: var(--text2);
+    .tools-search-box {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 14px 20px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
       font-size: 15px;
-      line-height: 1.6;
+      outline: none;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.2s;
+    }
+    .tools-search-box:focus {
+      border-color: var(--sky);
+    }
+
+    .category-section {
+      margin-bottom: 48px;
+    }
+    .category-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
     }
     .tools-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 24px;
+      gap: 20px;
     }
     .tool-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 32px;
+      padding: 28px;
       text-decoration: none;
       color: inherit;
-      display: block;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       transition: all 0.3s ease;
       backdrop-filter: blur(16px);
-      position: relative;
     }
     .tool-card:hover {
       border-color: var(--sky);
@@ -583,43 +591,44 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px var(--glow);
     }
     .tool-icon {
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       background: rgba(74, 158, 232, 0.1);
       border: 1px solid rgba(74, 158, 232, 0.2);
-      border-radius: 12px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--sky);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .tool-icon svg {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       stroke: currentColor;
       fill: none;
       stroke-width: 2;
     }
     .tool-card h3 {
       font-family: 'Outfit', sans-serif;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
     .tool-card p {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text2);
-      line-height: 1.6;
+      line-height: 1.5;
       margin-bottom: 20px;
     }
-    .tool-link-text {
+    .tool-tag {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
+      font-size: 11px;
       color: var(--sky2);
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      background: rgba(56, 189, 248, 0.1);
+      padding: 4px 8px;
+      border-radius: 6px;
+      width: fit-content;
     }
 
     /* AUTH MODAL */
@@ -645,28 +654,80 @@
       border: 1px solid var(--border2);
       border-radius: 16px;
       width: 100%;
-      max-width: 440px;
+      max-width: 420px;
+      padding: 32px;
       overflow: hidden;
       box-shadow: 0 40px 80px rgba(0,0,0,0.8);
       transform: scale(0.95);
       transition: transform 0.25s ease;
+      position: relative;
     }
     .cmd-palette-overlay.open .cmd-palette-box {
       transform: scale(1);
+    }
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--text3);
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .modal-close:hover {
+      color: var(--text);
+    }
+    .modal-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .modal-sub {
+      font-size: 13px;
+      color: var(--text2);
+      margin-bottom: 24px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text2);
+      margin-bottom: 6px;
     }
     .cmd-input {
       width: 100%;
       background: var(--bg);
       border: 1px solid var(--border2);
       color: var(--text);
-      padding: 10px 14px;
+      padding: 12px 14px;
       border-radius: 8px;
-      font-size: 13px;
+      font-size: 14px;
       outline: none;
       transition: border-color 0.2s;
     }
     .cmd-input:focus {
       border-color: var(--sky);
+    }
+    .modal-submit {
+      width: 100%;
+      margin-top: 8px;
+      padding: 12px;
+      font-size: 15px;
+    }
+
+    footer {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text3);
+      font-size: 13px;
     }
 
     /* RESPONSIVE MEDIA QUERIES */
@@ -712,7 +773,7 @@
       OpenUtility
     </a>
     <div class="nav-links">
-      <a href="#tools">Tools</a>
+      <a href="#tools">Tools Directory</a>
       <a href="https://github.com" target="_blank">GitHub</a>
     </div>
     <div class="nav-cta">
@@ -729,7 +790,7 @@
   <!-- MOBILE MENU OVERLAY -->
   <div class="mobile-menu" id="mobileMenu">
     <button class="mobile-close-btn" onclick="toggleMobileMenu()">✕</button>
-    <a href="#tools" onclick="toggleMobileMenu()">Tools</a>
+    <a href="#tools" onclick="toggleMobileMenu()">Tools Directory</a>
     <a href="https://github.com" target="_blank" onclick="toggleMobileMenu()">GitHub</a>
     <div class="m-btns" style="margin-top: 20px; display: flex; flex-direction: column; gap: 12px;">
       <button class="btn-ghost" style="width:100%; padding:12px; text-align:center;" onclick="toggleMobileMenu(); openAuthModal('signin')">Sign In</button>
@@ -747,73 +808,71 @@
       <h1>Modern Developer & <span>Web Tools</span> Platform</h1>
       <p class="hero-sub">Streamline your production workflows with high-performance network diagnostic utilities, instant JSON formatters, secure JWT decoders, and scalable server nodes.</p>
       <div class="hero-btns">
-        <button class="btn-hero" onclick="openAuthModal('signup')">
-          Get Started Free
+        <a href="#tools" class="btn-hero">
+          Explore Tools
           <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-        </button>
-        <a href="#tools" class="btn-outline">Explore Utilities</a>
+        </a>
+        <a href="https://github.com" target="_blank" class="btn-outline">View Repository</a>
       </div>
       <div class="hero-trust">
         <div class="hero-avatars">
-          <span>OU</span>
-          <span>DEV</span>
-          <span>SYS</span>
+          <span>TC</span>
+          <span>OX</span>
+          <span>JH</span>
         </div>
         <div class="hero-trust-text">
-          Trusted by <strong>12,400+</strong> developers & DevOps engineers
+          Trusted by <strong>10,000+</strong> developers & systems engineers worldwide.
         </div>
       </div>
     </div>
-    
+
+    <!-- HERO VISUAL MOCKUP CARD -->
     <div class="hero-visual">
       <div class="dash-card">
         <div class="dash-topbar">
           <div class="dash-dots">
-            <span style="background:var(--red)"></span>
-            <span style="background:#F59E0B"></span>
-            <span style="background:var(--green)"></span>
+            <span style="background: var(--red);"></span>
+            <span style="background: #F59E0B;"></span>
+            <span style="background: var(--green);"></span>
           </div>
-          <div class="dash-title-bar">openutility-node-cluster-01.sys</div>
+          <div class="dash-title-bar">terminal@openutility: ~</div>
         </div>
         <div class="dash-body">
           <div class="dash-stats">
             <div class="dash-stat">
               <div class="dash-stat-label">Throughput</div>
-              <div class="dash-stat-val">98.4 Gb/s</div>
-              <div class="dash-stat-change ticker-up">+14.2%</div>
+              <div class="dash-stat-val" style="color: var(--sky2);">942 Mbps</div>
             </div>
             <div class="dash-stat">
-              <div class="dash-stat-label">Avg Response</div>
-              <div class="dash-stat-val">1.2 ms</div>
-              <div class="dash-stat-change ticker-up">-0.4ms</div>
+              <div class="dash-stat-label">Token Status</div>
+              <div class="dash-stat-val" style="color: var(--green);">Verified</div>
             </div>
             <div class="dash-stat">
-              <div class="dash-stat-label">Active Daemons</div>
-              <div class="dash-stat-val">512</div>
-              <div class="dash-stat-change ticker-up">Stable</div>
+              <div class="dash-stat-label">Sandboxed</div>
+              <div class="dash-stat-val" style="color: var(--purple);">100%</div>
             </div>
           </div>
           <div class="chart-wrap">
             <div class="chart-head">
-              <span class="chart-head-title">Real-time Node Telemetry</span>
-              <span class="chart-badge">Live Feed</span>
+              <div class="chart-head-title">Real-Time Client Diagnostics</div>
+              <div class="chart-badge">Active Sandbox</div>
             </div>
             <div class="tx-list">
               <div class="tx-item">
-                <div class="tx-icon" style="background:rgba(74,158,232,.15);color:var(--sky)">GET</div>
+                <div class="tx-icon" style="background: rgba(74, 158, 232, 0.15); color: var(--sky2);">⚡</div>
                 <div class="tx-info">
-                  <div class="tx-name">/api/v1/network/speedtest</div>
-                  <div class="tx-date">Frankfurt Node • 200 OK</div>
+                  <div class="tx-name">Cloudflare Speed Probe</div>
+                  <div class="tx-date">Latency: 14ms • CDN Edge Node</div>
                 </div>
-                <div class="tx-amount ticker-up">14ms</div>
+                <div class="tx-amount" style="color: var(--green);">OK</div>
               </div>
               <div class="tx-item">
-                <div class="tx-icon" style="background:rgba(61,204,142,.15);color:var(--green)">JWT</div>
+                <div class="tx-icon" style="background: rgba(139, 92, 246, 0.15); color: var(--purple);">🔑</div>
                 <div class="tx-info">
-                  <div class="tx-name">Token Payload Decoded & Verified</div>
-                  <div class="tx-date">Local Browser Sandbox</div>
+                  <div class="tx-name">JWT Signature Check</div>
+                  <div class="tx-date">HS256 • Verified Local Payload</div>
                 </div>
-                <div class="tx-amount ticker-up">Secure</div>
+                <div class="tx-amount" style="color: var(--green);">SECURE</div>
               </div>
             </div>
           </div>
@@ -822,119 +881,88 @@
     </div>
   </section>
 
-  <!-- TOOLS DIRECTORY SECTION -->
+  <!-- TOOLS DIRECTORY SECTION WITH CATEGORIES & SEARCH -->
   <section class="tools-section" id="tools">
-    <div class="features-header">
-      <span class="section-tag">Interactive Suite</span>
-      <h2 class="section-title">Explore Core Developer Tools</h2>
-      <p class="section-sub">Select any tool module below to launch its dedicated standalone interactive workspace.</p>
+    <div class="tools-header-bar">
+      <div>
+        <span class="section-tag">Directory</span>
+        <h2 class="section-title">Developer Tool Suite</h2>
+        <p class="section-sub">Instantly filter and launch utilities organized by production category.</p>
+      </div>
+      <input type="text" id="toolSearch" class="tools-search-box" placeholder="Search utilities (e.g. speed test, JSON, JWT)..." onkeyup="filterTools()">
     </div>
 
-    <div class="tools-grid">
-      <!-- Tool 1: Speed Test -->
-      <a href="tools/speedtest.html" class="tool-card">
-        <div class="tool-icon">
-          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-        </div>
-        <h3>Speed & Diagnostic Tester</h3>
-        <p>Measure real-time bandwidth performance, packet jitter, and server roundtrip times across multiple global edge regions.</p>
-        <span class="tool-link-text">Launch Tool →</span>
-      </a>
+    <!-- CATEGORY 1: Network & Diagnostics -->
+    <div class="category-section" data-category-group="network">
+      <div class="category-title">🌐 Network & Diagnostics</div>
+      <div class="tools-grid">
+        <a href="tools/speedtest.html" class="tool-card" data-keywords="speed test network ping bandwidth download upload diagnostics">
+          <div>
+            <div class="tool-icon">
+              <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            </div>
+            <h3>Network Speed Test</h3>
+            <p>Diagnose download throughput, upload bandwidth, and ping latency in real time with an animated gauge.</p>
+          </div>
+          <div class="tool-tag">Diagnostics</div>
+        </a>
+      </div>
+    </div>
 
-      <!-- Tool 2: JSON Formatter -->
-      <a href="tools/json-formatter.html" class="tool-card">
-        <div class="tool-icon">
-          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-        </div>
-        <h3>JSON Formatter & Validator</h3>
-        <p>Quickly parse, validate syntax errors, minify, and prettify intricate JSON payloads with instant error highlighting.</p>
-        <span class="tool-link-text">Launch Tool →</span>
-      </a>
+    <!-- CATEGORY 2: Data & Parsers -->
+    <div class="category-section" data-category-group="parser">
+      <div class="category-title">📦 Data & Parsers</div>
+      <div class="tools-grid">
+        <a href="tools/json-formatter.html" class="tool-card" data-keywords="json formatter validator parser prettify minify">
+          <div>
+            <div class="tool-icon">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <h3>JSON Formatter & Validator</h3>
+            <p>Parse, syntax check, prettify, and minify complex JSON objects directly in your browser.</p>
+          </div>
+          <div class="tool-tag">Data Parser</div>
+        </a>
+      </div>
+    </div>
 
-      <!-- Tool 3: JWT Decoder -->
-      <a href="tools/jwt-decoder.html" class="tool-card">
-        <div class="tool-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-        </div>
-        <h3>JWT Decoder & Inspector</h3>
-        <p>Instantly decode and inspect JSON Web Token headers, cryptographic payloads, and expiration claims securely offline.</p>
-        <span class="tool-link-text">Launch Tool →</span>
-      </a>
+    <!-- CATEGORY 3: Security & Auth -->
+    <div class="category-section" data-category-group="security">
+      <div class="category-title">🔐 Security & Auth</div>
+      <div class="tools-grid">
+        <a href="tools/jwt-decoder.html" class="tool-card" data-keywords="jwt decoder inspector security token auth claims">
+          <div>
+            <div class="tool-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
+            <h3>JWT Decoder & Inspector</h3>
+            <p>Inspect JSON Web Token headers and payload claims securely without transmitting data to any server.</p>
+          </div>
+          <div class="tool-tag">Security</div>
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- AUTH MODAL (SUPABASE INTEGRATED) -->
-  <div class="cmd-palette-overlay" id="authModal" onclick="closeAuthModalOnOutside(event)">
-    <div class="cmd-palette-box" onclick="event.stopPropagation()">
-      <div style="display:flex; justify-content:space-between; align-items:center; padding:16px 20px; border-bottom:1px solid var(--border);">
-        <h3 id="authModalTitle" style="font-family:'Outfit',sans-serif; font-size:18px; font-weight:700;">Sign In to OpenUtility</h3>
-        <button onclick="closeAuthModal()" style="background:none; border:none; color:var(--text2); font-size:18px; cursor:pointer;">✕</button>
-      </div>
-
-      <div style="padding:20px;">
-        <form id="authForm" onsubmit="handleAuthSubmit(event)" style="display:flex; flex-direction:column; gap:14px;">
-          <div>
-            <label style="font-size:11px; color:var(--text3); display:block; margin-bottom:6px; text-transform:uppercase;">Email Address</label>
-            <input type="email" id="authEmail" required class="cmd-input" placeholder="name@example.com">
-          </div>
-          <div>
-            <label style="font-size:11px; color:var(--text3); display:block; margin-bottom:6px; text-transform:uppercase;">Password</label>
-            <input type="password" id="authPassword" required class="cmd-input" placeholder="••••••••">
-          </div>
-          <button type="submit" class="btn-primary" id="authSubmitBtn" style="width:100%; padding:12px; margin-top:4px; text-align:center; display:block;">Sign In</button>
-        </form>
-
-        <div style="display:flex; flex-direction:column; gap:10px; margin-top:16px;">
-          <div style="display:flex; align-items:center; text-align:center; color:var(--text3); font-size:10px; margin:4px 0; text-transform:uppercase; letter-spacing:.08em;">
-            <span style="flex:1; border-bottom:1px solid var(--border);"></span>
-            <span style="padding:0 10px;">Or Continue With</span>
-            <span style="flex:1; border-bottom:1px solid var(--border);"></span>
-          </div>
-
-          <button type="button" onclick="signInWithProvider('github')" class="btn-ghost" style="width:100%; display:flex; align-items:center; justify-content:center; gap:10px; padding:10px; cursor:pointer;">
-            <svg style="width:16px; height:16px; fill:currentColor;" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02_0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-            Continue with GitHub
-          </button>
-
-          <button type="button" onclick="signInWithProvider('google')" class="btn-ghost" style="width:100%; display:flex; align-items:center; justify-content:center; gap:10px; padding:10px; cursor:pointer;">
-            <svg style="width:16px; height:16px;" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.19v3.15C3.17 21.32 7.23 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.19C.43 8.12 0 9.87 0 11.7s.43 3.58 1.19 5.12l4.09-2.55z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.23 0 3.17 2.68 1.19 6.58l4.09 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
-            Continue with Google
-          </button>
-        </div>
-
-        <div style="text-align:center; margin-top:16px;">
-          <p id="authToggleText" style="font-size:12px; color:var(--text2);">
-            Don't have an account? <a href="#" onclick="toggleAuthModeModal(event)" style="color:var(--sky); text-decoration:none; font-weight:600;">Sign up</a>
-          </p>
-        </div>
+  <!-- AUTH MODAL -->
+  <div class="cmd-palette-overlay" id="authModal" onclick="maybeCloseAuthModal(event)">
+    <div class="cmd-palette-box">
+      <button class="modal-close" onclick="closeAuthModal()">✕</button>
+      <div id="modalContent">
+        <!-- Dynamically injected via JS -->
       </div>
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer style="border-top:1px solid var(--border); padding:40px max(24px, calc((100vw - var(--max-w)) / 2)); background:var(--bg2); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
-    <div style="font-size:14px; color:var(--text3);">
-      &copy; 2026 OpenUtility. Open-source developer toolkit under MIT License.
-    </div>
-    <div style="display:flex; gap:20px; font-size:13px; color:var(--text2);">
-      <a href="https://github.com" target="_blank" style="color:inherit; text-decoration:none;">GitHub Repository</a>
-      <a href="#tools" style="color:inherit; text-decoration:none;">Web Utilities</a>
-    </div>
+  <footer>
+    OpenUtility Open-Source Project • Built 100% Client-Side for Developers
   </footer>
 
-  <!-- JAVASCRIPT LOGIC -->
   <script>
-    // Initialize Supabase Client
-    const SUPABASE_URL = 'https://trfwvxxlxomyolmrjqkb.supabase.co';
-    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    let isSignUpModal = false;
-
     // Navbar scroll effect
     window.addEventListener('scroll', () => {
       const nav = document.getElementById('navbar');
-      if (window.scrollY > 20) {
+      if (window.scrollY > 30) {
         nav.classList.add('scrolled');
       } else {
         nav.classList.remove('scrolled');
@@ -946,96 +974,85 @@
       const menu = document.getElementById('mobileMenu');
       if (menu.style.display === 'flex') {
         menu.classList.remove('open');
-        setTimeout(() => { menu.style.display = 'none'; }, 300);
+        setTimeout(() => menu.style.display = 'none', 300);
       } else {
         menu.style.display = 'flex';
-        setTimeout(() => { menu.classList.add('open'); }, 10);
+        setTimeout(() => menu.classList.add('open'), 10);
       }
     }
 
-    // Auth Modal Controllers
-    window.addEventListener('DOMContentLoaded', async () => {
-      const { data: { session } } = await supabaseClient.auth.getSession();
-      if (session) {
-        updateNavForAuthenticatedUser(session.user);
-      }
-    });
+    // Real-Time Tool Search Filter
+    function filterTools() {
+      const query = document.getElementById('toolSearch').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.tool-card');
+      const groups = document.querySelectorAll('.category-section');
 
+      cards.forEach(card => {
+        const title = card.querySelector('h3').innerText.toLowerCase();
+        const desc = card.querySelector('p').innerText.toLowerCase();
+        const keywords = card.getAttribute('data-keywords') || '';
+        
+        const match = title.includes(query) || desc.includes(query) || keywords.includes(query);
+        card.style.display = match ? 'flex' : 'none';
+      });
+
+      // Hide category sections if all their child cards are hidden
+      groups.forEach(group => {
+        const visibleCards = group.querySelectorAll('.tool-card[style*="display: flex"], .tool-card:not([style*="display: none"])');
+        group.style.display = visibleCards.length > 0 ? 'block' : 'none';
+      });
+    }
+
+    // Auth Modal Controller
     function openAuthModal(mode) {
-      isSignUpModal = (mode === 'signup');
-      updateAuthModalUI();
-      document.getElementById('authModal').classList.add('open');
+      const overlay = document.getElementById('authModal');
+      const content = document.getElementById('modalContent');
+      
+      if (mode === 'signin') {
+        content.innerHTML = `
+          <div class="modal-title">Welcome Back</div>
+          <div class="modal-sub">Sign in to sync your preferred utility configurations.</div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="cmd-input" placeholder="developer@example.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" class="cmd-input" placeholder="••••••••••••">
+          </div>
+          <button class="btn-primary modal-submit" onclick="alert('Demo Mode: Successfully signed in!')">Sign In</button>
+        `;
+      } else {
+        content.innerHTML = `
+          <div class="modal-title">Create Account</div>
+          <div class="modal-sub">Get started with OpenUtility developer infrastructure.</div>
+          <div class="form-group">
+            <label class="form-label">Full Name or Alias</label>
+            <input type="text" class="cmd-input" placeholder="e.g. fadest">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="cmd-input" placeholder="developer@example.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" class="cmd-input" placeholder="••••••••••••">
+          </div>
+          <button class="btn-primary modal-submit" onclick="alert('Demo Mode: Account created successfully!')">Create Account</button>
+        `;
+      }
+
+      overlay.classList.add('open');
     }
 
     function closeAuthModal() {
       document.getElementById('authModal').classList.remove('open');
     }
 
-    function closeAuthModalOnOutside(event) {
+    function maybeCloseAuthModal(event) {
       if (event.target.id === 'authModal') {
         closeAuthModal();
       }
-    }
-
-    function toggleAuthModeModal(event) {
-      event.preventDefault();
-      isSignUpModal = !isSignUpModal;
-      updateAuthModalUI();
-    }
-
-    function updateAuthModalUI() {
-      document.getElementById('authModalTitle').innerText = isSignUpModal ? 'Create an Account' : 'Sign In to OpenUtility';
-      document.getElementById('authSubmitBtn').innerText = isSignUpModal ? 'Sign Up' : 'Sign In';
-      document.getElementById('authToggleText').innerHTML = isSignUpModal
-        ? 'Already have an account? <a href="#" onclick="toggleAuthModeModal(event)" style="color:var(--sky); text-decoration:none; font-weight:600;">Sign in</a>'
-        : "Don't have an account? <a href='#' onclick='toggleAuthModeModal(event)' style='color:var(--sky); text-decoration:none; font-weight:600;'>Sign up</a>";
-    }
-
-    async function handleAuthSubmit(event) {
-      event.preventDefault();
-      const email = document.getElementById('authEmail').value;
-      const password = document.getElementById('authPassword').value;
-
-      if (isSignUpModal) {
-        const { data, error } = await supabaseClient.auth.signUp({ email, password });
-        if (error) alert('Error: ' + error.message);
-        else {
-          alert('Signup successful! Check your email for confirmation.');
-          closeAuthModal();
-        }
-      } else {
-        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-        if (error) alert('Error: ' + error.message);
-        else {
-          alert('Successfully signed in!');
-          closeAuthModal();
-          location.reload();
-        }
-      }
-    }
-
-    async function signInWithProvider(provider) {
-      const { data, error } = await supabaseClient.auth.signInWithOAuth({
-        provider: provider,
-        options: { redirectTo: window.location.origin }
-      });
-      if (error) alert('Error logging in with ' + provider + ': ' + error.message);
-    }
-
-    async function signOutUser() {
-      await supabaseClient.auth.signOut();
-      location.reload();
-    }
-
-    function updateNavForAuthenticatedUser(user) {
-      const navCta = document.querySelector('.nav-cta');
-      const identifier = user.email || user.user_metadata?.user_name || 'Account';
-      navCta.innerHTML = `
-        <div style="display:flex; align-items:center; gap:10px;">
-          <span style="font-size:12px; color:var(--text2); font-family:monospace;">${identifier}</span>
-          <button class="btn-ghost" onclick="signOutUser()" style="padding:6px 12px; font-size:13px;">Sign Out</button>
-        </div>
-      `;
     }
   </script>
 </body>
