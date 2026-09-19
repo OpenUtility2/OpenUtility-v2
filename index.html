@@ -644,95 +644,6 @@
       width: fit-content;
     }
 
-    /* AUTH MODAL */
-    .cmd-palette-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      z-index: 2000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-    }
-    .cmd-palette-overlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .cmd-palette-box {
-      background: var(--bg2);
-      border: 1px solid var(--border2);
-      border-radius: 16px;
-      width: 100%;
-      max-width: 420px;
-      padding: 32px;
-      overflow: hidden;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.8);
-      transform: scale(0.95);
-      transition: transform 0.25s ease;
-      position: relative;
-    }
-    .cmd-palette-overlay.open .cmd-palette-box {
-      transform: scale(1);
-    }
-    .modal-close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: none;
-      border: none;
-      color: var(--text3);
-      font-size: 20px;
-      cursor: pointer;
-    }
-    .modal-close:hover {
-      color: var(--text);
-    }
-    .modal-title {
-      font-family: 'Outfit', sans-serif;
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .modal-sub {
-      font-size: 13px;
-      color: var(--text2);
-      margin-bottom: 24px;
-    }
-    .form-group {
-      margin-bottom: 16px;
-    }
-    .form-label {
-      display: block;
-      font-size: 12px;
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--text2);
-      margin-bottom: 6px;
-    }
-    .cmd-input {
-      width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--border2);
-      color: var(--text);
-      padding: 12px 14px;
-      border-radius: 8px;
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .cmd-input:focus {
-      border-color: var(--sky);
-    }
-    .modal-submit {
-      width: 100%;
-      margin-top: 8px;
-      padding: 12px;
-      font-size: 15px;
-    }
-
     footer {
       max-width: var(--max-w);
       margin: 0 auto;
@@ -791,7 +702,6 @@
       <a href="#api">API Status</a>
     </div>
     <div class="nav-cta">
-      <button class="btn-ghost" id="openAuthModal">Sign In</button>
       <a href="#tools" class="btn-primary">Launch App</a>
     </div>
     <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
@@ -808,7 +718,6 @@
     <a href="#diagnostics" class="mobile-link">Diagnostics</a>
     <a href="#docs" class="mobile-link">Documentation</a>
     <a href="#api" class="mobile-link">API Status</a>
-    <button class="btn-primary" id="mobileAuthBtn" style="margin-top: 20px; width: 100%;">Sign In / Register</button>
   </div>
 
   <!-- HERO SECTION -->
@@ -978,25 +887,6 @@
     </div>
   </section>
 
-  <!-- AUTH MODAL -->
-  <div class="cmd-palette-overlay" id="authModal">
-    <div class="cmd-palette-box">
-      <button class="modal-close" id="closeAuthModal">&times;</button>
-      <div class="modal-title">Welcome to OpenUtility</div>
-      <div class="modal-sub">Authenticate securely to sync your workspace preferences.</div>
-      
-      <div class="form-group">
-        <label class="form-label">Email Address</label>
-        <input type="email" class="cmd-input" id="authEmail" placeholder="developer@domain.com">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Password / Access Key</label>
-        <input type="password" class="cmd-input" id="authPass" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
-      </div>
-      <button class="btn-primary modal-submit" id="authSubmitBtn">Continue with Email</button>
-    </div>
-  </div>
-
   <!-- FOOTER -->
   <footer>
     <p>&copy; 2026 OpenUtility &bull; Open-source developer tools platform. All rights reserved.</p>
@@ -1033,22 +923,11 @@
       });
     });
 
-    // Auth Modal toggle
-    const authModal = document.getElementById('authModal');
-    const openAuthModal = document.getElementById('openAuthModal');
-    const closeAuthModal = document.getElementById('closeAuthModal');
-    const mobileAuthBtn = document.getElementById('mobileAuthBtn');
-
-    openAuthModal.addEventListener('click', () => authModal.classList.add('open'));
-    if(mobileAuthBtn) {
-      mobileAuthBtn.addEventListener('click', () => {
-        mobileMenu.classList.remove('open');
-        authModal.classList.add('open');
+    // Prevent tool cards from navigating away
+    document.querySelectorAll('.tool-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        e.preventDefault();
       });
-    }
-    closeAuthModal.addEventListener('click', () => authModal.classList.remove('open'));
-    authModal.addEventListener('click', (e) => {
-      if (e.target === authModal) authModal.classList.remove('open');
     });
 
     // Real-time tool directory search filter
