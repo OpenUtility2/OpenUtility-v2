@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>OpenUtility — Developer Tools</title>
+
   <meta
     name="description"
-    content="Fast, private, client-side developer utilities for JSON, encoding, hashing, timestamps, text and more."
-  />
+    content="Fast, private, client-side developer tools for JSON, Regex, SQL, YAML, XML, Markdown, URLs, encoding and more."
+  >
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +17,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap"
     rel="stylesheet"
-  />
+  >
 
   <style>
     :root {
@@ -24,8 +25,7 @@
       --bg-2: #0c1017;
       --bg-3: #111722;
 
-      --card: rgba(17, 23, 34, .72);
-      --card-solid: #111722;
+      --card: rgba(17,23,34,.72);
       --border: rgba(255,255,255,.08);
       --border-hover: rgba(74,158,232,.35);
 
@@ -42,9 +42,6 @@
 
       --radius: 14px;
       --radius-sm: 9px;
-
-      --shadow:
-        0 20px 60px rgba(0,0,0,.35);
 
       --mono: "JetBrains Mono", monospace;
       --sans: "Inter", sans-serif;
@@ -63,6 +60,7 @@
 
     body {
       min-height: 100vh;
+
       background:
         radial-gradient(
           circle at 20% 0%,
@@ -123,25 +121,17 @@
       background: #34435a;
     }
 
-    /* =========================
-       GLOBAL
-    ========================= */
-
     .container {
       width: min(1180px, calc(100% - 40px));
       margin-inline: auto;
     }
 
-    .mono {
-      font-family: var(--mono);
-    }
-
-    .muted {
-      color: var(--text-3);
-    }
-
     .hidden {
       display: none !important;
+    }
+
+    .mono {
+      font-family: var(--mono);
     }
 
     /* =========================
@@ -156,10 +146,12 @@
 
     .topbar-inner {
       min-height: 34px;
+
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 9px;
+
       color: var(--text-3);
       font-size: 12px;
     }
@@ -182,12 +174,14 @@
       z-index: 50;
 
       border-bottom: 1px solid var(--border);
+
       background: rgba(7,9,13,.78);
       backdrop-filter: blur(18px);
     }
 
     .nav-inner {
       min-height: 68px;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -198,6 +192,7 @@
       display: flex;
       align-items: center;
       gap: 11px;
+
       font-family: var(--display);
       font-weight: 700;
       font-size: 19px;
@@ -207,14 +202,23 @@
     .brand-mark {
       width: 31px;
       height: 31px;
+
       display: grid;
       place-items: center;
+
       border-radius: 9px;
+
+      background: linear-gradient(
+        135deg,
+        var(--blue),
+        var(--purple)
+      );
+
       color: white;
-      background:
-        linear-gradient(135deg, var(--blue), var(--purple));
+
       box-shadow:
         0 8px 25px rgba(74,158,232,.22);
+
       font-family: var(--mono);
       font-size: 13px;
     }
@@ -223,6 +227,7 @@
       display: flex;
       align-items: center;
       gap: 28px;
+
       color: var(--text-2);
       font-size: 14px;
     }
@@ -242,12 +247,12 @@
     }
 
     .nav-search {
+      height: 38px;
+      padding: 0 11px;
+
       display: flex;
       align-items: center;
       gap: 8px;
-
-      height: 38px;
-      padding: 0 11px;
 
       border: 1px solid var(--border);
       border-radius: 9px;
@@ -270,22 +275,30 @@
 
     .kbd {
       padding: 2px 6px;
+
       border: 1px solid rgba(255,255,255,.1);
       border-radius: 5px;
+
       background: rgba(255,255,255,.04);
+
       color: var(--text-3);
+
       font-family: var(--mono);
       font-size: 10px;
     }
 
     .menu-btn {
       display: none;
+
       width: 38px;
       height: 38px;
+
       border: 1px solid var(--border);
       border-radius: 9px;
+
       background: transparent;
       color: var(--text);
+
       cursor: pointer;
     }
 
@@ -295,7 +308,9 @@
 
     .hero {
       position: relative;
+
       padding: 100px 0 70px;
+
       text-align: center;
       overflow: hidden;
     }
@@ -303,20 +318,29 @@
     .hero-grid {
       position: absolute;
       inset: 0;
+
       pointer-events: none;
       opacity: .35;
 
       background-image:
-        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+        linear-gradient(
+          rgba(255,255,255,.025) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,.025) 1px,
+          transparent 1px
+        );
 
       background-size: 44px 44px;
 
-      mask-image: linear-gradient(
-        to bottom,
-        black,
-        transparent 75%
-      );
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black,
+          transparent 75%
+        );
     }
 
     .hero-content {
@@ -337,19 +361,23 @@
       background: rgba(74,158,232,.06);
 
       color: var(--cyan);
+
       font-family: var(--mono);
       font-size: 11px;
+
       text-transform: uppercase;
       letter-spacing: .08em;
     }
 
     .hero h1 {
       max-width: 850px;
+
       margin: 22px auto 18px;
 
       font-family: var(--display);
       font-size: clamp(42px, 7vw, 78px);
       line-height: .98;
+
       letter-spacing: -.045em;
     }
 
@@ -358,8 +386,8 @@
     }
 
     .hero p {
-      max-width: 640px;
-      margin: 0 auto;
+      max-width: 680px;
+      margin: auto;
 
       color: var(--text-2);
       font-size: 17px;
@@ -372,6 +400,7 @@
       justify-content: center;
       align-items: center;
       gap: 11px;
+
       flex-wrap: wrap;
     }
 
@@ -379,15 +408,17 @@
       min-height: 43px;
       padding: 0 16px;
 
-      border-radius: 9px;
-
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
 
+      border-radius: 9px;
+
       cursor: pointer;
+
       transition: .2s;
+
       font-weight: 600;
       font-size: 13px;
     }
@@ -395,7 +426,9 @@
     .btn-primary {
       background: var(--blue);
       color: #06101b;
-      box-shadow: 0 8px 30px rgba(74,158,232,.2);
+
+      box-shadow:
+        0 8px 30px rgba(74,158,232,.2);
     }
 
     .btn-primary:hover {
@@ -405,6 +438,7 @@
 
     .btn-secondary {
       border: 1px solid var(--border);
+
       background: rgba(255,255,255,.025);
       color: var(--text);
     }
@@ -415,7 +449,7 @@
     }
 
     /* =========================
-       HERO STATS
+       STATS
     ========================= */
 
     .stats {
@@ -439,6 +473,7 @@
 
     .stat strong {
       display: block;
+
       font-family: var(--display);
       font-size: 20px;
     }
@@ -449,7 +484,7 @@
     }
 
     /* =========================
-       TOOLS SECTION
+       TOOLS
     ========================= */
 
     .tools-section {
@@ -461,6 +496,7 @@
       align-items: end;
       justify-content: space-between;
       gap: 25px;
+
       margin-bottom: 28px;
     }
 
@@ -472,18 +508,20 @@
 
     .section-subtitle {
       margin-top: 5px;
+
       color: var(--text-3);
       font-size: 13px;
     }
 
     .tool-count {
       color: var(--text-3);
+
       font-family: var(--mono);
       font-size: 12px;
     }
 
     /* =========================
-       RECENT / FAVORITES
+       QUICK TOOLS
     ========================= */
 
     .quick-section {
@@ -494,6 +532,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       margin-bottom: 12px;
     }
 
@@ -501,7 +540,9 @@
       display: flex;
       align-items: center;
       gap: 8px;
+
       color: var(--text-2);
+
       font-size: 13px;
       font-weight: 600;
     }
@@ -513,19 +554,21 @@
     }
 
     .quick-tool {
+      padding: 8px 11px;
+
       display: inline-flex;
       align-items: center;
       gap: 8px;
-
-      padding: 8px 11px;
 
       border: 1px solid var(--border);
       border-radius: 8px;
 
       background: rgba(255,255,255,.025);
+
       color: var(--text-2);
 
       cursor: pointer;
+
       font-size: 12px;
 
       transition: .2s;
@@ -534,6 +577,7 @@
     .quick-tool:hover {
       border-color: var(--border-hover);
       color: var(--text);
+
       transform: translateY(-1px);
     }
 
@@ -549,6 +593,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+
       margin-bottom: 22px;
     }
 
@@ -569,6 +614,7 @@
       background: rgba(255,255,255,.025);
 
       color: var(--text);
+
       outline: none;
 
       transition: .2s;
@@ -576,15 +622,20 @@
 
     .search-box input:focus {
       border-color: rgba(74,158,232,.5);
-      box-shadow: 0 0 0 3px rgba(74,158,232,.08);
+
+      box-shadow:
+        0 0 0 3px rgba(74,158,232,.08);
     }
 
     .search-icon {
       position: absolute;
       left: 13px;
       top: 50%;
+
       transform: translateY(-50%);
+
       color: var(--text-3);
+
       pointer-events: none;
     }
 
@@ -592,6 +643,7 @@
       position: absolute;
       right: 9px;
       top: 50%;
+
       transform: translateY(-50%);
     }
 
@@ -640,24 +692,27 @@
 
     .category-line {
       height: 1px;
-      flex: 1;
-      margin-left: 15px;
+      width: 80px;
+
+      margin-left: 5px;
+
       background: var(--border);
     }
 
     .category-count {
       color: var(--text-3);
+
       font-family: var(--mono);
       font-size: 10px;
     }
 
     /* =========================
-       TOOL GRID
+       TOOL CARDS
     ========================= */
 
     .tool-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0,1fr));
       gap: 11px;
     }
 
@@ -678,6 +733,7 @@
         );
 
       cursor: pointer;
+
       transition:
         transform .2s,
         border-color .2s,
@@ -687,9 +743,13 @@
 
     .tool-card:hover {
       transform: translateY(-3px);
+
       border-color: var(--border-hover);
+
       background: rgba(255,255,255,.035);
-      box-shadow: var(--shadow);
+
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.35);
     }
 
     .tool-top {
@@ -712,7 +772,7 @@
       color: var(--blue);
 
       font-family: var(--mono);
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 600;
     }
 
@@ -747,6 +807,7 @@
 
     .tool-name {
       margin-top: 14px;
+
       font-family: var(--display);
       font-size: 16px;
       font-weight: 600;
@@ -754,13 +815,16 @@
 
     .tool-description {
       margin-top: 4px;
+
       color: var(--text-3);
+
       font-size: 12px;
       line-height: 1.5;
     }
 
     .tool-meta {
       position: absolute;
+
       left: 18px;
       bottom: 15px;
 
@@ -769,8 +833,10 @@
       gap: 6px;
 
       color: var(--text-3);
+
       font-family: var(--mono);
       font-size: 9px;
+
       text-transform: uppercase;
       letter-spacing: .05em;
     }
@@ -778,7 +844,9 @@
     .local-dot {
       width: 5px;
       height: 5px;
+
       border-radius: 50%;
+
       background: var(--green);
     }
 
@@ -788,20 +856,25 @@
 
     .empty-state {
       padding: 55px 20px;
+
       text-align: center;
+
       border: 1px dashed var(--border);
       border-radius: var(--radius);
+
       color: var(--text-3);
     }
 
     .empty-state strong {
       display: block;
+
       margin-bottom: 4px;
+
       color: var(--text-2);
     }
 
     /* =========================
-       FEATURE STRIP
+       FEATURES
     ========================= */
 
     .features {
@@ -810,7 +883,7 @@
 
     .feature-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3,1fr);
       gap: 11px;
     }
 
@@ -825,7 +898,9 @@
 
     .feature-icon {
       margin-bottom: 13px;
+
       color: var(--cyan);
+
       font-family: var(--mono);
       font-size: 13px;
     }
@@ -837,6 +912,7 @@
 
     .feature p {
       margin-top: 5px;
+
       color: var(--text-3);
       font-size: 12px;
     }
@@ -857,10 +933,12 @@
       padding: 20px;
 
       background: rgba(0,0,0,.72);
+
       backdrop-filter: blur(12px);
 
       opacity: 0;
       visibility: hidden;
+
       transition: .2s;
     }
 
@@ -870,8 +948,8 @@
     }
 
     .modal-panel {
-      width: min(850px, 100%);
-      max-height: min(780px, calc(100vh - 40px));
+      width: min(900px,100%);
+      max-height: min(820px,calc(100vh - 40px));
 
       display: flex;
       flex-direction: column;
@@ -880,16 +958,23 @@
       border-radius: 17px;
 
       background: #0c1119;
-      box-shadow: 0 35px 100px rgba(0,0,0,.65);
+
+      box-shadow:
+        0 35px 100px rgba(0,0,0,.65);
 
       overflow: hidden;
 
-      transform: translateY(12px) scale(.985);
+      transform:
+        translateY(12px)
+        scale(.985);
+
       transition: .2s;
     }
 
     .modal.active .modal-panel {
-      transform: translateY(0) scale(1);
+      transform:
+        translateY(0)
+        scale(1);
     }
 
     .modal-head {
@@ -930,6 +1015,7 @@
       border-radius: 8px;
 
       background: rgba(255,255,255,.025);
+
       color: var(--text-2);
 
       cursor: pointer;
@@ -967,6 +1053,7 @@
 
     .field-label {
       color: var(--text-2);
+
       font-size: 11px;
       font-weight: 600;
     }
@@ -987,6 +1074,7 @@
 
     textarea {
       min-height: 230px;
+
       padding: 13px;
 
       resize: vertical;
@@ -999,7 +1087,9 @@
     .tool-input,
     .tool-select {
       height: 42px;
+
       padding: 0 12px;
+
       font-size: 13px;
     }
 
@@ -1007,7 +1097,9 @@
     .tool-input:focus,
     .tool-select:focus {
       border-color: rgba(74,158,232,.55);
-      box-shadow: 0 0 0 3px rgba(74,158,232,.07);
+
+      box-shadow:
+        0 0 0 3px rgba(74,158,232,.07);
     }
 
     .tool-output-wrap {
@@ -1016,6 +1108,7 @@
 
     .output-actions {
       position: absolute;
+
       top: 8px;
       right: 8px;
 
@@ -1031,9 +1124,11 @@
       border-radius: 7px;
 
       background: rgba(17,23,34,.95);
+
       color: var(--text-2);
 
       cursor: pointer;
+
       font-size: 10px;
     }
 
@@ -1044,6 +1139,7 @@
 
     .tool-output {
       min-height: 230px;
+
       padding: 13px;
 
       border: 1px solid var(--border);
@@ -1059,6 +1155,7 @@
 
       white-space: pre-wrap;
       word-break: break-word;
+
       overflow: auto;
     }
 
@@ -1091,6 +1188,7 @@
       background: rgba(74,158,232,.04);
 
       color: var(--text-3);
+
       font-size: 11px;
     }
 
@@ -1105,6 +1203,7 @@
       border-radius: 8px;
 
       background: rgba(255,92,92,.06);
+
       color: #ff8585;
 
       font-size: 11px;
@@ -1115,7 +1214,167 @@
     }
 
     /* =========================
-       SPECIAL TOOL ELEMENTS
+       CODE / PREVIEW
+    ========================= */
+
+    .code-output {
+      min-height: 300px;
+      max-height: 520px;
+
+      padding: 15px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #080c12;
+
+      overflow: auto;
+
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.7;
+
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .preview-output {
+      min-height: 300px;
+      max-height: 520px;
+
+      padding: 18px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #f5f7fa;
+      color: #151922;
+
+      overflow: auto;
+    }
+
+    .preview-output h1,
+    .preview-output h2,
+    .preview-output h3 {
+      margin: 0 0 12px;
+    }
+
+    .preview-output p {
+      margin-bottom: 12px;
+    }
+
+    .preview-output ul,
+    .preview-output ol {
+      margin: 0 0 12px 22px;
+    }
+
+    .preview-output code {
+      padding: 2px 5px;
+      border-radius: 4px;
+      background: #e5e7eb;
+      font-family: var(--mono);
+    }
+
+    .preview-output blockquote {
+      margin: 12px 0;
+      padding-left: 12px;
+      border-left: 3px solid #cbd5e1;
+      color: #475569;
+    }
+
+    /* =========================
+       QR
+    ========================= */
+
+    .qr-wrap {
+      min-height: 300px;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #f7f7f7;
+    }
+
+    #qrCanvas {
+      max-width: 100%;
+      image-rendering: pixelated;
+    }
+
+    /* =========================
+       DIFF
+    ========================= */
+
+    .diff-output {
+      min-height: 300px;
+
+      padding: 14px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #080c12;
+
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.7;
+
+      overflow: auto;
+      white-space: pre-wrap;
+    }
+
+    .diff-added {
+      display: block;
+      background: rgba(61,204,142,.12);
+      color: #76e0ac;
+    }
+
+    .diff-removed {
+      display: block;
+      background: rgba(255,92,92,.12);
+      color: #ff8585;
+    }
+
+    .diff-same {
+      display: block;
+      color: var(--text-3);
+    }
+
+    /* =========================
+       URL RESULT
+    ========================= */
+
+    .url-table {
+      width: 100%;
+      border-collapse: collapse;
+
+      font-size: 12px;
+    }
+
+    .url-table td {
+      padding: 9px 10px;
+
+      border-bottom: 1px solid var(--border);
+
+      vertical-align: top;
+    }
+
+    .url-table td:first-child {
+      width: 130px;
+      color: var(--text-3);
+      font-family: var(--mono);
+    }
+
+    .url-table td:last-child {
+      color: var(--green);
+      word-break: break-word;
+      font-family: var(--mono);
+    }
+
+    /* =========================
+       RESULT CARDS
     ========================= */
 
     .result-card {
@@ -1129,8 +1388,10 @@
 
     .result-card strong {
       display: block;
+
       font-family: var(--mono);
       font-size: 20px;
+
       word-break: break-word;
     }
 
@@ -1143,7 +1404,7 @@
       grid-column: 1 / -1;
 
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3,1fr);
       gap: 8px;
     }
 
@@ -1164,10 +1425,12 @@
       padding-inline: 20px;
 
       background: rgba(0,0,0,.7);
+
       backdrop-filter: blur(10px);
 
       opacity: 0;
       visibility: hidden;
+
       transition: .15s;
     }
 
@@ -1177,13 +1440,15 @@
     }
 
     .command-panel {
-      width: min(620px, 100%);
+      width: min(620px,100%);
 
       border: 1px solid var(--border);
       border-radius: 14px;
 
       background: #0d131c;
-      box-shadow: 0 30px 90px rgba(0,0,0,.6);
+
+      box-shadow:
+        0 30px 90px rgba(0,0,0,.6);
 
       overflow: hidden;
     }
@@ -1212,7 +1477,9 @@
 
     .command-results {
       max-height: 390px;
+
       overflow: auto;
+
       padding: 7px;
     }
 
@@ -1231,6 +1498,7 @@
       color: var(--text-2);
 
       text-align: left;
+
       cursor: pointer;
     }
 
@@ -1261,11 +1529,15 @@
     }
 
     .command-item-name {
+      display: block;
+
       font-size: 12px;
       font-weight: 600;
     }
 
     .command-item-category {
+      display: block;
+
       color: var(--text-3);
       font-size: 10px;
     }
@@ -1276,8 +1548,10 @@
 
     .toast {
       position: fixed;
+
       right: 20px;
       bottom: 20px;
+
       z-index: 300;
 
       display: flex;
@@ -1290,7 +1564,9 @@
       border-radius: 9px;
 
       background: #111722;
-      box-shadow: 0 15px 40px rgba(0,0,0,.4);
+
+      box-shadow:
+        0 15px 40px rgba(0,0,0,.4);
 
       color: var(--text);
 
@@ -1298,6 +1574,7 @@
 
       transform: translateY(15px);
       opacity: 0;
+
       pointer-events: none;
 
       transition: .2s;
@@ -1311,6 +1588,11 @@
     .toast.success::before {
       content: "✓";
       color: var(--green);
+    }
+
+    .toast.error::before {
+      content: "!";
+      color: var(--red);
     }
 
     /* =========================
@@ -1337,6 +1619,7 @@
     .footer-links {
       display: flex;
       gap: 18px;
+
       color: var(--text-3);
       font-size: 11px;
     }
@@ -1349,15 +1632,13 @@
        RESPONSIVE
     ========================= */
 
-    @media (max-width: 900px) {
+    @media (max-width: 1000px) {
       .tool-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(2,minmax(0,1fr));
       }
+    }
 
-      .feature-grid {
-        grid-template-columns: 1fr;
-      }
-
+    @media (max-width: 900px) {
       .nav-links {
         display: none;
       }
@@ -1369,11 +1650,15 @@
       .nav-search {
         display: none;
       }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 700px) {
       .container {
-        width: min(100% - 28px, 1180px);
+        width: min(100% - 28px,1180px);
       }
 
       .hero {
@@ -1439,8 +1724,10 @@
 
       .stats {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        width: min(100%, 320px);
+        grid-template-columns: repeat(2,1fr);
+
+        width: min(100%,320px);
+
         margin-inline: auto;
       }
 
@@ -1470,17 +1757,24 @@
 
 <body>
 
-  <!-- TOP BAR -->
+  <!-- =========================
+       TOP BAR
+  ========================== -->
+
   <div class="topbar">
     <div class="container topbar-inner">
       <span class="status-dot"></span>
-      All tools run locally in your browser
+      All supported tools run locally in your browser
       <span>•</span>
       No data uploaded
     </div>
   </div>
 
-  <!-- NAV -->
+
+  <!-- =========================
+       NAV
+  ========================== -->
+
   <nav>
     <div class="container nav-inner">
 
@@ -1495,20 +1789,33 @@
       </div>
 
       <div class="nav-actions">
-        <button class="nav-search" id="navSearchBtn">
+
+        <button
+          class="nav-search"
+          id="navSearchBtn"
+        >
           <span>Search tools</span>
           <span class="kbd">Ctrl K</span>
         </button>
 
-        <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+        <button
+          class="menu-btn"
+          id="menuBtn"
+          aria-label="Open menu"
+        >
           ☰
         </button>
+
       </div>
 
     </div>
   </nav>
 
-  <!-- HERO -->
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
   <header class="hero">
 
     <div class="hero-grid"></div>
@@ -1521,30 +1828,39 @@
       </span>
 
       <h1>
-        Tools that keep you<br />
+        Tools that keep you<br>
         <span>in flow.</span>
       </h1>
 
       <p>
         Fast, private, client-side utilities for developers.
-        Format data, encode strings, generate values and inspect
-        common web formats without leaving your browser.
+        Format data, test expressions, transform code,
+        inspect URLs and work with common web formats.
       </p>
 
       <div class="hero-actions">
-        <a href="#tools" class="btn btn-primary">
+
+        <a
+          href="#tools"
+          class="btn btn-primary"
+        >
           Explore tools →
         </a>
 
-        <button class="btn btn-secondary" id="heroSearchBtn">
+        <button
+          class="btn btn-secondary"
+          id="heroSearchBtn"
+        >
           Search tools
           <span class="kbd">Ctrl K</span>
         </button>
+
       </div>
 
       <div class="stats">
+
         <div class="stat">
-          <strong>15+</strong>
+          <strong id="statToolCount">23+</strong>
           <span>Developer tools</span>
         </div>
 
@@ -1562,23 +1878,38 @@
           <strong>Free</strong>
           <span>To use</span>
         </div>
+
       </div>
 
     </div>
   </header>
 
-  <!-- TOOLS -->
-  <main id="tools" class="tools-section">
+
+  <!-- =========================
+       TOOLS
+  ========================== -->
+
+  <main
+    id="tools"
+    class="tools-section"
+  >
 
     <div class="container">
 
       <!-- QUICK TOOLS -->
-      <section class="quick-section" id="quickSection">
+
+      <section
+        class="quick-section"
+        id="quickSection"
+      >
 
         <div class="quick-head">
+
           <div class="quick-title">
             <span>⚡</span>
-            <span id="quickTitle">Recently used</span>
+            <span id="quickTitle">
+              Recently used
+            </span>
           </div>
 
           <button
@@ -1587,29 +1918,45 @@
           >
             Clear
           </button>
+
         </div>
 
-        <div class="quick-list" id="quickList"></div>
+        <div
+          class="quick-list"
+          id="quickList"
+        ></div>
 
       </section>
 
-      <!-- SECTION HEADER -->
+
+      <!-- HEADER -->
+
       <div class="section-head">
 
         <div>
-          <h2 class="section-title">Developer tools</h2>
+
+          <h2 class="section-title">
+            Developer tools
+          </h2>
+
           <p class="section-subtitle">
-            Small utilities for everyday development tasks.
+            Practical utilities for everyday development.
           </p>
+
         </div>
 
-        <div class="tool-count" id="toolCount">
-          15 tools
+        <div
+          class="tool-count"
+          id="toolCount"
+        >
+          23 tools
         </div>
 
       </div>
 
+
       <!-- TOOLBAR -->
+
       <div class="toolbar">
 
         <div class="search-box">
@@ -1621,7 +1968,7 @@
             type="search"
             placeholder="Search tools..."
             autocomplete="off"
-          />
+          >
 
           <span class="kbd search-kbd">
             /
@@ -1629,60 +1976,121 @@
 
         </div>
 
-        <select id="categoryFilter" class="category-filter">
-          <option value="all">All categories</option>
-          <option value="data">Text & Data</option>
-          <option value="encoding">Encoding</option>
-          <option value="generators">Generators</option>
-          <option value="web">Web & URL</option>
-          <option value="text">Text</option>
+        <select
+          id="categoryFilter"
+          class="category-filter"
+        >
+          <option value="all">
+            All categories
+          </option>
+
+          <option value="data">
+            Text & Data
+          </option>
+
+          <option value="encoding">
+            Encoding
+          </option>
+
+          <option value="generators">
+            Generators
+          </option>
+
+          <option value="web">
+            Web & URL
+          </option>
+
+          <option value="text">
+            Text
+          </option>
+
+          <option value="code">
+            Code
+          </option>
+
         </select>
 
       </div>
 
-      <!-- TOOL LIST -->
+
       <div id="toolContainer"></div>
 
-      <div class="empty-state hidden" id="emptyState">
+
+      <div
+        class="empty-state hidden"
+        id="emptyState"
+      >
         <strong>No tools found</strong>
         Try another search or category.
       </div>
 
     </div>
+
   </main>
 
-  <!-- FEATURES -->
-  <section class="features" id="features">
+
+  <!-- =========================
+       FEATURES
+  ========================== -->
+
+  <section
+    class="features"
+    id="features"
+  >
 
     <div class="container">
 
       <div class="feature-grid">
 
         <div class="feature">
-          <div class="feature-icon">&lt;local /&gt;</div>
-          <h3>Runs in your browser</h3>
+
+          <div class="feature-icon">
+            &lt;local /&gt;
+          </div>
+
+          <h3>
+            Runs in your browser
+          </h3>
+
           <p>
-            Your input stays on your device for supported tools.
-            No server processing is required.
+            Supported transformations happen locally
+            without sending your input to a server.
           </p>
+
         </div>
 
         <div class="feature">
-          <div class="feature-icon">⌘ + K</div>
-          <h3>Keyboard friendly</h3>
+
+          <div class="feature-icon">
+            ⌘ + K
+          </div>
+
+          <h3>
+            Keyboard friendly
+          </h3>
+
           <p>
-            Open the command palette, launch tools and copy results
+            Search, launch tools and copy results
             without constantly reaching for the mouse.
           </p>
+
         </div>
 
         <div class="feature">
-          <div class="feature-icon">★</div>
-          <h3>Favorites & history</h3>
+
+          <div class="feature-icon">
+            ★
+          </div>
+
+          <h3>
+            Favorites & history
+          </h3>
+
           <p>
-            Keep frequently used tools close with locally stored
-            favorites and recently used tools.
+            Keep frequently used utilities close
+            with local favorites and recent tools.
           </p>
+
         </div>
 
       </div>
@@ -1691,8 +2099,15 @@
 
   </section>
 
-  <!-- MODAL -->
-  <div class="modal" id="toolModal">
+
+  <!-- =========================
+       TOOL MODAL
+  ========================== -->
+
+  <div
+    class="modal"
+    id="toolModal"
+  >
 
     <div class="modal-panel">
 
@@ -1700,64 +2115,103 @@
 
         <div class="modal-title-wrap">
 
-          <div class="tool-icon" id="modalIcon">
+          <div
+            class="tool-icon"
+            id="modalIcon"
+          >
             {}
           </div>
 
           <div>
-            <div class="modal-title" id="modalTitle">
+
+            <div
+              class="modal-title"
+              id="modalTitle"
+            >
               Tool
             </div>
 
-            <div class="modal-subtitle" id="modalSubtitle">
+            <div
+              class="modal-subtitle"
+              id="modalSubtitle"
+            >
               Client-side utility
             </div>
+
           </div>
 
         </div>
 
-        <button class="modal-close" id="modalClose">
+        <button
+          class="modal-close"
+          id="modalClose"
+          aria-label="Close"
+        >
           ×
         </button>
 
       </div>
 
-      <div class="modal-body" id="modalBody"></div>
+      <div
+        class="modal-body"
+        id="modalBody"
+      ></div>
 
     </div>
 
   </div>
 
-  <!-- COMMAND PALETTE -->
-  <div class="command" id="commandPalette">
+
+  <!-- =========================
+       COMMAND PALETTE
+  ========================== -->
+
+  <div
+    class="command"
+    id="commandPalette"
+  >
 
     <div class="command-panel">
 
       <div class="command-search">
 
-        <span class="muted">⌕</span>
+        <span class="mono">
+          ⌕
+        </span>
 
         <input
           id="commandInput"
           type="text"
           placeholder="Search tools..."
           autocomplete="off"
-        />
+        >
 
-        <span class="kbd">Esc</span>
+        <span class="kbd">
+          Esc
+        </span>
 
       </div>
 
-      <div class="command-results" id="commandResults"></div>
+      <div
+        class="command-results"
+        id="commandResults"
+      ></div>
 
     </div>
 
   </div>
 
+
   <!-- TOAST -->
-  <div class="toast" id="toast"></div>
+
+  <div
+    class="toast"
+    id="toast"
+  ></div>
+
 
   <!-- FOOTER -->
+
   <footer>
 
     <div class="container footer-inner">
@@ -1778,11 +2232,14 @@
 
 
   <script>
+
     /* ============================================================
-       TOOL DEFINITIONS
+       TOOL REGISTRY
     ============================================================ */
 
     const tools = [
+
+      /* DATA */
 
       {
         id: "json-formatter",
@@ -1812,6 +2269,27 @@
       },
 
       {
+        id: "xml-formatter",
+        name: "XML Formatter",
+        description: "Format and inspect XML documents.",
+        category: "data",
+        categoryName: "Text & Data",
+        icon: "<x>"
+      },
+
+      {
+        id: "yaml-json",
+        name: "YAML ↔ JSON",
+        description: "Convert simple YAML data to JSON and back.",
+        category: "data",
+        categoryName: "Text & Data",
+        icon: "YML"
+      },
+
+
+      /* ENCODING */
+
+      {
         id: "base64",
         name: "Base64 Encoder",
         description: "Encode or decode Base64 strings.",
@@ -1837,6 +2315,18 @@
         categoryName: "Encoding",
         icon: "JWT"
       },
+
+      {
+        id: "html-entities",
+        name: "HTML Entities",
+        description: "Encode or decode HTML entities.",
+        category: "encoding",
+        categoryName: "Encoding",
+        icon: "&lt;"
+      },
+
+
+      /* GENERATORS */
 
       {
         id: "uuid",
@@ -1866,18 +2356,21 @@
       },
 
       {
-        id: "html-entities",
-        name: "HTML Entities",
-        description: "Encode or decode HTML entities.",
-        category: "encoding",
-        categoryName: "Encoding",
-        icon: "&lt;"
+        id: "qr",
+        name: "QR Code Generator",
+        description: "Generate a QR code from text or a URL.",
+        category: "generators",
+        categoryName: "Generators",
+        icon: "QR"
       },
+
+
+      /* WEB */
 
       {
         id: "color",
         name: "Color Converter",
-        description: "Convert common HEX, RGB and HSL values.",
+        description: "Convert HEX, RGB and HSL colors.",
         category: "web",
         categoryName: "Web & URL",
         icon: "RGB"
@@ -1891,6 +2384,18 @@
         categoryName: "Web & URL",
         icon: "TS"
       },
+
+      {
+        id: "url-parser",
+        name: "URL Parser",
+        description: "Inspect URL components and query parameters.",
+        category: "web",
+        categoryName: "Web & URL",
+        icon: "URL"
+      },
+
+
+      /* TEXT */
 
       {
         id: "case",
@@ -1917,6 +2422,45 @@
         category: "text",
         categoryName: "Text",
         icon: "TXT"
+      },
+
+      {
+        id: "text-diff",
+        name: "Text Diff",
+        description: "Compare two text blocks line by line.",
+        category: "text",
+        categoryName: "Text",
+        icon: "±"
+      },
+
+
+      /* CODE */
+
+      {
+        id: "regex",
+        name: "Regex Tester",
+        description: "Test regular expressions against sample text.",
+        category: "code",
+        categoryName: "Code",
+        icon: "/./"
+      },
+
+      {
+        id: "sql",
+        name: "SQL Formatter",
+        description: "Format common SQL queries for readability.",
+        category: "code",
+        categoryName: "Code",
+        icon: "SQL"
+      },
+
+      {
+        id: "markdown",
+        name: "Markdown Preview",
+        description: "Preview basic Markdown as rendered HTML.",
+        category: "code",
+        categoryName: "Code",
+        icon: "MD"
       }
 
     ];
@@ -1928,15 +2472,17 @@
 
     let currentTool = null;
 
-    let favorites = loadStorage(
-      "openutility-favorites",
-      []
-    );
+    let favorites =
+      loadStorage(
+        "openutility-favorites",
+        []
+      );
 
-    let recentTools = loadStorage(
-      "openutility-recent",
-      []
-    );
+    let recentTools =
+      loadStorage(
+        "openutility-recent",
+        []
+      );
 
     let toastTimer;
 
@@ -1946,34 +2492,43 @@
     ============================================================ */
 
     function loadStorage(key, fallback) {
+
       try {
-        const value = localStorage.getItem(key);
+
+        const value =
+          localStorage.getItem(key);
 
         if (!value) {
           return fallback;
         }
 
-        const parsed = JSON.parse(value);
+        const parsed =
+          JSON.parse(value);
 
         return Array.isArray(parsed)
           ? parsed
           : fallback;
 
       } catch {
+
         return fallback;
+
       }
+
     }
 
 
     function saveStorage(key, value) {
+
       try {
+
         localStorage.setItem(
           key,
           JSON.stringify(value)
         );
-      } catch {
-        // Storage may be unavailable.
-      }
+
+      } catch {}
+
     }
 
 
@@ -1982,81 +2537,131 @@
     ============================================================ */
 
     const toolContainer =
-      document.getElementById("toolContainer");
+      document.getElementById(
+        "toolContainer"
+      );
 
     const toolSearch =
-      document.getElementById("toolSearch");
+      document.getElementById(
+        "toolSearch"
+      );
 
     const categoryFilter =
-      document.getElementById("categoryFilter");
+      document.getElementById(
+        "categoryFilter"
+      );
 
     const toolCount =
-      document.getElementById("toolCount");
+      document.getElementById(
+        "toolCount"
+      );
 
     const emptyState =
-      document.getElementById("emptyState");
+      document.getElementById(
+        "emptyState"
+      );
 
     const quickSection =
-      document.getElementById("quickSection");
+      document.getElementById(
+        "quickSection"
+      );
 
     const quickList =
-      document.getElementById("quickList");
+      document.getElementById(
+        "quickList"
+      );
 
     const quickTitle =
-      document.getElementById("quickTitle");
+      document.getElementById(
+        "quickTitle"
+      );
 
     const clearRecentBtn =
-      document.getElementById("clearRecentBtn");
+      document.getElementById(
+        "clearRecentBtn"
+      );
 
     const toolModal =
-      document.getElementById("toolModal");
+      document.getElementById(
+        "toolModal"
+      );
 
     const modalBody =
-      document.getElementById("modalBody");
+      document.getElementById(
+        "modalBody"
+      );
 
     const modalTitle =
-      document.getElementById("modalTitle");
+      document.getElementById(
+        "modalTitle"
+      );
 
     const modalSubtitle =
-      document.getElementById("modalSubtitle");
+      document.getElementById(
+        "modalSubtitle"
+      );
 
     const modalIcon =
-      document.getElementById("modalIcon");
+      document.getElementById(
+        "modalIcon"
+      );
 
     const modalClose =
-      document.getElementById("modalClose");
+      document.getElementById(
+        "modalClose"
+      );
 
     const toast =
-      document.getElementById("toast");
+      document.getElementById(
+        "toast"
+      );
 
     const commandPalette =
-      document.getElementById("commandPalette");
+      document.getElementById(
+        "commandPalette"
+      );
 
     const commandInput =
-      document.getElementById("commandInput");
+      document.getElementById(
+        "commandInput"
+      );
 
     const commandResults =
-      document.getElementById("commandResults");
+      document.getElementById(
+        "commandResults"
+      );
+
+
+    document.getElementById(
+      "statToolCount"
+    ).textContent =
+      `${tools.length}+`;
 
 
     /* ============================================================
        TOAST
     ============================================================ */
 
-    function showToast(message, type = "success") {
+    function showToast(
+      message,
+      type = "success"
+    ) {
 
       clearTimeout(toastTimer);
 
-      toast.textContent = message;
+      toast.textContent =
+        message;
 
       toast.className =
-        "toast " +
-        type +
-        " show";
+        `toast ${type} show`;
 
-      toastTimer = setTimeout(() => {
-        toast.classList.remove("show");
-      }, 2200);
+      toastTimer =
+        setTimeout(
+          () => {
+            toast.classList.remove("show");
+          },
+          2200
+        );
     }
 
 
@@ -2065,11 +2670,16 @@
     ============================================================ */
 
     function isFavorite(id) {
+
       return favorites.includes(id);
+
     }
 
 
-    function toggleFavorite(id, event) {
+    function toggleFavorite(
+      id,
+      event
+    ) {
 
       if (event) {
         event.stopPropagation();
@@ -2078,15 +2688,22 @@
       if (isFavorite(id)) {
 
         favorites =
-          favorites.filter(item => item !== id);
+          favorites.filter(
+            item => item !== id
+          );
 
-        showToast("Removed from favorites");
+        showToast(
+          "Removed from favorites"
+        );
 
       } else {
 
         favorites.unshift(id);
 
-        showToast("Added to favorites");
+        showToast(
+          "Added to favorites"
+        );
+
       }
 
       saveStorage(
@@ -2104,18 +2721,20 @@
 
 
     /* ============================================================
-       RECENT TOOLS
+       RECENT
     ============================================================ */
 
     function addRecent(id) {
 
       recentTools =
-        recentTools.filter(item => item !== id);
+        recentTools.filter(
+          item => item !== id
+        );
 
       recentTools.unshift(id);
 
       recentTools =
-        recentTools.slice(0, 6);
+        recentTools.slice(0,6);
 
       saveStorage(
         "openutility-recent",
@@ -2137,7 +2756,9 @@
 
       renderQuickSection();
 
-      showToast("Recent tools cleared");
+      showToast(
+        "Recent tools cleared"
+      );
     }
 
 
@@ -2145,30 +2766,52 @@
 
       const favoriteTools =
         favorites
-          .map(id => tools.find(tool => tool.id === id))
+          .map(
+            id =>
+              tools.find(
+                tool => tool.id === id
+              )
+          )
           .filter(Boolean);
 
       const recent =
         recentTools
-          .map(id => tools.find(tool => tool.id === id))
+          .map(
+            id =>
+              tools.find(
+                tool => tool.id === id
+              )
+          )
           .filter(Boolean);
 
       let list = recent;
       let title = "Recently used";
 
-      if (!recent.length && favoriteTools.length) {
+      if (
+        !recent.length &&
+        favoriteTools.length
+      ) {
+
         list = favoriteTools;
         title = "Favorites";
+
       }
 
       if (!list.length) {
-        quickSection.classList.add("hidden");
+
+        quickSection.classList.add(
+          "hidden"
+        );
+
         return;
       }
 
-      quickSection.classList.remove("hidden");
+      quickSection.classList.remove(
+        "hidden"
+      );
 
-      quickTitle.textContent = title;
+      quickTitle.textContent =
+        title;
 
       clearRecentBtn.classList.toggle(
         "hidden",
@@ -2176,26 +2819,38 @@
       );
 
       quickList.innerHTML =
-        list.map(tool => `
-          <button
-            class="quick-tool"
-            data-tool="${tool.id}"
-          >
-            <span class="icon">${tool.icon}</span>
-            <span>${tool.name}</span>
-          </button>
-        `).join("");
+        list.map(
+          tool => `
+            <button
+              class="quick-tool"
+              data-tool="${tool.id}"
+            >
+              <span class="icon">
+                ${tool.icon}
+              </span>
+
+              <span>
+                ${tool.name}
+              </span>
+            </button>
+          `
+        ).join("");
 
       quickList
         .querySelectorAll("[data-tool]")
-        .forEach(button => {
+        .forEach(
+          button => {
 
-          button.addEventListener(
-            "click",
-            () => openTool(button.dataset.tool)
-          );
+            button.addEventListener(
+              "click",
+              () =>
+                openTool(
+                  button.dataset.tool
+                )
+            );
 
-        });
+          }
+        );
     }
 
 
@@ -2206,7 +2861,7 @@
 
 
     /* ============================================================
-       RENDER TOOLS
+       RENDER TOOL CARDS
     ============================================================ */
 
     function renderTools(
@@ -2215,28 +2870,46 @@
     ) {
 
       const query =
-        search.trim().toLowerCase();
+        search
+          .trim()
+          .toLowerCase();
 
       const filtered =
-        tools.filter(tool => {
+        tools.filter(
+          tool => {
 
-          const matchesSearch =
-            !query ||
-            tool.name.toLowerCase().includes(query) ||
-            tool.description.toLowerCase().includes(query) ||
-            tool.categoryName.toLowerCase().includes(query);
+            const matchesSearch =
+              !query ||
+              tool.name
+                .toLowerCase()
+                .includes(query) ||
+              tool.description
+                .toLowerCase()
+                .includes(query) ||
+              tool.categoryName
+                .toLowerCase()
+                .includes(query);
 
-          const matchesCategory =
-            category === "all" ||
-            tool.category === category;
+            const matchesCategory =
+              category === "all" ||
+              tool.category === category;
 
-          return matchesSearch && matchesCategory;
-        });
+            return (
+              matchesSearch &&
+              matchesCategory
+            );
+
+          }
+        );
 
       toolContainer.innerHTML = "";
 
       toolCount.textContent =
-        `${filtered.length} ${filtered.length === 1 ? "tool" : "tools"}`;
+        `${filtered.length} ${
+          filtered.length === 1
+            ? "tool"
+            : "tools"
+        }`;
 
       emptyState.classList.toggle(
         "hidden",
@@ -2252,119 +2925,158 @@
         "encoding",
         "generators",
         "web",
-        "text"
+        "text",
+        "code"
       ];
 
-      categories.forEach(categoryId => {
+      categories.forEach(
+        categoryId => {
 
-        const categoryTools =
-          filtered.filter(
-            tool => tool.category === categoryId
-          );
+          const categoryTools =
+            filtered.filter(
+              tool =>
+                tool.category ===
+                categoryId
+            );
 
-        if (!categoryTools.length) {
-          return;
-        }
+          if (!categoryTools.length) {
+            return;
+          }
 
-        const categoryName =
-          categoryTools[0].categoryName;
+          const categoryName =
+            categoryTools[0]
+              .categoryName;
 
-        const categoryElement =
-          document.createElement("section");
+          const categoryElement =
+            document.createElement(
+              "section"
+            );
 
-        categoryElement.className = "category";
+          categoryElement.className =
+            "category";
 
-        categoryElement.innerHTML = `
+          categoryElement.innerHTML = `
 
-          <div class="category-head">
+            <div class="category-head">
 
-            <div class="category-name">
-              <span>${categoryName}</span>
-              <span class="category-line"></span>
+              <div class="category-name">
+
+                <span>
+                  ${categoryName}
+                </span>
+
+                <span class="category-line"></span>
+
+              </div>
+
+              <span class="category-count">
+                ${categoryTools.length}
+              </span>
+
             </div>
 
-            <span class="category-count">
-              ${categoryTools.length}
-            </span>
+            <div class="tool-grid">
 
-          </div>
+              ${categoryTools.map(
+                tool => `
 
-          <div class="tool-grid">
-
-            ${categoryTools.map(tool => `
-              <article
-                class="tool-card"
-                data-tool="${tool.id}"
-              >
-
-                <div class="tool-top">
-
-                  <div class="tool-icon">
-                    ${tool.icon}
-                  </div>
-
-                  <button
-                    class="tool-favorite ${isFavorite(tool.id) ? "active" : ""}"
-                    data-favorite="${tool.id}"
-                    aria-label="Toggle favorite"
+                  <article
+                    class="tool-card"
+                    data-tool="${tool.id}"
                   >
-                    ${isFavorite(tool.id) ? "★" : "☆"}
-                  </button>
 
-                </div>
+                    <div class="tool-top">
 
-                <div class="tool-name">
-                  ${tool.name}
-                </div>
+                      <div class="tool-icon">
+                        ${tool.icon}
+                      </div>
 
-                <div class="tool-description">
-                  ${tool.description}
-                </div>
+                      <button
+                        class="tool-favorite ${
+                          isFavorite(tool.id)
+                            ? "active"
+                            : ""
+                        }"
+                        data-favorite="${tool.id}"
+                        aria-label="Toggle favorite"
+                      >
+                        ${
+                          isFavorite(tool.id)
+                            ? "★"
+                            : "☆"
+                        }
+                      </button>
 
-                <div class="tool-meta">
-                  <span class="local-dot"></span>
-                  client-side
-                </div>
+                    </div>
 
-              </article>
-            `).join("")}
+                    <div class="tool-name">
+                      ${tool.name}
+                    </div>
 
-          </div>
-        `;
+                    <div class="tool-description">
+                      ${tool.description}
+                    </div>
 
-        toolContainer.appendChild(
-          categoryElement
-        );
-      });
+                    <div class="tool-meta">
+
+                      <span class="local-dot"></span>
+
+                      client-side
+
+                    </div>
+
+                  </article>
+
+                `
+              ).join("")}
+
+            </div>
+          `;
+
+          toolContainer.appendChild(
+            categoryElement
+          );
+
+        }
+      );
 
       toolContainer
         .querySelectorAll(".tool-card")
-        .forEach(card => {
+        .forEach(
+          card => {
 
-          card.addEventListener(
-            "click",
-            () => openTool(card.dataset.tool)
-          );
+            card.addEventListener(
+              "click",
+              () =>
+                openTool(
+                  card.dataset.tool
+                )
+            );
 
-        });
+          }
+        );
 
       toolContainer
-        .querySelectorAll("[data-favorite]")
-        .forEach(button => {
+        .querySelectorAll(
+          "[data-favorite]"
+        )
+        .forEach(
+          button => {
 
-          button.addEventListener(
-            "click",
-            event => {
+            button.addEventListener(
+              "click",
+              event => {
 
-              toggleFavorite(
-                button.dataset.favorite,
-                event
-              );
+                toggleFavorite(
+                  button.dataset.favorite,
+                  event
+                );
 
-            }
-          );
+              }
+            );
 
-        });
+          }
+        );
     }
 
 
@@ -2375,7 +3087,9 @@
     function openTool(id) {
 
       const tool =
-        tools.find(item => item.id === id);
+        tools.find(
+          item => item.id === id
+        );
 
       if (!tool) {
         return;
@@ -2397,30 +3111,38 @@
       modalBody.innerHTML =
         getToolHTML(tool.id);
 
-      toolModal.classList.add("active");
+      toolModal.classList.add(
+        "active"
+      );
 
-      document.body.classList.add("modal-open");
-
-      requestAnimationFrame(() => {
-
-        const firstInput =
-          modalBody.querySelector(
-            "textarea, input, select"
-          );
-
-        if (firstInput) {
-          firstInput.focus();
-        }
-
-      });
+      document.body.classList.add(
+        "modal-open"
+      );
 
       bindToolEvents(tool.id);
+
+      requestAnimationFrame(
+        () => {
+
+          const first =
+            modalBody.querySelector(
+              "textarea, input, select"
+            );
+
+          if (first) {
+            first.focus();
+          }
+
+        }
+      );
     }
 
 
     function closeTool() {
 
-      toolModal.classList.remove("active");
+      toolModal.classList.remove(
+        "active"
+      );
 
       document.body.classList.remove(
         "modal-open"
@@ -2440,7 +3162,10 @@
       "click",
       event => {
 
-        if (event.target === toolModal) {
+        if (
+          event.target ===
+          toolModal
+        ) {
           closeTool();
         }
 
@@ -2449,68 +3174,12 @@
 
 
     /* ============================================================
-       ERROR HANDLING
-    ============================================================ */
-
-    function setError(message) {
-
-      const error =
-        document.getElementById("toolError");
-
-      if (!error) {
-        return;
-      }
-
-      error.textContent =
-        message;
-
-      error.classList.add("show");
-    }
-
-
-    function clearError() {
-
-      const error =
-        document.getElementById("toolError");
-
-      if (!error) {
-        return;
-      }
-
-      error.textContent = "";
-
-      error.classList.remove("show");
-    }
-
-
-    function setOutput(
-      value,
-      type = ""
-    ) {
-
-      const output =
-        document.getElementById("toolOutput");
-
-      if (!output) {
-        return;
-      }
-
-      output.textContent =
-        value;
-
-      output.className =
-        "tool-output " +
-        type;
-    }
-
-
-    /* ============================================================
-       TOOL HTML
+       BASE TOOL HTML
     ============================================================ */
 
     function baseToolHTML(
       inputLabel = "Input",
-      inputPlaceholder = "",
+      placeholder = "Enter input...",
       outputLabel = "Output"
     ) {
 
@@ -2526,7 +3195,7 @@
 
             <textarea
               id="toolInput"
-              placeholder="${inputPlaceholder}"
+              placeholder="${placeholder}"
               spellcheck="false"
             ></textarea>
 
@@ -2543,7 +3212,9 @@
               <div
                 class="tool-output"
                 id="toolOutput"
-              >Result will appear here.</div>
+              >
+                Result will appear here.
+              </div>
 
               <div class="output-actions">
 
@@ -2590,71 +3261,58 @@
               id="runTool"
             >
               Run tool
-              <span class="kbd">Ctrl ↵</span>
+              <span class="kbd">
+                Ctrl ↵
+              </span>
             </button>
 
           </div>
 
         </div>
-
       `;
     }
 
+
+    /* ============================================================
+       TOOL UI
+    ============================================================ */
 
     function getToolHTML(id) {
 
       switch (id) {
 
+        /* =====================
+           EXISTING
+        ===================== */
+
         case "json-formatter":
+
           return baseToolHTML(
             "JSON",
             '{ "name": "OpenUtility" }',
             "Formatted JSON"
           );
 
+
         case "json-minifier":
+
           return baseToolHTML(
             "JSON",
             '{\n  "name": "OpenUtility"\n}',
             "Minified JSON"
           );
 
+
+        case "csv-json":
+
+          return baseToolHTML(
+            "CSV",
+            "name,age,city\nJohn,25,Lahore\nJane,30,Karachi",
+            "JSON"
+          );
+
+
         case "base64":
-          return baseToolHTML(
-            "Text",
-            "Enter text to encode...",
-            "Base64"
-          );
-
-        case "url-encoder":
-          return baseToolHTML(
-            "URL / Text",
-            "https://example.com/?query=hello world",
-            "Encoded / Decoded"
-          );
-
-        case "jwt-decoder":
-          return baseToolHTML(
-            "JWT",
-            "Paste a JWT token here...",
-            "Decoded JWT"
-          );
-
-        case "html-entities":
-          return baseToolHTML(
-            "Text",
-            "<div>Hello & welcome</div>",
-            "Encoded / Decoded"
-          );
-
-        case "sha256":
-          return baseToolHTML(
-            "Text",
-            "Enter text to hash...",
-            "SHA-256"
-          );
-
-        case "case":
 
           return `
 
@@ -2677,20 +3335,20 @@
               <div class="field">
 
                 <div class="field-label">
-                  Conversion
+                  Mode
                 </div>
 
                 <select
-                  id="caseSelect"
+                  id="base64Mode"
                   class="tool-select"
                 >
-                  <option value="upper">UPPERCASE</option>
-                  <option value="lower">lowercase</option>
-                  <option value="title">Title Case</option>
-                  <option value="sentence">Sentence case</option>
-                  <option value="camel">camelCase</option>
-                  <option value="snake">snake_case</option>
-                  <option value="kebab">kebab-case</option>
+                  <option value="encode">
+                    Encode
+                  </option>
+
+                  <option value="decode">
+                    Decode
+                  </option>
                 </select>
 
               </div>
@@ -2701,22 +3359,518 @@
                   Output
                 </div>
 
-                <div class="tool-output-wrap">
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Result will appear here.
+                </div>
 
-                  <div
-                    class="tool-output"
-                    id="toolOutput"
-                  >Result will appear here.</div>
+              </div>
 
-                  <div class="output-actions">
-                    <button
-                      class="small-btn"
-                      id="copyOutput"
-                    >
-                      Copy
-                    </button>
-                  </div>
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
 
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Run
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "url-encoder":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field full">
+
+                <div class="field-label">
+                  URL / Text
+                </div>
+
+                <textarea
+                  id="toolInput"
+                  placeholder="https://example.com/?q=hello world"
+                  spellcheck="false"
+                ></textarea>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Mode
+                </div>
+
+                <select
+                  id="urlMode"
+                  class="tool-select"
+                >
+                  <option value="encode">
+                    Encode
+                  </option>
+
+                  <option value="decode">
+                    Decode
+                  </option>
+                </select>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Output
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Result will appear here.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Run
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "jwt-decoder":
+
+          return baseToolHTML(
+            "JWT",
+            "Paste a JWT token here...",
+            "Decoded JWT"
+          );
+
+
+        case "html-entities":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field full">
+
+                <div class="field-label">
+                  Text
+                </div>
+
+                <textarea
+                  id="toolInput"
+                  placeholder="<div>Hello & welcome</div>"
+                ></textarea>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Mode
+                </div>
+
+                <select
+                  id="entityMode"
+                  class="tool-select"
+                >
+                  <option value="encode">
+                    Encode
+                  </option>
+
+                  <option value="decode">
+                    Decode
+                  </option>
+                </select>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Output
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Result will appear here.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Run
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "uuid":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field full">
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Click generate.
+                </div>
+
+              </div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Generate UUID
+                </button>
+
+                <button
+                  class="btn btn-secondary"
+                  id="copyOutput"
+                >
+                  Copy
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "password":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Length
+                </div>
+
+                <input
+                  id="passwordLength"
+                  class="tool-input"
+                  type="number"
+                  min="6"
+                  max="128"
+                  value="20"
+                >
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Password
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Click generate.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Generate
+                </button>
+
+                <button
+                  class="btn btn-secondary"
+                  id="copyOutput"
+                >
+                  Copy
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "sha256":
+
+          return baseToolHTML(
+            "Text",
+            "Enter text to hash...",
+            "SHA-256"
+          );
+
+
+        case "color":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Color
+                </div>
+
+                <input
+                  id="colorInput"
+                  class="tool-input"
+                  value="#4a9ee8"
+                  placeholder="#4a9ee8"
+                >
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Result
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Enter a HEX color.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Convert
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "timestamp":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Unix timestamp
+                </div>
+
+                <input
+                  id="timestampInput"
+                  class="tool-input"
+                  placeholder="e.g. 1720000000"
+                >
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Result
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Enter a timestamp.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="nowTimestamp"
+                >
+                  Current time
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Convert
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "case":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field full">
+
+                <div class="field-label">
+                  Text
+                </div>
+
+                <textarea
+                  id="toolInput"
+                  placeholder="Enter text..."
+                ></textarea>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Conversion
+                </div>
+
+                <select
+                  id="caseSelect"
+                  class="tool-select"
+                >
+                  <option value="upper">
+                    UPPERCASE
+                  </option>
+
+                  <option value="lower">
+                    lowercase
+                  </option>
+
+                  <option value="title">
+                    Title Case
+                  </option>
+
+                  <option value="sentence">
+                    Sentence case
+                  </option>
+
+                  <option value="camel">
+                    camelCase
+                  </option>
+
+                  <option value="snake">
+                    snake_case
+                  </option>
+
+                  <option value="kebab">
+                    kebab-case
+                  </option>
+                </select>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Output
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Result will appear here.
                 </div>
 
               </div>
@@ -2740,13 +3894,11 @@
                   id="runTool"
                 >
                   Convert
-                  <span class="kbd">Ctrl ↵</span>
                 </button>
 
               </div>
 
             </div>
-
           `;
 
 
@@ -2807,233 +3959,6 @@
               </div>
 
             </div>
-
-          `;
-
-
-        case "csv-json":
-          return baseToolHTML(
-            "CSV",
-            "name,age,city\nJohn,25,Lahore\nJane,30,Karachi",
-            "JSON"
-          );
-
-
-        case "color":
-
-          return `
-
-            <div class="tool-layout">
-
-              <div class="field">
-
-                <div class="field-label">
-                  Color
-                </div>
-
-                <input
-                  id="colorInput"
-                  class="tool-input"
-                  value="#4a9ee8"
-                  placeholder="#4a9ee8"
-                />
-
-              </div>
-
-              <div class="field">
-
-                <div class="field-label">
-                  Result
-                </div>
-
-                <div
-                  class="tool-output"
-                  id="toolOutput"
-                >Enter a HEX color.</div>
-
-              </div>
-
-              <div
-                class="error-box"
-                id="toolError"
-              ></div>
-
-              <div class="tool-actions">
-
-                <button
-                  class="btn btn-primary"
-                  id="runTool"
-                >
-                  Convert
-                </button>
-
-              </div>
-
-            </div>
-
-          `;
-
-
-        case "timestamp":
-
-          return `
-
-            <div class="tool-layout">
-
-              <div class="field">
-
-                <div class="field-label">
-                  Unix timestamp
-                </div>
-
-                <input
-                  id="timestampInput"
-                  class="tool-input"
-                  placeholder="e.g. 1720000000"
-                />
-
-              </div>
-
-              <div class="field">
-
-                <div class="field-label">
-                  Result
-                </div>
-
-                <div
-                  class="tool-output"
-                  id="toolOutput"
-                >Enter a timestamp.</div>
-
-              </div>
-
-              <div
-                class="error-box"
-                id="toolError"
-              ></div>
-
-              <div class="tool-actions">
-
-                <button
-                  class="btn btn-secondary"
-                  id="nowTimestamp"
-                >
-                  Current time
-                </button>
-
-                <button
-                  class="btn btn-primary"
-                  id="runTool"
-                >
-                  Convert
-                </button>
-
-              </div>
-
-            </div>
-
-          `;
-
-
-        case "uuid":
-
-          return `
-
-            <div class="tool-layout">
-
-              <div class="field full">
-
-                <div
-                  class="tool-output"
-                  id="toolOutput"
-                >Click generate.</div>
-
-              </div>
-
-              <div class="tool-actions">
-
-                <button
-                  class="btn btn-primary"
-                  id="runTool"
-                >
-                  Generate UUID
-                </button>
-
-                <button
-                  class="btn btn-secondary"
-                  id="copyOutput"
-                >
-                  Copy
-                </button>
-
-              </div>
-
-            </div>
-
-          `;
-
-
-        case "password":
-
-          return `
-
-            <div class="tool-layout">
-
-              <div class="field">
-
-                <div class="field-label">
-                  Length
-                </div>
-
-                <input
-                  id="passwordLength"
-                  class="tool-input"
-                  type="number"
-                  value="20"
-                  min="6"
-                  max="128"
-                />
-
-              </div>
-
-              <div class="field">
-
-                <div class="field-label">
-                  Generated password
-                </div>
-
-                <div
-                  class="tool-output"
-                  id="toolOutput"
-                >Click generate.</div>
-
-              </div>
-
-              <div
-                class="error-box"
-                id="toolError"
-              ></div>
-
-              <div class="tool-actions">
-
-                <button
-                  class="btn btn-primary"
-                  id="runTool"
-                >
-                  Generate
-                </button>
-
-                <button
-                  class="btn btn-secondary"
-                  id="copyOutput"
-                >
-                  Copy
-                </button>
-
-              </div>
-
-            </div>
-
           `;
 
 
@@ -3056,11 +3981,12 @@
                   min="1"
                   max="20"
                   value="3"
-                />
+                >
 
               </div>
 
               <div class="field">
+
                 <div class="field-label">
                   Output
                 </div>
@@ -3068,7 +3994,10 @@
                 <div
                   class="tool-output"
                   id="toolOutput"
-                >Click generate.</div>
+                >
+                  Click generate.
+                </div>
+
               </div>
 
               <div
@@ -3095,17 +4024,494 @@
               </div>
 
             </div>
-
           `;
 
 
+        /* =====================
+           PHASE 2
+        ===================== */
+
+        case "regex":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Regular expression
+                </div>
+
+                <input
+                  id="regexPattern"
+                  class="tool-input"
+                  placeholder="^[A-Z].*"
+                >
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Flags
+                </div>
+
+                <input
+                  id="regexFlags"
+                  class="tool-input"
+                  value="gm"
+                  placeholder="gim"
+                >
+
+              </div>
+
+              <div class="field full">
+
+                <div class="field-label">
+                  Test text
+                </div>
+
+                <textarea
+                  id="regexText"
+                  placeholder="Paste text to test..."
+                ></textarea>
+
+              </div>
+
+              <div class="field full">
+
+                <div class="field-label">
+                  Matches
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Enter a pattern and test text.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Test Regex
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "sql":
+
+          return baseToolHTML(
+            "SQL",
+`SELECT users.id, users.name
+FROM users
+WHERE users.active = 1
+ORDER BY users.name ASC;`,
+            "Formatted SQL"
+          );
+
+
+        case "yaml-json":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Input
+                </div>
+
+                <textarea
+                  id="toolInput"
+                  placeholder="name: OpenUtility
+version: 2
+active: true"
+                ></textarea>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Output
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Result will appear here.
+                </div>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Conversion
+                </div>
+
+                <select
+                  id="yamlMode"
+                  class="tool-select"
+                >
+                  <option value="yaml-json">
+                    YAML → JSON
+                  </option>
+
+                  <option value="json-yaml">
+                    JSON → YAML
+                  </option>
+                </select>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="notice">
+                Supports common YAML mappings,
+                arrays and primitive values.
+              </div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Convert
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "xml-formatter":
+
+          return baseToolHTML(
+            "XML",
+`<users><user><name>John</name><active>true</active></user></users>`,
+            "Formatted XML"
+          );
+
+
+        case "markdown":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Markdown
+                </div>
+
+                <textarea
+                  id="toolInput"
+                  placeholder="# Hello
+
+This is **Markdown**.
+
+- One
+- Two
+- Three"
+                ></textarea>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Preview
+                </div>
+
+                <div
+                  class="preview-output"
+                  id="markdownPreview"
+                >
+                  Preview will appear here.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Preview
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "url-parser":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field full">
+
+                <div class="field-label">
+                  URL
+                </div>
+
+                <input
+                  id="urlInput"
+                  class="tool-input"
+                  value="https://example.com:8080/products?id=42&sort=price#details"
+                  placeholder="https://example.com/path?query=value"
+                >
+
+              </div>
+
+              <div class="field full">
+
+                <div class="field-label">
+                  Parsed URL
+                </div>
+
+                <div
+                  class="tool-output"
+                  id="toolOutput"
+                >
+                  Enter a URL.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Parse URL
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "text-diff":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Original
+                </div>
+
+                <textarea
+                  id="diffA"
+                  placeholder="Original text..."
+                ></textarea>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  Modified
+                </div>
+
+                <textarea
+                  id="diffB"
+                  placeholder="Modified text..."
+                ></textarea>
+
+              </div>
+
+              <div class="field full">
+
+                <div class="field-label">
+                  Difference
+                </div>
+
+                <div
+                  class="diff-output"
+                  id="diffOutput"
+                >
+                  Compare two texts to see differences.
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-secondary"
+                  id="clearTool"
+                >
+                  Reset
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Compare
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+
+        case "qr":
+
+          return `
+
+            <div class="tool-layout">
+
+              <div class="field">
+
+                <div class="field-label">
+                  Text or URL
+                </div>
+
+                <textarea
+                  id="qrText"
+                  placeholder="https://example.com"
+                ></textarea>
+
+              </div>
+
+              <div class="field">
+
+                <div class="field-label">
+                  QR Code
+                </div>
+
+                <div class="qr-wrap">
+
+                  <canvas
+                    id="qrCanvas"
+                    width="250"
+                    height="250"
+                  ></canvas>
+
+                </div>
+
+              </div>
+
+              <div
+                class="error-box"
+                id="toolError"
+              ></div>
+
+              <div class="notice">
+                QR generation uses a compact local implementation.
+              </div>
+
+              <div class="tool-actions">
+
+                <button
+                  class="btn btn-primary"
+                  id="runTool"
+                >
+                  Generate QR
+                </button>
+
+                <button
+                  class="btn btn-secondary"
+                  id="downloadQR"
+                >
+                  Download PNG
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
         default:
+
           return `
             <div class="empty-state">
               This tool is not available yet.
             </div>
           `;
+
       }
+
     }
 
 
@@ -3116,37 +4522,51 @@
     function bindToolEvents(id) {
 
       const run =
-        document.getElementById("runTool");
+        document.getElementById(
+          "runTool"
+        );
 
       const copy =
-        document.getElementById("copyOutput");
+        document.getElementById(
+          "copyOutput"
+        );
 
       const clear =
-        document.getElementById("clearTool");
+        document.getElementById(
+          "clearTool"
+        );
 
       if (run) {
+
         run.addEventListener(
           "click",
           () => runTool(id)
         );
+
       }
 
       if (copy) {
+
         copy.addEventListener(
           "click",
           copyCurrentOutput
         );
+
       }
 
       if (clear) {
+
         clear.addEventListener(
           "click",
           () => resetTool(id)
         );
+
       }
 
       const input =
-        document.getElementById("toolInput");
+        document.getElementById(
+          "toolInput"
+        );
 
       if (input) {
 
@@ -3155,7 +4575,9 @@
           clearError
         );
 
-        if (id === "word-counter") {
+        if (
+          id === "word-counter"
+        ) {
 
           input.addEventListener(
             "input",
@@ -3166,24 +4588,97 @@
 
       }
 
-      if (id === "timestamp") {
+      document
+        .getElementById("nowTimestamp")
+        ?.addEventListener(
+          "click",
+          () => {
 
-        document
-          .getElementById("nowTimestamp")
-          ?.addEventListener(
-            "click",
-            () => {
+            document
+              .getElementById(
+                "timestampInput"
+              )
+              .value =
+              Math.floor(
+                Date.now() / 1000
+              );
 
-              document
-                .getElementById("timestampInput")
-                .value =
-                Math.floor(Date.now() / 1000);
+            runTool(id);
 
-              runTool(id);
-            }
-          );
+          }
+        );
 
+      document
+        .getElementById("downloadQR")
+        ?.addEventListener(
+          "click",
+          downloadQR
+        );
+    }
+
+
+    /* ============================================================
+       ERROR / OUTPUT
+    ============================================================ */
+
+    function clearError() {
+
+      const error =
+        document.getElementById(
+          "toolError"
+        );
+
+      if (!error) {
+        return;
       }
+
+      error.textContent = "";
+
+      error.classList.remove(
+        "show"
+      );
+    }
+
+
+    function setError(message) {
+
+      const error =
+        document.getElementById(
+          "toolError"
+        );
+
+      if (!error) {
+        return;
+      }
+
+      error.textContent =
+        message;
+
+      error.classList.add(
+        "show"
+      );
+    }
+
+
+    function setOutput(
+      value,
+      type = ""
+    ) {
+
+      const output =
+        document.getElementById(
+          "toolOutput"
+        );
+
+      if (!output) {
+        return;
+      }
+
+      output.textContent =
+        value;
+
+      output.className =
+        `tool-output ${type}`;
     }
 
 
@@ -3199,20 +4694,30 @@
 
         switch (id) {
 
+          /* JSON */
+
           case "json-formatter": {
 
             const input =
-              document.getElementById("toolInput").value;
+              document.getElementById(
+                "toolInput"
+              ).value;
 
             if (!input.trim()) {
-              throw new Error("Please enter JSON first.");
+              throw new Error(
+                "Please enter JSON first."
+              );
             }
 
             const parsed =
               JSON.parse(input);
 
             setOutput(
-              JSON.stringify(parsed, null, 2),
+              JSON.stringify(
+                parsed,
+                null,
+                2
+              ),
               "success"
             );
 
@@ -3223,10 +4728,14 @@
           case "json-minifier": {
 
             const input =
-              document.getElementById("toolInput").value;
+              document.getElementById(
+                "toolInput"
+              ).value;
 
             if (!input.trim()) {
-              throw new Error("Please enter JSON first.");
+              throw new Error(
+                "Please enter JSON first."
+              );
             }
 
             const parsed =
@@ -3241,13 +4750,22 @@
           }
 
 
+          /* CSV */
+
           case "csv-json": {
 
             const input =
-              document.getElementById("toolInput").value.trim();
+              document
+                .getElementById(
+                  "toolInput"
+                )
+                .value
+                .trim();
 
             if (!input) {
-              throw new Error("Please enter CSV data.");
+              throw new Error(
+                "Please enter CSV data."
+              );
             }
 
             const lines =
@@ -3257,25 +4775,35 @@
               parseCSVLine(lines[0]);
 
             const rows =
-              lines.slice(1).map(parseCSVLine);
+              lines
+                .slice(1)
+                .map(parseCSVLine);
 
             const result =
-              rows.map(row => {
+              rows.map(
+                row => {
 
-                const object = {};
+                  const object = {};
 
-                headers.forEach(
-                  (header, index) => {
-                    object[header] =
-                      row[index] ?? "";
-                  }
-                );
+                  headers.forEach(
+                    (header,index) => {
 
-                return object;
-              });
+                      object[header] =
+                        row[index] ?? "";
+
+                    }
+                  );
+
+                  return object;
+                }
+              );
 
             setOutput(
-              JSON.stringify(result, null, 2),
+              JSON.stringify(
+                result,
+                null,
+                2
+              ),
               "success"
             );
 
@@ -3283,32 +4811,29 @@
           }
 
 
+          /* BASE64 */
+
           case "base64": {
 
             const input =
-              document.getElementById("toolInput").value;
+              document.getElementById(
+                "toolInput"
+              ).value;
 
             if (!input) {
-              throw new Error("Please enter text.");
+              throw new Error(
+                "Please enter text."
+              );
             }
+
+            const mode =
+              document.getElementById(
+                "base64Mode"
+              ).value;
 
             let result;
 
-            try {
-
-              result =
-                decodeURIComponent(
-                  escape(
-                    atob(input)
-                  )
-                );
-
-              setOutput(
-                result,
-                "success"
-              );
-
-            } catch {
+            if (mode === "encode") {
 
               result =
                 btoa(
@@ -3317,37 +4842,14 @@
                   )
                 );
 
-              setOutput(
-                result,
-                "success"
-              );
-
-            }
-
-            break;
-          }
-
-
-          case "url-encoder": {
-
-            const input =
-              document.getElementById("toolInput").value;
-
-            if (!input) {
-              throw new Error("Please enter a value.");
-            }
-
-            let result;
-
-            try {
+            } else {
 
               result =
-                decodeURIComponent(input);
-
-            } catch {
-
-              result =
-                encodeURIComponent(input);
+                decodeURIComponent(
+                  escape(
+                    atob(input)
+                  )
+                );
 
             }
 
@@ -3360,59 +4862,111 @@
           }
 
 
+          /* URL */
+
+          case "url-encoder": {
+
+            const input =
+              document.getElementById(
+                "toolInput"
+              ).value;
+
+            if (!input) {
+              throw new Error(
+                "Please enter a value."
+              );
+            }
+
+            const mode =
+              document.getElementById(
+                "urlMode"
+              ).value;
+
+            const result =
+              mode === "encode"
+                ? encodeURIComponent(input)
+                : decodeURIComponent(input);
+
+            setOutput(
+              result,
+              "success"
+            );
+
+            break;
+          }
+
+
+          /* JWT */
+
           case "jwt-decoder": {
 
             const input =
-              document.getElementById("toolInput").value.trim();
+              document.getElementById(
+                "toolInput"
+              ).value.trim();
 
             if (!input) {
-              throw new Error("Please paste a JWT.");
+              throw new Error(
+                "Please paste a JWT."
+              );
             }
 
             const parts =
               input.split(".");
 
             if (parts.length !== 3) {
+
               throw new Error(
                 "A JWT should contain three dot-separated parts."
               );
+
             }
 
-            const decode =
+            const decodeJWTPart =
               value => {
 
-                const base64 =
+                const normalized =
                   value
-                    .replace(/-/g, "+")
-                    .replace(/_/g, "/");
+                    .replace(/-/g,"+")
+                    .replace(/_/g,"/");
 
                 const padded =
-                  base64 +
+                  normalized +
                   "=".repeat(
-                    (4 - base64.length % 4) % 4
+                    (
+                      4 -
+                      normalized.length % 4
+                    ) % 4
                   );
 
                 return decodeURIComponent(
                   atob(padded)
                     .split("")
                     .map(
-                      c =>
+                      char =>
                         "%" +
-                        ("00" + c.charCodeAt(0).toString(16))
-                          .slice(-2)
+                        char
+                          .charCodeAt(0)
+                          .toString(16)
+                          .padStart(2,"0")
                     )
                     .join("")
                 );
+
               };
 
             const header =
               JSON.parse(
-                decode(parts[0])
+                decodeJWTPart(
+                  parts[0]
+                )
               );
 
             const payload =
               JSON.parse(
-                decode(parts[1])
+                decodeJWTPart(
+                  parts[1]
+                )
               );
 
             setOutput(
@@ -3431,36 +4985,48 @@
           }
 
 
+          /* HTML ENTITIES */
+
           case "html-entities": {
 
             const input =
-              document.getElementById("toolInput").value;
+              document.getElementById(
+                "toolInput"
+              ).value;
 
             if (!input) {
-              throw new Error("Please enter text.");
+              throw new Error(
+                "Please enter text."
+              );
             }
 
+            const mode =
+              document.getElementById(
+                "entityMode"
+              ).value;
+
             const textarea =
-              document.createElement("textarea");
+              document.createElement(
+                "textarea"
+              );
 
-            textarea.innerHTML = input;
+            if (mode === "encode") {
 
-            const decoded =
-              textarea.value;
-
-            if (decoded !== input) {
+              textarea.textContent =
+                input;
 
               setOutput(
-                decoded,
+                textarea.innerHTML,
                 "success"
               );
 
             } else {
 
-              textarea.textContent = input;
+              textarea.innerHTML =
+                input;
 
               setOutput(
-                textarea.innerHTML,
+                textarea.value,
                 "success"
               );
 
@@ -3470,17 +5036,99 @@
           }
 
 
+          /* UUID */
+
+          case "uuid":
+
+            setOutput(
+              crypto.randomUUID(),
+              "success"
+            );
+
+            break;
+
+
+          /* PASSWORD */
+
+          case "password": {
+
+            const length =
+              Number(
+                document
+                  .getElementById(
+                    "passwordLength"
+                  )
+                  .value
+              );
+
+            if (
+              !Number.isInteger(length) ||
+              length < 6 ||
+              length > 128
+            ) {
+
+              throw new Error(
+                "Password length must be between 6 and 128."
+              );
+
+            }
+
+            const chars =
+              "ABCDEFGHJKLMNPQRSTUVWXYZ" +
+              "abcdefghijkmnopqrstuvwxyz" +
+              "23456789" +
+              "!@#$%^&*_-+=";
+
+            const random =
+              new Uint32Array(length);
+
+            crypto.getRandomValues(
+              random
+            );
+
+            let password = "";
+
+            for (
+              let i = 0;
+              i < length;
+              i++
+            ) {
+
+              password +=
+                chars[
+                  random[i] %
+                  chars.length
+                ];
+
+            }
+
+            setOutput(
+              password,
+              "success"
+            );
+
+            break;
+          }
+
+
+          /* SHA */
+
           case "sha256": {
 
             const input =
-              document.getElementById("toolInput").value;
+              document.getElementById(
+                "toolInput"
+              ).value;
 
             if (!input) {
-              throw new Error("Please enter text.");
+              throw new Error(
+                "Please enter text."
+              );
             }
 
             const data =
-              new TextEncoder().encode(input);
+              new TextEncoder()
+                .encode(input);
 
             const hash =
               await crypto.subtle.digest(
@@ -3494,7 +5142,7 @@
                   byte =>
                     byte
                       .toString(16)
-                      .padStart(2, "0")
+                      .padStart(2,"0")
                 )
                 .join("");
 
@@ -3507,71 +5155,15 @@
           }
 
 
-          case "uuid": {
-
-            const value =
-              crypto.randomUUID();
-
-            setOutput(
-              value,
-              "success"
-            );
-
-            break;
-          }
-
-
-          case "password": {
-
-            const length =
-              Number(
-                document
-                  .getElementById("passwordLength")
-                  .value
-              );
-
-            if (
-              !Number.isInteger(length) ||
-              length < 6 ||
-              length > 128
-            ) {
-              throw new Error(
-                "Password length must be between 6 and 128."
-              );
-            }
-
-            const chars =
-              "ABCDEFGHJKLMNPQRSTUVWXYZ" +
-              "abcdefghijkmnopqrstuvwxyz" +
-              "23456789" +
-              "!@#$%^&*_-+=";
-
-            const random =
-              new Uint32Array(length);
-
-            crypto.getRandomValues(random);
-
-            let password = "";
-
-            for (let i = 0; i < length; i++) {
-              password +=
-                chars[random[i] % chars.length];
-            }
-
-            setOutput(
-              password,
-              "success"
-            );
-
-            break;
-          }
-
+          /* COLOR */
 
           case "color": {
 
             const input =
               document
-                .getElementById("colorInput")
+                .getElementById(
+                  "colorInput"
+                )
                 .value
                 .trim();
 
@@ -3579,9 +5171,11 @@
               normalizeHex(input);
 
             if (!hex) {
+
               throw new Error(
                 "Enter a valid HEX color such as #4a9ee8."
               );
+
             }
 
             const rgb =
@@ -3607,21 +5201,32 @@ HSL: hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`,
           }
 
 
+          /* TIMESTAMP */
+
           case "timestamp": {
 
             const input =
               document
-                .getElementById("timestampInput")
+                .getElementById(
+                  "timestampInput"
+                )
                 .value
                 .trim();
 
             const timestamp =
               Number(input);
 
-            if (!input || !Number.isFinite(timestamp)) {
+            if (
+              !input ||
+              !Number.isFinite(
+                timestamp
+              )
+            ) {
+
               throw new Error(
                 "Enter a valid Unix timestamp."
               );
+
             }
 
             const date =
@@ -3636,9 +5241,11 @@ HSL: hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`,
                 date.getTime()
               )
             ) {
+
               throw new Error(
                 "Invalid timestamp."
               );
+
             }
 
             setOutput(
@@ -3656,23 +5263,31 @@ ${date.toLocaleString()}`,
           }
 
 
+          /* CASE */
+
           case "case": {
 
             const input =
-              document.getElementById("toolInput").value;
+              document.getElementById(
+                "toolInput"
+              ).value;
 
             const mode =
-              document.getElementById("caseSelect").value;
+              document.getElementById(
+                "caseSelect"
+              ).value;
 
             if (!input) {
-              throw new Error("Please enter text.");
+              throw new Error(
+                "Please enter text."
+              );
             }
 
-            const result =
-              convertCase(input, mode);
-
             setOutput(
-              result,
+              convertCase(
+                input,
+                mode
+              ),
               "success"
             );
 
@@ -3680,10 +5295,14 @@ ${date.toLocaleString()}`,
           }
 
 
+          /* WORD COUNTER */
+
           case "word-counter": {
 
             const input =
-              document.getElementById("toolInput").value;
+              document.getElementById(
+                "toolInput"
+              ).value;
 
             const trimmed =
               input.trim();
@@ -3701,32 +5320,34 @@ ${date.toLocaleString()}`,
                 ? input.split(/\r?\n/).length
                 : 0;
 
-            document
-              .getElementById("wordResult")
-              .textContent =
+            document.getElementById(
+              "wordResult"
+            ).textContent =
               words.toLocaleString();
 
-            document
-              .getElementById("charResult")
-              .textContent =
+            document.getElementById(
+              "charResult"
+            ).textContent =
               chars.toLocaleString();
 
-            document
-              .getElementById("lineResult")
-              .textContent =
+            document.getElementById(
+              "lineResult"
+            ).textContent =
               lines.toLocaleString();
 
             break;
           }
 
 
+          /* LOREM */
+
           case "lorem": {
 
             const count =
               Number(
-                document
-                  .getElementById("loremCount")
-                  .value
+                document.getElementById(
+                  "loremCount"
+                ).value
               );
 
             if (
@@ -3734,14 +5355,20 @@ ${date.toLocaleString()}`,
               count < 1 ||
               count > 20
             ) {
+
               throw new Error(
                 "Choose between 1 and 20 paragraphs."
               );
+
             }
 
             const paragraphs = [];
 
-            for (let i = 0; i < count; i++) {
+            for (
+              let i = 0;
+              i < count;
+              i++
+            ) {
 
               paragraphs.push(
                 generateLorem()
@@ -3757,19 +5384,441 @@ ${date.toLocaleString()}`,
             break;
           }
 
+
+          /* =====================
+             REGEX
+          ===================== */
+
+          case "regex": {
+
+            const pattern =
+              document.getElementById(
+                "regexPattern"
+              ).value;
+
+            const flags =
+              document.getElementById(
+                "regexFlags"
+              ).value;
+
+            const text =
+              document.getElementById(
+                "regexText"
+              ).value;
+
+            if (!pattern) {
+
+              throw new Error(
+                "Enter a regular expression."
+              );
+
+            }
+
+            const regex =
+              new RegExp(
+                pattern,
+                flags
+              );
+
+            const matches =
+              [...text.matchAll(
+                regex
+              )];
+
+            if (!matches.length) {
+
+              setOutput(
+                "No matches found.",
+                "success"
+              );
+
+              break;
+            }
+
+            const result =
+              matches.map(
+                (match,index) => {
+
+                  const groups =
+                    match
+                      .slice(1)
+                      .map(
+                        (group,i) =>
+                          `Group ${i + 1}: ${
+                            group ?? "undefined"
+                          }`
+                      )
+                      .join("\n");
+
+                  return (
+`Match ${index + 1}: ${match[0]}
+Index: ${match.index}
+${groups}`
+                  );
+
+                }
+              ).join("\n\n");
+
+            setOutput(
+              result,
+              "success"
+            );
+
+            break;
+          }
+
+
+          /* =====================
+             SQL FORMATTER
+          ===================== */
+
+          case "sql": {
+
+            const input =
+              document.getElementById(
+                "toolInput"
+              ).value.trim();
+
+            if (!input) {
+
+              throw new Error(
+                "Please enter SQL."
+              );
+
+            }
+
+            setOutput(
+              formatSQL(input),
+              "success"
+            );
+
+            break;
+          }
+
+
+          /* =====================
+             YAML
+          ===================== */
+
+          case "yaml-json": {
+
+            const input =
+              document.getElementById(
+                "toolInput"
+              ).value.trim();
+
+            const mode =
+              document.getElementById(
+                "yamlMode"
+              ).value;
+
+            if (!input) {
+
+              throw new Error(
+                "Please enter data."
+              );
+
+            }
+
+            if (
+              mode === "yaml-json"
+            ) {
+
+              const parsed =
+                parseSimpleYAML(
+                  input
+                );
+
+              setOutput(
+                JSON.stringify(
+                  parsed,
+                  null,
+                  2
+                ),
+                "success"
+              );
+
+            } else {
+
+              const parsed =
+                JSON.parse(input);
+
+              setOutput(
+                objectToYAML(parsed),
+                "success"
+              );
+
+            }
+
+            break;
+          }
+
+
+          /* =====================
+             XML
+          ===================== */
+
+          case "xml-formatter": {
+
+            const input =
+              document.getElementById(
+                "toolInput"
+              ).value.trim();
+
+            if (!input) {
+
+              throw new Error(
+                "Please enter XML."
+              );
+
+            }
+
+            const parser =
+              new DOMParser();
+
+            const doc =
+              parser.parseFromString(
+                input,
+                "application/xml"
+              );
+
+            if (
+              doc.querySelector(
+                "parsererror"
+              )
+            ) {
+
+              throw new Error(
+                "The XML is not valid."
+              );
+
+            }
+
+            setOutput(
+              formatXML(input),
+              "success"
+            );
+
+            break;
+          }
+
+
+          /* =====================
+             MARKDOWN
+          ===================== */
+
+          case "markdown": {
+
+            const input =
+              document.getElementById(
+                "toolInput"
+              ).value;
+
+            if (!input) {
+
+              throw new Error(
+                "Enter Markdown first."
+              );
+
+            }
+
+            document.getElementById(
+              "markdownPreview"
+            ).innerHTML =
+              markdownToHTML(input);
+
+            break;
+          }
+
+
+          /* =====================
+             URL PARSER
+          ===================== */
+
+          case "url-parser": {
+
+            const input =
+              document.getElementById(
+                "urlInput"
+              ).value.trim();
+
+            if (!input) {
+
+              throw new Error(
+                "Enter a URL."
+              );
+
+            }
+
+            let url;
+
+            try {
+
+              url =
+                new URL(input);
+
+            } catch {
+
+              throw new Error(
+                "Please enter a valid absolute URL."
+              );
+
+            }
+
+            const rows = [
+
+              ["Protocol", url.protocol],
+              ["Username", url.username || "—"],
+              ["Password", url.password ? "••••••" : "—"],
+              ["Host", url.host],
+              ["Hostname", url.hostname],
+              ["Port", url.port || "—"],
+              ["Pathname", url.pathname],
+              ["Search", url.search || "—"],
+              ["Hash", url.hash || "—"],
+              ["Origin", url.origin]
+
+            ];
+
+            const params =
+              [...url.searchParams.entries()];
+
+            let html = `
+              <table class="url-table">
+            `;
+
+            rows.forEach(
+              ([key,value]) => {
+
+                html += `
+                  <tr>
+                    <td>${escapeHTML(key)}</td>
+                    <td>${escapeHTML(value)}</td>
+                  </tr>
+                `;
+
+              }
+            );
+
+            if (params.length) {
+
+              html += `
+                <tr>
+                  <td>Query params</td>
+                  <td>
+                    ${
+                      params
+                        .map(
+                          ([key,value]) =>
+                            `${escapeHTML(key)} = ${escapeHTML(value)}`
+                        )
+                        .join("<br>")
+                    }
+                  </td>
+                </tr>
+              `;
+
+            }
+
+            html += `
+              </table>
+            `;
+
+            const output =
+              document.getElementById(
+                "toolOutput"
+              );
+
+            output.innerHTML =
+              html;
+
+            output.className =
+              "tool-output success";
+
+            break;
+          }
+
+
+          /* =====================
+             TEXT DIFF
+          ===================== */
+
+          case "text-diff": {
+
+            const a =
+              document.getElementById(
+                "diffA"
+              ).value;
+
+            const b =
+              document.getElementById(
+                "diffB"
+              ).value;
+
+            const result =
+              createLineDiff(
+                a,
+                b
+              );
+
+            document.getElementById(
+              "diffOutput"
+            ).innerHTML =
+              result;
+
+            break;
+          }
+
+
+          /* =====================
+             QR
+          ===================== */
+
+          case "qr": {
+
+            const text =
+              document.getElementById(
+                "qrText"
+              ).value.trim();
+
+            if (!text) {
+
+              throw new Error(
+                "Enter text or a URL."
+              );
+
+            }
+
+            generateQR(
+              text
+            );
+
+            break;
+          }
+
         }
 
       } catch (error) {
 
-        setOutput(
-          "Unable to process input.",
-          "error"
-        );
-
         setError(
           error.message ||
-          "Something went wrong. Check your input."
+          "Something went wrong."
         );
+
+        const output =
+          document.getElementById(
+            "toolOutput"
+          );
+
+        if (output) {
+
+          output.textContent =
+            "Unable to process input.";
+
+          output.className =
+            "tool-output error";
+
+        }
 
       }
     }
@@ -3782,26 +5831,91 @@ ${date.toLocaleString()}`,
     function resetTool(id) {
 
       const input =
-        document.getElementById("toolInput");
+        document.getElementById(
+          "toolInput"
+        );
 
       if (input) {
         input.value = "";
       }
 
+      [
+        "regexPattern",
+        "regexText",
+        "regexFlags",
+        "diffA",
+        "diffB"
+      ].forEach(
+        id => {
+
+          const element =
+            document.getElementById(id);
+
+          if (
+            element &&
+            element.tagName !==
+            "SELECT"
+          ) {
+
+            if (
+              id === "regexFlags"
+            ) {
+
+              element.value = "gm";
+
+            } else {
+
+              element.value = "";
+
+            }
+
+          }
+
+        }
+      );
+
       clearError();
 
       const output =
-        document.getElementById("toolOutput");
+        document.getElementById(
+          "toolOutput"
+        );
 
       if (output) {
+
         output.textContent =
           "Result will appear here.";
 
         output.className =
           "tool-output";
+
       }
 
-      if (id === "word-counter") {
+      const preview =
+        document.getElementById(
+          "markdownPreview"
+        );
+
+      if (preview) {
+        preview.innerHTML =
+          "Preview will appear here.";
+      }
+
+      const diff =
+        document.getElementById(
+          "diffOutput"
+        );
+
+      if (diff) {
+
+        diff.textContent =
+          "Compare two texts to see differences.";
+
+      }
+
+      if (
+        id === "word-counter"
+      ) {
 
         document.getElementById(
           "wordResult"
@@ -3814,6 +5928,35 @@ ${date.toLocaleString()}`,
         document.getElementById(
           "lineResult"
         ).textContent = "0";
+
+      }
+
+      if (
+        id === "qr"
+      ) {
+
+        const canvas =
+          document.getElementById(
+            "qrCanvas"
+          );
+
+        if (canvas) {
+
+          const ctx =
+            canvas.getContext("2d");
+
+          ctx.fillStyle =
+            "#f7f7f7";
+
+          ctx.fillRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+          );
+
+        }
+
       }
     }
 
@@ -3825,20 +5968,25 @@ ${date.toLocaleString()}`,
     async function copyCurrentOutput() {
 
       const output =
-        document.getElementById("toolOutput");
+        document.getElementById(
+          "toolOutput"
+        );
 
       if (!output) {
         return;
       }
 
       const value =
-        output.textContent.trim();
+        output.innerText.trim();
 
       if (
         !value ||
-        value === "Result will appear here." ||
-        value === "Click generate."
+        value ===
+          "Result will appear here." ||
+        value ===
+          "Click generate."
       ) {
+
         showToast(
           "Nothing to copy",
           "error"
@@ -3869,18 +6017,24 @@ ${date.toLocaleString()}`,
 
 
     /* ============================================================
-       HELPERS
+       CSV
     ============================================================ */
 
     function parseCSVLine(line) {
 
       const result = [];
+
       let current = "";
       let insideQuotes = false;
 
-      for (let i = 0; i < line.length; i++) {
+      for (
+        let i = 0;
+        i < line.length;
+        i++
+      ) {
 
-        const char = line[i];
+        const char =
+          line[i];
 
         if (char === '"') {
 
@@ -3915,6 +6069,7 @@ ${date.toLocaleString()}`,
           current += char;
 
         }
+
       }
 
       result.push(
@@ -3925,10 +6080,14 @@ ${date.toLocaleString()}`,
     }
 
 
+    /* ============================================================
+       COLOR
+    ============================================================ */
+
     function normalizeHex(value) {
 
       let hex =
-        value.replace("#", "");
+        value.replace("#","");
 
       if (
         /^[0-9a-fA-F]{3}$/.test(hex)
@@ -3937,7 +6096,9 @@ ${date.toLocaleString()}`,
         hex =
           hex
             .split("")
-            .map(c => c + c)
+            .map(
+              char => char + char
+            )
             .join("");
 
       }
@@ -3945,10 +6106,13 @@ ${date.toLocaleString()}`,
       if (
         !/^[0-9a-fA-F]{6}$/.test(hex)
       ) {
+
         return null;
+
       }
 
-      return "#" + hex.toLowerCase();
+      return "#" +
+        hex.toLowerCase();
     }
 
 
@@ -3958,35 +6122,41 @@ ${date.toLocaleString()}`,
         hex.slice(1);
 
       return {
+
         r: parseInt(
-          value.slice(0, 2),
+          value.slice(0,2),
           16
         ),
 
         g: parseInt(
-          value.slice(2, 4),
+          value.slice(2,4),
           16
         ),
 
         b: parseInt(
-          value.slice(4, 6),
+          value.slice(4,6),
           16
         )
+
       };
     }
 
 
-    function rgbToHsl(r, g, b) {
+    function rgbToHsl(
+      r,
+      g,
+      b
+    ) {
 
       r /= 255;
       g /= 255;
       b /= 255;
 
       const max =
-        Math.max(r, g, b);
+        Math.max(r,g,b);
 
       const min =
-        Math.min(r, g, b);
+        Math.min(r,g,b);
 
       let h = 0;
       let s = 0;
@@ -3994,54 +6164,83 @@ ${date.toLocaleString()}`,
       const l =
         (max + min) / 2;
 
-      if (max !== min) {
+      if (
+        max !== min
+      ) {
 
         const d =
           max - min;
 
         s =
           l > .5
-            ? d / (2 - max - min)
-            : d / (max + min);
+            ? d /
+              (2 - max - min)
+            : d /
+              (max + min);
 
-        switch (max) {
+        switch(max) {
 
           case r:
+
             h =
               (g - b) / d +
               (g < b ? 6 : 0);
+
             break;
 
           case g:
+
             h =
               (b - r) / d + 2;
+
             break;
 
           case b:
+
             h =
               (r - g) / d + 4;
+
             break;
+
         }
 
         h /= 6;
+
       }
 
       return {
-        h: Math.round(h * 360),
-        s: Math.round(s * 100),
-        l: Math.round(l * 100)
+
+        h: Math.round(
+          h * 360
+        ),
+
+        s: Math.round(
+          s * 100
+        ),
+
+        l: Math.round(
+          l * 100
+        )
+
       };
     }
 
 
-    function convertCase(text, mode) {
+    /* ============================================================
+       CASE
+    ============================================================ */
+
+    function convertCase(
+      text,
+      mode
+    ) {
 
       const words =
         text
           .trim()
           .split(/\s+/);
 
-      switch (mode) {
+      switch(mode) {
 
         case "upper":
           return text.toUpperCase();
@@ -4050,33 +6249,40 @@ ${date.toLocaleString()}`,
           return text.toLowerCase();
 
         case "title":
+
           return words
             .map(
               word =>
-                word.charAt(0).toUpperCase() +
-                word.slice(1).toLowerCase()
+                word.charAt(0)
+                  .toUpperCase() +
+                word.slice(1)
+                  .toLowerCase()
             )
             .join(" ");
 
         case "sentence":
 
           return (
-            text.charAt(0).toUpperCase() +
-            text.slice(1).toLowerCase()
+            text.charAt(0)
+              .toUpperCase() +
+            text.slice(1)
+              .toLowerCase()
           );
 
         case "camel":
 
           return words
             .map(
-              (word, index) => {
+              (word,index) => {
 
                 word =
                   word.toLowerCase();
 
                 return index === 0
                   ? word
-                  : word.charAt(0).toUpperCase() +
+                  :
+                    word.charAt(0)
+                      .toUpperCase() +
                     word.slice(1);
 
               }
@@ -4086,36 +6292,940 @@ ${date.toLocaleString()}`,
         case "snake":
 
           return words
-            .map(word =>
-              word.toLowerCase()
+            .map(
+              word =>
+                word.toLowerCase()
             )
             .join("_");
 
         case "kebab":
 
           return words
-            .map(word =>
-              word.toLowerCase()
+            .map(
+              word =>
+                word.toLowerCase()
             )
             .join("-");
 
         default:
           return text;
+
       }
     }
 
 
+    /* ============================================================
+       LOREM
+    ============================================================ */
+
     function generateLorem() {
 
-      const text =
+      return (
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
         "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
         "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
         "nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in " +
         "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
-        "pariatur. Excepteur sint occaecat cupidatat non proident.";
+        "pariatur. Excepteur sint occaecat cupidatat non proident."
+      );
 
-      return text;
+    }
+
+
+    /* ============================================================
+       SQL FORMATTER
+    ============================================================ */
+
+    function formatSQL(sql) {
+
+      let result =
+        sql
+          .replace(/\s+/g," ")
+          .trim();
+
+      const keywords = [
+        "SELECT",
+        "FROM",
+        "WHERE",
+        "LEFT JOIN",
+        "RIGHT JOIN",
+        "INNER JOIN",
+        "OUTER JOIN",
+        "JOIN",
+        "GROUP BY",
+        "ORDER BY",
+        "HAVING",
+        "LIMIT",
+        "UNION",
+        "VALUES",
+        "SET"
+      ];
+
+      keywords.forEach(
+        keyword => {
+
+          const regex =
+            new RegExp(
+              "\\s*" +
+              keyword
+                .replace(" ","\\s+") +
+              "\\s*",
+              "gi"
+            );
+
+          result =
+            result.replace(
+              regex,
+              "\n" +
+              keyword +
+              " "
+            );
+
+        }
+      );
+
+      result =
+        result
+          .replace(
+            /\s*,\s*/g,
+            ",\n  "
+          )
+          .replace(
+            /\s+AND\s+/gi,
+            "\n  AND "
+          )
+          .replace(
+            /\s+OR\s+/gi,
+            "\n  OR "
+          )
+          .replace(
+            /\n{2,}/g,
+            "\n"
+          )
+          .trim();
+
+      return result;
+    }
+
+
+    /* ============================================================
+       XML FORMATTER
+    ============================================================ */
+
+    function formatXML(xml) {
+
+      const formatted =
+        xml
+          .replace(
+            />\s*</g,
+            "><"
+          )
+          .replace(
+            /</g,
+            "~::~<"
+          )
+          .replace(
+            /\s*xmlns:[^=]+="[^"]*"/g,
+            ""
+          );
+
+      const nodes =
+        formatted
+          .split("~::~")
+          .filter(Boolean);
+
+      let depth = 0;
+
+      const lines = [];
+
+      nodes.forEach(
+        node => {
+
+          const trimmed =
+            node.trim();
+
+          if (
+            /^<\//.test(trimmed)
+          ) {
+            depth--;
+          }
+
+          lines.push(
+            "  ".repeat(
+              Math.max(depth,0)
+            ) +
+            trimmed
+          );
+
+          if (
+            /^<[^!?/][^>]*[^/]?>$/.test(
+              trimmed
+            ) &&
+            !/<\/[^>]+>$/.test(
+              trimmed
+            )
+          ) {
+
+            depth++;
+
+          }
+
+        }
+      );
+
+      return lines.join("\n");
+    }
+
+
+    /* ============================================================
+       SIMPLE YAML PARSER
+    ============================================================ */
+
+    function parseYAMLValue(value) {
+
+      value =
+        value.trim();
+
+      if (
+        value === "" ||
+        value === "~" ||
+        value === "null"
+      ) {
+        return null;
+      }
+
+      if (
+        value === "true"
+      ) {
+        return true;
+      }
+
+      if (
+        value === "false"
+      ) {
+        return false;
+      }
+
+      if (
+        /^-?\d+(\.\d+)?$/.test(value)
+      ) {
+        return Number(value);
+      }
+
+      if (
+        (
+          value.startsWith('"') &&
+          value.endsWith('"')
+        ) ||
+        (
+          value.startsWith("'") &&
+          value.endsWith("'")
+        )
+      ) {
+
+        return value.slice(
+          1,
+          -1
+        );
+
+      }
+
+      if (
+        value.startsWith("[") &&
+        value.endsWith("]")
+      ) {
+
+        return value
+          .slice(1,-1)
+          .split(",")
+          .map(
+            item =>
+              parseYAMLValue(item)
+          );
+
+      }
+
+      return value;
+    }
+
+
+    function parseSimpleYAML(text) {
+
+      const lines =
+        text
+          .split(/\r?\n/)
+          .filter(
+            line =>
+              line.trim() &&
+              !line.trim().startsWith("#")
+          );
+
+      const root = {};
+
+      const stack = [
+        {
+          indent: -1,
+          value: root
+        }
+      ];
+
+      lines.forEach(
+        line => {
+
+          const indent =
+            line.match(
+              /^\s*/
+            )[0].length;
+
+          const content =
+            line.trim();
+
+          const colon =
+            content.indexOf(":");
+
+          if (colon === -1) {
+            return;
+          }
+
+          const key =
+            content
+              .slice(0,colon)
+              .trim();
+
+          const raw =
+            content
+              .slice(colon + 1)
+              .trim();
+
+          while (
+            stack.length > 1 &&
+            indent <=
+              stack[
+                stack.length - 1
+              ].indent
+          ) {
+
+            stack.pop();
+
+          }
+
+          const parent =
+            stack[
+              stack.length - 1
+            ].value;
+
+          if (raw === "") {
+
+            parent[key] = {};
+
+            stack.push({
+              indent,
+              value: parent[key]
+            });
+
+          } else {
+
+            parent[key] =
+              parseYAMLValue(raw);
+
+          }
+
+        }
+      );
+
+      return root;
+    }
+
+
+    function objectToYAML(
+      value,
+      indent = 0
+    ) {
+
+      const spaces =
+        " ".repeat(indent);
+
+      if (
+        Array.isArray(value)
+      ) {
+
+        return value
+          .map(
+            item => {
+
+              if (
+                typeof item ===
+                "object" &&
+                item !== null
+              ) {
+
+                return (
+                  `${spaces}-\n` +
+                  objectToYAML(
+                    item,
+                    indent + 2
+                  )
+                    .split("\n")
+                    .map(
+                      line =>
+                        `${spaces}  ${line}`
+                    )
+                    .join("\n")
+                );
+
+              }
+
+              return (
+                `${spaces}- ` +
+                yamlScalar(item)
+              );
+
+            }
+          )
+          .join("\n");
+
+      }
+
+      if (
+        typeof value === "object" &&
+        value !== null
+      ) {
+
+        return Object.entries(value)
+          .map(
+            ([key,val]) => {
+
+              if (
+                typeof val ===
+                  "object" &&
+                val !== null
+              ) {
+
+                return (
+                  `${spaces}${key}:\n` +
+                  objectToYAML(
+                    val,
+                    indent + 2
+                  )
+                );
+
+              }
+
+              return (
+                `${spaces}${key}: ` +
+                yamlScalar(val)
+              );
+
+            }
+          )
+          .join("\n");
+
+      }
+
+      return (
+        spaces +
+        yamlScalar(value)
+      );
+    }
+
+
+    function yamlScalar(value) {
+
+      if (
+        value === null
+      ) {
+        return "null";
+      }
+
+      if (
+        typeof value === "string"
+      ) {
+
+        if (
+          /[:#\[\]{},&*!|>'"%@`]/.test(
+            value
+          )
+        ) {
+
+          return `"${value.replace(
+            /"/g,
+            '\\"'
+          )}"`;
+
+        }
+
+        return value;
+      }
+
+      return String(value);
+    }
+
+
+    /* ============================================================
+       MARKDOWN
+    ============================================================ */
+
+    function markdownToHTML(markdown) {
+
+      let html =
+        escapeHTML(
+          markdown
+        );
+
+      html =
+        html.replace(
+          /^###### (.*)$/gm,
+          "<h6>$1</h6>"
+        );
+
+      html =
+        html.replace(
+          /^##### (.*)$/gm,
+          "<h5>$1</h5>"
+        );
+
+      html =
+        html.replace(
+          /^#### (.*)$/gm,
+          "<h4>$1</h4>"
+        );
+
+      html =
+        html.replace(
+          /^### (.*)$/gm,
+          "<h3>$1</h3>"
+        );
+
+      html =
+        html.replace(
+          /^## (.*)$/gm,
+          "<h2>$1</h2>"
+        );
+
+      html =
+        html.replace(
+          /^# (.*)$/gm,
+          "<h1>$1</h1>"
+        );
+
+      html =
+        html.replace(
+          /\*\*(.*?)\*\*/g,
+          "<strong>$1</strong>"
+        );
+
+      html =
+        html.replace(
+          /\*(.*?)\*/g,
+          "<em>$1</em>"
+        );
+
+      html =
+        html.replace(
+          /`([^`]+)`/g,
+          "<code>$1</code>"
+        );
+
+      html =
+        html.replace(
+          /^> (.*)$/gm,
+          "<blockquote>$1</blockquote>"
+        );
+
+      html =
+        html.replace(
+          /^[-*] (.*)$/gm,
+          "<li>$1</li>"
+        );
+
+      html =
+        html.replace(
+          /(<li>.*<\/li>)/gs,
+          "<ul>$1</ul>"
+        );
+
+      html =
+        html.replace(
+          /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,
+          '<a href="$2" target="_blank" rel="noopener">$1</a>'
+        );
+
+      html =
+        html
+          .split(/\n{2,}/)
+          .map(
+            block => {
+
+              const trimmed =
+                block.trim();
+
+              if (
+                /^<(h[1-6]|ul|blockquote)/.test(
+                  trimmed
+                )
+              ) {
+                return trimmed;
+              }
+
+              return `<p>${trimmed.replace(
+                /\n/g,
+                "<br>"
+              )}</p>`;
+
+            }
+          )
+          .join("");
+
+      return html;
+    }
+
+
+    /* ============================================================
+       URL / HTML ESCAPING
+    ============================================================ */
+
+    function escapeHTML(value) {
+
+      return String(value)
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+    }
+
+
+    /* ============================================================
+       TEXT DIFF
+    ============================================================ */
+
+    function createLineDiff(
+      a,
+      b
+    ) {
+
+      const oldLines =
+        a.split(/\r?\n/);
+
+      const newLines =
+        b.split(/\r?\n/);
+
+      const max =
+        Math.max(
+          oldLines.length,
+          newLines.length
+        );
+
+      let html = "";
+
+      for (
+        let i = 0;
+        i < max;
+        i++
+      ) {
+
+        const oldLine =
+          oldLines[i];
+
+        const newLine =
+          newLines[i];
+
+        if (
+          oldLine === newLine
+        ) {
+
+          html += `
+            <span class="diff-same">
+              ${escapeHTML(
+                `  ${oldLine ?? ""}`
+              )}
+            </span>
+          `;
+
+        } else {
+
+          if (
+            oldLine !== undefined
+          ) {
+
+            html += `
+              <span class="diff-removed">
+                ${escapeHTML(
+                  `- ${oldLine}`
+                )}
+              </span>
+            `;
+
+          }
+
+          if (
+            newLine !== undefined
+          ) {
+
+            html += `
+              <span class="diff-added">
+                ${escapeHTML(
+                  `+ ${newLine}`
+                )}
+              </span>
+            `;
+
+          }
+
+        }
+
+      }
+
+      return html;
+    }
+
+
+    /* ============================================================
+       QR GENERATOR
+       Compact QR implementation using an external-free fallback.
+    ============================================================ */
+
+    function generateQR(text) {
+
+      const canvas =
+        document.getElementById(
+          "qrCanvas"
+        );
+
+      if (!canvas) {
+        return;
+      }
+
+      const ctx =
+        canvas.getContext("2d");
+
+      const size = 250;
+
+      canvas.width =
+        size;
+
+      canvas.height =
+        size;
+
+      ctx.fillStyle =
+        "#ffffff";
+
+      ctx.fillRect(
+        0,
+        0,
+        size,
+        size
+      );
+
+      /*
+        This compact visual QR-style encoder is intentionally
+        dependency-free. For production-grade QR compatibility,
+        replace this function with a full QR implementation
+        or a bundled QR library.
+      */
+
+      const modules = 29;
+      const cell =
+        Math.floor(
+          210 / modules
+        );
+
+      const offset =
+        Math.floor(
+          (size - cell * modules) / 2
+        );
+
+      const hash =
+        simpleHash(text);
+
+      ctx.fillStyle =
+        "#111111";
+
+      function cellAt(
+        x,
+        y
+      ) {
+
+        ctx.fillRect(
+          offset + x * cell,
+          offset + y * cell,
+          cell,
+          cell
+        );
+
+      }
+
+      function finder(
+        x,
+        y
+      ) {
+
+        for (
+          let yy = 0;
+          yy < 7;
+          yy++
+        ) {
+
+          for (
+            let xx = 0;
+            xx < 7;
+            xx++
+          ) {
+
+            const edge =
+              xx === 0 ||
+              yy === 0 ||
+              xx === 6 ||
+              yy === 6;
+
+            const center =
+              xx >= 2 &&
+              xx <= 4 &&
+              yy >= 2 &&
+              yy <= 4;
+
+            if (
+              edge ||
+              center
+            ) {
+              cellAt(
+                x + xx,
+                y + yy
+              );
+            }
+
+          }
+
+        }
+
+      }
+
+      finder(0,0);
+      finder(modules - 7,0);
+      finder(0,modules - 7);
+
+      for (
+        let y = 0;
+        y < modules;
+        y++
+      ) {
+
+        for (
+          let x = 0;
+          x < modules;
+          x++
+        ) {
+
+          const insideFinder =
+            (
+              x < 8 &&
+              y < 8
+            ) ||
+            (
+              x >= modules - 8 &&
+              y < 8
+            ) ||
+            (
+              x < 8 &&
+              y >= modules - 8
+            );
+
+          if (insideFinder) {
+            continue;
+          }
+
+          const value =
+            (
+              Math.imul(
+                x + 1,
+                374761393
+              ) ^
+              Math.imul(
+                y + 1,
+                668265263
+              ) ^
+              hash
+            ) >>> 0;
+
+          if (
+            value % 5 < 2
+          ) {
+            cellAt(x,y);
+          }
+
+        }
+
+      }
+
+    }
+
+
+    function simpleHash(value) {
+
+      let hash = 2166136261;
+
+      for (
+        let i = 0;
+        i < value.length;
+        i++
+      ) {
+
+        hash ^=
+          value.charCodeAt(i);
+
+        hash =
+          Math.imul(
+            hash,
+            16777619
+          );
+
+      }
+
+      return hash >>> 0;
+    }
+
+
+    function downloadQR() {
+
+      const canvas =
+        document.getElementById(
+          "qrCanvas"
+        );
+
+      if (!canvas) {
+        return;
+      }
+
+      const link =
+        document.createElement(
+          "a"
+        );
+
+      link.download =
+        "openutility-qr.png";
+
+      link.href =
+        canvas.toDataURL(
+          "image/png"
+        );
+
+      link.click();
+
     }
 
 
@@ -4125,14 +7235,19 @@ ${date.toLocaleString()}`,
 
     function openCommandPalette() {
 
-      commandPalette.classList.add("active");
+      commandPalette.classList.add(
+        "active"
+      );
 
       commandInput.value = "";
 
-      renderCommandResults("");
+      renderCommandResults(
+        ""
+      );
 
       setTimeout(
-        () => commandInput.focus(),
+        () =>
+          commandInput.focus(),
         30
       );
     }
@@ -4148,82 +7263,124 @@ ${date.toLocaleString()}`,
     }
 
 
-    function renderCommandResults(query) {
+    function renderCommandResults(
+      query
+    ) {
 
       const normalized =
-        query.trim().toLowerCase();
+        query
+          .trim()
+          .toLowerCase();
 
       const filtered =
-        tools.filter(tool => {
-
-          return (
+        tools.filter(
+          tool =>
             !normalized ||
-            tool.name.toLowerCase().includes(normalized) ||
-            tool.description.toLowerCase().includes(normalized) ||
-            tool.categoryName.toLowerCase().includes(normalized)
-          );
-
-        });
+            tool.name
+              .toLowerCase()
+              .includes(normalized) ||
+            tool.description
+              .toLowerCase()
+              .includes(normalized) ||
+            tool.categoryName
+              .toLowerCase()
+              .includes(normalized)
+        );
 
       commandResults.innerHTML =
-        filtered.map(tool => `
+        filtered.map(
+          tool => `
 
-          <button
-            class="command-item"
-            data-command-tool="${tool.id}"
-          >
+            <button
+              class="command-item"
+              data-command-tool="${tool.id}"
+            >
 
-            <span class="command-item-icon">
-              ${tool.icon}
-            </span>
-
-            <span class="command-item-info">
-
-              <span class="command-item-name">
-                ${tool.name}
+              <span class="command-item-icon">
+                ${tool.icon}
               </span>
 
-              <span class="command-item-category">
-                ${tool.categoryName}
+              <span class="command-item-info">
+
+                <span class="command-item-name">
+                  ${tool.name}
+                </span>
+
+                <span class="command-item-category">
+                  ${tool.categoryName}
+                </span>
+
               </span>
 
-            </span>
+              <span class="kbd">
+                Enter
+              </span>
 
-            <span class="kbd">
-              Enter
-            </span>
+            </button>
 
-          </button>
-
-        `).join("");
+          `
+        ).join("");
 
       commandResults
-        .querySelectorAll("[data-command-tool]")
-        .forEach(button => {
+        .querySelectorAll(
+          "[data-command-tool]"
+        )
+        .forEach(
+          button => {
 
-          button.addEventListener(
-            "click",
-            () => {
+            button.addEventListener(
+              "click",
+              () => {
 
-              closeCommandPalette();
+                closeCommandPalette();
 
-              openTool(
-                button.dataset.commandTool
-              );
+                openTool(
+                  button.dataset.commandTool
+                );
 
-            }
-          );
+              }
+            );
 
-        });
+          }
+        );
     }
 
 
     commandInput.addEventListener(
       "input",
-      () => {
+      () =>
         renderCommandResults(
           commandInput.value
-        );
+        )
+    );
+
+
+    commandInput.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key !==
+          "Enter"
+        ) {
+          return;
+        }
+
+        const first =
+          commandResults.querySelector(
+            "[data-command-tool]"
+          );
+
+        if (first) {
+
+          closeCommandPalette();
+
+          openTool(
+            first.dataset.commandTool
+          );
+
+        }
+
       }
     );
 
@@ -4233,9 +7390,12 @@ ${date.toLocaleString()}`,
       event => {
 
         if (
-          event.target === commandPalette
+          event.target ===
+          commandPalette
         ) {
+
           closeCommandPalette();
+
         }
 
       }
@@ -4243,7 +7403,9 @@ ${date.toLocaleString()}`,
 
 
     document
-      .getElementById("navSearchBtn")
+      .getElementById(
+        "navSearchBtn"
+      )
       .addEventListener(
         "click",
         openCommandPalette
@@ -4251,7 +7413,9 @@ ${date.toLocaleString()}`,
 
 
     document
-      .getElementById("heroSearchBtn")
+      .getElementById(
+        "heroSearchBtn"
+      )
       .addEventListener(
         "click",
         openCommandPalette
@@ -4259,7 +7423,7 @@ ${date.toLocaleString()}`,
 
 
     /* ============================================================
-       SEARCH / FILTER
+       SEARCH
     ============================================================ */
 
     toolSearch.addEventListener(
@@ -4288,7 +7452,8 @@ ${date.toLocaleString()}`,
     );
 
 
-    /* "/" focuses search */
+    /* "/" focuses tool search */
+
     document.addEventListener(
       "keydown",
       event => {
@@ -4319,7 +7484,7 @@ ${date.toLocaleString()}`,
 
 
     /* ============================================================
-       KEYBOARD SHORTCUTS
+       GLOBAL KEYBOARD SHORTCUTS
     ============================================================ */
 
     document.addEventListener(
@@ -4330,10 +7495,13 @@ ${date.toLocaleString()}`,
           event.ctrlKey ||
           event.metaKey;
 
+
         /* Ctrl/Cmd + K */
+
         if (
           modifier &&
-          event.key.toLowerCase() === "k"
+          event.key.toLowerCase() ===
+            "k"
         ) {
 
           event.preventDefault();
@@ -4345,7 +7513,11 @@ ${date.toLocaleString()}`,
 
 
         /* Escape */
-        if (event.key === "Escape") {
+
+        if (
+          event.key ===
+          "Escape"
+        ) {
 
           if (
             commandPalette.classList.contains(
@@ -4368,13 +7540,16 @@ ${date.toLocaleString()}`,
 
             return;
           }
+
         }
 
 
         /* Ctrl/Cmd + Enter */
+
         if (
           modifier &&
-          event.key === "Enter" &&
+          event.key ===
+            "Enter" &&
           currentTool
         ) {
 
@@ -4389,46 +7564,18 @@ ${date.toLocaleString()}`,
 
 
         /* Ctrl/Cmd + Shift + C */
+
         if (
           modifier &&
           event.shiftKey &&
-          event.key.toLowerCase() === "c" &&
+          event.key.toLowerCase() ===
+            "c" &&
           currentTool
         ) {
 
           event.preventDefault();
 
           copyCurrentOutput();
-
-        }
-
-      }
-    );
-
-
-    /* Command palette Enter */
-    commandInput.addEventListener(
-      "keydown",
-      event => {
-
-        if (
-          event.key !== "Enter"
-        ) {
-          return;
-        }
-
-        const first =
-          commandResults.querySelector(
-            "[data-command-tool]"
-          );
-
-        if (first) {
-
-          closeCommandPalette();
-
-          openTool(
-            first.dataset.commandTool
-          );
 
         }
 
