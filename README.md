@@ -15,3 +15,8 @@ https://github.com/feloony/OpenUtility-v2
 ## Important
 
 A tool can only be considered fully offline-capable when its own implementation and dependencies are available locally. Network-dependent features should be clearly identified rather than presented as offline.
+
+
+## Tool structure
+
+Tool pages live directly in `tools/` as individual HTML files, e.g. `tools/json-formatter.html`.
