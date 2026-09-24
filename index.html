@@ -8,6 +8,8 @@
 
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#07090d">
+  <meta name="application-name" content="OpenUtility">
+  <link rel="manifest" href="./manifest.json">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="OpenUtility">
   <meta property="og:title" content="OpenUtility — Developer Tools">
@@ -2510,6 +2512,8 @@ img,svg{max-width:100%}
         <a href="#tools">Tools</a>
         <a href="#features">Features</a>
         <a href="#changelog">Changelog</a>
+    <a href="./open-source.html">Open Source</a>
+        <a href="./open-source.html">Open Source</a>
         <a href="#request-tool">Request a tool</a>
         <a href="#github">GitHub</a>
       </div>
@@ -2569,6 +2573,8 @@ img,svg{max-width:100%}
           Explore tools →
         </a>
 
+        <button class="btn btn-secondary hidden" id="installAppBtn" type="button">Install OpenUtility</button>
+
         <button
           class="btn btn-secondary"
           id="heroSearchBtn"
@@ -2577,6 +2583,10 @@ img,svg{max-width:100%}
           <span class="kbd">Ctrl K</span>
         </button>
 
+      </div>
+
+      <div style="margin-top:16px;color:var(--text-3);font-size:11px;font-family:var(--mono)">
+        <span style="color:var(--green)">●</span> Supported local tools are available offline after the app shell is cached.
       </div>
 
       <div class="stats">
@@ -8899,9 +8909,52 @@ initPlatformPages();
 
 
     /* Lightweight PWA registration. */
+    let deferredInstallPrompt = null;
+
+    function updateNetworkStatus() {
+      const online = navigator.onLine;
+      const label = document.getElementById("networkStatus");
+      const dot = document.getElementById("networkDot");
+      if (label) label.textContent = online ? "Online-ready" : "Offline mode";
+      if (dot) {
+        dot.style.background = online ? "var(--green)" : "var(--yellow)";
+        dot.style.boxShadow = online ? "0 0 12px rgba(61,204,142,.6)" : "0 0 12px rgba(251,191,36,.5)";
+      }
+    }
+
+    window.addEventListener("online", updateNetworkStatus);
+    window.addEventListener("offline", updateNetworkStatus);
+    updateNetworkStatus();
+
+    window.addEventListener("beforeinstallprompt", event => {
+      event.preventDefault();
+      deferredInstallPrompt = event;
+      const btn = document.getElementById("installAppBtn");
+      if (btn) btn.classList.remove("hidden");
+    });
+
+    document.getElementById("installAppBtn")?.addEventListener("click", async () => {
+      if (!deferredInstallPrompt) return;
+      deferredInstallPrompt.prompt();
+      await deferredInstallPrompt.userChoice;
+      deferredInstallPrompt = null;
+      document.getElementById("installAppBtn")?.classList.add("hidden");
+    });
+
     if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js").catch(() => {});
+      window.addEventListener("load", async () => {
+        try {
+          const registration = await navigator.serviceWorker.register("./sw.js");
+          registration.addEventListener("updatefound", () => {
+            const worker = registration.installing;
+            if (!worker) return;
+            worker.addEventListener("statechange", () => {
+              if (worker.state === "installed" && navigator.serviceWorker.controller) {
+                worker.postMessage("SKIP_WAITING");
+              }
+            });
+          });
+        } catch (_) {}
       });
     }
 

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#07090d">
+<title>You're offline — OpenUtility</title>
+<style>
+:root{--bg:#07090d;--panel:#111722;--border:rgba(255,255,255,.08);--text:#f4f7fb;--muted:#8b96a8;--blue:#4a9ee8;--green:#3dcc8e}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at 50% 0,rgba(74,158,232,.1),transparent 38%),var(--bg);color:var(--text);font:15px/1.6 Inter,system-ui,sans-serif}.card{width:min(560px,calc(100% - 32px));padding:36px;border:1px solid var(--border);border-radius:18px;background:rgba(17,23,34,.78);text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.42)}.mark{width:54px;height:54px;margin:0 auto 20px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(135deg,#4a9ee8,#8b5cf6);font:600 16px monospace}.status{display:inline-flex;align-items:center;gap:7px;padding:5px 9px;border:1px solid rgba(61,204,142,.2);border-radius:999px;color:#3dcc8e;background:rgba(61,204,142,.06);font:11px monospace}.dot{width:7px;height:7px;border-radius:50%;background:#3dcc8e}.btn{display:inline-flex;margin-top:22px;padding:11px 16px;border-radius:9px;background:#4a9ee8;color:#06101b;text-decoration:none;font-weight:700}.muted{color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="mark">&lt;/&gt;</div>
+  <span class="status"><span class="dot"></span> OFFLINE</span>
+  <h1>You're offline.</h1>
+  <p class="muted">OpenUtility is designed to keep supported client-side tools available without an internet connection. Reopen a cached tool from your browser history or go back to the app shell.</p>
+  <a class="btn" href="./index.html">Open OpenUtility</a>
+</main>
+</body>
+</html>
