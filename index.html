@@ -1853,6 +1853,18 @@
       }
     }
 
+
+    /* =========================
+       TOOL DETAIL EXPERIENCE
+    ========================= */
+    .tool-detail-intro{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:start;margin-bottom:18px;padding:16px;border:1px solid var(--border);border-radius:13px;background:linear-gradient(135deg,rgba(74,158,232,.055),rgba(139,92,246,.045));}
+    .tool-detail-copy h2{font-family:var(--display);font-size:25px;letter-spacing:-.03em;margin:4px 0 5px}.tool-detail-copy p{color:var(--text-3);font-size:12px;max-width:680px}.tool-detail-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.detail-pill{padding:4px 7px;border:1px solid var(--border);border-radius:999px;color:var(--text-3);font:10px var(--mono);background:rgba(255,255,255,.025)}.detail-pill.local{color:var(--green);border-color:rgba(61,204,142,.2);background:rgba(61,204,142,.04)}
+    .tool-detail-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.detail-action{height:34px;padding:0 10px;border:1px solid var(--border);border-radius:8px;background:rgba(255,255,255,.025);color:var(--text-2);cursor:pointer;font-size:10px}.detail-action:hover{color:var(--text);border-color:var(--border-hover)}.detail-action.active{color:var(--yellow);border-color:rgba(251,191,36,.3)}
+    .tool-detail-grid{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:18px}.tool-workspace{min-width:0}.tool-side{padding:15px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.018);align-self:start;position:sticky;top:0}.tool-side h3{font-family:var(--display);font-size:15px}.tool-side p{margin-top:4px;color:var(--text-3);font-size:11px}.tool-side-list{display:grid;gap:7px;margin-top:12px}.tool-side-link{display:flex;align-items:center;gap:8px;width:100%;padding:9px;border:1px solid var(--border);border-radius:8px;background:rgba(255,255,255,.02);color:var(--text-2);text-align:left;cursor:pointer;font-size:10px}.tool-side-link:hover{color:var(--text);border-color:var(--border-hover)}.tool-side-link span:first-child{width:24px;height:24px;display:grid;place-items:center;border-radius:6px;background:rgba(74,158,232,.08);color:var(--cyan);font:9px var(--mono)}
+    .chain-modal .modal-panel{width:min(760px,100%)}.chain-builder{display:grid;gap:14px}.chain-intro{padding:15px;border:1px solid rgba(74,158,232,.15);border-radius:12px;background:rgba(74,158,232,.04)}.chain-intro h3{font-family:var(--display);font-size:20px}.chain-intro p{margin-top:4px;color:var(--text-3);font-size:12px}.chain-steps{display:grid;gap:8px}.chain-step{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;padding:10px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.018)}.chain-number{width:28px;height:28px;display:grid;place-items:center;border-radius:8px;background:rgba(74,158,232,.1);color:var(--cyan);font:11px var(--mono)}.chain-step select{height:38px;width:100%;padding:0 10px;border:1px solid var(--border);border-radius:8px;background:#080c12;color:var(--text);outline:none}.chain-remove{width:32px;height:32px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text-3);cursor:pointer}.chain-remove:hover{color:var(--red);border-color:rgba(255,92,92,.25)}.chain-add{display:flex;gap:8px}.chain-add select{flex:1;height:40px;padding:0 10px;border:1px solid var(--border);border-radius:8px;background:#080c12;color:var(--text)}.chain-footer{display:flex;justify-content:space-between;gap:8px;align-items:center}.chain-status{color:var(--text-3);font-size:10px}.chain-run{min-height:40px;padding:0 14px;border:0;border-radius:8px;background:var(--blue);color:#06101b;font-weight:700;cursor:pointer}.chain-result{padding:13px;border:1px solid var(--border);border-radius:10px;background:#080c12;color:var(--text-2);font:11px/1.6 var(--mono);white-space:pre-wrap;word-break:break-word;display:none}.chain-result.show{display:block}.chain-presets{display:flex;gap:7px;flex-wrap:wrap}.chain-preset{padding:7px 9px;border:1px solid var(--border);border-radius:8px;background:rgba(255,255,255,.02);color:var(--text-2);cursor:pointer;font-size:10px}.chain-preset:hover{border-color:var(--border-hover);color:var(--text)}
+    .chain-section-card{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}.chain-section-card p{max-width:700px}.chain-launch{white-space:nowrap}
+    @media(max-width:760px){.tool-detail-intro{grid-template-columns:1fr}.tool-detail-actions{justify-content:flex-start}.tool-detail-grid{grid-template-columns:1fr}.tool-side{position:static}.chain-section-card{grid-template-columns:1fr}.chain-step{grid-template-columns:30px 1fr auto}}
+
     /* =========================
        RESPONSIVE
     ========================= */
@@ -2510,6 +2522,7 @@ img,svg{max-width:100%}
 
       <div class="nav-links">
         <a href="#tools">Tools</a>
+        <a href="#chains">Chains</a>
         <a href="#features">Features</a>
         <a href="#changelog">Changelog</a>
     <a href="./open-source.html">Open Source</a>
@@ -2921,6 +2934,25 @@ img,svg{max-width:100%}
 
   </div>
 
+  <div class="modal chain-modal" id="chainModal">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <div class="modal-title-wrap"><div class="tool-icon">⚡</div><div><div class="modal-title">Tool Chains</div><div class="modal-subtitle">Connect browser-based tools into a local workflow</div></div></div>
+        <button class="modal-close" id="chainClose" aria-label="Close">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="chain-builder">
+          <div class="chain-intro"><h3>Build a local tool chain</h3><p>Run compatible tools in sequence. Each step receives the previous step's text output. Your data stays in this browser.</p></div>
+          <div class="chain-presets" id="chainPresets"></div>
+          <div class="chain-steps" id="chainSteps"></div>
+          <div class="chain-add"><select id="chainToolSelect"></select><button class="detail-action" id="chainAddBtn" type="button">+ Add step</button></div>
+          <div class="chain-footer"><span class="chain-status" id="chainStatus">Add at least two compatible steps.</span><button class="chain-run" id="chainRunBtn" type="button">Run chain</button></div>
+          <div class="chain-result" id="chainResult"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- =========================
        COMMAND PALETTE
@@ -2974,6 +3006,12 @@ img,svg{max-width:100%}
 
   
 <!-- ===== OpenUtility Platform Pages ===== -->
+
+<section class="platform-section" id="chains">
+  <div class="section-head"><div><div class="eyebrow">Workflows</div><h2>Tool Chains</h2><p>Connect compatible OpenUtility tools and pass output from one step directly into the next.</p></div></div>
+  <div class="platform-card chain-section-card"><div><h3>Build your own workflow</h3><p>Format → minify → encode → transform. Chains run entirely in your browser and can be reused whenever you need the same workflow.</p></div><button class="btn btn-primary chain-launch" id="openChainBtn" type="button">⚡ Open Tool Chains</button></div>
+</section>
+
 <section class="platform-section" id="changelog">
   <div class="section-head">
     <div>
@@ -3384,7 +3422,7 @@ img,svg{max-width:100%}
 
     const OPENUTILITY_CONFIG = {
       // Replace this with your real repository when you publish it.
-      githubRepo: "https://github.com/yourusername/openutility"
+      githubRepo: "https://github.com/feloony/OpenUtility-v2.git"
     };
 
     const TOOL_URL_PARAM = "tool";
@@ -4234,6 +4272,12 @@ img,svg{max-width:100%}
        MODAL
     ============================================================ */
 
+    const FAVORITES_KEY = "openutility-favorites";
+    function readFavorites(){ try { const v=JSON.parse(localStorage.getItem(FAVORITES_KEY)||"[]"); return Array.isArray(v)?v:[]; } catch { return []; } }
+    function isFavorite(id){ return readFavorites().includes(id); }
+    function toggleFavorite(id){ const list=readFavorites(); const next=list.includes(id)?list.filter(x=>x!==id):[...list,id]; localStorage.setItem(FAVORITES_KEY,JSON.stringify(next)); return next.includes(id); }
+    function addToolToChain(id){ const chain=JSON.parse(localStorage.getItem("openutility-chain")||"[]"); if(!chain.includes(id)) chain.push(id); localStorage.setItem("openutility-chain",JSON.stringify(chain)); openChainModal(chain); }
+
     function openTool(id, fromUrl = false) {
 
       const tool =
@@ -4264,8 +4308,27 @@ img,svg{max-width:100%}
       modalIcon.textContent =
         tool.icon;
 
-      modalBody.innerHTML =
-        getToolHTML(tool.id);
+      const relatedTools = tools
+        .filter(item => item.id !== tool.id && (item.category === tool.category || item.categoryName === tool.categoryName))
+        .slice(0, 4);
+      const favorite = isFavorite(tool.id);
+      modalBody.innerHTML = `
+        <div class="tool-detail-intro">
+          <div class="tool-detail-copy">
+            <div class="eyebrow">${tool.categoryName}</div>
+            <h2>${escapeHtml(tool.name)}</h2>
+            <p>${escapeHtml(tool.description)} Designed for fast, browser-based workflows with no account required.</p>
+            <div class="tool-detail-meta"><span class="detail-pill local">● Local processing</span><span class="detail-pill">${escapeHtml(tool.categoryName)}</span><span class="detail-pill">Offline-ready</span></div>
+          </div>
+          <div class="tool-detail-actions">
+            <button class="detail-action ${favorite ? 'active' : ''}" id="favoriteToolBtn" type="button">★ ${favorite ? 'Saved' : 'Save'}</button>
+            <button class="detail-action" id="chainToolBtn" type="button">⚡ Add to chain</button>
+          </div>
+        </div>
+        <div class="tool-detail-grid">
+          <div class="tool-workspace">${getToolHTML(tool.id)}</div>
+          <aside class="tool-side"><h3>Continue with</h3><p>Related tools for the same workflow.</p><div class="tool-side-list">${relatedTools.map(item => `<button class="tool-side-link" data-related-tool="${item.id}" type="button"><span>${item.icon}</span><span>${escapeHtml(item.name)}</span></button>`).join('')}</div></aside>
+        </div>`;
 
       toolModal.classList.add(
         "active"
@@ -4276,6 +4339,9 @@ img,svg{max-width:100%}
       );
 
       bindToolEvents(tool.id);
+      document.getElementById("favoriteToolBtn")?.addEventListener("click", () => { const saved=toggleFavorite(tool.id); const btn=document.getElementById("favoriteToolBtn"); if(btn){btn.classList.toggle("active",saved);btn.textContent=saved?"★ Saved":"★ Save";} showToast(saved?"Tool saved":"Removed from favorites"); });
+      document.getElementById("chainToolBtn")?.addEventListener("click", () => addToolToChain(tool.id));
+      modalBody.querySelectorAll("[data-related-tool]").forEach(btn => btn.addEventListener("click",()=>openTool(btn.dataset.relatedTool)));
 
       requestAnimationFrame(
         () => {
@@ -8403,6 +8469,47 @@ ${groups}`
     }
 
 
+
+    /* ============================================================
+       TOOL CHAINS
+    ============================================================ */
+    const CHAIN_COMPATIBLE = new Set(["json-formatter","json-minifier","csv-json","xml-formatter","yaml-json","base64","url-encoder","jwt-decoder","html-entities","sha256","case","text-diff","sql","markdown"]);
+    const CHAIN_PRESETS = {
+      "JSON → Minify": ["json-formatter","json-minifier"],
+      "JSON → Base64": ["json-formatter","base64"],
+      "Text → Base64 → URL": ["case","base64","url-encoder"],
+      "CSV → JSON → Minify": ["csv-json","json-minifier"]
+    };
+    let activeChain=[];
+    function getSavedChain(){try{const v=JSON.parse(localStorage.getItem("openutility-chain")||"[]");return Array.isArray(v)?v.filter(id=>tools.some(t=>t.id===id)):[];}catch{return [];}}
+    function openChainModal(chain=getSavedChain()){ activeChain=chain.length?chain:["json-formatter","json-minifier"]; renderChain(); document.getElementById("chainModal").classList.add("active"); document.body.classList.add("modal-open"); }
+    function closeChainModal(){document.getElementById("chainModal").classList.remove("active"); if(!document.getElementById("toolModal").classList.contains("active")) document.body.classList.remove("modal-open");}
+    function renderChain(){
+      const steps=document.getElementById("chainSteps"), select=document.getElementById("chainToolSelect"), presets=document.getElementById("chainPresets");
+      if(!steps||!select||!presets)return;
+      steps.innerHTML=activeChain.map((id,i)=>{const t=tools.find(x=>x.id===id);return `<div class="chain-step"><span class="chain-number">${i+1}</span><select data-chain-index="${i}">${tools.filter(x=>CHAIN_COMPATIBLE.has(x.id)).map(x=>`<option value="${x.id}" ${x.id===id?'selected':''}>${x.name}</option>`).join('')}</select><button class="chain-remove" data-chain-remove="${i}" type="button">×</button></div>`}).join("");
+      select.innerHTML=tools.filter(t=>CHAIN_COMPATIBLE.has(t.id)).map(t=>`<option value="${t.id}">${t.name}</option>`).join("");
+      presets.innerHTML=Object.keys(CHAIN_PRESETS).map(name=>`<button class="chain-preset" data-chain-preset="${name}" type="button">${name}</button>`).join("");
+      document.getElementById("chainStatus").textContent=activeChain.length<2?"Add at least two compatible steps.":`${activeChain.length} steps · output flows from one tool to the next`;
+      steps.querySelectorAll("[data-chain-index]").forEach(el=>el.addEventListener("change",()=>{activeChain[Number(el.dataset.chainIndex)]=el.value;saveChain();renderChain();}));
+      steps.querySelectorAll("[data-chain-remove]").forEach(el=>el.addEventListener("click",()=>{activeChain.splice(Number(el.dataset.chainRemove),1);saveChain();renderChain();}));
+      presets.querySelectorAll("[data-chain-preset]").forEach(el=>el.addEventListener("click",()=>{activeChain=[...CHAIN_PRESETS[el.dataset.chainPreset]];saveChain();renderChain();}));
+    }
+    function saveChain(){localStorage.setItem("openutility-chain",JSON.stringify(activeChain));}
+    async function runChain(){
+      const result=document.getElementById("chainResult"); if(activeChain.length<2){result.textContent="Add at least two steps.";result.classList.add("show");return;}
+      closeChainModal(); openTool(activeChain[0]);
+      const firstInput=document.querySelector("#modalBody #toolInput"); if(firstInput) firstInput.value=prompt("Enter the starting input for this chain:")||"";
+      let value=firstInput?.value||"";
+      for(let i=0;i<activeChain.length;i++){ const id=activeChain[i]; openTool(id,true); const input=document.querySelector("#modalBody #toolInput"); if(input) input.value=value; await runTool(id); const output=document.querySelector("#modalBody #toolOutput"); if(!output) break; value=output.textContent||""; }
+      const finalOutput=document.querySelector("#modalBody #toolOutput"); if(finalOutput){ finalOutput.scrollIntoView({behavior:"smooth",block:"center"}); showToast("Chain completed"); }
+    }
+    document.getElementById("openChainBtn")?.addEventListener("click",()=>openChainModal());
+    document.getElementById("chainClose")?.addEventListener("click",closeChainModal);
+    document.getElementById("chainAddBtn")?.addEventListener("click",()=>{const v=document.getElementById("chainToolSelect").value;if(v)activeChain.push(v);saveChain();renderChain();});
+    document.getElementById("chainRunBtn")?.addEventListener("click",runChain);
+    document.getElementById("chainModal")?.addEventListener("click",e=>{if(e.target.id==="chainModal")closeChainModal();});
+
     /* ============================================================
        COMMAND PALETTE
     ============================================================ */
@@ -8704,6 +8811,7 @@ ${groups}`
             return;
           }
 
+          if (document.getElementById("chainModal")?.classList.contains("active")) { closeChainModal(); return; }
           if (
             toolModal.classList.contains(
               "active"
@@ -8832,7 +8940,7 @@ ${groups}`
 
 /* ===== Platform pages: reliable navigation, requests and GitHub ===== */
 const OPENUTILITY_PLATFORM = {
-  githubRepo: "https://github.com/yourusername/openutility"
+  githubRepo: "https://github.com/feloony/OpenUtility-v2.git"
 };
 
 function initPlatformPages() {
