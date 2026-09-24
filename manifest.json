@@ -1,12 +1,17 @@
 {
-  "name": "OpenUtility \u2014 Developer Tools",
+  "name": "OpenUtility — Developer Tools",
   "short_name": "OpenUtility",
-  "description": "Fast, privacy-friendly developer utilities that run in your browser.",
+  "description": "Fast, privacy-friendly developer utilities that run in your browser, including offline-ready local tools.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#07090d",
   "theme_color": "#07090d",
+  "categories": [
+    "developer",
+    "utilities",
+    "productivity"
+  ],
   "icons": [
     {
       "src": "./icon-192.svg",
