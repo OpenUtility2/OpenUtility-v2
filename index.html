@@ -2481,6 +2481,32 @@ ro-actions{
 
 
 /* ============================================================
+   BRANDING SIZE FIX
+============================================================ */
+.brand-logo{
+  width:38px;
+  height:38px;
+  flex:0 0 38px;
+  display:block;
+  object-fit:contain;
+  border-radius:10px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+@media (max-width:768px){
+  .brand-logo{
+    width:32px;
+    height:32px;
+    flex-basis:32px;
+    border-radius:8px;
+  }
+}
+
+/* ============================================================
    PERFORMANCE PASS
 ============================================================ */
 img,svg{max-width:100%}
