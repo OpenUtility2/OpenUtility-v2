@@ -2513,9 +2513,65 @@ img,svg{max-width:100%}
 .platform-section,.features{content-visibility:auto;contain-intrinsic-size:1px 650px}
 .tool-card{contain:layout paint}
 
+
+/* ============================================================
+   OPENUTILITY DESIGN SYSTEM + MOBILE PREMIUM PASS
+============================================================ */
+:root{--ou-glow:rgba(56,189,248,.16);--ou-purple-glow:rgba(139,92,246,.14)}
+body{overflow-x:hidden;background:radial-gradient(circle at 10% 0%,rgba(56,189,248,.10),transparent 24%),radial-gradient(circle at 90% 4%,rgba(139,92,246,.09),transparent 24%),linear-gradient(180deg,#07090d,#080b10 55%,#07090d)}
+body:before{content:"";position:fixed;inset:-20%;z-index:-1;pointer-events:none;background:radial-gradient(circle at 30% 20%,var(--ou-glow),transparent 20%),radial-gradient(circle at 75% 35%,var(--ou-purple-glow),transparent 18%);filter:blur(40px);opacity:.55}
+.brand-banner{padding:14px 0 6px;background:linear-gradient(180deg,rgba(7,9,13,.5),transparent)}
+.brand-banner-frame{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.08);border-radius:18px;background:#080c12;box-shadow:0 24px 70px rgba(0,0,0,.30)}
+.brand-banner-frame:after{content:"";position:absolute;inset:auto 0 0;height:38%;background:linear-gradient(transparent,rgba(7,9,13,.5));pointer-events:none}
+.brand-banner-frame img{display:block;width:100%;height:auto;max-height:390px;object-fit:cover;object-position:center}
+.hero{padding-top:72px}
+.hero h1{background:linear-gradient(90deg,#f4f7fb 5%,#b9d9f7 40%,#4a9ee8 72%,#8b5cf6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:650px}
+.v2-hero-panel{position:relative}
+.v2-hero-card,.v2-terminal{backdrop-filter:blur(12px)}
+.tool-card{position:relative;overflow:hidden}
+.tool-card:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(135deg,rgba(74,158,232,.035),transparent 45%,rgba(139,92,246,.025));opacity:0;transition:.2s}
+.tool-card:hover:before{opacity:1}
+.modal-panel{width:min(980px,100%);border-radius:18px;background:linear-gradient(145deg,#0d131c,#090d13)}
+.modal-head{position:sticky;top:0;z-index:2;background:rgba(12,17,25,.94);backdrop-filter:blur(12px)}
+.tool-input,.tool-select,textarea,.tool-output{background:#070b11}
+.tool-output-wrap{min-width:0}
+.footer-links a{white-space:nowrap}
+@media(max-width:760px){
+  .brand-banner{padding:10px 0 2px}
+  .brand-banner-frame{border-radius:13px}
+  .brand-banner-frame img{max-height:205px;object-fit:cover}
+  .hero{padding:48px 0 28px}
+  .hero h1{font-size:clamp(39px,11.5vw,53px);line-height:1.01}
+  .hero p{font-size:13px;line-height:1.7}
+  .v2-hero-panel{grid-template-columns:1fr;gap:10px;margin-top:24px}
+  .v2-hero-card{padding:17px}
+  .v2-terminal pre{font-size:10px}
+  .stats{max-width:100%;grid-template-columns:repeat(2,minmax(0,1fr));}
+  .stat{padding:10px 11px}
+  .tool-card{min-height:132px}
+  .modal{padding:7px}
+  .modal-panel{max-height:calc(100dvh - 14px);border-radius:14px}
+  .modal-head{padding:13px 12px}
+  .modal-body{padding:12px}
+  .tool-layout{gap:10px}
+  textarea,.tool-output{min-height:180px}
+  .tool-actions{position:sticky;bottom:-12px;padding:10px 0 4px;background:linear-gradient(transparent,#0c1119 28%);z-index:2}
+  .tool-actions .btn{flex:1}
+  .mobile-menu{top:58px;left:10px;right:10px;max-height:calc(100dvh - 70px);overflow:auto}
+}
+@media(max-width:430px){
+  .brand-banner-frame img{max-height:165px}
+  .hero-actions .btn{min-height:44px}
+  .v2-discovery-card{padding:14px}
+  .section-title{font-size:23px}
+  .features{padding-top:42px}
+}
+
 </style>
   <link rel="manifest" href="./manifest.json">
 
+<link rel="stylesheet" href="./assets/css/openutility.css">
 </head>
 
 <body>
@@ -2553,7 +2609,6 @@ img,svg{max-width:100%}
         <a href="#chains">Chains</a>
         <a href="#features">Features</a>
         <a href="#changelog">Changelog</a>
-    <a href="./open-source.html">Open Source</a>
         <a href="./open-source.html">Open Source</a>
         <a href="#request-tool">Request a tool</a>
         <a href="#github">GitHub</a>
@@ -2576,6 +2631,9 @@ img,svg{max-width:100%}
     <a href="#changelog">Changelog</a>
     <a href="#request-tool">Request a tool</a>
     <a href="#github">GitHub</a>
+    <a href="./about.html">About</a>
+    <a href="./privacy.html">Privacy</a>
+    <a href="./terms.html">Terms</a>
   </div>
 
 
@@ -3212,8 +3270,9 @@ img,svg{max-width:100%}
       <div class="footer-links">
         <a href="#tools">Tools</a>
         <a href="#features">Features</a>
-        <a href="#about">About</a>
-        <a href="#privacy">Privacy</a>
+        <a href="./about.html">About</a>
+        <a href="./privacy.html">Privacy</a>
+        <a href="./terms.html">Terms</a>
         <a href="#changelog">Changelog</a>
         <a id="footerGithub" href="#" target="_blank" rel="noopener noreferrer">GitHub</a>
       </div>

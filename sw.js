@@ -1,4 +1,4 @@
-const CACHE_NAME = "openutility-v8";
+const CACHE_NAME = "openutility-v9";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -8,6 +8,10 @@ const APP_SHELL = [
   "./404.html",
   "./offline.html",
   "./open-source.html",
+  "./about.html",
+  "./privacy.html",
+  "./terms.html",
+  "./assets/css/openutility.css",
   "./tools/base64.html",
   "./tools/case.html",
   "./tools/color.html",

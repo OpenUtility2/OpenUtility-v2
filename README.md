@@ -1,22 +1,16 @@
 # OpenUtility
 
-Fast, privacy-friendly developer utilities designed to run in the browser.
+OpenUtility is a browser-first collection of fast developer utilities.
 
-## Offline-first
+## Included
+- Responsive premium homepage
+- Standalone tool detail pages
+- Tool launch URLs and shareable entry points
+- Tool Chains
+- About, Privacy and Terms pages
+- Custom 404 page
+- PWA/offline foundation
+- Open-source project page
 
-OpenUtility is a Progressive Web App. The service worker pre-caches the app shell and supported tool pages so they remain available without a network connection after the site has been opened/installed.
-
-## Open Source
-
-See `open-source.html` or visit:
-
-https://github.com/feloony/OpenUtility-v2
-
-## Important
-
-A tool can only be considered fully offline-capable when its own implementation and dependencies are available locally. Network-dependent features should be clearly identified rather than presented as offline.
-
-
-## Tool structure
-
-Tool pages live directly in `tools/` as individual HTML files, e.g. `tools/json-formatter.html`.
+## Privacy note
+Supported tools are designed to process ordinary tool input in the browser. Review `privacy.html` for the current implementation details and avoid placing secrets into URLs or shared links.
