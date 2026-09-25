@@ -2575,7 +2575,34 @@ body:before{content:"";position:fixed;inset:-20%;z-index:-1;pointer-events:none;
 <style>
 @media (max-width: 720px){#discord .container>div{grid-template-columns:1fr!important}#discord .btn{width:100%;justify-content:center}}
 </style>
-</head>
+<script>
+(async function checkMaintenanceMode() {
+  try {
+    const response = await fetch('/maintenance.json?ts=' + Date.now(), { cache: 'no-store' });
+    if (!response.ok) return;
+    const state = await response.json();
+    if (!state.enabled) return;
+
+    document.documentElement.innerHTML = `
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="noindex,nofollow">
+        <title>OpenUtility — Maintenance</title>
+        <style>
+          *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#07090d;color:#f5f7fa;font-family:Inter,system-ui,sans-serif}
+          body{min-height:100vh;display:grid;place-items:center;padding:24px}
+          .maintenance{width:min(620px,100%);padding:48px 32px;text-align:center;background:rgba(17,23,34,.78);border:1px solid rgba(255,255,255,.08);border-radius:24px;box-shadow:0 24px 70px rgba(0,0,0,.42)}
+          .icon{width:68px;height:68px;margin:0 auto 24px;display:grid;place-items:center;border-radius:18px;background:#252527;font-size:30px}
+          h1{margin:0 0 14px;font-size:clamp(30px,6vw,48px);letter-spacing:-.04em}p{margin:0 auto;max-width:480px;color:#9ca3af;line-height:1.7}
+          .status{display:inline-flex;align-items:center;gap:8px;margin-top:28px;padding:9px 14px;border-radius:999px;background:rgba(255,255,255,.05);color:#d1d5db;font-size:13px}
+          .dot{width:8px;height:8px;border-radius:50%;background:#fbbf24;box-shadow:0 0 12px rgba(251,191,36,.6)}
+        </style>
+      </head>
+      <body><main class="maintenance"><div class="icon">🔧</div><h1>We'll be right back.</h1><p>OpenUtility is temporarily unavailable while we perform maintenance and improvements.</p><div class="status"><span class="dot"></span>Maintenance in progress</div></main></body>`;
+  } catch (error) { console.warn('Maintenance check failed:', error); }
+})();
+</script>\n</head>
 
 <body>
 <div class="p4-offline" id="p4OfflineStatus" aria-live="polite">Online</div>
